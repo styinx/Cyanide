@@ -1,0 +1,49 @@
+language: cpp
+
+env:
+  global:
+    - RUN_TESTS=true
+    - COVERAGE=false
+
+os:
+  - linux
+  - windows
+
+compiler:
+  - clang
+  - gcc
+
+cache:
+  directories:
+    - $HOME/.cache
+
+before_install:
+  - eval "${MATRIX_EVAL}"
+
+install:
+  - "[ $CXX = clang++ ] && export CXX=clang++-3.8 || true"
+  - "[ $CXX = g++ ] && export CXX=g++-6 || true"
+
+script:
+  - sudo ln -s /usr/bin/gcc-6 /usr/local/bin/gcc
+  - sudo ln -s /usr/bin/g++-6 /usr/local/bin/g++
+  - clang -v && g++ -v && cmake --version
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+      - llvm-toolchain-precise-3.8
+
+    packages:
+      - clang-3.8
+      - g++-6
+
+      - cmake-data
+      - cmake
+
+      - lcov
+
+notifications:
+  email:
+  #- Cyanide@gmail.com
