@@ -18,16 +18,15 @@ cache:
     - $HOME/.cache
 
 before_install:
-  - eval "${MATRIX_EVAL}"
+#  - eval "${MATRIX_EVAL}"
 
 install:
   - "[ $CXX = clang++ ] && export CXX=clang++-3.8 || true"
   - "[ $CXX = g++ ] && export CXX=g++-6 || true"
 
-script:
-  - sudo ln -s /usr/bin/gcc-6 /usr/local/bin/gcc
-  - sudo ln -s /usr/bin/g++-6 /usr/local/bin/g++
-  - clang -v && g++ -v && cmake --version
+#script:
+#  - sudo ln -s /usr/bin/gcc-6 /usr/local/bin/gcc
+#  - sudo ln -s /usr/bin/g++-6 /usr/local/bin/g++
 
 addons:
   apt:
