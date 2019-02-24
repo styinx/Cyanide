@@ -1,6 +1,11 @@
-cmake_minimum_required(VERSION 3.12)
-
 project(Cyanide)
+
+
+#
+# CMake
+#
+
+cmake_minimum_required(VERSION 3.12)
 
 set(CMAKE_CXX_STANDARD 14)
 
@@ -8,6 +13,7 @@ set(BIN_PATH "bin")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG "${BIN_PATH}")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG "${BIN_PATH}")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG "${BIN_PATH}")
+
 
 #
 # Paths
@@ -37,49 +43,96 @@ link_directories(${DIR_LIBRARY} ${OS_DIR_LIBRARY})
 # Libraries
 #
 
-set(LIB_SDL
+set(LIB_SDL2
     -lSDL2main
     -lSDL2
     -lSDL2_image
     -lSDL2_mixer
-    -lSDL2_ttf
     -lSDL2_net
-    -lSDL2_gfx)
+    -lSDL2_ttf)
+
+set(LIB_OPENGL
+    -lGLEW
+    -lGL)
+
+set(LIB_PYTHON -lpython3.6m)
+
+set(LIB_LUA -llua5.2)
+
+set(LIB_SQLITE3 -lsqlite3)
+
+set(LIB_MYSQL -lmysqlclient)
 
 set(LIBRARIES
     -lpthread
-    -lsqlite3
-    -lmysqlclient
+    ${LIB_SDL2}
+    #${LIB_OPENGEL}
+    #${LIB_PYTHON}
+    #${LIB_LUA}
+    #${LIB_SQLITE3}
+    #${LIB_MYSQL}
+    )
 
-    ${LIB_SDL}
 
-    -llua5.2
-    -lpython3.6m
-    -lGLEW -lGL)
+#
+# Conan
+#
 
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup()
+
+
+#
+# SDL
+#
+
+INCLUDE(FindPkgConfig)
+
+PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
+PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
+PKG_SEARCH_MODULE(SDL2MIXER REQUIRED SDL2_mixer>=2.0.0)
+PKG_SEARCH_MODULE(SDL2NET REQUIRED SDL2_net>=2.0.0)
+PKG_SEARCH_MODULE(SDL2TTF REQUIRED SDL2_ttf>=2.0.0)
 
 #
 # Includes
 #
 
-set(INCLUDES_AUDIO
-    code/include/audio/audio_devices/AudioDevice.hpp
-    code/include/audio/interfaces/IAudioDevice.hpp
-    code/include/audio/interfaces/IAudioDriver.hpp)
+set(INCLUDES_CYSTD
+    code/include/cystd/prototypes.hpp
+    code/include/cystd/NonCopyable.hpp
+    code/include/cystd/NonMoveable.hpp)
+
+set(INCLUDES_CYAUDIO
+    code/include/cyaudio/audio_devices/SDLAudioDevice.hpp
+    code/include/cyaudio/IAudioDevice.hpp)
 
 set(INCLUDES
-    ${INCLUDES_AUDIO})
+    ${INCLUDES_CYSTD}
+    ${INCLUDES_CYAUDIO})
 
 
 #
 # Sources
 #
 
-#set(sources_audio
-#        code/source/audio/audio.cpp)
+set(SOURCES_CYSTD
+    )
+
+set(SOURCES_AUDIO
+    code/source/cyaudio/audio_devices/SDLAudioDevice.cpp
+    code/source/cyaudio/SDLAudio.cpp
+    code/include/cyaudio/SDLAudio.hpp)
 
 set(SOURCES
-    ${APPS})
+    ${SOURCES_AUDIO})
+
+#
+# Tests
+#
+
+set(TESTS
+    code/test/cyaudio/test.cpp)
 
 set(FILES ${INCLUDES} ${SOURCES})
 
@@ -90,4 +143,4 @@ set(FILES ${INCLUDES} ${SOURCES})
 
 add_executable(${PROJECT_NAME} code/apps/main.cpp ${FILES})
 
-#target_link_libraries(${LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${LIBRARIES})
