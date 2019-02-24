@@ -12,6 +12,8 @@ namespace Cyanide
 
 // primitive types
 using Byte   = std::uint8_t;
+using Uint8  = std::uint8_t;
+using Sint8  = std::int8_t;
 using Uint16 = std::uint16_t;
 using Sint16 = std::int16_t;
 using Uint32 = std::uint32_t;
