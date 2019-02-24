@@ -1,4 +1,4 @@
-#include "cyaudio/audio_devices/SDLAudioDevice.hpp"
+#include "cyaudio/devices/SDLAudioDevice.hpp"
 
 namespace Cyanide
 {
