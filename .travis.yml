@@ -2,8 +2,8 @@ language: cpp
 
 env:
   global:
-    - RUN_TESTS=true
-    - COVERAGE=false
+#    - RUN_TESTS=true
+#    - COVERAGE=false
 
 os:
   - linux
@@ -17,32 +17,38 @@ cache:
   directories:
     - $HOME/.cache
 
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    - llvm-toolchain-precise-3.8
+
+    packages:
+    - clang-3.8
+    - g++-6
+
+    - cmake-data
+    - cmake
+
+    - lcov
+
 before_install:
 #  - eval "${MATRIX_EVAL}"
 
 install:
-  - "[ $CXX = clang++ ] && export CXX=clang++-3.8 || true"
-  - "[ $CXX = g++ ] && export CXX=g++-6 || true"
+#  - "[ $CXX = clang++ ] && export CXX=clang++-3.8 || true"
+#  - "[ $CXX = g++ ] && export CXX=g++-6 || true"
 
 #script:
 #  - sudo ln -s /usr/bin/gcc-6 /usr/local/bin/gcc
 #  - sudo ln -s /usr/bin/g++-6 /usr/local/bin/g++
 
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-      - llvm-toolchain-precise-3.8
-
-    packages:
-      - clang-3.8
-      - g++-6
-
-      - cmake-data
-      - cmake
-
-      - lcov
+after_success:
+#  - lcov --capture --directory . --output-file coverage.info
+#  - lcov --remove coverage.info '/usr/*' --output-file coverage.info
+#  - lcov --list coverage.info
+#  - bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"
 
 notifications:
   email:
-  #- Cyanide@gmail.com
+#   - Cyanide@gmail.com
