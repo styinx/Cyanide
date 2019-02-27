@@ -1,3 +1,12 @@
+# Build Directory
+/build
+
+# Resource Directory
+/resources
+
+# Project Files/Directories
+/.idea
+
 # Prerequisites
 *.d
 
