@@ -5,7 +5,7 @@
 
 #include "cystd/NonCopyable.hpp"
 #include "cystd/NonMoveable.hpp"
-#include "cystd/prototypes.hpp"
+#include "cystd/stdPrototypes.hpp"
 
 #include "cyaudio/IAudioDevice.hpp"
 
