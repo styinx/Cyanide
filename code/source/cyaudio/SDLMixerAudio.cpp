@@ -1,6 +1,3 @@
-
-#include <cyaudio/SDLMixerAudio.hpp>
-
 #include "cyaudio/SDLMixerAudio.hpp"
 
 namespace Cyanide

@@ -1,7 +1,7 @@
 #ifndef CYANIDE_IAUDIODEVICE_HPP
 #define CYANIDE_IAUDIODEVICE_HPP
 
-#include "cystd/prototypes.hpp"
+#include "cystd/stdPrototypes.hpp"
 
 namespace Cyanide
 {
@@ -33,16 +33,12 @@ namespace cyaudio
     class IAudioDevice
     {
     public:
+        virtual ~IAudioDevice() = default;
         virtual void lock() = 0;
-
         virtual DeviceType getDeviceType() = 0;
-
         virtual String getDeviceName() const = 0;
-
         virtual DeviceStatus getDeviceStatus() const = 0;
-
         virtual void pause() const = 0;
-
         virtual void resume() const = 0;
     };
 

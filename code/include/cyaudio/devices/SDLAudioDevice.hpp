@@ -3,7 +3,7 @@
 
 #include <SDL2/SDL_audio.h>
 
-#include "cystd/prototypes.hpp"
+#include "cystd/stdPrototypes.hpp"
 
 #include "cyaudio/IAudioDevice.hpp"
 
