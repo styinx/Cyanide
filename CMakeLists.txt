@@ -98,34 +98,76 @@ PKG_SEARCH_MODULE(SDL2TTF REQUIRED SDL2_ttf>=2.0.0)
 # Includes
 #
 
-set(INCLUDES_CYSTD
-    code/include/cystd/prototypes.hpp
+set(INCLUDES_STD
     code/include/cystd/NonCopyable.hpp
-    code/include/cystd/NonMoveable.hpp)
+    code/include/cystd/NonMoveable.hpp
+    code/include/cystd/Range.hpp)
 
-set(INCLUDES_CYAUDIO
-    code/include/cyaudio/audio_devices/SDLAudioDevice.hpp
-    code/include/cyaudio/IAudioDevice.hpp)
+set(INCLUDES_AUDIO
+    code/include/cyaudio/SDLAudio.hpp
+    code/include/cyaudio/SDLMixerAudio.hpp
+    code/include/cyaudio/IAudioDevice.hpp
+    code/include/cyaudio/devices/SDLAudioDevice.hpp
+    code/include/cyaudio/IMedium.hpp
+    code/include/cyaudio/medium/SDLMusic.hpp)
+
+set(INCLUDES_MATH
+    code/include/cymath/Point.hpp
+    code/include/cymath/Line.hpp
+    code/include/cymath/Vector.hpp
+    code/include/cymath/Rectangle.hpp
+    code/include/cymath/Space.hpp)
+
+set(INCLUDES_GUI
+    code/include/cygui/styles/ObjectStyle.hpp
+    code/include/cygui/widgets/Object.hpp
+    code/include/cygui/styles/WidgetStyle.hpp
+    code/include/cygui/widgets/Widget.hpp)
+
+set(INCLUDES_UTIL
+    code/include/cyutil/config/IParser.hpp
+    code/include/cyutil/config/INIParser.hpp)
 
 set(INCLUDES
-    ${INCLUDES_CYSTD}
-    ${INCLUDES_CYAUDIO})
+    ${INCLUDES_STD}
+    ${INCLUDES_AUDIO}
+    ${INCLUDES_MATH}
+    ${INCLUDES_GUI}
+    ${INCLUDES_UTIL})
 
 
 #
 # Sources
 #
 
-set(SOURCES_CYSTD
-    )
+set(SOURCES_STD)
 
 set(SOURCES_AUDIO
-    code/source/cyaudio/audio_devices/SDLAudioDevice.cpp
     code/source/cyaudio/SDLAudio.cpp
-    code/include/cyaudio/SDLAudio.hpp)
+    code/source/cyaudio/SDLMixerAudio.cpp
+    code/source/cyaudio/medium/SDLMusic.cpp
+    code/source/cyaudio/devices/SDLAudioDevice.cpp)
+
+set(SOURCES_MATH
+    code/source/cymath/Point.cpp
+    code/source/cymath/Line.cpp
+    code/source/cymath/Vector.cpp
+    code/source/cymath/Rectangle.cpp
+    code/source/cymath/Space.cpp)
+
+set(SOURCES_GUI
+    code/source/cygui/widgets/Widget.cpp
+    code/source/cygui/styles/WidgetStyle.cpp
+    code/source/cygui/widgets/Object.cpp
+    code/source/cygui/styles/ObjectStyle.cpp)
+
+set(SOURCES_UTIL)
 
 set(SOURCES
-    ${SOURCES_AUDIO})
+    ${SOURCES_AUDIO}
+    ${SOURCES_MATH}
+    ${SOURCES_GUI}
+    ${SOURCES_UTIL})
 
 #
 # Tests
@@ -141,6 +183,12 @@ set(FILES ${INCLUDES} ${SOURCES})
 # Builds
 #
 
-add_executable(${PROJECT_NAME} code/apps/main.cpp ${FILES})
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+    message("Using Clang")
+elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    message("Using GCC")
+endif()
+
+add_executable(${PROJECT_NAME} ${FILES} code/apps/main.cpp)
 
 target_link_libraries(${PROJECT_NAME} ${LIBRARIES})
