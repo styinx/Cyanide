@@ -21,19 +21,19 @@ namespace cyaudio
         SDL_LockAudioDevice(device_id);
     }
 
-    DeviceType SDLAudioDevice::getDeviceType()
+    DEVICE_TYPE SDLAudioDevice::getDeviceType()
     {
         return device_type;
     }
 
-    DeviceStatus SDLAudioDevice::getDeviceStatus() const
+    DEVICE_STATUS SDLAudioDevice::getDeviceStatus() const
     {
         switch(SDL_GetAudioDeviceStatus(device_id))
         {
-        case SDL_AUDIO_STOPPED: return DeviceStatus::STOPPED;
-        case SDL_AUDIO_PLAYING: return DeviceStatus::PLAYING;
-        case SDL_AUDIO_PAUSED: return DeviceStatus::PAUSED;
-        default: return DeviceStatus::INVALID;
+        case SDL_AUDIO_STOPPED: return DEVICE_STATUS::STOPPED;
+        case SDL_AUDIO_PLAYING: return DEVICE_STATUS::PLAYING;
+        case SDL_AUDIO_PAUSED: return DEVICE_STATUS::PAUSED;
+        default: return DEVICE_STATUS::INVALID;
         }
     }
 

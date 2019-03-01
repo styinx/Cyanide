@@ -1,6 +1,8 @@
 #include "cymath/Point.hpp"
 
 #include <cmath>
+#include <cymath/Point.hpp>
+
 
 namespace Cyanide
 {
@@ -35,11 +37,27 @@ namespace cymath
         return *this;
     }
 
+    Point &Point::add(Point p)
+    {
+        x += p.x;
+        y += p.y;
+        z += p.z;
+        return *this;
+    }
+
     Point &Point::sub(Sint32 x, Sint32 y, Sint32 z)
     {
         this->x -= x;
         this->y -= y;
         this->z -= z;
+        return *this;
+    }
+
+    Point &Point::sub(Point p)
+    {
+        x -= p.x;
+        y -= p.y;
+        z -= p.z;
         return *this;
     }
 
