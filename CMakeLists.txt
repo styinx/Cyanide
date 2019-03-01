@@ -55,13 +55,17 @@ set(LIB_OPENGL
     -lGLEW
     -lGL)
 
-set(LIB_PYTHON -lpython3.6m)
+set(LIB_PYTHON
+    -lpython3.6m)
 
-set(LIB_LUA -llua5.2)
+set(LIB_LUA
+    -llua5.2)
 
-set(LIB_SQLITE3 -lsqlite3)
+set(LIB_SQLITE3
+    -lsqlite3)
 
-set(LIB_MYSQL -lmysqlclient)
+set(LIB_MYSQL
+    -lmysqlclient)
 
 set(LIBRARIES
     -lpthread
@@ -101,14 +105,16 @@ PKG_SEARCH_MODULE(SDL2TTF REQUIRED SDL2_ttf>=2.0.0)
 set(INCLUDES_STD
     code/include/cystd/NonCopyable.hpp
     code/include/cystd/NonMoveable.hpp
-    code/include/cystd/Range.hpp)
+    code/include/cystd/Range.hpp
+    code/include/cystd/stdPrototypes.hpp
+    code/include/cystd/Enum.hpp)
 
 set(INCLUDES_AUDIO
     code/include/cyaudio/SDLAudio.hpp
     code/include/cyaudio/SDLMixerAudio.hpp
-    code/include/cyaudio/IAudioDevice.hpp
+    code/include/cyaudio/devices/IAudioDevice.hpp
     code/include/cyaudio/devices/SDLAudioDevice.hpp
-    code/include/cyaudio/IMedium.hpp
+    code/include/cyaudio/medium/IMedium.hpp
     code/include/cyaudio/medium/SDLMusic.hpp)
 
 set(INCLUDES_MATH
@@ -124,16 +130,37 @@ set(INCLUDES_GUI
     code/include/cygui/styles/WidgetStyle.hpp
     code/include/cygui/widgets/Widget.hpp)
 
+set(INCLUDES_INPUT
+    code/include/cyinput/Keyboard.hpp
+    code/include/cyinput/Mouse.hpp
+    code/include/cyinput/Controller.hpp)
+
+set(INCLUDES_NET
+    code/include/cynet/ISocket.hpp)
+
 set(INCLUDES_UTIL
     code/include/cyutil/config/IParser.hpp
-    code/include/cyutil/config/INIParser.hpp)
+    code/include/cyutil/config/INIParser.hpp
+    code/include/cyutil/io/IReader.hpp
+    code/include/cyutil/io/ioPrototypes.hpp
+    code/include/cyutil/io/BitStreamReader.hpp
+    code/include/cyutil/io/IWriter.hpp
+    code/include/cyutil/color/Color.hpp)
+
+set(INCLUDES_VIDEO
+    code/include/cyvideo/IWindow.hpp
+    code/include/cyvideo/IRenderer.hpp
+    code/include/cyvideo/ITexture.hpp)
 
 set(INCLUDES
     ${INCLUDES_STD}
     ${INCLUDES_AUDIO}
     ${INCLUDES_MATH}
     ${INCLUDES_GUI}
-    ${INCLUDES_UTIL})
+    ${INCLUDES_INPUT}
+    ${INCLUDES_NET}
+    ${INCLUDES_UTIL}
+    ${INCLUDES_VIDEO})
 
 
 #
@@ -161,13 +188,28 @@ set(SOURCES_GUI
     code/source/cygui/widgets/Object.cpp
     code/source/cygui/styles/ObjectStyle.cpp)
 
-set(SOURCES_UTIL)
+set(SOURCES_INPUT
+    code/source/cyinput/Keyboard.cpp
+    code/source/cyinput/Controller.cpp
+    code/source/cyinput/Mouse.cpp)
+
+set(SOURCES_NET)
+
+set(SOURCES_UTIL
+    code/include/cyutil/io/BitStreamReader.cpp
+    code/source/cyutil/config/INIParser.cpp
+    code/source/cyutil/color/Color.cpp)
+
+set(SOURCES_VIDEO)
 
 set(SOURCES
     ${SOURCES_AUDIO}
     ${SOURCES_MATH}
     ${SOURCES_GUI}
-    ${SOURCES_UTIL})
+    ${SOURCES_INPUT}
+    ${SOURCES_NET}
+    ${SOURCES_UTIL}
+    ${SOURCES_VIDEO})
 
 #
 # Tests
@@ -182,12 +224,6 @@ set(FILES ${INCLUDES} ${SOURCES})
 #
 # Builds
 #
-
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-    message("Using Clang")
-elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-    message("Using GCC")
-endif()
 
 add_executable(${PROJECT_NAME} ${FILES} code/apps/main.cpp)
 
