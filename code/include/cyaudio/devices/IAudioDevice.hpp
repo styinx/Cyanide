@@ -8,7 +8,7 @@ namespace Cyanide
 namespace cyaudio
 {
 
-    enum class DeviceType : Byte
+    enum class DEVICE_TYPE : Byte
     {
         NONE = 0,
 
@@ -19,7 +19,7 @@ namespace cyaudio
         INVALID
     };
 
-    enum class DeviceStatus : Byte
+    enum class DEVICE_STATUS : Byte
     {
         NONE = 0,
 
@@ -35,9 +35,9 @@ namespace cyaudio
     public:
         virtual ~IAudioDevice() = default;
         virtual void lock() = 0;
-        virtual DeviceType getDeviceType() = 0;
+        virtual DEVICE_TYPE getDeviceType() = 0;
         virtual String getDeviceName() const = 0;
-        virtual DeviceStatus getDeviceStatus() const = 0;
+        virtual DEVICE_STATUS getDeviceStatus() const = 0;
         virtual void pause() const = 0;
         virtual void resume() const = 0;
     };

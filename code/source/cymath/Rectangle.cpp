@@ -1,6 +1,8 @@
 #include "cymath/Rectangle.hpp"
 
 #include <cmath>
+#include <cymath/Rectangle.hpp>
+
 
 namespace Cyanide
 {
@@ -46,6 +48,11 @@ namespace cymath
     Point Rectangle::center() const
     {
         return bottomRight() / 2;
+    }
+
+    Size Rectangle::getSize() const
+    {
+        return Size(w, h);
     }
 
     Rectangle& Rectangle::set(Sint32 x, Sint32 y, Sint32 w, Sint32 h)

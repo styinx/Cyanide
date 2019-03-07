@@ -7,7 +7,7 @@
 #include "cystd/NonMoveable.hpp"
 #include "cystd/stdPrototypes.hpp"
 
-#include "cyaudio/IAudioDevice.hpp"
+#include "cyaudio/devices/IAudioDevice.hpp"
 
 namespace Cyanide
 {

@@ -5,7 +5,7 @@
 
 #include "cystd/stdPrototypes.hpp"
 
-#include "cyaudio/IAudioDevice.hpp"
+#include "IAudioDevice.hpp"
 
 namespace Cyanide
 {
@@ -16,7 +16,7 @@ namespace cyaudio
     {
     private:
         SDL_AudioDeviceID device_id;
-        DeviceType        device_type = DeviceType::NONE;
+        DEVICE_TYPE        device_type = DEVICE_TYPE::NONE;
         String            device_name = "";
 
     public:
@@ -28,9 +28,9 @@ namespace cyaudio
 
         virtual void lock() override;
 
-        virtual DeviceType getDeviceType() override;
+        virtual DEVICE_TYPE getDeviceType() override;
 
-        virtual DeviceStatus getDeviceStatus() const override;
+        virtual DEVICE_STATUS getDeviceStatus() const override;
 
         virtual String getDeviceName() const override;
 
