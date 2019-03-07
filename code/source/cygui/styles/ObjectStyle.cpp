@@ -1,5 +1,5 @@
 
-#include <cygui/styles/ObjectStyle.hpp>
+#include "cygui/styles/ObjectStyle.hpp"
 
 namespace Cyanide
 {
@@ -8,67 +8,67 @@ namespace cygui
 
     cymath::Point cygui::ObjectStyle::getPosition() const
     {
-        return position;
+        return m_position;
     }
 
-    ObjectStyle &ObjectStyle::setPosition(cymath::Point p)
+    ObjectStyle &ObjectStyle::setPosition(cymath::Point position)
     {
-        position = p;
+        m_position = position;
         return *this;
     }
 
-    cymath::Rectangle cygui::ObjectStyle::getSize() const
+    cymath::Size cygui::ObjectStyle::getSize() const
     {
-        return size;
+        return m_size;
     }
 
-    ObjectStyle &ObjectStyle::setSize(cymath::Rectangle r)
+    ObjectStyle &ObjectStyle::setSize(cymath::Size size)
     {
-        size = r;
+        m_size = size;
         return *this;
     }
 
     cymath::Point cygui::ObjectStyle::getContentPosition() const
     {
-        return content_position;
+        return m_content_position;
     }
 
-    ObjectStyle &ObjectStyle::setContentPosition(cymath::Point p)
+    ObjectStyle &ObjectStyle::setContentPosition(cymath::Point position)
     {
-        content_position = p;
+        m_content_position = position;
         return *this;
     }
 
-    cymath::Rectangle cygui::ObjectStyle::getContentSize() const
+    cymath::Size cygui::ObjectStyle::getContentSize() const
     {
-        return content_size;
+        return m_content_size;
     }
 
-    ObjectStyle &ObjectStyle::setContentSize(cymath::Rectangle r)
+    ObjectStyle &ObjectStyle::setContentSize(cymath::Size size)
     {
-        content_size = r;
+        m_content_size = size;
         return *this;
     }
 
     cymath::Point cygui::ObjectStyle::getDecorationPosition() const
     {
-        return decoration_position;
+        return m_decoration_position;
     }
 
-    ObjectStyle &ObjectStyle::setDecorationPosition(cymath::Point p)
+    ObjectStyle &ObjectStyle::setDecorationPosition(cymath::Point position)
     {
-        decoration_position = p;
+        m_decoration_position = position;
         return *this;
     }
 
-    cymath::Rectangle cygui::ObjectStyle::getDecorationSize() const
+    cymath::Size cygui::ObjectStyle::getDecorationSize() const
     {
-        return decoration_size;
+        return m_decoration_size;
     }
 
-    ObjectStyle &ObjectStyle::setDecorationSize(cymath::Rectangle r)
+    ObjectStyle &ObjectStyle::setDecorationSize(cymath::Size size)
     {
-        decoration_size = r;
+        m_decoration_size = size;
         return *this;
     }
 

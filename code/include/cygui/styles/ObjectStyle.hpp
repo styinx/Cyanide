@@ -4,7 +4,7 @@
 #include "cystd/stdPrototypes.hpp"
 
 #include "cymath/Point.hpp"
-#include "cymath/Rectangle.hpp"
+#include "cymath/Size.hpp"
 
 namespace Cyanide
 {
@@ -16,30 +16,32 @@ namespace cygui
     class ObjectStyle
     {
     private:
-        cymath::Point     position;
-        cymath::Rectangle size;
-        cymath::Point     content_position;
-        cymath::Rectangle content_size;
-        cymath::Point     decoration_position;
-        cymath::Rectangle decoration_size;
+        cymath::Point m_position;
+        cymath::Size  m_size;
+        cymath::Point m_content_position;
+        cymath::Size  m_content_size;
+        cymath::Point m_decoration_position;
+        cymath::Size  m_decoration_size;
 
     public:
-        Map<String, SomeValue> map;
 
+        ObjectStyle() = default;
+        ObjectStyle(ObjectStyle &object_style) = default;
+        ObjectStyle(ObjectStyle &&object_style) noexcept = default;
         virtual ~ObjectStyle() = default;
 
-        virtual cymath::Point     getPosition() const;
-        virtual ObjectStyle&      setPosition(cymath::Point p);
-        virtual cymath::Rectangle getSize() const;
-        virtual ObjectStyle&      setSize(cymath::Rectangle r);
-        virtual cymath::Point     getContentPosition() const;
-        virtual ObjectStyle&      setContentPosition(cymath::Point p);
-        virtual cymath::Rectangle getContentSize() const;
-        virtual ObjectStyle&      setContentSize(cymath::Rectangle r);
-        virtual cymath::Point     getDecorationPosition() const;
-        virtual ObjectStyle&      setDecorationPosition(cymath::Point p);
-        virtual cymath::Rectangle getDecorationSize() const;
-        virtual ObjectStyle&      setDecorationSize(cymath::Rectangle p);
+        virtual cymath::Point getPosition() const;
+        virtual ObjectStyle&  setPosition(cymath::Point position);
+        virtual cymath::Size  getSize() const;
+        virtual ObjectStyle&  setSize(cymath::Size size);
+        virtual cymath::Point getContentPosition() const;
+        virtual ObjectStyle&  setContentPosition(cymath::Point position);
+        virtual cymath::Size  getContentSize() const;
+        virtual ObjectStyle&  setContentSize(cymath::Size size);
+        virtual cymath::Point getDecorationPosition() const;
+        virtual ObjectStyle&  setDecorationPosition(cymath::Point position);
+        virtual cymath::Size  getDecorationSize() const;
+        virtual ObjectStyle&  setDecorationSize(cymath::Size size);
     };
 
 }  // namespace cygui

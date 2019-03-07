@@ -24,8 +24,8 @@ addons:
 #    - llvm-toolchain-precise-3.8
 
     packages:
-    - clang-6
-    - g++-7
+#    - clang-6.0
+#    - gcc-7
 
     - cmake-data
     - cmake
