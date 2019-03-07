@@ -27,8 +27,8 @@ addons:
     - clang-6
     - g++-7
 
-#    - cmake-data
-#    - cmake
+    - cmake-data
+    - cmake
 
 #    - lcov
 
@@ -39,7 +39,8 @@ addons:
 #  - "[ $CXX = clang++ ] && export CXX=clang++-3.8 || true"
 #  - "[ $CXX = g++ ] && export CXX=g++-6 || true"
 
-#script:
+script:
+  cmake .
 #  - sudo ln -s /usr/bin/gcc-6 /usr/local/bin/gcc
 #  - sudo ln -s /usr/bin/g++-6 /usr/local/bin/g++
 

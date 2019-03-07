@@ -39,11 +39,11 @@ CheckOptions:
     value:           h
   - key:             google-readability-braces-around-statements.ShortStatementLines
     value:           '1'
-  - key:             google-readability-function-size.BranchThreshold
+  - key:             google-readability-function-m_size.BranchThreshold
     value:           '4294967295'
-  - key:             google-readability-function-size.LineThreshold
+  - key:             google-readability-function-m_size.LineThreshold
     value:           '4294967295'
-  - key:             google-readability-function-size.StatementThreshold
+  - key:             google-readability-function-m_size.StatementThreshold
     value:           '800'
   - key:             google-readability-namespace-comments.ShortNamespaceLines
     value:           '10'
@@ -117,11 +117,11 @@ CheckOptions:
     value:           '0'
   - key:             readability-braces-around-statements.ShortStatementLines
     value:           '1'
-  - key:             readability-function-size.BranchThreshold
+  - key:             readability-function-m_size.BranchThreshold
     value:           '4294967295'
-  - key:             readability-function-size.LineThreshold
+  - key:             readability-function-m_size.LineThreshold
     value:           '4294967295'
-  - key:             readability-function-size.StatementThreshold
+  - key:             readability-function-m_size.StatementThreshold
     value:           '800'
   - key:             readability-identifier-naming.AbstractClassCase
     value:           aNy_CasE

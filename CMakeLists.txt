@@ -7,7 +7,7 @@ project(Cyanide)
 
 cmake_minimum_required(VERSION 3.12)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 set(BIN_PATH "bin")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG "${BIN_PATH}")
@@ -90,13 +90,13 @@ conan_basic_setup()
 # SDL
 #
 
-INCLUDE(FindPkgConfig)
+include(FindPkgConfig)
 
-PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
-PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
-PKG_SEARCH_MODULE(SDL2MIXER REQUIRED SDL2_mixer>=2.0.0)
-PKG_SEARCH_MODULE(SDL2NET REQUIRED SDL2_net>=2.0.0)
-PKG_SEARCH_MODULE(SDL2TTF REQUIRED SDL2_ttf>=2.0.0)
+pkg_search_module(SDL2 REQUIRED sdl2)
+pkg_search_module(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
+pkg_search_module(SDL2MIXER REQUIRED SDL2_mixer>=2.0.0)
+pkg_search_module(SDL2NET REQUIRED SDL2_net>=2.0.0)
+pkg_search_module(SDL2TTF REQUIRED SDL2_ttf>=2.0.0)
 
 #
 # Includes
@@ -107,7 +107,8 @@ set(INCLUDES_STD
     code/include/cystd/NonMoveable.hpp
     code/include/cystd/Range.hpp
     code/include/cystd/stdPrototypes.hpp
-    code/include/cystd/Enum.hpp)
+    code/include/cystd/Enum.hpp
+    code/include/cystd/algorithm/algorithm.hpp)
 
 set(INCLUDES_AUDIO
     code/include/cyaudio/SDLAudio.hpp
@@ -122,7 +123,8 @@ set(INCLUDES_MATH
     code/include/cymath/Line.hpp
     code/include/cymath/Vector.hpp
     code/include/cymath/Rectangle.hpp
-    code/include/cymath/Space.hpp)
+    code/include/cymath/Space.hpp
+    code/include/cymath/Size.hpp)
 
 set(INCLUDES_GUI
     code/include/cygui/styles/ObjectStyle.hpp
@@ -138,19 +140,25 @@ set(INCLUDES_INPUT
 set(INCLUDES_NET
     code/include/cynet/ISocket.hpp)
 
+set(INCLUDES_SYSTEM
+    code/include/cysystem/Platform.hpp)
+
 set(INCLUDES_UTIL
-    code/include/cyutil/config/IParser.hpp
-    code/include/cyutil/config/INIParser.hpp
+    code/include/cyutil/formats/IParser.hpp
+    code/include/cyutil/formats/INIParser.hpp
     code/include/cyutil/io/IReader.hpp
     code/include/cyutil/io/ioPrototypes.hpp
     code/include/cyutil/io/BitStreamReader.hpp
     code/include/cyutil/io/IWriter.hpp
-    code/include/cyutil/color/Color.hpp)
+    code/include/cyutil/color/Color.hpp
+    code/include/cyutil/formats/Value.hpp code/source/cyutil/flags/Flag.cpp code/include/cyutil/flags/Flag.hpp)
 
 set(INCLUDES_VIDEO
     code/include/cyvideo/IWindow.hpp
     code/include/cyvideo/IRenderer.hpp
-    code/include/cyvideo/ITexture.hpp)
+    code/include/cyvideo/ITexture.hpp
+    code/include/cyvideo/SDLWindow.hpp
+    code/include/cyvideo/SDLRenderer.hpp)
 
 set(INCLUDES
     ${INCLUDES_STD}
@@ -180,7 +188,8 @@ set(SOURCES_MATH
     code/source/cymath/Line.cpp
     code/source/cymath/Vector.cpp
     code/source/cymath/Rectangle.cpp
-    code/source/cymath/Space.cpp)
+    code/source/cymath/Space.cpp
+    code/source/cymath/Size.cpp)
 
 set(SOURCES_GUI
     code/source/cygui/widgets/Widget.cpp
@@ -195,12 +204,18 @@ set(SOURCES_INPUT
 
 set(SOURCES_NET)
 
+set(SOURCES_SYSTEM
+    code/source/cysystem/Platform.cpp)
+
 set(SOURCES_UTIL
     code/include/cyutil/io/BitStreamReader.cpp
-    code/source/cyutil/config/INIParser.cpp
-    code/source/cyutil/color/Color.cpp)
+    code/source/cyutil/formats/INIParser.cpp
+    code/source/cyutil/color/Color.cpp
+    code/source/cyutil/formats/Value.cpp)
 
-set(SOURCES_VIDEO)
+set(SOURCES_VIDEO
+    code/source/cyvideo/SDLRenderer.cpp
+    code/source/cyvideo/SDLWindow.cpp)
 
 set(SOURCES
     ${SOURCES_AUDIO}
@@ -211,14 +226,30 @@ set(SOURCES
     ${SOURCES_UTIL}
     ${SOURCES_VIDEO})
 
+
+#
+# All files
+#
+
+set(FILES ${INCLUDES} ${SOURCES})
+
 #
 # Tests
 #
 
-set(TESTS
-    code/test/cyaudio/test.cpp)
+set(TEST_SOURCES
+    code/test/cyaudio/test.cpp
+    code/test/cymath/test_point.cpp
+    code/test/cyvideo/test.cpp)
 
-set(FILES ${INCLUDES} ${SOURCES})
+set(TEST_LIBRARIES
+    ${LIBRARIES}
+    -lgtest
+    -lgtest_main)
+
+set(TEST_FILES
+    ${FILES}
+    ${TEST_SOURCES})
 
 
 #
@@ -226,5 +257,7 @@ set(FILES ${INCLUDES} ${SOURCES})
 #
 
 add_executable(${PROJECT_NAME} ${FILES} code/apps/main.cpp)
+add_executable(${PROJECT_NAME}_Test ${TEST_FILES} code/test/test.cpp)
 
 target_link_libraries(${PROJECT_NAME} ${LIBRARIES})
+target_link_libraries(${PROJECT_NAME}_Test ${TEST_LIBRARIES})
