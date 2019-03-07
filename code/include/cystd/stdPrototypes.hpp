@@ -1,6 +1,8 @@
 #ifndef CYANIDE_PROTOTYPES_HPP
 #define CYANIDE_PROTOTYPES_HPP
 
+#include <any>
+//#include <boost/any.hpp>
 #include <functional>
 #include <list>
 #include <map>
@@ -18,10 +20,13 @@ using Uint16 = std::uint16_t;
 using Sint16 = std::int16_t;
 using Uint32 = std::uint32_t;
 using Sint32 = std::int32_t;
+using Uint64 = std::uint64_t;
+using Sint64 = std::int64_t;
 
 // complex types
 using Thread = std::thread;
 using String = std::string;
+using Any = std::any;
 
 // collection types
 template<typename T>
