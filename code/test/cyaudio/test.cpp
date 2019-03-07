@@ -1,5 +1,5 @@
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
 
-#include "cyaudio/audio_devices/SDLAudioDevice.hpp"
+#include "cyaudio/devices/SDLAudioDevice.hpp"
 
 using namespace Cyanide::cyaudio;
