@@ -1,6 +1,9 @@
 #ifndef CYANIDE_IWINDOW_HPP
 #define CYANIDE_IWINDOW_HPP
 
+#include "cymath/Point.hpp"
+#include "cymath/Size.hpp"
+
 namespace Cyanide
 {
 namespace cyvideo
@@ -8,11 +11,15 @@ namespace cyvideo
 
     class IWindow
     {
-    private:
     public:
-        IWindow() = default;
+        virtual ~IWindow() = default;
 
-        ~IWindow() = default;
+        virtual IWindow&      setTitle(const char* title)         = 0;
+        virtual const char*   getTitle() const                    = 0;
+        virtual IWindow&      setPosition(cymath::Point position) = 0;
+        virtual cymath::Point getPosition() const                 = 0;
+        virtual IWindow&      setSize(cymath::Size size)          = 0;
+        virtual cymath::Size  getSize() const                     = 0;
     };
 
 }  // namespace cyvideo
