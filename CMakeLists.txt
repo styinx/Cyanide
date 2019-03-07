@@ -107,8 +107,7 @@ set(INCLUDES_STD
     code/include/cystd/NonMoveable.hpp
     code/include/cystd/Range.hpp
     code/include/cystd/stdPrototypes.hpp
-    code/include/cystd/Enum.hpp
-    code/include/cystd/algorithm/algorithm.hpp)
+    code/include/cystd/Enum.hpp)
 
 set(INCLUDES_AUDIO
     code/include/cyaudio/SDLAudio.hpp
@@ -151,7 +150,8 @@ set(INCLUDES_UTIL
     code/include/cyutil/io/BitStreamReader.hpp
     code/include/cyutil/io/IWriter.hpp
     code/include/cyutil/color/Color.hpp
-    code/include/cyutil/formats/Value.hpp code/source/cyutil/flags/Flag.cpp code/include/cyutil/flags/Flag.hpp)
+    code/include/cyutil/formats/Value.hpp
+    code/include/cyutil/flags/Flag.hpp)
 
 set(INCLUDES_VIDEO
     code/include/cyvideo/IWindow.hpp
@@ -211,6 +211,7 @@ set(SOURCES_UTIL
     code/include/cyutil/io/BitStreamReader.cpp
     code/source/cyutil/formats/INIParser.cpp
     code/source/cyutil/color/Color.cpp
+    code/source/cyutil/flags/Flag.cpp
     code/source/cyutil/formats/Value.cpp)
 
 set(SOURCES_VIDEO
