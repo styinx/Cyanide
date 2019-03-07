@@ -4,6 +4,7 @@
 #include "cystd/stdPrototypes.hpp"
 
 #include "cymath/Point.hpp"
+#include "cymath/Size.hpp"
 
 namespace Cyanide
 {
@@ -20,11 +21,16 @@ namespace cymath
 
         Rectangle();
         Rectangle(Sint32 x, Sint32 y, Sint32 w, Sint32 h);
+        Rectangle(const Rectangle& other)     = default;
+        Rectangle(Rectangle&& other) noexcept = default;
+        Rectangle&  operator=(const Rectangle& other) = default;
+        Rectangle&  operator=(Rectangle&& other) noexcept = default;
         Point       topLeft() const;
         Point       topRight() const;
         Point       bottomLeft() const;
         Point       bottomRight() const;
         Point       center() const;
+        Size        getSize() const;
         Rectangle&  set(Sint32 x, Sint32 y, Sint32 w, Sint32 h);
         Rectangle&  add(Sint32 x, Sint32 y, Sint32 w, Sint32 h);
         Rectangle&  sub(Sint32 x, Sint32 y, Sint32 w, Sint32 h);

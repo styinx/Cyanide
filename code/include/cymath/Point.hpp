@@ -8,7 +8,7 @@ namespace Cyanide
 namespace cymath
 {
 
-    class Point
+    class Point final
     {
     public:
         Sint32 x;
@@ -17,6 +17,10 @@ namespace cymath
 
         Point();
         Point(Sint32 x, Sint32 y, Sint32 z = 0);
+        Point(const Point& other);
+        Point(Point&& other) noexcept = default;
+        Point&      operator=(const Point& other);
+        Point&      operator=(Point&& other) noexcept = default;
         Point&      set(Sint32 x, Sint32 y, Sint32 z = 0);
         Point&      add(Sint32 x, Sint32 y, Sint32 z = 0);
         Point&      add(Point p);
