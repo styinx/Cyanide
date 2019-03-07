@@ -24,11 +24,9 @@ addons:
 #    - llvm-toolchain-precise-3.8
 
     packages:
-    - python3
 #    - clang-6.0
 #    - gcc-7
 
-    - cmake-data
     - cmake
 
 #    - lcov
@@ -37,8 +35,8 @@ addons:
 #  - eval "${MATRIX_EVAL}"
 
 install:
-  - sudo pip3 install --upgrade pip
-  - sudo pip3 install conan
+  - sudo python3 -m pip install --upgrade pip
+  - sudo python3 -m pip install conan
 #  - "[ $CXX = clang++ ] && export CXX=clang++-3.8 || true"
 #  - "[ $CXX = g++ ] && export CXX=g++-6 || true"
 
