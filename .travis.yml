@@ -36,7 +36,7 @@ addons:
 #  - eval "${MATRIX_EVAL}"
 
 install:
-  - pip install conan
+  - sudo pip install conan
 #  - "[ $CXX = clang++ ] && export CXX=clang++-3.8 || true"
 #  - "[ $CXX = g++ ] && export CXX=g++-6 || true"
 
