@@ -9,8 +9,8 @@ namespace cystd
     class NonCopyable
     {
     public:
-        NonCopyable(NonCopyable& non_copyable) = delete;
-        NonCopyable operator=(NonCopyable& non_copyable) = delete;
+        NonCopyable(const NonCopyable& non_copyable) = delete;
+        NonCopyable operator=(const NonCopyable& non_copyable) = delete;
     };
 
 }  // namespace cystd

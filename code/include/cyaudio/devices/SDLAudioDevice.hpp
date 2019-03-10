@@ -15,9 +15,9 @@ namespace cyaudio
     class SDLAudioDevice : public IAudioDevice
     {
     private:
-        SDL_AudioDeviceID device_id;
-        DEVICE_TYPE        device_type = DEVICE_TYPE::NONE;
-        String            device_name = "";
+        SDL_AudioDeviceID m_device_id;
+        DEVICE_TYPE       m_device_type = DEVICE_TYPE::NONE;
+        String            m_device_name = "";
 
     public:
         SDLAudioDevice();
@@ -28,7 +28,7 @@ namespace cyaudio
 
         virtual void lock() override;
 
-        virtual DEVICE_TYPE getDeviceType() override;
+        virtual DEVICE_TYPE getDeviceType() const override;
 
         virtual DEVICE_STATUS getDeviceStatus() const override;
 

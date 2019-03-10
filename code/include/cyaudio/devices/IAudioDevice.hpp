@@ -35,7 +35,7 @@ namespace cyaudio
     public:
         virtual ~IAudioDevice() = default;
         virtual void lock() = 0;
-        virtual DEVICE_TYPE getDeviceType() = 0;
+        virtual DEVICE_TYPE getDeviceType() const = 0;
         virtual String getDeviceName() const = 0;
         virtual DEVICE_STATUS getDeviceStatus() const = 0;
         virtual void pause() const = 0;

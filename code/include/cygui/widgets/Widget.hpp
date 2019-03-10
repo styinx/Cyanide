@@ -11,8 +11,11 @@ namespace
     private:
     public:
         Widget() = default;
-
-        ~Widget() = default;
+        Widget(const Widget& widget) = default;
+        Widget(Widget&& widget) noexcept = default;
+        Widget& operator=(const Widget& widget) = default;
+        Widget& operator=(Widget&& widget) noexcept = default;
+        virtual ~Widget() = default;
     };
 
 }  // namespace

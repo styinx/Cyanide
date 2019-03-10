@@ -24,10 +24,10 @@ namespace cyaudio
         static void pause();
         static void resume();
 
-        static Uint32       getCaptureDeviceId(String name);
-        static Uint32       getPlaybackDeviceId(String name);
-        static String       getCaptureDeviceName(Uint32 index);
-        static String       getPlaybackDeviceName(Uint32 index);
+        static Uint32       getCaptureDeviceId(const String name);
+        static Uint32       getPlaybackDeviceId(const String name);
+        static String       getCaptureDeviceName(const Uint32 index);
+        static String       getPlaybackDeviceName(const Uint32 index);
         static Uint32       getNumberOfCaptureDevices();
         static Uint32       getNumberOfPlaybackDevices();
         static Uint32       getNumberOfDevices();

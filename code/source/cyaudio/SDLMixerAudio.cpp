@@ -12,7 +12,7 @@ namespace cyaudio
         return static_cast<Uint8>(Mix_VolumeMusic(-1));
     }
 
-    void SDLMixerAudio::setMusicVolume(Uint8 volume)
+    void SDLMixerAudio::setMusicVolume(const Uint8 volume)
     {
         Mix_VolumeMusic(volume);
     }
@@ -41,22 +41,22 @@ namespace cyaudio
         }
     }
 
-    Uint8 SDLMixerAudio::getChannelVolume(Uint8 channel)
+    Uint8 SDLMixerAudio::getChannelVolume(const Uint8 channel)
     {
         return static_cast<Uint8>(Mix_Volume(channel, -1));
     }
 
-    void SDLMixerAudio::setChannelVolume(Uint8 channel, Uint8 volume)
+    void SDLMixerAudio::setChannelVolume(const Uint8 channel, const Uint8 volume)
     {
         Mix_Volume(channel, volume);
     }
 
-    bool SDLMixerAudio::isChannelMuted(Uint8 channel)
+    bool SDLMixerAudio::isChannelMuted(const Uint8 channel)
     {
         return SDLMixerAudio::getChannelVolume(channel) == 0;
     }
 
-    void SDLMixerAudio::muteChannel(Uint8 channel)
+    void SDLMixerAudio::muteChannel(const Uint8 channel)
     {
         Uint8 volume = SDLMixerAudio::getChannelVolume(channel);
 
@@ -67,7 +67,7 @@ namespace cyaudio
         }
     }
 
-    void SDLMixerAudio::unmuteChannel(Uint8 channel)
+    void SDLMixerAudio::unmuteChannel(const Uint8 channel)
     {
         if(SDLMixerAudio::getChannelVolume(channel) == 0)
         {

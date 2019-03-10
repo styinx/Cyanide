@@ -11,8 +11,11 @@ namespace cyinput
     private:
     public:
         Mouse() = default;
-
         ~Mouse() = default;
+        Mouse(const Mouse& mouse) = default;
+        Mouse(Mouse&& mouse) noexcept = default;
+        Mouse& operator=(const Mouse& mouse) = default;
+        Mouse& operator=(Mouse&& mouse) noexcept = default;
     };
 
 }  // namespace cyinput

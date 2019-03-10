@@ -1,5 +1,5 @@
-#ifndef CYANIDE_ISTYLE_HPP
-#define CYANIDE_ISTYLE_HPP
+#ifndef CYANIDE_OBJECTSTYLE_HPP
+#define CYANIDE_OBJECTSTYLE_HPP
 
 #include "cystd/stdPrototypes.hpp"
 
@@ -26,25 +26,27 @@ namespace cygui
     public:
 
         ObjectStyle() = default;
-        ObjectStyle(ObjectStyle &object_style) = default;
-        ObjectStyle(ObjectStyle &&object_style) noexcept = default;
+        ObjectStyle(const ObjectStyle& object_style) = default;
+        ObjectStyle(ObjectStyle&& object_style) noexcept = default;
+        ObjectStyle& operator=(const ObjectStyle& object_style) = default;
+        ObjectStyle& operator=(ObjectStyle&& object_style) noexcept = default;
         virtual ~ObjectStyle() = default;
 
         virtual cymath::Point getPosition() const;
-        virtual ObjectStyle&  setPosition(cymath::Point position);
+        virtual ObjectStyle&  setPosition(const cymath::Point position);
         virtual cymath::Size  getSize() const;
-        virtual ObjectStyle&  setSize(cymath::Size size);
+        virtual ObjectStyle&  setSize(const cymath::Size size);
         virtual cymath::Point getContentPosition() const;
-        virtual ObjectStyle&  setContentPosition(cymath::Point position);
+        virtual ObjectStyle&  setContentPosition(const cymath::Point position);
         virtual cymath::Size  getContentSize() const;
-        virtual ObjectStyle&  setContentSize(cymath::Size size);
+        virtual ObjectStyle&  setContentSize(const cymath::Size size);
         virtual cymath::Point getDecorationPosition() const;
-        virtual ObjectStyle&  setDecorationPosition(cymath::Point position);
+        virtual ObjectStyle&  setDecorationPosition(const cymath::Point position);
         virtual cymath::Size  getDecorationSize() const;
-        virtual ObjectStyle&  setDecorationSize(cymath::Size size);
+        virtual ObjectStyle&  setDecorationSize(const cymath::Size size);
     };
 
 }  // namespace cygui
 }  // namespace Cyanide
 
-#endif  // CYANIDE_ISTYLE_HPP
+#endif  // CYANIDE_OBJECTSTYLE_HPP

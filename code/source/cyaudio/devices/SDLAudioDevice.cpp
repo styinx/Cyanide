@@ -13,22 +13,22 @@ namespace cyaudio
 
     SDL_AudioDeviceID SDLAudioDevice::getDeviceId() const
     {
-        return device_id;
+        return m_device_id;
     }
 
     void SDLAudioDevice::lock()
     {
-        SDL_LockAudioDevice(device_id);
+        SDL_LockAudioDevice(m_device_id);
     }
 
-    DEVICE_TYPE SDLAudioDevice::getDeviceType()
+    DEVICE_TYPE SDLAudioDevice::getDeviceType() const
     {
-        return device_type;
+        return m_device_type;
     }
 
     DEVICE_STATUS SDLAudioDevice::getDeviceStatus() const
     {
-        switch(SDL_GetAudioDeviceStatus(device_id))
+        switch(SDL_GetAudioDeviceStatus(m_device_id))
         {
         case SDL_AUDIO_STOPPED: return DEVICE_STATUS::STOPPED;
         case SDL_AUDIO_PLAYING: return DEVICE_STATUS::PLAYING;
@@ -39,17 +39,17 @@ namespace cyaudio
 
     String SDLAudioDevice::getDeviceName() const
     {
-        return device_name;
+        return m_device_name;
     }
 
     void SDLAudioDevice::pause() const
     {
-        SDL_PauseAudioDevice(device_id, 1);
+        SDL_PauseAudioDevice(m_device_id, 1);
     }
 
     void SDLAudioDevice::resume() const
     {
-        SDL_PauseAudioDevice(device_id, 0);
+        SDL_PauseAudioDevice(m_device_id, 0);
     }
 
 }  // namespace cyaudio

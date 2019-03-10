@@ -11,8 +11,11 @@ namespace cyinput
     private:
     public:
         Controller() = default;
-
         ~Controller() = default;
+        Controller(const Controller& controller) = default;
+        Controller(Controller&& controller) noexcept = default;
+        Controller& operator=(const Controller& controller) = default;
+        Controller& operator=(Controller&& controller) noexcept = default;
     };
 
 }  // namespace cyinput

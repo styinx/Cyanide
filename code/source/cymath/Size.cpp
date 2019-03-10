@@ -13,20 +13,20 @@ namespace cymath
     {
     }
 
-    Size::Size(Sint32 width, Sint32 height)
+    Size::Size(const Sint32 width, const Sint32 height)
         : width(width)
         , height(height)
     {
     }
 
-    Size& Size::set(Sint32 w, Sint32 h)
+    Size& Size::set(const Sint32 w, const Sint32 h)
     {
         width  = w;
         height = h;
         return *this;
     }
 
-    Size& Size::add(Sint32 w, Sint32 h)
+    Size& Size::add(const Sint32 w, const Sint32 h)
     {
         width += w;
         height += h;
@@ -40,7 +40,7 @@ namespace cymath
         return *this;
     }
 
-    Size& Size::sub(Sint32 w, Sint32 h)
+    Size& Size::sub(const Sint32 w, const Sint32 h)
     {
         width -= w;
         height -= h;
@@ -54,28 +54,28 @@ namespace cymath
         return *this;
     }
 
-    Size& Size::mul(Sint32 w, Sint32 h)
+    Size& Size::mul(const Sint32 w, const Sint32 h)
     {
         width *= w;
         height *= h;
         return *this;
     }
 
-    Size& Size::mul(float w, float h)
+    Size& Size::mul(const float w, const float h)
     {
         width  = static_cast<Sint32>(std::lround(width * w));
         height = static_cast<Sint32>(std::lround(height * h));
         return *this;
     }
 
-    Size& Size::div(Sint32 w, Sint32 h)
+    Size& Size::div(const Sint32 w, const Sint32 h)
     {
         width  = static_cast<Sint32>(std::lround(width / w));
         height = static_cast<Sint32>(std::lround(height / h));
         return *this;
     }
 
-    Size& Size::div(float w, float h)
+    Size& Size::div(const float w, const float h)
     {
         width  = static_cast<Sint32>(std::lround(width / w));
         height = static_cast<Sint32>(std::lround(height / h));
@@ -102,33 +102,33 @@ namespace cymath
 
     Size& Size::operator/=(const Size& other) { return div(other.width, other.height); }
 
-    Size Size::operator*(Sint32 scalar) { return {width * scalar, height * scalar}; }
+    Size Size::operator*(const Sint32 scalar) { return {width * scalar, height * scalar}; }
 
-    Size Size::operator*(float scalar)
+    Size Size::operator*(const float scalar)
     {
         Size s = *this;
         return s.mul(scalar, scalar);
     }
 
-    Size& Size::operator*=(Sint32 scalar) { return mul(scalar, scalar); }
+    Size& Size::operator*=(const Sint32 scalar) { return mul(scalar, scalar); }
 
-    Size& Size::operator*=(float scalar) { return mul(scalar, scalar); }
+    Size& Size::operator*=(const float scalar) { return mul(scalar, scalar); }
 
-    Size Size::operator/(Sint32 scalar)
+    Size Size::operator/(const Sint32 scalar)
     {
         Size s = *this;
         return s.div(scalar, scalar);
     }
 
-    Size Size::operator/(float scalar)
+    Size Size::operator/(const float scalar)
     {
         Size s = *this;
         return s.div(scalar, scalar);
     }
 
-    Size& Size::operator/=(Sint32 scalar) { return div(scalar, scalar); }
+    Size& Size::operator/=(const Sint32 scalar) { return div(scalar, scalar); }
 
-    Size& Size::operator/=(float scalar) { return div(scalar, scalar); }
+    Size& Size::operator/=(const float scalar) { return div(scalar, scalar); }
 
 }  // namespace cymath
 }  // namespace Cyanide

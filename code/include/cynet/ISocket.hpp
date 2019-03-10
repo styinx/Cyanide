@@ -10,9 +10,7 @@ namespace cynet
     {
     private:
     public:
-        ISocket() = default;
-
-        ~ISocket() = default;
+        virtual ~ISocket() = default;
     };
 
 }  // namespace cynet

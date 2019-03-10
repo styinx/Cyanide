@@ -1,7 +1,6 @@
 #include "cymath/Rectangle.hpp"
 
 #include <cmath>
-#include <cymath/Rectangle.hpp>
 
 
 namespace Cyanide
@@ -17,7 +16,7 @@ namespace cymath
     {
     }
 
-    Rectangle::Rectangle(Sint32 x, Sint32 y, Sint32 w, Sint32 h)
+    Rectangle::Rectangle(const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h)
         : x(x)
         , y(y)
         , w(w)
@@ -55,7 +54,7 @@ namespace cymath
         return Size(w, h);
     }
 
-    Rectangle& Rectangle::set(Sint32 x, Sint32 y, Sint32 w, Sint32 h)
+    Rectangle& Rectangle::set(const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h)
     {
         this->x = x;
         this->y = y;
@@ -64,7 +63,7 @@ namespace cymath
         return *this;
     }
 
-    Rectangle& Rectangle::add(Sint32 x, Sint32 y, Sint32 w, Sint32 h)
+    Rectangle& Rectangle::add(const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h)
     {
         this->x += x;
         this->y += y;
@@ -73,7 +72,7 @@ namespace cymath
         return *this;
     }
 
-    Rectangle& Rectangle::sub(Sint32 x, Sint32 y, Sint32 w, Sint32 h)
+    Rectangle& Rectangle::sub(const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h)
     {
         this->x -= x;
         this->y -= y;
@@ -82,7 +81,7 @@ namespace cymath
         return *this;
     }
 
-    Rectangle& Rectangle::mul(Sint32 x, Sint32 y, Sint32 w, Sint32 h)
+    Rectangle& Rectangle::mul(const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h)
     {
         this->x *= x;
         this->y *= y;
@@ -91,7 +90,7 @@ namespace cymath
         return *this;
     }
 
-    Rectangle &Rectangle::mul(float x, float y, float w, float h)
+    Rectangle &Rectangle::mul(const float x, const float y, const float w, const float h)
     {
         this->x = static_cast<Sint32>(std::lround(this->x * x));
         this->y = static_cast<Sint32>(std::lround(this->y * y));
@@ -100,7 +99,7 @@ namespace cymath
         return *this;
     }
 
-    Rectangle& Rectangle::div(Sint32 x, Sint32 y, Sint32 w, Sint32 h)
+    Rectangle& Rectangle::div(const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h)
     {
         if(x != 0) this->x = static_cast<Sint32>(std::lround(this->x / x));
         if(y != 0) this->y = static_cast<Sint32>(std::lround(this->y / y));
@@ -109,7 +108,7 @@ namespace cymath
         return *this;
     }
 
-    Rectangle &Rectangle::div(float x, float y, float w, float h)
+    Rectangle &Rectangle::div(const float x, const float y, const float w, const float h)
     {
         if(x != 0) this->x = static_cast<Sint32>(std::lround(this->x / x));
         if(y != 0) this->y = static_cast<Sint32>(std::lround(this->y / y));
@@ -159,45 +158,45 @@ namespace cymath
         return this->div(other.x, other.y, other.w, other.h);
     }
 
-    Rectangle Rectangle::operator*(Sint32 scalar)
+    Rectangle Rectangle::operator*(const Sint32 scalar)
     {
         return {x * scalar, y * scalar, w * scalar, h * scalar};
     }
 
-    Rectangle Rectangle::operator*(float scalar)
+    Rectangle Rectangle::operator*(const float scalar)
     {
         Rectangle r = *this;
         return r.mul(scalar, scalar, scalar, scalar);
     }
 
-    Rectangle& Rectangle::operator*=(Sint32 scalar)
+    Rectangle& Rectangle::operator*=(const Sint32 scalar)
     {
         return this->mul(scalar, scalar, scalar, scalar);
     }
 
-    Rectangle &Rectangle::operator*=(float scalar)
+    Rectangle &Rectangle::operator*=(const float scalar)
     {
         return this->mul(scalar, scalar, scalar, scalar);
     }
 
-    Rectangle Rectangle::operator/(Sint32 scalar)
+    Rectangle Rectangle::operator/(const Sint32 scalar)
     {
         Rectangle r = *this;
         return r.div(scalar, scalar, scalar, scalar);
     }
 
-    Rectangle Rectangle::operator/(float scalar)
+    Rectangle Rectangle::operator/(const float scalar)
     {
         Rectangle r = *this;
         return r.div(scalar, scalar, scalar, scalar);
     }
 
-    Rectangle& Rectangle::operator/=(Sint32 scalar)
+    Rectangle& Rectangle::operator/=(const Sint32 scalar)
     {
         return this->div(scalar, scalar, scalar, scalar);
     }
 
-    Rectangle &Rectangle::operator/=(float scalar)
+    Rectangle &Rectangle::operator/=(const float scalar)
     {
         return this->div(scalar, scalar, scalar, scalar);
     }

@@ -1,5 +1,5 @@
-#ifndef CYANIDE_IOBJECT_HPP
-#define CYANIDE_IOBJECT_HPP
+#ifndef CYANIDE_OBJECT_HPP
+#define CYANIDE_OBJECT_HPP
 
 #include "cygui/styles/ObjectStyle.hpp"
 
@@ -11,19 +11,24 @@ namespace cygui
     class Object : public ObjectStyle
     {
     private:
-        Object* parent = nullptr;
-        Object* child = nullptr;
+        Object* m_parent = nullptr;
+        Object* m_child = nullptr;
 
     public:
+        Object() = default;
+        Object(const Object& object) = default;
+        Object(Object&& object) noexcept = default;
+        Object& operator=(const Object& object) = default;
+        Object& operator=(Object&& object) noexcept = default;
         virtual ~Object() = default;
 
-        virtual Object& setParent(const Object* parent);
+        virtual Object& setParent(Object* const parent);
         virtual Object* getParent() const;
-        virtual Object& setChild(const Object* child);
+        virtual Object& setChild(Object* const child);
         virtual Object* getChild() const;
     };
 
 }  // namespace cygui
 }  // namespace Cyanide
 
-#endif  // CYANIDE_IOBJECT_HPP
+#endif  // CYANIDE_OBJECT_HPP
