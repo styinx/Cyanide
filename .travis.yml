@@ -19,9 +19,21 @@ cache:
 
 addons:
   apt:
-#    sources:
+    sources:
 #    - ubuntu-toolchain-r-test
 #    - llvm-toolchain-precise-3.8
+    - libsdl2-2.0.0
+    - libsdl2-dev
+    - libsdl2-gfx-1.0.0
+    - libsdl2-gfx-dev
+    - libsdl2-image-2.0.0
+    - libsdl2-image-dev
+    - libsdl2-mixer-2.0.0
+    - libsdl2-mixer-dev
+    - libsdl2-net-2.0.0
+    - libsdl2-net-dev
+    - libsdl2-ttf-2.0.0
+    - libsdl2-ttf-dev
 
     packages:
     - python3-pip
@@ -42,7 +54,7 @@ install:
 #  - "[ $CXX = g++ ] && export CXX=g++-6 || true"
 
 script:
-  - conan install build
+  - conan install . build/
   - cmake .
 #  - sudo ln -s /usr/bin/gcc-6 /usr/local/bin/gcc
 #  - sudo ln -s /usr/bin/g++-6 /usr/local/bin/g++
