@@ -19,24 +19,11 @@ cache:
 
 addons:
   apt:
-    sources:
+#    sources:
 #    - ubuntu-toolchain-r-test
 #    - llvm-toolchain-precise-3.8
-    - libsdl2-2.0.0
-    - libsdl2-dev
-    - libsdl2-gfx-1.0.0
-    - libsdl2-gfx-dev
-    - libsdl2-image-2.0.0
-    - libsdl2-image-dev
-    - libsdl2-mixer-2.0.0
-    - libsdl2-mixer-dev
-    - libsdl2-net-2.0.0
-    - libsdl2-net-dev
-    - libsdl2-ttf-2.0.0
-    - libsdl2-ttf-dev
 
     packages:
-    - python3-pip
 #    - clang-6.0
 #    - gcc-7
 
@@ -44,12 +31,23 @@ addons:
 
 #    - lcov
 
-#before_install:
-#  - eval "${MATRIX_EVAL}"
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install -y libsdl2-2.0.0
+  - sudo apt-get install -y libsdl2-dev
+  - sudo apt-get install -y libsdl2-gfx-1.0.0
+  - sudo apt-get install -y libsdl2-gfx-dev
+  - sudo apt-get install -y libsdl2-image-2.0.0
+  - sudo apt-get install -y libsdl2-image-dev
+  - sudo apt-get install -y libsdl2-mixer-2.0.0
+  - sudo apt-get install -y libsdl2-mixer-dev
+  - sudo apt-get install -y libsdl2-net-2.0.0
+  - sudo apt-get install -y libsdl2-net-dev
+  - sudo apt-get install -y libsdl2-ttf-2.0.0
+  - sudo apt-get install -y libsdl2-ttf-dev
 
 install:
-  - sudo pip3 install --upgrade pip
-  - sudo pip3 install conan
+  - sudo python -m pip install conan
 #  - "[ $CXX = clang++ ] && export CXX=clang++-3.8 || true"
 #  - "[ $CXX = g++ ] && export CXX=g++-6 || true"
 
