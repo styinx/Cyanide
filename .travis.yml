@@ -54,7 +54,7 @@ install:
 
 script:
   - conan install . build/
-  - cmake build
+  - cmake . build
 #  - sudo ln -s /usr/bin/gcc-6 /usr/local/bin/gcc
 #  - sudo ln -s /usr/bin/g++-6 /usr/local/bin/g++
 
