@@ -13,8 +13,8 @@ namespace cyaudio
     class SDLMusic : public IMedium
     {
     private:
-        const char* resource = "";
-        Mix_Music*  music    = nullptr;
+        const char* m_resource = "";
+        Mix_Music*  m_music    = nullptr;
 
     public:
         SDLMusic() = default;

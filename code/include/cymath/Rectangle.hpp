@@ -20,7 +20,7 @@ namespace cymath
         Sint32 h;
 
         Rectangle();
-        Rectangle(Sint32 x, Sint32 y, Sint32 w, Sint32 h);
+        Rectangle(const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h);
         Rectangle(const Rectangle& other)     = default;
         Rectangle(Rectangle&& other) noexcept = default;
         Rectangle&  operator=(const Rectangle& other) = default;
@@ -31,13 +31,13 @@ namespace cymath
         Point       bottomRight() const;
         Point       center() const;
         Size        getSize() const;
-        Rectangle&  set(Sint32 x, Sint32 y, Sint32 w, Sint32 h);
-        Rectangle&  add(Sint32 x, Sint32 y, Sint32 w, Sint32 h);
-        Rectangle&  sub(Sint32 x, Sint32 y, Sint32 w, Sint32 h);
-        Rectangle&  mul(Sint32 x, Sint32 y, Sint32 w, Sint32 h);
-        Rectangle&  mul(float x, float y, float w, float h);
-        Rectangle&  div(Sint32 x, Sint32 y, Sint32 w, Sint32 h);
-        Rectangle&  div(float x, float y, float w, float h);
+        Rectangle&  set(const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h);
+        Rectangle&  add(const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h);
+        Rectangle&  sub(const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h);
+        Rectangle&  mul(const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h);
+        Rectangle&  mul(const float x, const float y, const float w, const float h);
+        Rectangle&  div(const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h);
+        Rectangle&  div(const float x, const float y, const float w, const float h);
         Rectangle   operator+(const Rectangle& other);
         Rectangle&  operator+=(const Rectangle& other);
         Rectangle   operator-(const Rectangle& other);
@@ -46,14 +46,14 @@ namespace cymath
         Rectangle&  operator*=(const Rectangle& other);
         Rectangle   operator/(const Rectangle& other);
         Rectangle&  operator/=(const Rectangle& other);
-        Rectangle   operator*(Sint32 scalar);
-        Rectangle   operator*(float scalar);
-        Rectangle&  operator*=(Sint32 scalar);
-        Rectangle&  operator*=(float scalar);
-        Rectangle   operator/(Sint32 scalar);
-        Rectangle   operator/(float scalar);
-        Rectangle&  operator/=(Sint32 scalar);
-        Rectangle&  operator/=(float scalar);
+        Rectangle   operator*(const Sint32 scalar);
+        Rectangle   operator*(const float scalar);
+        Rectangle&  operator*=(const Sint32 scalar);
+        Rectangle&  operator*=(const float scalar);
+        Rectangle   operator/(const Sint32 scalar);
+        Rectangle   operator/(const float scalar);
+        Rectangle&  operator/=(const Sint32 scalar);
+        Rectangle&  operator/=(const float scalar);
         friend bool operator==(const Rectangle& first, const Rectangle& second);
         friend bool operator!=(const Rectangle& first, const Rectangle& second);
 

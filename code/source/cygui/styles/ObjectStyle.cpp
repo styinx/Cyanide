@@ -11,7 +11,7 @@ namespace cygui
         return m_position;
     }
 
-    ObjectStyle &ObjectStyle::setPosition(cymath::Point position)
+    ObjectStyle &ObjectStyle::setPosition(const cymath::Point position)
     {
         m_position = position;
         return *this;
@@ -22,7 +22,7 @@ namespace cygui
         return m_size;
     }
 
-    ObjectStyle &ObjectStyle::setSize(cymath::Size size)
+    ObjectStyle &ObjectStyle::setSize(const cymath::Size size)
     {
         m_size = size;
         return *this;
@@ -33,7 +33,7 @@ namespace cygui
         return m_content_position;
     }
 
-    ObjectStyle &ObjectStyle::setContentPosition(cymath::Point position)
+    ObjectStyle &ObjectStyle::setContentPosition(const cymath::Point position)
     {
         m_content_position = position;
         return *this;
@@ -44,7 +44,7 @@ namespace cygui
         return m_content_size;
     }
 
-    ObjectStyle &ObjectStyle::setContentSize(cymath::Size size)
+    ObjectStyle &ObjectStyle::setContentSize(const cymath::Size size)
     {
         m_content_size = size;
         return *this;
@@ -55,7 +55,7 @@ namespace cygui
         return m_decoration_position;
     }
 
-    ObjectStyle &ObjectStyle::setDecorationPosition(cymath::Point position)
+    ObjectStyle &ObjectStyle::setDecorationPosition(const cymath::Point position)
     {
         m_decoration_position = position;
         return *this;
@@ -66,7 +66,7 @@ namespace cygui
         return m_decoration_size;
     }
 
-    ObjectStyle &ObjectStyle::setDecorationSize(cymath::Size size)
+    ObjectStyle &ObjectStyle::setDecorationSize(const cymath::Size size)
     {
         m_decoration_size = size;
         return *this;

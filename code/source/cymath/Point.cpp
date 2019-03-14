@@ -1,7 +1,6 @@
 #include "cymath/Point.hpp"
 
 #include <cmath>
-#include <cymath/Point.hpp>
 
 namespace Cyanide
 {
@@ -15,7 +14,7 @@ namespace cymath
     {
     }
 
-    Point::Point(Sint32 x, Sint32 y, Sint32 z)
+    Point::Point(const Sint32 x, const Sint32 y, const Sint32 z)
         : x(x)
         , y(y)
         , z(z)
@@ -37,7 +36,7 @@ namespace cymath
         return *this;
     }
 
-    Point& Point::set(Sint32 x, Sint32 y, Sint32 z)
+    Point& Point::set(const Sint32 x, const Sint32 y, const Sint32 z)
     {
         this->x = x;
         this->y = y;
@@ -45,7 +44,7 @@ namespace cymath
         return *this;
     }
 
-    Point& Point::add(Sint32 x, Sint32 y, Sint32 z)
+    Point& Point::add(const Sint32 x, const Sint32 y, const Sint32 z)
     {
         this->x += x;
         this->y += y;
@@ -61,7 +60,7 @@ namespace cymath
         return *this;
     }
 
-    Point& Point::sub(Sint32 x, Sint32 y, Sint32 z)
+    Point& Point::sub(const Sint32 x, const Sint32 y, const Sint32 z)
     {
         this->x -= x;
         this->y -= y;
@@ -77,7 +76,7 @@ namespace cymath
         return *this;
     }
 
-    Point& Point::mul(Sint32 x, Sint32 y, Sint32 z)
+    Point& Point::mul(const Sint32 x, const Sint32 y, const Sint32 z)
     {
         this->x *= x;
         this->y *= y;
@@ -85,7 +84,7 @@ namespace cymath
         return *this;
     }
 
-    Point& Point::mul(float x, float y, float z)
+    Point& Point::mul(const float x, const float y, const float z)
     {
         this->x = static_cast<Sint32>(std::lround(this->x * x));
         this->y = static_cast<Sint32>(std::lround(this->y * y));
@@ -93,7 +92,7 @@ namespace cymath
         return *this;
     }
 
-    Point& Point::div(Sint32 x, Sint32 y, Sint32 z)
+    Point& Point::div(const Sint32 x, const Sint32 y, const Sint32 z)
     {
         if(x != 0) this->x = static_cast<Sint32>(std::lround(this->x / x));
         if(y != 0) this->y = static_cast<Sint32>(std::lround(this->y / y));
@@ -101,7 +100,7 @@ namespace cymath
         return *this;
     }
 
-    Point& Point::div(float x, float y, float z)
+    Point& Point::div(const float x, const float y, const float z)
     {
         if(x != 0) this->x = static_cast<Sint32>(std::lround(this->x / x));
         if(y != 0) this->y = static_cast<Sint32>(std::lround(this->y / y));
@@ -129,33 +128,33 @@ namespace cymath
 
     Point& Point::operator/=(const Point& other) { return div(other.x, other.y, other.z); }
 
-    Point Point::operator*(Sint32 scalar) { return {x * scalar, y * scalar, z * scalar}; }
+    Point Point::operator*(const Sint32 scalar) { return {x * scalar, y * scalar, z * scalar}; }
 
-    Point Point::operator*(float scalar)
+    Point Point::operator*(const float scalar)
     {
         Point p = *this;
         return p.mul(scalar, scalar, scalar);
     }
 
-    Point& Point::operator*=(Sint32 scalar) { return mul(scalar, scalar, scalar); }
+    Point& Point::operator*=(const Sint32 scalar) { return mul(scalar, scalar, scalar); }
 
-    Point& Point::operator*=(float scalar) { return mul(scalar, scalar, scalar); }
+    Point& Point::operator*=(const float scalar) { return mul(scalar, scalar, scalar); }
 
-    Point Point::operator/(Sint32 scalar)
+    Point Point::operator/(const Sint32 scalar)
     {
         Point p = *this;
         return p.div(scalar, scalar, scalar);
     }
 
-    Point Point::operator/(float scalar)
+    Point Point::operator/(const float scalar)
     {
         Point p = *this;
         return p.div(scalar, scalar, scalar);
     }
 
-    Point& Point::operator/=(Sint32 scalar) { return div(scalar, scalar, scalar); }
+    Point& Point::operator/=(const Sint32 scalar) { return div(scalar, scalar, scalar); }
 
-    Point& Point::operator/=(float scalar) { return div(scalar, scalar, scalar); }
+    Point& Point::operator/=(const float scalar) { return div(scalar, scalar, scalar); }
 
     bool operator==(const Point& first, const Point& second)
     {

@@ -12,22 +12,22 @@ namespace cyaudio
 
     Mix_Music* SDLMusic::getMusic() const
     {
-        return music;
+        return m_music;
     }
 
     const char* SDLMusic::getResource() const
     {
-        return resource;
+        return m_resource;
     }
 
     void SDLMusic::setResource(const char* new_resource)
     {
-        resource = new_resource;
-        if(music != nullptr)
+        m_resource = new_resource;
+        if(m_music != nullptr)
         {
-            Mix_FreeMusic(music);
+            Mix_FreeMusic(m_music);
         }
-        music = Mix_LoadMUS(resource);
+        m_music = Mix_LoadMUS(m_resource);
     }
 
 }  // namespace cyaudio

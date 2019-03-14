@@ -15,20 +15,20 @@ namespace cymath
         Sint32 height;
 
         Size();
-        Size(Sint32 width, Sint32 height);
-        Size(const Size& other) = default;
+        Size(const Sint32 width, const Sint32 height);
+        Size(const Size& other)     = default;
         Size(Size&& other) noexcept = default;
-        Size&      operator=(const Size& other) = default;
-        Size&      operator=(Size&& other) noexcept = default;
-        Size& set(Sint32 w, Sint32 h);
-        Size& add(Sint32 w, Sint32 h);
-        Size& add(Size p);
-        Size& sub(Sint32 w, Sint32 h);
-        Size& sub(Size p);
-        Size& mul(Sint32 w, Sint32 h);
-        Size& mul(float w, float h);
-        Size& div(Sint32 w, Sint32 h);
-        Size& div(float w, float h);
+        Size& operator=(const Size& other) = default;
+        Size& operator=(Size&& other) noexcept = default;
+        Size& set(const Sint32 w, const Sint32 h);
+        Size& add(const Sint32 w, const Sint32 h);
+        Size& add(const Size p);
+        Size& sub(const Sint32 w, const Sint32 h);
+        Size& sub(const Size p);
+        Size& mul(const Sint32 w, const Sint32 h);
+        Size& mul(const float w, const float h);
+        Size& div(const Sint32 w, const Sint32 h);
+        Size& div(const float w, const float h);
         Size  operator+(const Size& other);
         Size& operator+=(const Size& other);
         Size  operator-(const Size& other);
@@ -37,14 +37,14 @@ namespace cymath
         Size& operator*=(const Size& other);
         Size  operator/(const Size& other);
         Size& operator/=(const Size& other);
-        Size  operator*(Sint32 scalar);
-        Size  operator*(float scalar);
-        Size& operator*=(Sint32 scalar);
-        Size& operator*=(float scalar);
-        Size  operator/(Sint32 scalar);
-        Size  operator/(float scalar);
-        Size& operator/=(Sint32 scalar);
-        Size& operator/=(float scalar);
+        Size  operator*(const Sint32 scalar);
+        Size  operator*(const float scalar);
+        Size& operator*=(const Sint32 scalar);
+        Size& operator*=(const float scalar);
+        Size  operator/(const Sint32 scalar);
+        Size  operator/(const float scalar);
+        Size& operator/=(const Sint32 scalar);
+        Size& operator/=(const float scalar);
     };
 
 }  // namespace cymath

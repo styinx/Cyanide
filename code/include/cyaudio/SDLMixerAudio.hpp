@@ -22,15 +22,15 @@ namespace cyaudio
 
     public:
         static Uint8 getMusicVolume();
-        static void setMusicVolume(Uint8 volume);
+        static void setMusicVolume(const Uint8 volume);
         static bool isMusicMuted();
         static void muteMusic();
         static void unmuteMusic();
-        static Uint8 getChannelVolume(Uint8 channel);
-        static void setChannelVolume(Uint8 channel, Uint8 volume);
-        static bool isChannelMuted(Uint8 channel);
-        static void muteChannel(Uint8 channel);
-        static void unmuteChannel(Uint8 channel);
+        static Uint8 getChannelVolume(const Uint8 channel);
+        static void setChannelVolume(const Uint8 channel, const Uint8 volume);
+        static bool isChannelMuted(const Uint8 channel);
+        static void muteChannel(const Uint8 channel);
+        static void unmuteChannel(const Uint8 channel);
     };
 
 }  // namespace cyaudio

@@ -15,24 +15,24 @@ namespace cyaudio
         SDL_PauseAudio(0);
     }
 
-    Uint32 SDLAudio::getPlaybackDeviceId(String name)
+    Uint32 SDLAudio::getPlaybackDeviceId(const String name)
     {
         //TODO
         return 0;
     }
 
-    Uint32 SDLAudio::getCaptureDeviceId(String name)
+    Uint32 SDLAudio::getCaptureDeviceId(const String name)
     {
         //TODO
         return 0;
     }
 
-    String SDLAudio::getPlaybackDeviceName(Uint32 index)
+    String SDLAudio::getPlaybackDeviceName(const Uint32 index)
     {
         return String(SDL_GetAudioDeviceName(index, 0));
     }
 
-    String SDLAudio::getCaptureDeviceName(Uint32 index)
+    String SDLAudio::getCaptureDeviceName(const Uint32 index)
     {
         return String(SDL_GetAudioDeviceName(index, 1));
     }

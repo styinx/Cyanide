@@ -28,11 +28,11 @@ namespace cyvideo
         SDL_Window* m_window      = nullptr;
 
     public:
-        SDLWindow(const char* title, Sint32 x, Sint32 y, Sint32 w, Sint32 h);
+        SDLWindow(const char* title, const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h);
 
-        SDLWindow(const char* title, cymath::Rectangle geometry);
+        SDLWindow(const char* title, const cymath::Rectangle geometry);
 
-        SDLWindow(const char* title, cymath::Point position, cymath::Size size);
+        SDLWindow(const char* title, const cymath::Point position, const cymath::Size size);
 
         virtual ~SDLWindow() override = default;
 
@@ -42,35 +42,48 @@ namespace cyvideo
 
         virtual cymath::Point getPosition() const override;
 
-        virtual IWindow& setPosition(cymath::Point position) override;
+        virtual IWindow& setPosition(const cymath::Point position) override;
 
         virtual cymath::Size getSize() const override;
 
-        virtual IWindow& setSize(cymath::Size size) override;
+        virtual IWindow& setSize(const cymath::Size size) override;
 
-        void createWindow(const char* title, Sint32 x, Sint32 y, Sint32 w, Sint32 h, Uint32 flags = SDL_WINDOW_SHOWN);
+        void createWindow(
+            const char* title,
+            const Sint32 x,
+            const Sint32 y,
+            const Sint32 w,
+            const Sint32 h,
+            const Uint32 flags = SDL_WINDOW_SHOWN);
 
-        void createWindow(const char* title, cymath::Rectangle geometry, Uint32 flags = SDL_WINDOW_SHOWN);
+        void createWindow(
+            const char* title,
+            const cymath::Rectangle geometry,
+            const Uint32 flags = SDL_WINDOW_SHOWN);
 
-        void createWindow(const char* title, cymath::Point position, cymath::Size size, Uint32 flags = SDL_WINDOW_SHOWN);
+        void createWindow(
+            const char* title,
+            const cymath::Point position,
+            const cymath::Size size,
+            const Uint32 flags = SDL_WINDOW_SHOWN);
 
         SDL_Window* getWindow() const;
 
         cymath::Rectangle getBorderSize() const;
 
-        IWindow& setMinimumSize(cymath::Size size);
+        IWindow& setMinimumSize(const cymath::Size size);
 
-        IWindow& setMinimumSize(Sint32 w, Sint32 h);
+        IWindow& setMinimumSize(const Sint32 w, const Sint32 h);
 
         cymath::Size getMinimumSize() const;
 
-        IWindow& setMaximumSize(cymath::Size size);
+        IWindow& setMaximumSize(const cymath::Size size);
 
-        IWindow& setMaximumSize(Sint32 w, Sint32 h);
+        IWindow& setMaximumSize(const Sint32 w, const Sint32 h);
 
         cymath::Size getMaximumSize() const;
 
-        IWindow& setFlags(Uint32 flags);
+        IWindow& setFlags(const Uint32 flags);
 
         Uint32 getFlags() const;
 
@@ -80,29 +93,29 @@ namespace cyvideo
 
         IWindow& setInputFocus();
 
-        IWindow& setHitTest(SDL_HitTest callback, void* data);
+        IWindow& setHitTest(const SDL_HitTest callback, void* const data);
 
         IWindow& show();
 
         IWindow& hide();
 
-        IWindow& setBordered(bool bordered);
+        IWindow& setBordered(const bool bordered);
 
-        IWindow& setBrightness(float brightness);
+        IWindow& setBrightness(const float brightness);
 
         float getBrightness() const;
 
         float getOpacity() const;
 
-        IWindow& setOpacity(float opacity);
+        IWindow& setOpacity(const float opacity);
 
-        IWindow& setFullScreen(Uint32 flag);
+        IWindow& setFullScreen(const Uint32 flag);
 
-        IWindow& setGammaRamp(Uint16 r, Uint16 g, Uint16 b);
+        IWindow& setGammaRamp(const Uint16 r, const Uint16 g, const Uint16 b);
 
         Sint32 getID() const;
 
-        IWindow& setIcon(SDL_Surface* icon);
+        IWindow& setIcon(SDL_Surface* const icon);
 
         void pollEvent();  // SDL_Event* event);
 

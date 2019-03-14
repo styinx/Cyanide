@@ -12,14 +12,14 @@ namespace cymath
     {
     }
 
-    Vector::Vector(float x, float y, float z)
+    Vector::Vector(const float x, const float y, const float z)
         : x(x)
         , y(y)
         , z(z)
     {
     }
 
-    Vector &Vector::set(float x, float y, float z)
+    Vector &Vector::set(const float x, const float y, const float z)
     {
         this->x = x;
         this->y = y;
@@ -27,7 +27,7 @@ namespace cymath
         return *this;
     }
 
-    Vector &Vector::add(float x, float y, float z)
+    Vector &Vector::add(const float x, const float y, const float z)
     {
         this->x += x;
         this->y += y;
@@ -35,7 +35,7 @@ namespace cymath
         return *this;
     }
 
-    Vector &Vector::sub(float x, float y, float z)
+    Vector &Vector::sub(const float x, const float y, const float z)
     {
         this->x -= x;
         this->y -= y;
@@ -43,7 +43,7 @@ namespace cymath
         return *this;
     }
 
-    Vector &Vector::mul(float x, float y, float z)
+    Vector &Vector::mul(const float x, const float y, const float z)
     {
         this->x *= x;
         this->y *= y;
@@ -51,7 +51,7 @@ namespace cymath
         return *this;
     }
 
-    Vector &Vector::div(float x, float y, float z)
+    Vector &Vector::div(const float x, const float y, const float z)
     {
         if(x != 0) this->x /= x;
         if(y != 0) this->y /= y;
@@ -100,23 +100,23 @@ namespace cymath
         return this->div(other.x, other.y, other.z);
     }
 
-    Vector Vector::operator*(float scalar)
+    Vector Vector::operator*(const float scalar)
     {
         return {x * scalar, y * scalar, z * scalar};
     }
 
-    Vector& Vector::operator*=(float scalar)
+    Vector& Vector::operator*=(const float scalar)
     {
         return this->mul(scalar, scalar, scalar);
     }
 
-    Vector Vector::operator/(float scalar)
+    Vector Vector::operator/(const float scalar)
     {
         Vector p = *this;
         return p.div(scalar, scalar, scalar);
     }
 
-    Vector& Vector::operator/=(float scalar)
+    Vector& Vector::operator/=(const float scalar)
     {
         return this->div(scalar, scalar, scalar);
     }
