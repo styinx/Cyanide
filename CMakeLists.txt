@@ -107,7 +107,7 @@ set(INCLUDES_STD
     code/include/cystd/NonMoveable.hpp
     code/include/cystd/Range.hpp
     code/include/cystd/stdPrototypes.hpp
-    code/include/cystd/Enum.hpp)
+    code/include/cystd/Enum.hpp code/include/cystd/CyObj.hpp)
 
 set(INCLUDES_AUDIO
     code/include/cyaudio/SDLAudio.hpp
@@ -143,15 +143,7 @@ set(INCLUDES_SYSTEM
     code/include/cysystem/Platform.hpp)
 
 set(INCLUDES_UTIL
-    code/include/cyutil/formats/IParser.hpp
-    code/include/cyutil/formats/INIParser.hpp
-    code/include/cyutil/io/IReader.hpp
-    code/include/cyutil/io/ioPrototypes.hpp
-    code/include/cyutil/io/BitStreamReader.hpp
-    code/include/cyutil/io/IWriter.hpp
-    code/include/cyutil/color/Color.hpp
-    code/include/cyutil/formats/Value.hpp
-    code/include/cyutil/flags/Flag.hpp)
+    code/include/cyutil/color/Color.hpp)
 
 set(INCLUDES_VIDEO
     code/include/cyvideo/IWindow.hpp
@@ -208,11 +200,7 @@ set(SOURCES_SYSTEM
     code/source/cysystem/Platform.cpp)
 
 set(SOURCES_UTIL
-    code/include/cyutil/io/BitStreamReader.cpp
-    code/source/cyutil/formats/INIParser.cpp
-    code/source/cyutil/color/Color.cpp
-    code/source/cyutil/flags/Flag.cpp
-    code/source/cyutil/formats/Value.cpp)
+    code/source/cyutil/color/Color.cpp)
 
 set(SOURCES_VIDEO
     code/source/cyvideo/SDLRenderer.cpp
@@ -258,7 +246,7 @@ set(TEST_FILES
 #
 
 add_executable(${PROJECT_NAME} ${FILES} code/apps/main.cpp)
-add_executable(${PROJECT_NAME}_Test ${TEST_FILES} code/test/test.cpp)
+#add_executable(${PROJECT_NAME}_Test ${TEST_FILES} code/test/test.cpp)
 
 target_link_libraries(${PROJECT_NAME} ${LIBRARIES})
-target_link_libraries(${PROJECT_NAME}_Test ${TEST_LIBRARIES})
+#target_link_libraries(${PROJECT_NAME}_Test ${TEST_LIBRARIES})
