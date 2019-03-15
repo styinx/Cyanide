@@ -1,7 +1,7 @@
 #ifndef CYANIDE_IRENDERER_HPP
 #define CYANIDE_IRENDERER_HPP
 
-namespace Cyanide
+namespace cyanide
 {
 namespace cyvideo
 {
@@ -16,6 +16,6 @@ namespace cyvideo
     };
 
 }  // namespace cyvideo
-}  // namespace Cyanide
+}  // namespace cyanide
 
 #endif  // CYANIDE_IRENDERER_HPP

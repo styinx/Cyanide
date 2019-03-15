@@ -3,7 +3,7 @@
 
 #include "cystd/stdPrototypes.hpp"
 
-namespace Cyanide
+namespace cyanide
 {
 namespace cyaudio
 {
@@ -45,6 +45,6 @@ namespace cyaudio
     using IAudioDevicePtr = SharedPtr<IAudioDevice>;
 
 }  // namespace cyaudio
-}  // namespace Cyanide
+}  // namespace cyanide
 
 #endif  // CYANIDE_IAUDIODEVICE_HPP

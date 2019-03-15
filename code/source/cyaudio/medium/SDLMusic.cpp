@@ -1,6 +1,6 @@
 #include "cyaudio/medium/SDLMusic.hpp"
 
-namespace Cyanide
+namespace cyanide
 {
 namespace cyaudio
 {
@@ -31,4 +31,4 @@ namespace cyaudio
     }
 
 }  // namespace cyaudio
-}  // namespace Cyanide
+}  // namespace cyanide

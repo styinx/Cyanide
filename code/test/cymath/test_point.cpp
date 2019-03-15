@@ -2,7 +2,7 @@
 
 #include "cymath/Point.hpp"
 
-using namespace Cyanide::cymath;
+using namespace cyanide::cymath;
 
 TEST(PointTest, Ctor)
 {

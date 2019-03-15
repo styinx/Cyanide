@@ -1,6 +1,7 @@
-#include "cyaudio/SDLAudio.hpp"
 
-namespace Cyanide
+#include <cyaudio/SDLAudio.hpp>
+
+namespace cyanide
 {
 namespace cyaudio
 {
@@ -27,14 +28,14 @@ namespace cyaudio
         return 0;
     }
 
-    String SDLAudio::getPlaybackDeviceName(const Uint32 index)
+    String SDLAudio::getPlaybackDeviceName(const Uint32 id)
     {
-        return String(SDL_GetAudioDeviceName(index, 0));
+        return String(SDL_GetAudioDeviceName(id, 0));
     }
 
-    String SDLAudio::getCaptureDeviceName(const Uint32 index)
+    String SDLAudio::getCaptureDeviceName(const Uint32 id)
     {
-        return String(SDL_GetAudioDeviceName(index, 1));
+        return String(SDL_GetAudioDeviceName(id, 1));
     }
 
     Uint32 SDLAudio::getNumberOfPlaybackDevices()
@@ -66,9 +67,9 @@ namespace cyaudio
     {
         List<String> capture_devices;
 
-        for(Uint32 index = 0; index < SDLAudio::getNumberOfCaptureDevices(); ++index)
+        for(Uint32 id = 0; id < SDLAudio::getNumberOfCaptureDevices(); ++id)
         {
-            capture_devices.emplace_back(SDLAudio::getCaptureDeviceName(index));
+            capture_devices.emplace_back(SDLAudio::getCaptureDeviceName(id));
         }
 
         return capture_devices;
@@ -78,9 +79,9 @@ namespace cyaudio
     {
         List<String> playback_devices;
 
-        for(Uint32 index = 0; index < SDLAudio::getNumberOfPlaybackDevices(); ++index)
+        for(Uint32 id = 0; id < SDLAudio::getNumberOfPlaybackDevices(); ++id)
         {
-            playback_devices.emplace_back(SDLAudio::getPlaybackDeviceName(index));
+            playback_devices.emplace_back(SDLAudio::getPlaybackDeviceName(id));
         }
 
         return playback_devices;
@@ -97,5 +98,43 @@ namespace cyaudio
         return devices;
     }
 
+    Uint32 SDLAudio::getAudioDriverId(const String name)
+    {
+        // TODO
+        return 0;
+    }
+
+    String SDLAudio::getAudioDriverName(const Uint32 id)
+    {
+        return String(SDL_GetAudioDriver(id));
+    }
+
+    String SDLAudio::getCurrentAudioDriverName(const Uint32 id)
+    {
+        return String(SDL_GetCurrentAudioDriver());
+    }
+
+    Uint32 SDLAudio::getNumberOfAudioDrivers()
+    {
+        int audio_drivers = SDL_GetNumAudioDrivers();
+
+        if(audio_drivers > 0)
+            return static_cast<Uint32>(audio_drivers);
+        else
+            return 0;
+    }
+
+    List<String> SDLAudio::getAudioDriverNames()
+    {
+        List<String> audio_drivers;
+
+        for(Uint32 id = 0; id < SDLAudio::getNumberOfAudioDrivers(); ++id)
+        {
+            audio_drivers.emplace_back(SDLAudio::getAudioDriverName(id));
+        }
+
+        return audio_drivers;
+    }
+
 }  // namespace cyaudio
-}  // namespace Cyanide
+}  // namespace cyanide

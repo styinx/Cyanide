@@ -14,8 +14,6 @@ cache:
 addons:
   apt:
     packages:
-    - clang-5.0
-    - g++-6
     - cmake
 
 before_install:

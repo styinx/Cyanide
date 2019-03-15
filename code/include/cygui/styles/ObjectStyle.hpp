@@ -6,7 +6,7 @@
 #include "cymath/Point.hpp"
 #include "cymath/Size.hpp"
 
-namespace Cyanide
+namespace cyanide
 {
 namespace cygui
 {
@@ -47,6 +47,6 @@ namespace cygui
     };
 
 }  // namespace cygui
-}  // namespace Cyanide
+}  // namespace cyanide
 
 #endif  // CYANIDE_OBJECTSTYLE_HPP

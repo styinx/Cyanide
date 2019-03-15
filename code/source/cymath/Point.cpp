@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-namespace Cyanide
+namespace cyanide
 {
 namespace cymath
 {
@@ -184,4 +184,4 @@ namespace cymath
     }
 
 }  // namespace cymath
-}  // namespace Cyanide
+}  // namespace cyanide

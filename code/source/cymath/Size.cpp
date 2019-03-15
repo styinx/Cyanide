@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-namespace Cyanide
+namespace cyanide
 {
 namespace cymath
 {
@@ -131,4 +131,4 @@ namespace cymath
     Size& Size::operator/=(const float scalar) { return div(scalar, scalar); }
 
 }  // namespace cymath
-}  // namespace Cyanide
+}  // namespace cyanide

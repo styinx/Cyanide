@@ -8,7 +8,7 @@
 #include <thread>
 #include <vector>
 
-namespace Cyanide
+namespace cyanide
 {
 
 // primitive types
@@ -34,6 +34,8 @@ template<typename T>
 using List = std::list<T>;
 template<typename K, typename V>
 using Map = std::map<K, V>;
+template<typename K, typename V>
+using UMap = std::unordered_map<K, V>;
 
 // pointer types
 template<typename T>
@@ -47,6 +49,6 @@ using WeakPtr = std::weak_ptr<T>;
 template<typename Func>
 using Function = std::function<Func>;
 
-}  // namespace Cyanide
+}  // namespace cyanide
 
 #endif  // CYANIDE_PROTOTYPES_HPP

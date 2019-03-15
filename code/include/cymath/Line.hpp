@@ -5,7 +5,7 @@
 
 #include "cymath/Point.hpp"
 
-namespace Cyanide
+namespace cyanide
 {
 namespace cymath
 {
@@ -21,6 +21,10 @@ namespace cymath
         Line();
         Line(const Point p1, const Point p2);
         Line(const Sint32 x1, const Sint32 y1, const Sint32 x2, const Sint32 y2);
+        Line(const Line& other)     = default;
+        Line(Line&& other) noexcept = default;
+        Line& operator=(const Line& other) = default;
+        Line& operator=(Line&& other) noexcept = default;
         Point       first() const;
         Point       second() const;
         Line&       set(const Sint32 x1, const Sint32 y1, const Sint32 x2, const Sint32 y2);
@@ -55,6 +59,6 @@ namespace cymath
     };
 
 }  // namespace cymath
-}  // namespace Cyanide
+}  // namespace cyanide
 
 #endif  // CYANIDE_LINE_HPP

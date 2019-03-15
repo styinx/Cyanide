@@ -3,7 +3,7 @@
 
 #include "cyvideo/IRenderer.hpp"
 
-namespace Cyanide
+namespace cyanide
 {
 namespace cyvideo
 {
@@ -18,6 +18,6 @@ namespace cyvideo
     };
 
 }  // namespace cyvideo
-}  // namespace Cyanide
+}  // namespace cyanide
 
 #endif  // CYANIDE_SDLRENDERER_HPP

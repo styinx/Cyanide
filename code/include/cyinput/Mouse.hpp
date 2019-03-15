@@ -1,7 +1,7 @@
 #ifndef CYANIDE_MOUSE_HPP
 #define CYANIDE_MOUSE_HPP
 
-namespace Cyanide
+namespace cyanide
 {
 namespace cyinput
 {
@@ -19,6 +19,6 @@ namespace cyinput
     };
 
 }  // namespace cyinput
-}  // namespace Cyanide
+}  // namespace cyanide
 
 #endif  // CYANIDE_MOUSE_HPP

@@ -1,7 +1,7 @@
 #ifndef CYANIDE_ISOCKET_HPP
 #define CYANIDE_ISOCKET_HPP
 
-namespace Cyanide
+namespace cyanide
 {
 namespace cynet
 {
@@ -14,6 +14,6 @@ namespace cynet
     };
 
 }  // namespace cynet
-}  // namespace Cyanide
+}  // namespace cyanide
 
 #endif  // CYANIDE_ISOCKET_HPP

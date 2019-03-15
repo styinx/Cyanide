@@ -1,7 +1,7 @@
 #ifndef CYANIDE_ITEXTURE_HPP
 #define CYANIDE_ITEXTURE_HPP
 
-namespace Cyanide
+namespace cyanide
 {
 namespace cyvideo
 {
@@ -16,6 +16,6 @@ namespace cyvideo
     };
 
 }  // namespace cyvideo
-}  // namespace Cyanide
+}  // namespace cyanide
 
 #endif  // CYANIDE_ITEXTURE_HPP

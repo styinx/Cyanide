@@ -112,7 +112,9 @@ set(INCLUDES_STD
     code/include/cystd/NonMoveable.hpp
     code/include/cystd/Range.hpp
     code/include/cystd/stdPrototypes.hpp
-    code/include/cystd/Enum.hpp code/include/cystd/CyObj.hpp)
+    code/include/cystd/Enum.hpp
+    code/include/cystd/CyObj.hpp
+    code/include/cystd/stdDefine.hpp)
 
 set(INCLUDES_AUDIO
     code/include/cyaudio/SDLAudio.hpp
@@ -134,12 +136,12 @@ set(INCLUDES_GUI
     code/include/cygui/styles/ObjectStyle.hpp
     code/include/cygui/widgets/Object.hpp
     code/include/cygui/styles/WidgetStyle.hpp
-    code/include/cygui/widgets/Widget.hpp)
+    code/include/cygui/widgets/Widget.hpp code/include/cygui/styles/Style.hpp)
 
 set(INCLUDES_INPUT
     code/include/cyinput/Keyboard.hpp
     code/include/cyinput/Mouse.hpp
-    code/include/cyinput/Controller.hpp)
+    code/include/cyinput/Controller.hpp code/include/cyinput/Keys.hpp)
 
 set(INCLUDES_NET
     code/include/cynet/ISocket.hpp)
@@ -148,14 +150,16 @@ set(INCLUDES_SYSTEM
     code/include/cysystem/Platform.hpp)
 
 set(INCLUDES_UTIL
-    code/include/cyutil/color/Color.hpp)
+    code/include/cyutil/color/Color.hpp code/include/cyutil/time/ITimer.hpp code/source/cyutil/time/SDLTimer.cpp code/include/cyutil/time/SDLTimer.hpp code/source/cyutil/time/SDLPerformanceTimer.cpp code/include/cyutil/time/SDLPerformanceTimer.hpp code/include/cyutil/util.hpp)
 
 set(INCLUDES_VIDEO
     code/include/cyvideo/IWindow.hpp
     code/include/cyvideo/IRenderer.hpp
     code/include/cyvideo/ITexture.hpp
     code/include/cyvideo/SDLWindow.hpp
-    code/include/cyvideo/SDLRenderer.hpp)
+    code/include/cyvideo/SDLRenderer.hpp
+    code/include/cyvideo/SDLVideo.hpp
+    code/include/cyvideo/Display.hpp code/include/cyvideo/IDisplay.hpp)
 
 set(INCLUDES
     ${INCLUDES_STD}
@@ -205,11 +209,13 @@ set(SOURCES_SYSTEM
     code/source/cysystem/Platform.cpp)
 
 set(SOURCES_UTIL
-    code/source/cyutil/color/Color.cpp)
+    code/source/cyutil/color/Color.cpp code/source/cyutil/time/Clock.cpp code/include/cyutil/time/Clock.hpp code/include/cyutil/time/time.hpp)
 
 set(SOURCES_VIDEO
     code/source/cyvideo/SDLRenderer.cpp
-    code/source/cyvideo/SDLWindow.cpp)
+    code/source/cyvideo/SDLWindow.cpp
+    code/source/cyvideo/SDLVideo.cpp
+    code/source/cyvideo/Display.cpp)
 
 set(SOURCES
     ${SOURCES_AUDIO}

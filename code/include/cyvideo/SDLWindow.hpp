@@ -5,10 +5,12 @@
 
 #include <SDL2/SDL_video.h>
 
+#include "cyutil/color/Color.hpp"
+
 #include "cymath/Rectangle.hpp"
 #include "cymath/Size.hpp"
 
-namespace Cyanide
+namespace cyanide
 {
 namespace cyvideo
 {
@@ -39,6 +41,8 @@ namespace cyvideo
         virtual IWindow& setTitle(const char* title) override;
 
         virtual const char* getTitle() const override;
+
+        // Size and position
 
         virtual cymath::Point getPosition() const override;
 
@@ -83,9 +87,17 @@ namespace cyvideo
 
         cymath::Size getMaximumSize() const;
 
+        // Behaviour
+
         IWindow& setFlags(const Uint32 flags);
 
         Uint32 getFlags() const;
+
+        IWindow& setResizeable(const bool resizeable);
+
+        IWindow& setModalTo(const SDLWindow* parent);
+
+        IWindow& setFullScreen(const Uint32 flag);
 
         IWindow& setGrab(bool grabbed);
 
@@ -94,6 +106,8 @@ namespace cyvideo
         IWindow& setInputFocus();
 
         IWindow& setHitTest(const SDL_HitTest callback, void* const data);
+
+        // Visibility
 
         IWindow& show();
 
@@ -105,17 +119,23 @@ namespace cyvideo
 
         float getBrightness() const;
 
-        float getOpacity() const;
-
         IWindow& setOpacity(const float opacity);
 
-        IWindow& setFullScreen(const Uint32 flag);
+        float getOpacity() const;
 
         IWindow& setGammaRamp(const Uint16 r, const Uint16 g, const Uint16 b);
 
-        Sint32 getID() const;
+        IWindow& setGammaRamp(const cyutil::Color color);
+
+        // Decoration
 
         IWindow& setIcon(SDL_Surface* const icon);
+
+        // Properties
+
+        Uint32 getID() const;
+
+        Uint32 getDisplayIndex() const;
 
         void pollEvent();  // SDL_Event* event);
 
@@ -137,6 +157,6 @@ namespace cyvideo
     };
 
 }  // namespace cyvideo
-}  // namespace Cyanide
+}  // namespace cyanide
 
 #endif  // CYANIDE_SDLWINDOW_HPP

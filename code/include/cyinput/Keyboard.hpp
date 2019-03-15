@@ -1,7 +1,7 @@
 #ifndef CYANIDE_KEYBOARD_HPP
 #define CYANIDE_KEYBOARD_HPP
 
-namespace Cyanide
+namespace cyanide
 {
 namespace cyinput
 {
@@ -19,6 +19,6 @@ namespace cyinput
     };
 
 }  // namespace cyinput
-}  // namespace Cyanide
+}  // namespace cyanide
 
 #endif  // CYANIDE_KEYBOARD_HPP

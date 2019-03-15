@@ -1,7 +1,7 @@
 #ifndef CYANIDE_RANGE_HPP
 #define CYANIDE_RANGE_HPP
 
-namespace Cyanide
+namespace cyanide
 {
 namespace cystd
 {
@@ -96,6 +96,6 @@ namespace cystd
     }
 
 }  // namespace cystd
-}  // namespace Cyanide
+}  // namespace cyanide
 
 #endif  // CYANIDE_RANGE_HPP

@@ -1,6 +1,6 @@
 
 
-namespace Cyanide
+namespace cyanide
 {
 namespace cygui
 {
@@ -8,4 +8,4 @@ namespace cygui
 
 
 }  // namespace cygui
-}  // namespace Cyanide
+}  // namespace cyanide

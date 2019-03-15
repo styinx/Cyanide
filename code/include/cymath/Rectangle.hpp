@@ -6,7 +6,7 @@
 #include "cymath/Point.hpp"
 #include "cymath/Size.hpp"
 
-namespace Cyanide
+namespace cyanide
 {
 namespace cymath
 {
@@ -97,6 +97,6 @@ namespace cymath
     };
 
 }  // namespace cymath
-}  // namespace Cyanide
+}  // namespace cyanide
 
 #endif  // CYANIDE_RECTANGLE_HPP

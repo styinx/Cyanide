@@ -1,7 +1,7 @@
 #ifndef CYANIDE_NONCOPYABLE_HPP
 #define CYANIDE_NONCOPYABLE_HPP
 
-namespace Cyanide
+namespace cyanide
 {
 namespace cystd
 {
@@ -14,6 +14,6 @@ namespace cystd
     };
 
 }  // namespace cystd
-}  // namespace Cyanide
+}  // namespace cyanide
 
 #endif  // CYANIDE_NONCOPYABLE_HPP

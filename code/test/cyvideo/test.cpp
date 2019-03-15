@@ -1,5 +1,3 @@
-#include <gtest/gtest.h>
 
-#include "cyvideo/SDLWindow.hpp"
 
-using namespace Cyanide::cyvideo;
+using namespace cyanide::cyvideo;

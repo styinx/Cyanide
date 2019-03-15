@@ -3,7 +3,7 @@
 #include <SDL2/SDL_config.h>
 #include <SDL2/SDL_cpuinfo.h>
 
-namespace Cyanide
+namespace cyanide
 {
 namespace cysystem
 {
@@ -34,4 +34,4 @@ namespace cysystem
     }
 
 }  // namespace cysystem
-}  // namespace Cyanide
+}  // namespace cyanide

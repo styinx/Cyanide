@@ -1,9 +1,9 @@
-#include "cyinput/Mouse.hpp"
 
-namespace Cyanide
+
+namespace cyanide
 {
 namespace cyinput
 {
 
 }  // namespace cyinput
-}  // namespace Cyanide
+}  // namespace cyanide

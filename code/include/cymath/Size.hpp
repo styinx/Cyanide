@@ -3,7 +3,7 @@
 
 #include "cystd/stdPrototypes.hpp"
 
-namespace Cyanide
+namespace cyanide
 {
 namespace cymath
 {
@@ -48,6 +48,6 @@ namespace cymath
     };
 
 }  // namespace cymath
-}  // namespace Cyanide
+}  // namespace cyanide
 
 #endif  // CYANIDE_SIZE_HPP

@@ -4,7 +4,7 @@
 #include "cymath/Point.hpp"
 #include "cymath/Size.hpp"
 
-namespace Cyanide
+namespace cyanide
 {
 namespace cyvideo
 {
@@ -23,6 +23,6 @@ namespace cyvideo
     };
 
 }  // namespace cyvideo
-}  // namespace Cyanide
+}  // namespace cyanide
 
 #endif  // CYANIDE_IWINDOW_HPP

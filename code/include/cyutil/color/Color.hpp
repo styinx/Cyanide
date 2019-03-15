@@ -3,7 +3,7 @@
 
 #include "cystd/stdPrototypes.hpp"
 
-namespace Cyanide
+namespace cyanide
 {
 namespace cyutil
 {
@@ -73,6 +73,6 @@ namespace cyutil
     };
 
 }  // namespace cyutil
-}  // namespace Cyanide
+}  // namespace cyanide
 
 #endif  // CYANIDE_COLOR_HPP

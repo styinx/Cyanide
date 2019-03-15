@@ -5,7 +5,7 @@
 
 #include "IMedium.hpp"
 
-namespace Cyanide
+namespace cyanide
 {
 namespace cyaudio
 {
@@ -31,6 +31,6 @@ namespace cyaudio
     };
 
 }  // namespace cyaudio
-}  // namespace Cyanide
+}  // namespace cyanide
 
 #endif  // CYANIDE_SDLMUSIC_HPP

@@ -3,7 +3,7 @@
 
 #include "cystd/stdPrototypes.hpp"
 
-namespace Cyanide
+namespace cyanide
 {
 namespace cyaudio
 {
@@ -19,6 +19,6 @@ namespace cyaudio
     using IMediumPtr = SharedPtr<IMedium>;
 
 }  // namespace
-}  // namespace Cyanide
+}  // namespace cyanide
 
 #endif  // CYANIDE_IMEDIUM_HPP

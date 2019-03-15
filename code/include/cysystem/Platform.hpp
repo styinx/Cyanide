@@ -5,7 +5,7 @@
 #include "cystd/NonCopyable.hpp"
 #include "cystd/NonMoveable.hpp"
 
-namespace Cyanide
+namespace cyanide
 {
 namespace cysystem
 {
@@ -24,6 +24,6 @@ namespace cysystem
     };
 
 }  // namespace cysystem
-}  // namespace Cyanide
+}  // namespace cyanide
 
 #endif  // CYANIDE_PLATFORM_HPP

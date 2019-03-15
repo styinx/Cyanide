@@ -1,7 +1,7 @@
 #ifndef CYANIDE_WIDGET_HPP
 #define CYANIDE_WIDGET_HPP
 
-namespace Cyanide
+namespace cyanide
 {
 namespace
 {
@@ -19,6 +19,6 @@ namespace
     };
 
 }  // namespace
-}  // namespace Cyanide
+}  // namespace cyanide
 
 #endif  // CYANIDE_WIDGET_HPP

@@ -1,7 +1,7 @@
 
 #include <cyvideo/SDLWindow.hpp>
 
-namespace Cyanide
+namespace cyanide
 {
 namespace cyvideo
 {
@@ -54,13 +54,7 @@ namespace cyvideo
         return *this;
     }
 
-    void SDLWindow::createWindow(
-        const char* title,
-        const Sint32 x,
-        const Sint32 y,
-        const Sint32 w,
-        const Sint32 h,
-        const Uint32 flags)
+    void SDLWindow::createWindow(const char* title, const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h, const Uint32 flags)
     {
         if(m_window) SDL_DestroyWindow(m_window);
         m_window = SDL_CreateWindow(title, x, y, w, h, flags);
@@ -71,11 +65,7 @@ namespace cyvideo
         createWindow(title, geometry.x, geometry.y, geometry.w, geometry.h, flags);
     }
 
-    void SDLWindow::createWindow(
-        const char* title,
-        const cymath::Point position,
-        const cymath::Size size,
-        const Uint32 flags)
+    void SDLWindow::createWindow(const char* title, const cymath::Point position, const cymath::Size size, const Uint32 flags)
     {
         createWindow(title, position.x, position.y, size.width, size.height, flags);
     }
@@ -131,7 +121,7 @@ namespace cyvideo
     {
         if(m_flags != flags)
         {
-            if(1)  //(SYSTEM::SDL::SDL_IS_INIT)
+            if(1)  // TODO(SYSTEM::SDL::SDL_IS_INIT)
             {
                 m_flags = flags;
                 if(m_window != nullptr) SDL_DestroyWindow(m_window);
@@ -143,6 +133,24 @@ namespace cyvideo
     }
 
     Uint32 SDLWindow::getFlags() const { return m_flags; }
+
+    IWindow& SDLWindow::setResizeable(const bool resizeable)
+    {
+        SDL_SetWindowResizable(m_window, static_cast<SDL_bool>(resizeable));
+        return *this;
+    }
+
+    IWindow& SDLWindow::setModalTo(const SDLWindow* parent)
+    {
+        SDL_SetWindowModalFor(m_window, parent->getWindow());
+        return *this;
+    }
+
+    IWindow& SDLWindow::setFullScreen(Uint32 flag)
+    {
+        SDL_SetWindowFullscreen(m_window, flag);
+        return *this;
+    }
 
     IWindow& SDLWindow::setGrab(const bool grabbed)
     {
@@ -203,23 +211,33 @@ namespace cyvideo
         return opacity;
     }
 
-    IWindow& SDLWindow::setFullScreen(Uint32 flag)
-    {
-        SDL_SetWindowFullscreen(m_window, flag);
-        return *this;
-    }
-
     IWindow& SDLWindow::setGammaRamp(const Uint16 r, const Uint16 g, const Uint16 b)
     {
-        // TODO
+        SDL_SetWindowGammaRamp(m_window, &r, &g, &b);
         return *this;
     }
 
-    Sint32 SDLWindow::getID() const { return 0; }
+    IWindow& SDLWindow::setGammaRamp(const cyutil::Color color)
+    {
+        setGammaRamp(color.r, color.g, color.b);
+        return *this;
+    }
+
+    Uint32 SDLWindow::getID() const { return SDL_GetWindowID(m_window); }
+
+    Uint32 SDLWindow::getDisplayIndex() const
+    {
+        int display_int = SDL_GetWindowDisplayIndex(m_window);
+
+        if(display_int > 0)
+            return static_cast<Uint32>(display_int);
+        else
+            return 0;
+    }
 
     IWindow& SDLWindow::setIcon(SDL_Surface* const icon)
     {
-        //TODO
+        SDL_SetWindowIcon(m_window, icon);
         return *this;
     }
 
@@ -299,4 +317,4 @@ namespace cyvideo
     bool SDLWindow::isClosed() const { return m_closed; }
 
 }  // namespace cyvideo
-}  // namespace Cyanide
+}  // namespace cyanide

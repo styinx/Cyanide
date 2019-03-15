@@ -1,9 +1,7 @@
 
 #include <cyutil/color/Color.hpp>
 
-#include "cyutil/color/Color.hpp"
-
-namespace Cyanide
+namespace cyanide
 {
 namespace cyutil
 {
@@ -155,4 +153,4 @@ namespace cyutil
     }
 
 }  // namespace cyutil
-}  // namespace Cyanide
+}  // namespace cyanide

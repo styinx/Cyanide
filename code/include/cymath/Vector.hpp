@@ -1,7 +1,7 @@
 #ifndef CYANIDE_VECTOR_HPP
 #define CYANIDE_VECTOR_HPP
 
-namespace Cyanide
+namespace cyanide
 {
 namespace cymath
 {
@@ -45,6 +45,6 @@ namespace cymath
     };
 
 }  // namespace cymath
-}  // namespace Cyanide
+}  // namespace cyanide
 
 #endif  // CYANIDE_VECTOR_HPP

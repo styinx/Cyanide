@@ -3,7 +3,7 @@
 
 #include "cygui/styles/ObjectStyle.hpp"
 
-namespace Cyanide
+namespace cyanide
 {
 namespace cygui
 {
@@ -16,6 +16,7 @@ namespace cygui
 
     public:
         Object() = default;
+        Object(Object* parent);
         Object(const Object& object) = default;
         Object(Object&& object) noexcept = default;
         Object& operator=(const Object& object) = default;
@@ -29,6 +30,6 @@ namespace cygui
     };
 
 }  // namespace cygui
-}  // namespace Cyanide
+}  // namespace cyanide
 
 #endif  // CYANIDE_OBJECT_HPP

@@ -3,7 +3,7 @@
 
 #include <type_traits>
 
-namespace Cyanide
+namespace cyanide
 {
 namespace cystd
 {
@@ -15,6 +15,6 @@ namespace cystd
     }
 
 }  // namespace cystd
-}  // namespace Cyanide
+}  // namespace cyanide
 
 #endif  // CYANIDE_ENUM_HPP
