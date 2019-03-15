@@ -2,7 +2,6 @@ language: cpp
 
 os:
   - linux
-  - windows
 
 compiler:
   - clang
@@ -37,8 +36,10 @@ install:
   - sudo python -m pip install conan
 
 script:
-  - conan install . -if build/
-  - cmake build/
+  - conan install . -if build
+  - cd build
+  - cmake .. && make
+  - cd ..
 
 notifications:
   email:
