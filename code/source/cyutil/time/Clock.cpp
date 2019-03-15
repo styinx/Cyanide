@@ -4,6 +4,8 @@
 
 #include <SDL2/SDL_timer.h>
 
+#include "cyutil/util.hpp"
+
 namespace cyanide
 {
 namespace cyutil

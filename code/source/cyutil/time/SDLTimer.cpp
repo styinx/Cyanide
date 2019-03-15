@@ -1,5 +1,7 @@
 #include "cyutil/time/SDLTimer.hpp"
 
+#include "cyutil/time/Clock.hpp"
+
 namespace cyanide
 {
 namespace cyutil
