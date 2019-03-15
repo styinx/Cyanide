@@ -77,6 +77,11 @@ set(LIBRARIES
     #${LIB_MYSQL}
     )
 
+set(TEST_LIBRARIES
+    -lgtest
+    -lgtest_main
+    ${LIBRARIES})
+
 
 #
 # Conan
@@ -222,6 +227,7 @@ set(SOURCES
 
 set(FILES ${INCLUDES} ${SOURCES})
 
+
 #
 # Tests
 #
@@ -230,11 +236,6 @@ set(TEST_SOURCES
     code/test/cyaudio/test.cpp
     code/test/cymath/test_point.cpp
     code/test/cyvideo/test.cpp)
-
-set(TEST_LIBRARIES
-    ${LIBRARIES}
-    -lgtest
-    -lgtest_main)
 
 set(TEST_FILES
     ${FILES}
@@ -246,7 +247,7 @@ set(TEST_FILES
 #
 
 add_executable(${PROJECT_NAME} ${FILES} code/apps/main.cpp)
-#add_executable(${PROJECT_NAME}_Test ${TEST_FILES} code/test/test.cpp)
+add_executable(${PROJECT_NAME}_Test ${TEST_FILES} code/test/test.cpp)
 
 target_link_libraries(${PROJECT_NAME} ${LIBRARIES})
-#target_link_libraries(${PROJECT_NAME}_Test ${TEST_LIBRARIES})
+target_link_libraries(${PROJECT_NAME}_Test ${TEST_LIBRARIES})
