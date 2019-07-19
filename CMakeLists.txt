@@ -49,7 +49,8 @@ set(LIB_SDL2
     -lSDL2_image
     -lSDL2_mixer
     -lSDL2_net
-    -lSDL2_ttf)
+    -lSDL2_ttf
+    -lX11)
 
 set(LIB_OPENGL
     -lGLEW
@@ -107,15 +108,6 @@ pkg_search_module(SDL2TTF REQUIRED SDL2_ttf>=2.0.0)
 # Includes
 #
 
-set(INCLUDES_STD
-    code/include/cystd/NonCopyable.hpp
-    code/include/cystd/NonMoveable.hpp
-    code/include/cystd/Range.hpp
-    code/include/cystd/stdPrototypes.hpp
-    code/include/cystd/Enum.hpp
-    code/include/cystd/CyObj.hpp
-    code/include/cystd/stdDefine.hpp)
-
 set(INCLUDES_AUDIO
     code/include/cyaudio/SDLAudio.hpp
     code/include/cyaudio/SDLMixerAudio.hpp
@@ -136,21 +128,65 @@ set(INCLUDES_GUI
     code/include/cygui/styles/ObjectStyle.hpp
     code/include/cygui/widgets/Object.hpp
     code/include/cygui/styles/WidgetStyle.hpp
-    code/include/cygui/widgets/Widget.hpp code/include/cygui/styles/Style.hpp)
+    code/include/cygui/widgets/Widget.hpp
+    code/include/cygui/styles/Style.hpp
+    code/include/cygui/widgets/Button.hpp
+    code/include/cygui/styles/ButtonStyle.hpp
+    code/include/cygui/styles/TextStyle.hpp)
 
 set(INCLUDES_INPUT
     code/include/cyinput/Keyboard.hpp
     code/include/cyinput/Mouse.hpp
-    code/include/cyinput/Controller.hpp code/include/cyinput/Keys.hpp)
+    code/include/cyinput/Controller.hpp
+    code/include/cyinput/Keys.hpp
+    code/include/cyinput/Key.hpp
+    code/include/cyinput/IKey.hpp
+    code/include/cyinput/Keymod.hpp
+    code/include/cyinput/KeyCombination.hpp)
 
 set(INCLUDES_NET
-    code/include/cynet/ISocket.hpp)
+    code/include/cynet/netPrototypes.hpp
+    code/include/cynet/ISocket.hpp
+    code/include/cynet/ISDLSocket.hpp
+    code/include/cynet/SDLTCPSocket.hpp
+    code/include/cynet/IP4Address.hpp
+    code/include/cynet/IIPAddress.hpp
+    code/include/cynet/ITCPServer.hpp
+    code/include/cynet/IServer.hpp
+    code/include/cynet/IClient.hpp
+    code/include/cynet/ITCPClient.hpp
+    code/include/cynet/ITCPSocket.hpp
+    code/include/cynet/SDLTCPClient.hpp
+    code/include/cynet/SDLTCPServer.hpp
+    code/include/cynet/NetworkPackage.hpp)
+
+set(INCLUDES_STD
+    code/include/cystd/NonCopyable.hpp
+    code/include/cystd/NonMoveable.hpp
+    code/include/cystd/Range.hpp
+    code/include/cystd/stdPrototypes.hpp
+    code/include/cystd/Enum.hpp
+    code/include/cystd/CyObj.hpp)
 
 set(INCLUDES_SYSTEM
-    code/include/cysystem/Platform.hpp)
+    code/include/cysystem/Platform.hpp
+    code/include/cysystem/IScheduler.hpp
+    code/include/cysystem/Scheduler.hpp
+    code/include/cysystem/ITask.hpp
+    code/include/cysystem/SchedulerTask.hpp
+    code/include/cysystem/Thread.hpp)
 
 set(INCLUDES_UTIL
-    code/include/cyutil/color/Color.hpp code/include/cyutil/time/ITimer.hpp code/source/cyutil/time/SDLTimer.cpp code/include/cyutil/time/SDLTimer.hpp code/source/cyutil/time/SDLPerformanceTimer.cpp code/include/cyutil/time/SDLPerformanceTimer.hpp code/include/cyutil/util.hpp)
+    code/include/cyutil/color/Color.hpp
+    code/include/cyutil/time/ITimer.hpp
+    code/include/cyutil/io/Print.hpp
+    code/source/cyutil/time/SDLTimer.cpp
+    code/include/cyutil/time/SDLTimer.hpp
+    code/source/cyutil/time/SDLPerformanceTimer.cpp
+    code/include/cyutil/time/SDLPerformanceTimer.hpp
+    code/include/cyutil/util.hpp
+    code/include/cyutil/type/TypeName.hpp
+    code/include/cyutil/serialize/ISerialize.hpp)
 
 set(INCLUDES_VIDEO
     code/include/cyvideo/IWindow.hpp
@@ -159,7 +195,8 @@ set(INCLUDES_VIDEO
     code/include/cyvideo/SDLWindow.hpp
     code/include/cyvideo/SDLRenderer.hpp
     code/include/cyvideo/SDLVideo.hpp
-    code/include/cyvideo/Display.hpp code/include/cyvideo/IDisplay.hpp)
+    code/include/cyvideo/SDLDisplay.hpp
+    code/include/cyvideo/IDisplay.hpp)
 
 set(INCLUDES
     ${INCLUDES_STD}
@@ -168,6 +205,7 @@ set(INCLUDES
     ${INCLUDES_GUI}
     ${INCLUDES_INPUT}
     ${INCLUDES_NET}
+    ${INCLUDES_SYSTEM}
     ${INCLUDES_UTIL}
     ${INCLUDES_VIDEO})
 
@@ -196,26 +234,51 @@ set(SOURCES_GUI
     code/source/cygui/widgets/Widget.cpp
     code/source/cygui/styles/WidgetStyle.cpp
     code/source/cygui/widgets/Object.cpp
-    code/source/cygui/styles/ObjectStyle.cpp)
+    code/source/cygui/styles/ObjectStyle.cpp
+    code/source/cygui/widgets/Button.cpp
+    code/source/cygui/styles/ButtonStyle.cpp
+    code/include/cygui/styles/TextStyle.cpp)
 
 set(SOURCES_INPUT
-    code/source/cyinput/Keyboard.cpp
     code/source/cyinput/Controller.cpp
+    code/source/cyinput/KeyCombination.cpp
+    code/source/cyinput/Keyboard.cpp
+    code/source/cyinput/Keymod.cpp
     code/source/cyinput/Mouse.cpp)
 
-set(SOURCES_NET)
+set(SOURCES_NET
+    code/source/cynet/ISDLSocket.cpp
+    code/source/cynet/SDLTCPSocket.cpp
+    code/source/cynet/ITCPServer.cpp
+    code/source/cynet/IP4Address.cpp
+    code/source/cynet/ITCPClient.cpp
+    code/source/cynet/ISocket.cpp
+    code/source/cynet/ITCPSocket.cpp
+    code/source/cynet/SDLTCPClient.cpp
+    code/source/cynet/SDLTCPServer.cpp
+    code/source/cynet/NetworkPackage.cpp)
+
+set(SOURCES_STD
+    )
 
 set(SOURCES_SYSTEM
-    code/source/cysystem/Platform.cpp)
+    code/source/cysystem/Platform.cpp
+    code/source/cysystem/Scheduler.cpp
+    code/source/cysystem/SchedulerTask.cpp)
 
 set(SOURCES_UTIL
-    code/source/cyutil/color/Color.cpp code/source/cyutil/time/Clock.cpp code/include/cyutil/time/Clock.hpp code/include/cyutil/time/time.hpp)
+    code/source/cyutil/color/Color.cpp
+    code/source/cyutil/io/Print.cpp
+    code/source/cyutil/time/Clock.cpp
+    code/include/cyutil/time/Clock.hpp
+    code/include/cyutil/time/time.hpp
+    code/source/cyutil/serialize/ISerialize.cpp)
 
 set(SOURCES_VIDEO
     code/source/cyvideo/SDLRenderer.cpp
     code/source/cyvideo/SDLWindow.cpp
     code/source/cyvideo/SDLVideo.cpp
-    code/source/cyvideo/Display.cpp)
+    code/source/cyvideo/SDLDisplay.cpp)
 
 set(SOURCES
     ${SOURCES_AUDIO}
@@ -223,6 +286,8 @@ set(SOURCES
     ${SOURCES_GUI}
     ${SOURCES_INPUT}
     ${SOURCES_NET}
+    ${SOURCES_STD}
+    ${SOURCES_SYSTEM}
     ${SOURCES_UTIL}
     ${SOURCES_VIDEO})
 
@@ -238,10 +303,35 @@ set(FILES ${INCLUDES} ${SOURCES})
 # Tests
 #
 
+set(TEST_SOURCES_AUDIO)
+
+set(TEST_SOURCES_GUI)
+
+set(TEST_SOURCES_INPUT)
+
+set(TEST_SOURCES_MATH
+    code/test/cymath/test_point.cpp)
+
+set(TEST_SOURCES_NET)
+
+set(TEST_SOURCES_STD)
+
+set(TEST_SOURCES_SYSTEM)
+
+set(TEST_SOURCES_UTIL)
+
+set(TEST_SOURCES_VIDEO)
+
 set(TEST_SOURCES
-    code/test/cyaudio/test.cpp
-    code/test/cymath/test_point.cpp
-    code/test/cyvideo/test.cpp)
+    ${TEST_SOURCES_AUDIO}
+    ${TEST_SOURCES_GUI}
+    ${TEST_SOURCES_INPUT}
+    ${TEST_SOURCES_MATH}
+    ${TEST_SOURCES_NET}
+    ${TEST_SOURCES_STD}
+    ${TEST_SOURCES_SYSTEM}
+    ${TEST_SOURCES_UTIL}
+    ${TEST_SOURCES_VIDEO})
 
 set(TEST_FILES
     ${FILES}
@@ -253,7 +343,11 @@ set(TEST_FILES
 #
 
 add_executable(${PROJECT_NAME} ${FILES} code/apps/main.cpp)
+add_executable(${PROJECT_NAME}_Server ${FILES} code/apps/server.cpp)
+add_executable(${PROJECT_NAME}_Client ${FILES} code/apps/client.cpp)
 add_executable(${PROJECT_NAME}_Test ${TEST_FILES} code/test/test.cpp)
 
 target_link_libraries(${PROJECT_NAME} ${LIBRARIES})
+target_link_libraries(${PROJECT_NAME}_Server ${LIBRARIES})
+target_link_libraries(${PROJECT_NAME}_Client ${LIBRARIES})
 target_link_libraries(${PROJECT_NAME}_Test ${TEST_LIBRARIES})
