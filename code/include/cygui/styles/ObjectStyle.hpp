@@ -6,12 +6,8 @@
 #include "cymath/Point.hpp"
 #include "cymath/Size.hpp"
 
-namespace cyanide
+namespace cyanide::cygui
 {
-namespace cygui
-{
-
-    using SomeValue = Uint8;
 
     class ObjectStyle
     {
@@ -24,13 +20,12 @@ namespace cygui
         cymath::Size  m_decoration_size;
 
     public:
-
-        ObjectStyle() = default;
-        ObjectStyle(const ObjectStyle& object_style) = default;
+        ObjectStyle()                                    = default;
+        ObjectStyle(const ObjectStyle& object_style)     = default;
         ObjectStyle(ObjectStyle&& object_style) noexcept = default;
         ObjectStyle& operator=(const ObjectStyle& object_style) = default;
         ObjectStyle& operator=(ObjectStyle&& object_style) noexcept = default;
-        virtual ~ObjectStyle() = default;
+        virtual ~ObjectStyle()                                      = default;
 
         virtual cymath::Point getPosition() const;
         virtual ObjectStyle&  setPosition(const cymath::Point position);
@@ -46,7 +41,6 @@ namespace cygui
         virtual ObjectStyle&  setDecorationSize(const cymath::Size size);
     };
 
-}  // namespace cygui
-}  // namespace cyanide
+}  // namespace cyanide::cygui
 
 #endif  // CYANIDE_OBJECTSTYLE_HPP

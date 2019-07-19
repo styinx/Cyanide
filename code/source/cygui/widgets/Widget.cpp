@@ -1,11 +1,6 @@
+#include "cygui/widgets/Widget.hpp"
 
-
-namespace cyanide
-{
-namespace cygui
+namespace cyanide::cygui
 {
 
-
-
-}  // namespace cygui
-}  // namespace cyanide
+}  // namespace cyanide::cygui

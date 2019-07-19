@@ -3,9 +3,7 @@
 
 #include "cystd/stdPrototypes.hpp"
 
-namespace cyanide
-{
-namespace cygui
+namespace cyanide::cygui
 {
 
     enum class SCALE : Byte
@@ -39,7 +37,6 @@ namespace cygui
         BOTTOM_RIGHT  = 0x44
     };
 
-}  // namespace cygui
-}  // namespace cyanide
+}  // namespace cyanide::cygui
 
 #endif  // CYANIDE_STYLE_HPP
