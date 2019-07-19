@@ -1,34 +1,78 @@
 
 #include <cyvideo/SDLVideo.hpp>
 
+#include <iostream>
+
 namespace cyanide
 {
 namespace cyvideo
 {
 
-    SDL_DisplayMode SDLVideo::getDisplayMode()
+    SDL_DisplayMode* SDLVideo::getDesktopDisplayModeById(const Uint32 display_id, const Uint32 mode_id)
     {
-        return SDL_DisplayMode();
+        SDL_DisplayMode* mode = nullptr;
+        if(display_id < SDLVideo::getNumberOfVideoDisplays() && mode_id < SDLVideo::getNumberOfDisplayModes(display_id))
+        {
+            if(SDL_GetDisplayMode(display_id, mode_id, mode) == 0)
+            {
+                //Todo
+            }
+        }
+        return mode;
     }
 
-    SDL_DisplayMode SDLVideo::getClosestDisplayMode()
+    SDL_DisplayMode* SDLVideo::getCurrentDesktopDisplayMode(const Uint32 display_id)
     {
-        return SDL_DisplayMode();
+        SDL_DisplayMode* current = nullptr;
+
+        if(display_id < SDLVideo::getNumberOfVideoDisplays())
+        {
+            if(SDL_GetCurrentDisplayMode(display_id, current) != 0)
+            {
+                std::cout << SDL_GetError() << "error\n";
+            }
+            std::cout << SDL_GetError() << "\n";
+        }
+        return current;
     }
 
-    SDL_DisplayMode SDLVideo::getDesktopDisplayMode()
+    SDL_DisplayMode* SDLVideo::getClosestDesktopDisplayMode(const Uint32 display_id, const SDL_DisplayMode* mode)
     {
-        return SDL_DisplayMode();
+        SDL_DisplayMode* closest = nullptr;
+
+        if(display_id < SDLVideo::getNumberOfVideoDisplays())
+        {
+            if(SDL_GetClosestDisplayMode(display_id, mode, closest) != nullptr)
+            {
+                //todo
+            }
+        }
+        return closest;
+    }
+
+    SDL_DisplayMode* SDLVideo::getDesktopDisplayMode(const Uint32 display_id)
+    {
+        SDL_DisplayMode* mode = nullptr;
+        if(display_id < SDLVideo::getNumberOfVideoDisplays())
+        {
+            if(SDL_GetDesktopDisplayMode(display_id, mode) == 0)
+            {
+                //todo
+            }
+        }
+        return mode;
     }
 
     Uint32 SDLVideo::getNumberOfDisplayModes(const Uint32 display_id)
     {
-        int display_modes = SDL_GetNumDisplayModes(display_id);
+        if(display_id < SDLVideo::getNumberOfVideoDisplays())
+        {
+            int display_modes = SDL_GetNumDisplayModes(display_id);
 
-        if(display_modes > 0)
-            return static_cast<Uint32>(display_modes);
-        else
-            return 0;
+            if(display_modes > 0)
+                return static_cast<Uint32>(display_modes);
+        }
+        return 0;
     }
 
     Uint32 SDLVideo::getNumberOfVideoDisplays()
@@ -47,15 +91,9 @@ namespace cyvideo
         return 0;
     }
 
-    String SDLVideo::getVideoDriverName(const Uint32 id)
-    {
-        return String(SDL_GetVideoDriver(id));
-    }
+    String SDLVideo::getVideoDriverName(const Uint32 id) { return String(SDL_GetVideoDriver(id)); }
 
-    String SDLVideo::getCurrentVideoDriverName()
-    {
-        return String(SDL_GetCurrentVideoDriver());
-    }
+    String SDLVideo::getCurrentVideoDriverName() { return String(SDL_GetCurrentVideoDriver()); }
 
     Uint32 SDLVideo::getNumberOfVideoDrivers()
     {
@@ -79,5 +117,5 @@ namespace cyvideo
         return video_drivers;
     }
 
-}
+}  // namespace cyvideo
 }  // namespace cyanide
