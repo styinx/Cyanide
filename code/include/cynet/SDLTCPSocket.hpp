@@ -1,10 +1,9 @@
 #ifndef CYANIDE_SDLTCPSOCKET_HPP
 #define CYANIDE_SDLTCPSOCKET_HPP
 
-#include "cynet/netPrototypes.hpp"
-
 #include "cynet/ISDLSocket.hpp"
 #include "cynet/ITCPSocket.hpp"
+#include "cynet/netPrototypes.hpp"
 
 namespace cyanide::cynet
 {
@@ -19,15 +18,15 @@ namespace cyanide::cynet
     public:
         SDLTCPSocket();
         ~SDLTCPSocket();
-        _TCPsocket*                getSocket() const;
-        void                       setSocket(_TCPsocket* socket);
+        _TCPsocket* getSocket() const;
+        void        setSocket(_TCPsocket* socket);
 
         /**
          * @brief Opens the socket for a server connection.
          * @param port
          * @return OPEN if the socket was opened successful otherwise CLOSED.
          */
-        virtual SOCKET_STATE       open(const Uint16 port) override;
+        virtual SOCKET_STATE open(const Uint16 port) override;
 
         /**
          * @brief Opens the socket for a client connection.

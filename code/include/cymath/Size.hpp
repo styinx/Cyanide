@@ -3,16 +3,14 @@
 
 #include "cystd/stdPrototypes.hpp"
 
-namespace cyanide
-{
-namespace cymath
+namespace cyanide::cymath
 {
 
     class Size final
     {
     public:
-        Sint32 width;
-        Sint32 height;
+        Sint32 width = 0;
+        Sint32 height = 0;
 
         Size();
         Size(const Sint32 width, const Sint32 height);
@@ -47,7 +45,6 @@ namespace cymath
         Size& operator/=(const float scalar);
     };
 
-}  // namespace cymath
 }  // namespace cyanide
 
 #endif  // CYANIDE_SIZE_HPP

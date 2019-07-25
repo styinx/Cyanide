@@ -1,4 +1,5 @@
 #include "cynet/SDLTCPSocket.hpp"
+
 #include <iostream>
 
 namespace cyanide::cynet
@@ -53,9 +54,9 @@ namespace cyanide::cynet
         _TCPsocket* accepted_socket = SDLNet_TCP_Accept(m_socket);
         if(accepted_socket != nullptr)
         {
-            client_socket->m_socket = accepted_socket;
+            client_socket->m_socket       = accepted_socket;
             client_socket->m_socket_state = SOCKET_STATE::BOUND;
-            m_socket_state = SOCKET_STATE::BOUND;
+            m_socket_state                = SOCKET_STATE::BOUND;
         }
         return m_socket_state;
     }
@@ -75,7 +76,8 @@ namespace cyanide::cynet
         if(isBound())
         {
             SDLNet_TCP_Send(m_socket, &package->header(), sizeof(NetworkPackage::Header));
-            SDLNet_TCP_Send(m_socket, package->data().data(), package->data().size() * sizeof(Uint8));
+            SDLNet_TCP_Send(
+                m_socket, package->data().data(), package->data().size() * sizeof(Uint8));
         }
     }
 
@@ -99,7 +101,7 @@ namespace cyanide::cynet
             {
                 NetworkPackage::Header header = result.at(0);
                 Vector<Uint8> data = receive<Uint8>(header.bytes / header.byte_per_element);
-                for(auto & p : data)
+                for(auto& p: data)
                     std::cout << (int)p;
             }
             else
