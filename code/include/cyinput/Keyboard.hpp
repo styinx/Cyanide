@@ -6,7 +6,7 @@ namespace cyanide
 namespace cyinput
 {
 
-    class Keyboard
+    class Keyboard final
     {
     private:
     public:

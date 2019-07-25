@@ -33,7 +33,7 @@ namespace cyinput
         KMOD_RESERVED = 0x8000
     };
 
-    enum class KEY : Byte
+    enum class KEY : Uint16
     {
         ESCAPE = 0x1
     };

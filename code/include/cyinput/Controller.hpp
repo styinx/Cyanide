@@ -6,7 +6,7 @@ namespace cyanide
 namespace cyinput
 {
 
-    class Controller
+    class Controller final
     {
     private:
     public:
