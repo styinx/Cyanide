@@ -5,6 +5,7 @@
 #include <functional>
 #include <list>
 #include <map>
+#include <queue>
 #include <unordered_map>
 #include <thread>
 #include <vector>
@@ -26,6 +27,7 @@ using Sint64 = std::int64_t;
 // complex types
 using Thread = std::thread;
 using String = std::string;
+using WString = std::wstring;
 //using Any = std::any;
 
 // collection types
@@ -33,6 +35,8 @@ template<typename T>
 using Vector = std::vector<T>;
 template<typename T>
 using List = std::list<T>;
+template<typename T>
+using Queue = std::queue<T>;
 template<typename K, typename V>
 using Map = std::map<K, V>;
 template<typename K, typename V>
