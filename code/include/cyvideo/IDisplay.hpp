@@ -1,9 +1,7 @@
 #ifndef CYANIDE_IDISPLAY_HPP
 #define CYANIDE_IDISPLAY_HPP
 
-namespace cyanide
-{
-namespace cyvideo
+namespace cyanide::cyvideo
 {
 
     class IDisplay
@@ -12,7 +10,6 @@ namespace cyvideo
         virtual ~IDisplay() = default;
     };
 
-}  // namespace cyvideo
 }  // namespace cyanide
 
 #endif  // CYANIDE_IDISPLAY_HPP

@@ -4,9 +4,7 @@
 #include "cymath/Point.hpp"
 #include "cymath/Size.hpp"
 
-namespace cyanide
-{
-namespace cyvideo
+namespace cyanide::cyvideo
 {
 
     class IWindow
@@ -22,7 +20,6 @@ namespace cyvideo
         virtual cymath::Size  getSize() const                           = 0;
     };
 
-}  // namespace cyvideo
 }  // namespace cyanide
 
 #endif  // CYANIDE_IWINDOW_HPP

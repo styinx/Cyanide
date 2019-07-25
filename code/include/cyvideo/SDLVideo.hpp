@@ -7,9 +7,7 @@
 #include "cystd/NonMoveable.hpp"
 #include "cystd/stdPrototypes.hpp"
 
-namespace cyanide
-{
-namespace cyvideo
+namespace cyanide::cyvideo
 {
 
     class SDLVideo
@@ -30,7 +28,6 @@ namespace cyvideo
         static List<String>    getVideoDriverNames();
     };
 
-}  // namespace cyvideo
 }  // namespace cyanide
 
 #endif  // CYANIDE_SDLVIDEO_HPP

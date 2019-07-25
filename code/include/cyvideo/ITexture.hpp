@@ -1,21 +1,16 @@
 #ifndef CYANIDE_ITEXTURE_HPP
 #define CYANIDE_ITEXTURE_HPP
 
-namespace cyanide
-{
-namespace cyvideo
+namespace cyanide::cyvideo
 {
 
     class ITexture
     {
     private:
     public:
-        ITexture() = default;
-
-        ~ITexture() = default;
+        virtual ~ITexture() = default;
     };
 
-}  // namespace cyvideo
-}  // namespace cyanide
+}  // namespace cyanide::cyvideo
 
 #endif  // CYANIDE_ITEXTURE_HPP

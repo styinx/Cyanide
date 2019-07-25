@@ -10,9 +10,7 @@
 #include "cymath/Rectangle.hpp"
 #include "cymath/Size.hpp"
 
-namespace cyanide
-{
-namespace cyvideo
+namespace cyanide::cyvideo
 {
 
     class SDLWindow final : public IWindow
@@ -30,11 +28,11 @@ namespace cyvideo
         SDL_Window* m_window      = nullptr;
 
     public:
-        SDLWindow(const char* title, const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h);
+        explicit SDLWindow(const char* title, const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h);
 
-        SDLWindow(const char* title, const cymath::Rectangle geometry);
+        explicit SDLWindow(const char* title, const cymath::Rectangle geometry);
 
-        SDLWindow(const char* title, const cymath::Point position, const cymath::Size size);
+        explicit SDLWindow(const char* title, const cymath::Point position, const cymath::Size size);
 
         virtual ~SDLWindow() override = default;
 
@@ -52,24 +50,11 @@ namespace cyvideo
 
         virtual IWindow& setSize(const cymath::Size size) override;
 
-        void createWindow(
-            const char* title,
-            const Sint32 x,
-            const Sint32 y,
-            const Sint32 w,
-            const Sint32 h,
-            const Uint32 flags = SDL_WINDOW_SHOWN);
+        void createWindow(const char* title, const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h, const Uint32 flags = SDL_WINDOW_SHOWN);
 
-        void createWindow(
-            const char* title,
-            const cymath::Rectangle geometry,
-            const Uint32 flags = SDL_WINDOW_SHOWN);
+        void createWindow(const char* title, const cymath::Rectangle geometry, const Uint32 flags = SDL_WINDOW_SHOWN);
 
-        void createWindow(
-            const char* title,
-            const cymath::Point position,
-            const cymath::Size size,
-            const Uint32 flags = SDL_WINDOW_SHOWN);
+        void createWindow(const char* title, const cymath::Point position, const cymath::Size size, const Uint32 flags = SDL_WINDOW_SHOWN);
 
         SDL_Window* getWindow() const;
 
@@ -156,7 +141,6 @@ namespace cyvideo
         bool isClosed() const;
     };
 
-}  // namespace cyvideo
-}  // namespace cyanide
+}  // namespace cyanide::cyvideo
 
 #endif  // CYANIDE_SDLWINDOW_HPP

@@ -1,9 +1,7 @@
 
 #include <cyvideo/SDLWindow.hpp>
 
-namespace cyanide
-{
-namespace cyvideo
+namespace cyanide::cyvideo
 {
     SDLWindow::SDLWindow(const char* title, const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h)
     {
@@ -26,7 +24,10 @@ namespace cyvideo
         return *this;
     }
 
-    const char* SDLWindow::getTitle() const { return SDL_GetWindowTitle(m_window); }
+    const char* SDLWindow::getTitle() const
+    {
+        return SDL_GetWindowTitle(m_window);
+    }
 
     cymath::Point SDLWindow::getPosition() const
     {
@@ -56,7 +57,8 @@ namespace cyvideo
 
     void SDLWindow::createWindow(const char* title, const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h, const Uint32 flags)
     {
-        if(m_window) SDL_DestroyWindow(m_window);
+        if(m_window)
+            SDL_DestroyWindow(m_window);
         m_window = SDL_CreateWindow(title, x, y, w, h, flags);
     }
 
@@ -70,7 +72,10 @@ namespace cyvideo
         createWindow(title, position.x, position.y, size.width, size.height, flags);
     }
 
-    SDL_Window* SDLWindow::getWindow() const { return m_window; }
+    SDL_Window* SDLWindow::getWindow() const
+    {
+        return m_window;
+    }
 
     cymath::Rectangle SDLWindow::getBorderSize() const
     {
@@ -124,7 +129,8 @@ namespace cyvideo
             if(1)  // TODO(SYSTEM::SDL::SDL_IS_INIT)
             {
                 m_flags = flags;
-                if(m_window != nullptr) SDL_DestroyWindow(m_window);
+                if(m_window != nullptr)
+                    SDL_DestroyWindow(m_window);
 
                 createWindow(getTitle(), getPosition(), getSize(), flags);
             }
@@ -132,7 +138,10 @@ namespace cyvideo
         return *this;
     }
 
-    Uint32 SDLWindow::getFlags() const { return m_flags; }
+    Uint32 SDLWindow::getFlags() const
+    {
+        return m_flags;
+    }
 
     IWindow& SDLWindow::setResizeable(const bool resizeable)
     {
@@ -158,7 +167,10 @@ namespace cyvideo
         return *this;
     }
 
-    bool SDLWindow::getGrab() const { return SDL_GetWindowGrab(m_window); }
+    bool SDLWindow::getGrab() const
+    {
+        return SDL_GetWindowGrab(m_window);
+    }
 
     IWindow& SDLWindow::setInputFocus()
     {
@@ -196,7 +208,10 @@ namespace cyvideo
         return *this;
     }
 
-    float SDLWindow::getBrightness() const { return SDL_GetWindowBrightness(m_window); }
+    float SDLWindow::getBrightness() const
+    {
+        return SDL_GetWindowBrightness(m_window);
+    }
 
     IWindow& SDLWindow::setOpacity(const float opacity)
     {
@@ -223,7 +238,10 @@ namespace cyvideo
         return *this;
     }
 
-    Uint32 SDLWindow::getID() const { return SDL_GetWindowID(m_window); }
+    Uint32 SDLWindow::getID() const
+    {
+        return SDL_GetWindowID(m_window);
+    }
 
     Uint32 SDLWindow::getDisplayIndex() const
     {
@@ -300,21 +318,44 @@ namespace cyvideo
         //        }
     }
 
-    bool SDLWindow::isShown() const { return m_shown; }
+    bool SDLWindow::isShown() const
+    {
+        return m_shown;
+    }
 
-    bool SDLWindow::isExposed() const { return m_exposed; }
+    bool SDLWindow::isExposed() const
+    {
+        return m_exposed;
+    }
 
-    bool SDLWindow::isRestored() const { return m_restored; }
+    bool SDLWindow::isRestored() const
+    {
+        return m_restored;
+    }
 
-    bool SDLWindow::isMinimized() const { return m_minimized; }
+    bool SDLWindow::isMinimized() const
+    {
+        return m_minimized;
+    }
 
-    bool SDLWindow::isMaximized() const { return m_maximized; }
+    bool SDLWindow::isMaximized() const
+    {
+        return m_maximized;
+    }
 
-    bool SDLWindow::hasMouseFocus() const { return m_mouse_focus; }
+    bool SDLWindow::hasMouseFocus() const
+    {
+        return m_mouse_focus;
+    }
 
-    bool SDLWindow::isFocus() const { return m_focus; }
+    bool SDLWindow::isFocus() const
+    {
+        return m_focus;
+    }
 
-    bool SDLWindow::isClosed() const { return m_closed; }
+    bool SDLWindow::isClosed() const
+    {
+        return m_closed;
+    }
 
-}  // namespace cyvideo
-}  // namespace cyanide
+}  // namespace cyanide::cyvideo

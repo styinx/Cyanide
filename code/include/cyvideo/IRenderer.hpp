@@ -1,21 +1,30 @@
 #ifndef CYANIDE_IRENDERER_HPP
 #define CYANIDE_IRENDERER_HPP
 
-namespace cyanide
-{
-namespace cyvideo
+#include "cymath/Line.hpp"
+#include "cymath/Point.hpp"
+#include "cymath/Rectangle.hpp"
+
+namespace cyanide::cyvideo
 {
 
     class IRenderer
     {
     private:
     public:
-        IRenderer() = default;
+        virtual ~IRenderer() = default;
 
-        ~IRenderer() = default;
+        virtual void drawText(const String& string) = 0;
+        virtual void drawPoint(const cymath::Point& p) = 0;
+        virtual void drawLine(const cymath::Line& l)   = 0;
+        virtual void drawTriangle(
+            const cymath::Point& p1,
+            const cymath::Point& p2,
+            const cymath::Point& p3) = 0;
+        virtual void drawRectangle(const cymath::Rectangle& r)   = 0;
+        virtual void drawPolygon(const Vector<cymath::Point>& p) = 0;
     };
 
-}  // namespace cyvideo
-}  // namespace cyanide
+}  // namespace cyanide::cyvideo
 
 #endif  // CYANIDE_IRENDERER_HPP

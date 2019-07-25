@@ -7,9 +7,7 @@
 
 #include "cymath/Size.hpp"
 
-namespace cyanide
-{
-namespace cyvideo
+namespace cyanide::cyvideo
 {
 
     class SDLDisplay final : public IDisplay
@@ -26,7 +24,6 @@ namespace cyvideo
         Uint32 getRefreshrate() const;
     };
 
-}  // namespace cyvideo
 }  // namespace cyanide
 
 #endif  // CYANIDE_SDLDISPLAY_HPP
