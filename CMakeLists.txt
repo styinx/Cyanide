@@ -27,12 +27,12 @@ set(DIR_LIBRARY ${DIR_CODE}/lib)
 if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     set(OS_DIR_INCLUDE /usr/include/)
     set(OS_DIR_LIBRARY /usr/libs/)
-endif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+endif()
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     set(OS_DIR_INCLUDE C:/Include/)
     set(OS_DIR_LIBRARY C:/Libs/)
-endif(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+endif()
 
 
 include_directories(${DIR_INCLUDE} ${OS_DIR_INCLUDE})
@@ -46,11 +46,11 @@ link_directories(${DIR_LIBRARY} ${OS_DIR_LIBRARY})
 set(LIB_SDL2
     -lSDL2main
     -lSDL2
+    -lSDL2_gfx
     -lSDL2_image
     -lSDL2_mixer
     -lSDL2_net
-    -lSDL2_ttf
-    -lX11)
+    -lSDL2_ttf)
 
 set(LIB_OPENGL
     -lGLEW
@@ -99,6 +99,7 @@ conan_basic_setup()
 include(FindPkgConfig)
 
 pkg_search_module(SDL2 REQUIRED sdl2)
+pkg_search_module(SDL2GFX REQUIRED SDL2_gfx>=1.0.4)
 pkg_search_module(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
 pkg_search_module(SDL2MIXER REQUIRED SDL2_mixer>=2.0.0)
 pkg_search_module(SDL2NET REQUIRED SDL2_net>=2.0.0)
@@ -196,7 +197,13 @@ set(INCLUDES_VIDEO
     code/include/cyvideo/SDLRenderer.hpp
     code/include/cyvideo/SDLVideo.hpp
     code/include/cyvideo/SDLDisplay.hpp
-    code/include/cyvideo/IDisplay.hpp)
+    code/include/cyvideo/IDisplay.hpp
+    code/include/cyvideo/ISurface.hpp
+    code/include/cyvideo/IFont.hpp
+    code/include/cyvideo/SDLFont.hpp
+    code/include/cyvideo/SDLTexture.hpp
+    code/include/cyvideo/SDLSurface.hpp
+    code/include/cyvideo/videoPrototypes.hpp)
 
 set(INCLUDES
     ${INCLUDES_STD}
@@ -272,13 +279,17 @@ set(SOURCES_UTIL
     code/source/cyutil/time/Clock.cpp
     code/include/cyutil/time/Clock.hpp
     code/include/cyutil/time/time.hpp
-    code/source/cyutil/serialize/ISerialize.cpp)
+    code/source/cyutil/serialize/ISerialize.cpp
+    code/include/cyutil/type/TypeEnum.hpp)
 
 set(SOURCES_VIDEO
     code/source/cyvideo/SDLRenderer.cpp
     code/source/cyvideo/SDLWindow.cpp
     code/source/cyvideo/SDLVideo.cpp
-    code/source/cyvideo/SDLDisplay.cpp)
+    code/source/cyvideo/SDLDisplay.cpp
+    code/source/cyvideo/SDLFont.cpp
+    code/source/cyvideo/SDLTexture.cpp
+    code/source/cyvideo/SDLSurface.cpp)
 
 set(SOURCES
     ${SOURCES_AUDIO}

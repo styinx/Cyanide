@@ -3,27 +3,43 @@
 Language: Cpp
 AccessModifierOffset: -4
 AlignAfterOpenBracket: AlwaysBreak
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
 AlignEscapedNewlines: Right
 AlignOperands: true
 AlignTrailingComments: true
-AlignConsecutiveAssignments: true
-AlignConsecutiveDeclarations: true
-AlignOperands: true
-AlignTrailingComments: true
-AllowAllParametersOfDeclarationOnNextLine: true
+AllowAllParametersOfDeclarationOnNextLine: false
 AllowShortBlocksOnASingleLine: false
-AllowShortCaseLabelsOnASingleLine: true
+AllowShortCaseLabelsOnASingleLine: false
 AllowShortFunctionsOnASingleLine: false
 AllowShortIfStatementsOnASingleLine: false
 AllowShortLoopsOnASingleLine: false
+AlwaysBreakAfterDefinitionReturnType: None
 AlwaysBreakBeforeMultilineStrings: false
 AlwaysBreakTemplateDeclarations: true
 BinPackArguments: false
 BinPackParameters: false
+BraceWrapping:
+  AfterClass:      true
+  AfterControlStatement: true
+  AfterEnum:       true
+  AfterFunction:   true
+  AfterNamespace:  true
+  AfterObjCDeclaration: true
+  AfterStruct:     true
+  AfterUnion:      true
+  BeforeCatch:     true
+  BeforeElse:      true
+  IndentBraces:    true
+  SplitEmptyFunction: true
+  SplitEmptyRecord: true
+  SplitEmptyNamespace: true
 BreakBeforeBinaryOperators: false
 BreakBeforeBraces: Allman
+BreakBeforeInheritanceComma: true
 BreakBeforeTernaryOperators: true
 BreakConstructorInitializers: BeforeComma
+BreakConstructorInitializersBeforeComma: true
 BreakInheritanceList: BeforeComma
 ColumnLimit: 100
 CommentPragmas: ''
@@ -36,6 +52,7 @@ DerivePointerAlignment: false
 DisableFormat: false
 ExperimentalAutoDetectBinPacking: false
 FixNamespaceComments: true
+IncludeBlocks: Regroup
 IndentCaseLabels: false
 IndentWidth: 4
 IndentWrappedFunctionNames: false
@@ -43,12 +60,12 @@ IndentFunctionDeclarationAfterType: false
 KeepEmptyLinesAtTheStartOfBlocks: true
 MaxEmptyLinesToKeep: 1
 NamespaceIndentation: All
-PenaltyBreakBeforeFirstCallParameter: 1
-PenaltyBreakComment: 10
-PenaltyBreakString: 10
-PenaltyBreakFirstLessLess: 10
-PenaltyExcessCharacter: 1
-PenaltyReturnTypeOnItsOwnLine: 10
+#PenaltyBreakBeforeFirstCallParameter: 1
+#PenaltyBreakComment: 10
+#PenaltyBreakString: 10
+#PenaltyBreakFirstLessLess: 10
+#PenaltyExcessCharacter: 1
+#PenaltyReturnTypeOnItsOwnLine: 10
 PointerAlignment: Left
 SortIncludes: true
 SortUsingDeclarations: true
