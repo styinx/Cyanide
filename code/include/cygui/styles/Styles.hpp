@@ -1,5 +1,5 @@
-#ifndef CYANIDE_STYLE_HPP
-#define CYANIDE_STYLE_HPP
+#ifndef CYANIDE_STYLES_HPP
+#define CYANIDE_STYLES_HPP
 
 #include "cystd/stdPrototypes.hpp"
 
@@ -39,4 +39,4 @@ namespace cyanide::cygui
 
 }  // namespace cyanide::cygui
 
-#endif  // CYANIDE_STYLE_HPP
+#endif  // CYANIDE_STYLES_HPP

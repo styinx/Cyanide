@@ -1,8 +1,9 @@
 #ifndef CYANIDE_WIDGET_HPP
 #define CYANIDE_WIDGET_HPP
 
-#include "cygui/widgets/Object.hpp"
 #include "cygui/styles/WidgetStyle.hpp"
+#include "cygui/widgets/Object.hpp"
+#include "cymath/Space.hpp"
 
 namespace cyanide::cygui
 {
@@ -11,13 +12,10 @@ namespace cyanide::cygui
         : public Object
         , public WidgetStyle
     {
-    private:
+    protected:
+
     public:
-        Widget()                         = default;
-        Widget(const Widget& widget)     = default;
-        Widget(Widget&& widget) noexcept = default;
-        Widget& operator=(const Widget& widget) = default;
-        Widget& operator=(Widget&& widget) noexcept = default;
+        Widget();
         virtual ~Widget()                           = default;
     };
 

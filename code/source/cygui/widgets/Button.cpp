@@ -3,8 +3,8 @@
 namespace cyanide::cygui
 {
 
-    Button::Button(const String text)
-        : m_text(text)
+    Button::Button(const String& text)
+        : TextWidget(text)
     {
     }
 

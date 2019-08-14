@@ -1,20 +1,22 @@
 #ifndef CYANIDE_WIDGETSTYLE_HPP
 #define CYANIDE_WIDGETSTYLE_HPP
 
-#include "ObjectStyle.hpp"
+#include "cygui/styles/ObjectStyle.hpp"
+#include "cymath/Space.hpp"
 
 namespace cyanide::cygui
 {
-    class WidgetStyle : public ObjectStyle
+    class WidgetStyle : public virtual ObjectStyle
     {
-    private:
+    protected:
+        cymath::Space m_margin;
+        cymath::Space m_padding;
+        cymath::Space m_border;
+
+        WidgetStyle();
+
     public:
-        WidgetStyle()                                    = default;
-        WidgetStyle(const WidgetStyle& widget_style)     = default;
-        WidgetStyle(WidgetStyle&& widget_style) noexcept = default;
-        WidgetStyle& operator=(const WidgetStyle& widget_style) = default;
-        WidgetStyle& operator=(WidgetStyle&& widget_style) noexcept = default;
-        virtual ~WidgetStyle()                                      = default;
+        virtual ~WidgetStyle() = default;
     };
 
 }  // namespace cyanide::cygui

@@ -2,16 +2,13 @@
 #define CYANIDE_BUTTONSTYLE_HPP
 
 #include "cygui/styles/WidgetStyle.hpp"
-#include "cygui/styles/TextStyle.hpp"
+#include "cygui/styles/TextWidgetStyle.hpp"
 
 namespace cyanide::cygui
 {
 
     class ButtonStyle
-        : public WidgetStyle
-        , public TextStyle
     {
-    private:
     public:
         ButtonStyle()                                    = default;
         ButtonStyle(const ButtonStyle& widget_style)     = default;

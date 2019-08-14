@@ -9,21 +9,16 @@ namespace cyanide::cygui
     /**
      * @brief Base class for any other widget class in the cygui namespace.
      */
-    class Object : public ObjectStyle
+    class Object : virtual public ObjectStyle
     {
-    private:
+    protected:
         Object* m_parent = nullptr;
         Object* m_child  = nullptr;
 
-    public:
-        Object() = default;
+        Object();
         explicit Object(Object* parent);
-        Object(const Object& object)     = default;
-        Object(Object&& object) noexcept = default;
-        Object& operator=(const Object& object) = default;
-        Object& operator=(Object&& object) noexcept = default;
-        virtual ~Object()                           = default;
 
+    public:
         virtual Object& setParent(Object* const parent);
         virtual Object* getParent() const;
         virtual Object& setChild(Object* const child);

@@ -3,9 +3,19 @@
 namespace cyanide::cygui
 {
 
-    Object::Object(Object* parent)
-        : m_parent(parent)
+    Object::Object()
+        : ObjectStyle()
+        , m_child(nullptr)
+        , m_parent(nullptr)
     {
+
+    }
+
+    Object::Object(Object* parent)
+        : ObjectStyle()
+        , m_parent(parent)
+    {
+
     }
 
     Object& Object::setParent(Object* const parent)

@@ -3,4 +3,10 @@
 namespace cyanide::cygui
 {
 
+    Widget::Widget()
+        : Object(nullptr)
+    {
+
+    }
+
 }  // namespace cyanide::cygui

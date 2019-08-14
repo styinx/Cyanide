@@ -1,73 +1,149 @@
-
 #include "cygui/styles/ObjectStyle.hpp"
+
+#include "cygui/GUIObjectManager.hpp"
+#include "cyvideo/renderer/SDLRenderer.hpp"
 
 namespace cyanide::cygui
 {
 
-    cymath::Point cygui::ObjectStyle::getPosition() const
+    ObjectStyle::ObjectStyle()
     {
-        return m_position;
+        using namespace cyvideo;
+
+        auto renderer = GUIObjectManager::getRenderer();
+        auto size = getSize();
+
+        m_texture = SDLTextureSPtr(new SDLTexture(renderer, size));
+        m_border_texture = SDLTextureSPtr(new SDLTexture(renderer, size + m_margin));
+        m_padding_texture = SDLTextureSPtr(new SDLTexture(renderer, size + m_margin + m_border));
+        m_content_texture = SDLTextureSPtr(new SDLTexture(renderer, size + m_margin + m_border + m_padding));
     }
 
-    ObjectStyle& ObjectStyle::setPosition(const cymath::Point position)
+    cymath::Rectangle ObjectStyle::getDimension() const
     {
-        m_position = position;
-        return *this;
+        return m_dimension;
+    }
+
+    void ObjectStyle::setDimension(const cymath::Rectangle& dimension)
+    {
+        if(dimension >= cymath::Rectangle(0, 0, 0, 0))
+        {
+            m_dimension = dimension;
+        }
+    }
+
+    cymath::Point cygui::ObjectStyle::getPosition() const
+    {
+        return m_dimension.topLeft();
+    }
+
+    void ObjectStyle::setPosition(const cymath::Point& position)
+    {
+        m_dimension.set(position.x, position.y, m_dimension.w, m_dimension.h);
     }
 
     cymath::Size cygui::ObjectStyle::getSize() const
     {
-        return m_size;
+        return m_dimension.getSize();
     }
 
-    ObjectStyle& ObjectStyle::setSize(const cymath::Size size)
+    void ObjectStyle::setSize(const cymath::Size& size)
     {
-        m_size = size;
-        return *this;
+        if(size >= cymath::Size(0, 0))
+        {
+            using namespace cyvideo;
+
+            m_dimension.set(m_dimension.x, m_dimension.y, size.width, size.height);
+
+            auto renderer = GUIObjectManager::getRenderer();
+            auto s = size;
+
+            m_content = s + m_margin + m_border + m_padding;
+
+            m_texture         = SDLTextureSPtr(new SDLTexture(renderer, s));
+            m_border_texture  = SDLTextureSPtr(new SDLTexture(renderer, s + m_margin));
+            m_padding_texture = SDLTextureSPtr(new SDLTexture(renderer, s + m_margin + m_border));
+            m_content_texture = SDLTextureSPtr(new SDLTexture(renderer, m_content));
+        }
     }
 
-    cymath::Point cygui::ObjectStyle::getContentPosition() const
+    cymath::Space ObjectStyle::getMargin() const
     {
-        return m_content_position;
+        return m_margin;
     }
 
-    ObjectStyle& ObjectStyle::setContentPosition(const cymath::Point position)
+    void ObjectStyle::setMargin(const cymath::Space& margin)
     {
-        m_content_position = position;
-        return *this;
+        m_margin = margin;
     }
 
-    cymath::Size cygui::ObjectStyle::getContentSize() const
+    cymath::Space ObjectStyle::getBorder() const
     {
-        return m_content_size;
+        return m_border;
     }
 
-    ObjectStyle& ObjectStyle::setContentSize(const cymath::Size size)
+    void ObjectStyle::setBorder(const cymath::Space& border)
     {
-        m_content_size = size;
-        return *this;
+        m_border = border;
     }
 
-    cymath::Point cygui::ObjectStyle::getDecorationPosition() const
+    cymath::Space ObjectStyle::getPadding() const
     {
-        return m_decoration_position;
+        return m_padding;
     }
 
-    ObjectStyle& ObjectStyle::setDecorationPosition(const cymath::Point position)
+    void ObjectStyle::setPadding(const cymath::Space& padding)
     {
-        m_decoration_position = position;
-        return *this;
+        m_padding = padding;
     }
 
-    cymath::Size cygui::ObjectStyle::getDecorationSize() const
+    cymath::Size ObjectStyle::getContentSize() const
     {
-        return m_decoration_size;
+        return m_content;
     }
 
-    ObjectStyle& ObjectStyle::setDecorationSize(const cymath::Size size)
+    void ObjectStyle::setContentSize(const cymath::Size& content_size)
     {
-        m_decoration_size = size;
-        return *this;
+        if(content_size >= cymath::Size(0, 0))
+        {
+            using namespace cyvideo;
+
+            m_content = content_size;
+
+            auto renderer = GUIObjectManager::getRenderer();
+
+            m_content_texture = SDLTextureSPtr(new SDLTexture(renderer, m_content));
+        }
+    }
+
+    void ObjectStyle::drawBorder()
+    {
+        auto renderer = GUIObjectManager::getRenderer();
+        renderer->setDrawColor(m_border_color);
+        renderer->setRenderTarget(m_border_texture);
+        renderer->drawRectangle({{0, 0}, getSize() + m_margin});   // todo draw rectangle with border size
+        renderer->resetRenderTarget();
+    }
+
+    void ObjectStyle::drawBackground()
+    {
+        auto renderer = GUIObjectManager::getRenderer();
+        renderer->setDrawColor(m_background_color);
+        renderer->setRenderTarget(m_padding_texture);
+        renderer->drawFilledRectangle({{0, 0}, m_content - m_padding});
+        renderer->resetRenderTarget();
+    }
+
+    void ObjectStyle::draw()
+    {
+        auto renderer = GUIObjectManager::getRenderer();
+
+        renderer->setRenderTarget(m_texture);
+        renderer->drawSDLTexture(m_border_texture, {0, 0});
+        renderer->drawSDLTexture(m_padding_texture, {0, 0});
+        renderer->drawSDLTexture(m_content_texture, {0, 0});
+        renderer->resetRenderTarget();
+        renderer->drawSDLTexture(m_texture, getPosition());
     }
 
 }  // namespace cyanide::cygui

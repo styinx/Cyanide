@@ -3,4 +3,10 @@
 namespace cyanide::cygui
 {
 
+    WidgetStyle::WidgetStyle()
+        : ObjectStyle()
+    {
+
+    }
+
 }  // namespace cyanide::cygui
