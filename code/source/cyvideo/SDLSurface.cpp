@@ -18,6 +18,14 @@ const Uint32 A_MASK = 0xff000000;
 
 namespace cyanide::cyvideo
 {
+    SDLSurface::SDLSurface(SDL_Surface* surface)
+    {
+        if(surface != nullptr)
+        {
+            m_surface = surface;
+        }
+    }
+
     SDLSurface::SDLSurface(const cymath::Size& size)
         : m_size(size)
     {

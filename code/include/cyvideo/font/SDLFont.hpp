@@ -1,7 +1,7 @@
 #ifndef CYANIDE_SDLFONT_HPP
 #define CYANIDE_SDLFONT_HPP
 
-#include "cyvideo/IFont.hpp"
+#include "IFont.hpp"
 
 #include <SDL2/SDL_ttf.h>
 
@@ -11,6 +11,7 @@
 
 namespace cyanide::cyvideo
 {
+
     /**
      * Hinting is responsible for edge smoothing and contrast
      */
@@ -84,18 +85,18 @@ namespace cyanide::cyvideo
     {
     private:
         TTF_Font*                    m_font = nullptr;
-        SDLFontInfo                  m_fontInfo{};
+        SDLFontInfo                  m_font_info{};
         UMap<Uint16, SDLCharMetrics> m_metrics;
+
+        void           loadFontInfo();
 
     public:
         explicit SDLFont(const String& path, const Uint8 size);
-        virtual ~SDLFont() = default;
+        virtual ~SDLFont();
 
         void           openFont(const String& path, const Uint8 size);
         void           closeFont();
         TTF_Font*      getFont() const;
-        void           loadFontInfo();
-        void           reset();
         void           setFontSize(const Uint8& size);
         Uint8          getFontSize() const;
         Uint32         getFontHeight() const;
@@ -119,6 +120,9 @@ namespace cyanide::cyvideo
         cymath::Size   getUTF8TextSize(const String& text) const;
         cymath::Size   getUnicodeTextSize(const WString& text) const;
     };
+
+    using SDLFontSPtr = SharedPtr<SDLFont>;
+
 }  // namespace cyanide::cyvideo
 
 #endif  // CYANIDE_SDLFONT_HPP

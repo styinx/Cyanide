@@ -19,6 +19,7 @@ namespace cyanide::cyvideo
         SDLSurface() = default;
 
     public:
+        explicit SDLSurface(SDL_Surface* surface);
         explicit SDLSurface(const cymath::Size& size);
         ~SDLSurface() override;
 

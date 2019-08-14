@@ -1,30 +1,69 @@
 
-#include <cyvideo/SDLWindow.hpp>
+#include <cyvideo/window/SDLWindow.hpp>
 
 namespace cyanide::cyvideo
 {
-    SDLWindow::SDLWindow(const char* title, const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h)
+    SDLWindow::SDLWindow(
+        const String& title,
+        const Sint32& x,
+        const Sint32& y,
+        const Sint32& w,
+        const Sint32& h)
     {
-        createWindow(title, x, y, w, h);
+        createWindow(title.c_str(), x, y, w, h);
     }
 
-    SDLWindow::SDLWindow(const char* title, const cymath::Rectangle geometry)
+    SDLWindow::SDLWindow(const String& title, const cymath::Rectangle& geometry)
     {
-        createWindow(title, geometry);
+        createWindow(title.c_str(), geometry);
     }
 
-    SDLWindow::SDLWindow(const char* title, const cymath::Point position, const cymath::Size size)
+    SDLWindow::SDLWindow(
+        const String&        title,
+        const cymath::Point& position,
+        const cymath::Size&  size)
     {
-        createWindow(title, position, size);
+        createWindow(title.c_str(), position, size);
     }
 
-    IWindow& SDLWindow::setTitle(const char* title)
+    void SDLWindow::createWindow(
+        const String& title,
+        const Sint32& x,
+        const Sint32& y,
+        const Sint32& w,
+        const Sint32& h,
+        const Uint32& flags)
     {
-        SDL_SetWindowTitle(m_window, title);
-        return *this;
+        if(m_window)
+        {
+            SDL_DestroyWindow(m_window);
+        }
+        m_window = SDL_CreateWindow(title.c_str(), x, y, w, h, flags);
     }
 
-    const char* SDLWindow::getTitle() const
+    void SDLWindow::createWindow(
+        const String&            title,
+        const cymath::Rectangle& geometry,
+        const Uint32&            flags)
+    {
+        createWindow(title, geometry.x, geometry.y, geometry.w, geometry.h, flags);
+    }
+
+    void SDLWindow::createWindow(
+        const String&        title,
+        const cymath::Point& position,
+        const cymath::Size&  size,
+        const Uint32&        flags)
+    {
+        createWindow(title, position.x, position.y, size.width, size.height, flags);
+    }
+
+    void SDLWindow::setTitle(const String& title)
+    {
+        SDL_SetWindowTitle(m_window, title.c_str());
+    }
+
+    const String SDLWindow::getTitle() const
     {
         return SDL_GetWindowTitle(m_window);
     }
@@ -36,10 +75,9 @@ namespace cyanide::cyvideo
         return p;
     }
 
-    IWindow& SDLWindow::setPosition(const cymath::Point position)
+    void SDLWindow::setPosition(const cymath::Point& position)
     {
         SDL_SetWindowPosition(m_window, position.x, position.y);
-        return *this;
     }
 
     cymath::Size SDLWindow::getSize() const
@@ -49,27 +87,9 @@ namespace cyanide::cyvideo
         return s;
     }
 
-    IWindow& SDLWindow::setSize(const cymath::Size size)
+    void SDLWindow::setSize(const cymath::Size& size)
     {
         SDL_SetWindowSize(m_window, size.width, size.height);
-        return *this;
-    }
-
-    void SDLWindow::createWindow(const char* title, const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h, const Uint32 flags)
-    {
-        if(m_window)
-            SDL_DestroyWindow(m_window);
-        m_window = SDL_CreateWindow(title, x, y, w, h, flags);
-    }
-
-    void SDLWindow::createWindow(const char* title, const cymath::Rectangle geometry, const Uint32 flags)
-    {
-        createWindow(title, geometry.x, geometry.y, geometry.w, geometry.h, flags);
-    }
-
-    void SDLWindow::createWindow(const char* title, const cymath::Point position, const cymath::Size size, const Uint32 flags)
-    {
-        createWindow(title, position.x, position.y, size.width, size.height, flags);
     }
 
     SDL_Window* SDLWindow::getWindow() const
@@ -84,16 +104,14 @@ namespace cyanide::cyvideo
         return borders;
     }
 
-    IWindow& SDLWindow::setMinimumSize(const cymath::Size size)
+    void SDLWindow::setMinimumSize(const cymath::Size& size)
     {
         SDL_SetWindowMinimumSize(m_window, size.width, size.height);
-        return *this;
     }
 
-    IWindow& SDLWindow::setMinimumSize(const Sint32 w, const Sint32 h)
+    void SDLWindow::setMinimumSize(const Sint32& w, const Sint32& h)
     {
         SDL_SetWindowMinimumSize(m_window, w, h);
-        return *this;
     }
 
     cymath::Size SDLWindow::getMinimumSize() const
@@ -103,16 +121,14 @@ namespace cyanide::cyvideo
         return s;
     }
 
-    IWindow& SDLWindow::setMaximumSize(const cymath::Size size)
+    void SDLWindow::setMaximumSize(const cymath::Size& size)
     {
         SDL_SetWindowMaximumSize(m_window, size.width, size.height);
-        return *this;
     }
 
-    IWindow& SDLWindow::setMaximumSize(const Sint32 w, const Sint32 h)
+    void SDLWindow::setMaximumSize(const Sint32& w, const Sint32& h)
     {
         SDL_SetWindowMaximumSize(m_window, w, h);
-        return *this;
     }
 
     cymath::Size SDLWindow::getMaximumSize() const
@@ -122,7 +138,7 @@ namespace cyanide::cyvideo
         return s;
     }
 
-    IWindow& SDLWindow::setFlags(const Uint32 flags)
+    void SDLWindow::setFlags(const Uint32& flags)
     {
         if(m_flags != flags)
         {
@@ -135,7 +151,6 @@ namespace cyanide::cyvideo
                 createWindow(getTitle(), getPosition(), getSize(), flags);
             }
         }
-        return *this;
     }
 
     Uint32 SDLWindow::getFlags() const
@@ -143,28 +158,24 @@ namespace cyanide::cyvideo
         return m_flags;
     }
 
-    IWindow& SDLWindow::setResizeable(const bool resizeable)
+    void SDLWindow::setResizeable(const bool& resizeable)
     {
         SDL_SetWindowResizable(m_window, static_cast<SDL_bool>(resizeable));
-        return *this;
     }
 
-    IWindow& SDLWindow::setModalTo(const SDLWindow* parent)
+    void SDLWindow::setModalTo(const SDLWindow* parent)
     {
         SDL_SetWindowModalFor(m_window, parent->getWindow());
-        return *this;
     }
 
-    IWindow& SDLWindow::setFullScreen(Uint32 flag)
+    void SDLWindow::setFullScreen(const Uint32& flag)
     {
         SDL_SetWindowFullscreen(m_window, flag);
-        return *this;
     }
 
-    IWindow& SDLWindow::setGrab(const bool grabbed)
+    void SDLWindow::setGrab(const bool& grabbed)
     {
         SDL_SetWindowGrab(m_window, static_cast<SDL_bool>(grabbed));
-        return *this;
     }
 
     bool SDLWindow::getGrab() const
@@ -172,40 +183,34 @@ namespace cyanide::cyvideo
         return SDL_GetWindowGrab(m_window);
     }
 
-    IWindow& SDLWindow::setInputFocus()
+    void SDLWindow::setInputFocus()
     {
         SDL_SetWindowInputFocus(m_window);
-        return *this;
     }
 
-    IWindow& SDLWindow::setHitTest(const SDL_HitTest callback, void* const data)
+    void SDLWindow::setHitTest(const SDL_HitTest& callback, void* const data)
     {
         SDL_SetWindowHitTest(m_window, callback, data);
-        return *this;
     }
 
-    IWindow& SDLWindow::show()
+    void SDLWindow::show()
     {
         SDL_ShowWindow(m_window);
-        return *this;
     }
 
-    IWindow& SDLWindow::hide()
+    void SDLWindow::hide()
     {
         SDL_HideWindow(m_window);
-        return *this;
     }
 
-    IWindow& SDLWindow::setBordered(const bool bordered)
+    void SDLWindow::setBordered(const bool& bordered)
     {
         SDL_SetWindowBordered(m_window, static_cast<SDL_bool>(bordered));
-        return *this;
     }
 
-    IWindow& SDLWindow::setBrightness(const float brightness)
+    void SDLWindow::setBrightness(const float& brightness)
     {
         SDL_SetWindowBrightness(m_window, brightness);
-        return *this;
     }
 
     float SDLWindow::getBrightness() const
@@ -213,10 +218,9 @@ namespace cyanide::cyvideo
         return SDL_GetWindowBrightness(m_window);
     }
 
-    IWindow& SDLWindow::setOpacity(const float opacity)
+    void SDLWindow::setOpacity(const float& opacity)
     {
         SDL_SetWindowOpacity(m_window, opacity);
-        return *this;
     }
 
     float SDLWindow::getOpacity() const
@@ -226,16 +230,14 @@ namespace cyanide::cyvideo
         return opacity;
     }
 
-    IWindow& SDLWindow::setGammaRamp(const Uint16 r, const Uint16 g, const Uint16 b)
+    void SDLWindow::setGammaRamp(const Uint16& r, const Uint16& g, const Uint16& b)
     {
         SDL_SetWindowGammaRamp(m_window, &r, &g, &b);
-        return *this;
     }
 
-    IWindow& SDLWindow::setGammaRamp(const cyutil::Color color)
+    void SDLWindow::setGammaRamp(const cyutil::Color& color)
     {
         setGammaRamp(color.r, color.g, color.b);
-        return *this;
     }
 
     Uint32 SDLWindow::getID() const
@@ -253,10 +255,9 @@ namespace cyanide::cyvideo
             return 0;
     }
 
-    IWindow& SDLWindow::setIcon(SDL_Surface* const icon)
+    void SDLWindow::setIcon(SDL_Surface* icon)
     {
         SDL_SetWindowIcon(m_window, icon);
-        return *this;
     }
 
     void SDLWindow::pollEvent()  // SDL_Event* event)

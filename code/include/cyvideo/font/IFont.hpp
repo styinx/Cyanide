@@ -1,6 +1,8 @@
 #ifndef CYANIDE_IFONT_HPP
 #define CYANIDE_IFONT_HPP
 
+#include "cystd/stdPrototypes.hpp"
+
 namespace cyanide::cyvideo
 {
 
@@ -9,6 +11,8 @@ namespace cyanide::cyvideo
     public:
         virtual ~IFont() = default;
     };
+
+    using IFontSPtr = SharedPtr<IFont>;
 
 }
 

@@ -1,21 +1,53 @@
 #include "cyvideo/SDLTexture.hpp"
 
-#include "cyvideo/SDLRenderer.hpp"
+#include "SDL2/SDL_render.h"
+#include "cyvideo/renderer/SDLRenderer.hpp"
+#include "cyvideo/SDLSurface.hpp"
 
 namespace cyanide::cyvideo
 {
+    SDLTexture::SDLTexture(const SDLRendererSPtr& renderer, const SDLSurfaceSPtr& surface)
+    {
+        createTexture(renderer, surface);
+    }
+
     SDLTexture::SDLTexture(const SDLRendererSPtr& renderer, const cymath::Size& size)
         : m_size(size)
     {
-        const int format = SDL_PIXELFORMAT_RGBA32;
-        const int access = SDL_TEXTUREACCESS_TARGET;
-
-        SDL_CreateTexture(renderer->getRenderer(), format, access, size.width, size.height);
+        createTexture(renderer, nullptr);
     }
 
     SDLTexture::~SDLTexture()
     {
         SDL_DestroyTexture(m_texture);
+    }
+
+    // Private
+
+    void SDLTexture::loadTextureInfo()
+    {
+        if(m_texture != nullptr)
+        {
+            SDL_QueryTexture(m_texture, &m_format, &m_access, &m_size.width, &m_size.height);
+        }
+    }
+
+    // Public
+
+    void SDLTexture::createTexture(
+        const cyanide::cyvideo::SDLRendererSPtr& renderer,
+        const cyanide::cyvideo::SDLSurfaceSPtr&  surface)
+    {
+        if(surface != nullptr)
+        {
+            m_texture = SDL_CreateTextureFromSurface(renderer->getRenderer(), surface->getSurface());
+        }
+        else
+        {
+            m_texture = SDL_CreateTexture(
+                renderer->getRenderer(), m_format, m_access, m_size.width, m_size.height);
+        }
+        loadTextureInfo();
     }
 
     SDL_Texture* SDLTexture::getTexture() const
@@ -63,4 +95,4 @@ namespace cyanide::cyvideo
         SDL_GetTextureColorMod(m_texture, &mod.r, &mod.g, &mod.b);
         return mod;
     }
-}
+}  // namespace cyanide::cyvideo

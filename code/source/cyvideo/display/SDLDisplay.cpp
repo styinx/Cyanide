@@ -1,4 +1,4 @@
-#include "cyvideo/SDLDisplay.hpp"
+#include "cyvideo/display/SDLDisplay.hpp"
 
 #include "cyvideo/SDLVideo.hpp"
 

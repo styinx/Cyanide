@@ -1,7 +1,7 @@
 #ifndef CYANIDE_SDLDISPLAY_HPP
 #define CYANIDE_SDLDISPLAY_HPP
 
-#include "cyvideo/IDisplay.hpp"
+#include "IDisplay.hpp"
 
 #include <SDL2/SDL_video.h>
 
