@@ -130,10 +130,10 @@ set(INCLUDES_GUI
     code/include/cygui/widgets/Object.hpp
     code/include/cygui/styles/WidgetStyle.hpp
     code/include/cygui/widgets/Widget.hpp
-    code/include/cygui/styles/Style.hpp
+    code/include/cygui/styles/Styles.hpp
     code/include/cygui/widgets/Button.hpp
     code/include/cygui/styles/ButtonStyle.hpp
-    code/include/cygui/styles/TextStyle.hpp)
+    code/include/cygui/styles/TextWidgetStyle.hpp code/include/cygui/widgets/TextWidget.hpp code/include/cygui/GUIObjectManager.hpp)
 
 set(INCLUDES_INPUT
     code/include/cyinput/Keyboard.hpp
@@ -175,7 +175,7 @@ set(INCLUDES_SYSTEM
     code/include/cysystem/Scheduler.hpp
     code/include/cysystem/ITask.hpp
     code/include/cysystem/SchedulerTask.hpp
-    code/include/cysystem/Thread.hpp)
+    code/include/cysystem/Thread.hpp code/include/cysystem/sdl/SDLEventLoop.hpp code/include/cysystem/IDispatcher.hpp code/include/cysystem/ICommand.hpp code/include/cysystem/sdl/SDL.hpp)
 
 set(INCLUDES_UTIL
     code/include/cyutil/color/Color.hpp
@@ -190,20 +190,20 @@ set(INCLUDES_UTIL
     code/include/cyutil/serialize/ISerialize.hpp)
 
 set(INCLUDES_VIDEO
-    code/include/cyvideo/IWindow.hpp
-    code/include/cyvideo/IRenderer.hpp
+    code/include/cyvideo/window/IWindow.hpp
+    code/include/cyvideo/renderer/IRenderer.hpp
     code/include/cyvideo/ITexture.hpp
-    code/include/cyvideo/SDLWindow.hpp
-    code/include/cyvideo/SDLRenderer.hpp
+    code/include/cyvideo/window/SDLWindow.hpp
+    code/include/cyvideo/renderer/SDLRenderer.hpp
     code/include/cyvideo/SDLVideo.hpp
-    code/include/cyvideo/SDLDisplay.hpp
-    code/include/cyvideo/IDisplay.hpp
+    code/include/cyvideo/display/SDLDisplay.hpp
+    code/include/cyvideo/display/IDisplay.hpp
     code/include/cyvideo/ISurface.hpp
-    code/include/cyvideo/IFont.hpp
-    code/include/cyvideo/SDLFont.hpp
+    code/include/cyvideo/font/IFont.hpp
+    code/include/cyvideo/font/SDLFont.hpp
     code/include/cyvideo/SDLTexture.hpp
     code/include/cyvideo/SDLSurface.hpp
-    code/include/cyvideo/videoPrototypes.hpp)
+    code/include/cyvideo/videoPrototypes.hpp code/include/cyvideo/color/IColor.hpp code/include/cyvideo/color/RGBAColor.hpp code/include/cyvideo/font/SDLFontCollection.hpp)
 
 set(INCLUDES
     ${INCLUDES_STD}
@@ -244,7 +244,7 @@ set(SOURCES_GUI
     code/source/cygui/styles/ObjectStyle.cpp
     code/source/cygui/widgets/Button.cpp
     code/source/cygui/styles/ButtonStyle.cpp
-    code/include/cygui/styles/TextStyle.cpp)
+    code/source/cygui/styles/TextWidgetStyle.cpp code/source/cygui/widgets/TextWidget.cpp code/source/cygui/GUIObjectManager.cpp)
 
 set(SOURCES_INPUT
     code/source/cyinput/Controller.cpp
@@ -271,7 +271,7 @@ set(SOURCES_STD
 set(SOURCES_SYSTEM
     code/source/cysystem/Platform.cpp
     code/source/cysystem/Scheduler.cpp
-    code/source/cysystem/SchedulerTask.cpp)
+    code/source/cysystem/SchedulerTask.cpp code/source/cysystem/sdl/SDLEventLoop.cpp code/source/cysystem/sdl/SDL.cpp)
 
 set(SOURCES_UTIL
     code/source/cyutil/color/Color.cpp
@@ -283,13 +283,13 @@ set(SOURCES_UTIL
     code/include/cyutil/type/TypeEnum.hpp)
 
 set(SOURCES_VIDEO
-    code/source/cyvideo/SDLRenderer.cpp
-    code/source/cyvideo/SDLWindow.cpp
+    code/source/cyvideo/renderer/SDLRenderer.cpp
+    code/source/cyvideo/window/SDLWindow.cpp
     code/source/cyvideo/SDLVideo.cpp
-    code/source/cyvideo/SDLDisplay.cpp
-    code/source/cyvideo/SDLFont.cpp
+    code/source/cyvideo/display/SDLDisplay.cpp
+    code/source/cyvideo/font/SDLFont.cpp
     code/source/cyvideo/SDLTexture.cpp
-    code/source/cyvideo/SDLSurface.cpp)
+    code/source/cyvideo/SDLSurface.cpp code/source/cyvideo/color/RGBAColor.cpp code/source/cyvideo/font/SDLFontCollection.cpp)
 
 set(SOURCES
     ${SOURCES_AUDIO}
@@ -346,7 +346,7 @@ set(TEST_SOURCES
 
 set(TEST_FILES
     ${FILES}
-    ${TEST_SOURCES})
+    ${TEST_SOURCES} code/source/cyvideo/font/SDLFontCollection.cpp)
 
 
 #

@@ -180,3 +180,27 @@ enum class COLORS : unsinged
     </tr>
   </tbody>
 </table>
+
+*Header File:*
+<pre>
+namespace nested::ns
+{
+    class MyClass final : public IFace
+    {
+    private:
+        bool m_boolean{false};
+        int* m_pointer = nullptr;
+
+        void privateFunction();
+
+    public:
+        MyClass() = default;
+        explicit MyClass(const int& i);
+        virtual ~MyClass() override;
+
+        void classSpecificFunction();
+
+        virtual void inheritedFunction() override;
+    }
+}
+</pre>
