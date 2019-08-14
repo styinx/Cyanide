@@ -2,9 +2,7 @@
 
 #include <cmath>
 
-namespace cyanide
-{
-namespace cymath
+namespace cyanide::cymath
 {
 
     Size::Size()
@@ -82,17 +80,35 @@ namespace cymath
         return *this;
     }
 
-    Size Size::operator+(const Size& other) { return {width + other.width, height + other.height}; }
+    Size Size::operator+(const Size& other)
+    {
+        return {width + other.width, height + other.height};
+    }
 
-    Size& Size::operator+=(const Size& other) { return add(other.width, other.height); }
+    Size& Size::operator+=(const Size& other)
+    {
+        return add(other.width, other.height);
+    }
 
-    Size Size::operator-(const Size& other) { return {width - other.width, height - other.height}; }
+    Size Size::operator-(const Size& other)
+    {
+        return {width - other.width, height - other.height};
+    }
 
-    Size& Size::operator-=(const Size& other) { return sub(other.width, other.height); }
+    Size& Size::operator-=(const Size& other)
+    {
+        return sub(other.width, other.height);
+    }
 
-    Size Size::operator*(const Size& other) { return {width * other.width, height * other.height}; }
+    Size Size::operator*(const Size& other)
+    {
+        return {width * other.width, height * other.height};
+    }
 
-    Size& Size::operator*=(const Size& other) { return mul(other.width, other.height); }
+    Size& Size::operator*=(const Size& other)
+    {
+        return mul(other.width, other.height);
+    }
 
     Size Size::operator/(const Size& other)
     {
@@ -100,9 +116,15 @@ namespace cymath
         return s.div(other.width, other.height);
     }
 
-    Size& Size::operator/=(const Size& other) { return div(other.width, other.height); }
+    Size& Size::operator/=(const Size& other)
+    {
+        return div(other.width, other.height);
+    }
 
-    Size Size::operator*(const Sint32 scalar) { return {width * scalar, height * scalar}; }
+    Size Size::operator*(const Sint32 scalar)
+    {
+        return {width * scalar, height * scalar};
+    }
 
     Size Size::operator*(const float scalar)
     {
@@ -110,9 +132,15 @@ namespace cymath
         return s.mul(scalar, scalar);
     }
 
-    Size& Size::operator*=(const Sint32 scalar) { return mul(scalar, scalar); }
+    Size& Size::operator*=(const Sint32 scalar)
+    {
+        return mul(scalar, scalar);
+    }
 
-    Size& Size::operator*=(const float scalar) { return mul(scalar, scalar); }
+    Size& Size::operator*=(const float scalar)
+    {
+        return mul(scalar, scalar);
+    }
 
     Size Size::operator/(const Sint32 scalar)
     {
@@ -126,9 +154,71 @@ namespace cymath
         return s.div(scalar, scalar);
     }
 
-    Size& Size::operator/=(const Sint32 scalar) { return div(scalar, scalar); }
+    Size& Size::operator/=(const Sint32 scalar)
+    {
+        return div(scalar, scalar);
+    }
 
-    Size& Size::operator/=(const float scalar) { return div(scalar, scalar); }
+    Size& Size::operator/=(const float scalar)
+    {
+        return div(scalar, scalar);
+    }
 
-}  // namespace cymath
-}  // namespace cyanide
+    Size Size::operator+(const Space& space)
+    {
+        Size s = *this;
+        return s.add(space.left + space.right, space.top + space.right);
+    }
+
+    Size& Size::operator+=(const Space& space)
+    {
+        return add(space.left + space.right, space.top + space.right);
+    }
+
+    Size Size::operator-(const Space& space)
+    {
+        Size s = *this;
+        return s.sub(space.left + space.right, space.top + space.right);
+    }
+
+    Size& Size::operator-=(const Space& space)
+    {
+        return sub(space.left + space.right, space.top + space.right);
+    }
+
+    Size& Size::max(Size& first, Size& second)
+    {
+        return first > second ? first : second;
+    }
+
+    Size& Size::min(Size& first, Size& second)
+    {
+        return first < second ? first : second;
+    }
+
+    bool operator==(const Size& first, const Size& second)
+    {
+        return first.width == second.width && first.height == second.height;
+    }
+    bool operator!=(const Size& first, const Size& second)
+    {
+        return !(first == second);
+    }
+    bool operator<(const Size& first, const Size& second)
+    {
+        return first.width < second.width && first.height < second.height;
+    }
+    bool operator<=(const Size& first, const Size& second)
+    {
+        return first.width <= second.width && first.height <= second.height;
+    }
+    bool operator>(const Size& first, const Size& second)
+    {
+        return first.width > second.width && first.height > second.height;
+    }
+    bool operator>=(const Size& first, const Size& second)
+    {
+        return first.width >= second.width && first.height >= second.height;
+    }
+
+}  // namespace cyanide::cymath

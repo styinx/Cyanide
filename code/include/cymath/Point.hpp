@@ -3,9 +3,7 @@
 
 #include "cystd/stdPrototypes.hpp"
 
-namespace cyanide
-{
-namespace cymath
+namespace cyanide::cymath
 {
 
     class Point final
@@ -54,7 +52,6 @@ namespace cymath
         friend bool operator>=(const Point& first, const Point& second);
     };
 
-}  // namespace cymath
 }  // namespace cyanide
 
 #endif  // CYANIDE_POINT_HPP

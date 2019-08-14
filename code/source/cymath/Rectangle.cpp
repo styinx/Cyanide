@@ -3,9 +3,7 @@
 #include <cmath>
 
 
-namespace cyanide
-{
-namespace cymath
+namespace cyanide::cymath
 {
 
     Rectangle::Rectangle()
@@ -21,6 +19,14 @@ namespace cymath
         , y(y)
         , w(w)
         , h(h)
+    {
+    }
+
+    Rectangle::Rectangle(const Point& p, const Size& s)
+        : x(p.x)
+        , y(p.y)
+        , w(s.width)
+        , h(s.height)
     {
     }
 
@@ -124,7 +130,7 @@ namespace cymath
 
     Rectangle& Rectangle::operator+=(const Rectangle& other)
     {
-        return this->add(other.x, other.y, other.w, other.h);
+        return add(other.x, other.y, other.w, other.h);
     }
 
     Rectangle Rectangle::operator-(const Rectangle& other)
@@ -134,7 +140,7 @@ namespace cymath
 
     Rectangle& Rectangle::operator-=(const Rectangle& other)
     {
-        return this->sub(other.x, other.y, other.w, other.h);
+        return sub(other.x, other.y, other.w, other.h);
     }
 
     Rectangle Rectangle::operator*(const Rectangle& other)
@@ -144,7 +150,7 @@ namespace cymath
 
     Rectangle& Rectangle::operator*=(const Rectangle& other)
     {
-        return this->mul(other.x, other.y, other.w, other.h);
+        return mul(other.x, other.y, other.w, other.h);
     }
 
     Rectangle Rectangle::operator/(const Rectangle& other)
@@ -155,7 +161,7 @@ namespace cymath
 
     Rectangle& Rectangle::operator/=(const Rectangle& other)
     {
-        return this->div(other.x, other.y, other.w, other.h);
+        return div(other.x, other.y, other.w, other.h);
     }
 
     Rectangle Rectangle::operator*(const Sint32 scalar)
@@ -171,12 +177,12 @@ namespace cymath
 
     Rectangle& Rectangle::operator*=(const Sint32 scalar)
     {
-        return this->mul(scalar, scalar, scalar, scalar);
+        return mul(scalar, scalar, scalar, scalar);
     }
 
     Rectangle &Rectangle::operator*=(const float scalar)
     {
-        return this->mul(scalar, scalar, scalar, scalar);
+        return mul(scalar, scalar, scalar, scalar);
     }
 
     Rectangle Rectangle::operator/(const Sint32 scalar)
@@ -193,12 +199,44 @@ namespace cymath
 
     Rectangle& Rectangle::operator/=(const Sint32 scalar)
     {
-        return this->div(scalar, scalar, scalar, scalar);
+        return div(scalar, scalar, scalar, scalar);
     }
 
     Rectangle &Rectangle::operator/=(const float scalar)
     {
-        return this->div(scalar, scalar, scalar, scalar);
+        return div(scalar, scalar, scalar, scalar);
+    }
+
+    Rectangle Rectangle::operator+(const Space& space)
+    {
+        Rectangle r = *this;
+        return r.add(space.left, space.top, -space.right, -space.bottom);
+    }
+
+    Rectangle& Rectangle::operator+=(const Space& space)
+    {
+        return add(space.left, space.top, -space.right, -space.bottom);
+    }
+
+    Rectangle Rectangle::operator-(const Space& space)
+    {
+        Rectangle r = *this;
+        return r.sub(space.left, space.top, -space.right, -space.bottom);
+    }
+
+    Rectangle& Rectangle::operator-=(const Space& space)
+    {
+        return sub(space.left, space.top, -space.right, -space.bottom);
+    }
+
+    Rectangle& Rectangle::max(Rectangle& first, Rectangle& second)
+    {
+        return first >= second ? first : second;
+    }
+
+    Rectangle& Rectangle::min(Rectangle& first, Rectangle& second)
+    {
+        return first <= second ? first : second;
     }
 
     bool operator==(const Rectangle& first, const Rectangle& second)
@@ -254,15 +292,4 @@ namespace cymath
                (first.h >= second.h);
     }
 
-    Rectangle& Rectangle::max(Rectangle& first, Rectangle& second)
-    {
-        return first >= second ? first : second;
-    }
-
-    Rectangle& Rectangle::min(Rectangle& first, Rectangle& second)
-    {
-        return first <= second ? first : second;
-    }
-
-}  // namespace cymath
 }  // namespace cyanide

@@ -1,6 +1,8 @@
 #ifndef CYANIDE_SIZE_HPP
 #define CYANIDE_SIZE_HPP
 
+#include "cymath/Space.hpp"
+
 #include "cystd/stdPrototypes.hpp"
 
 namespace cyanide::cymath
@@ -43,6 +45,21 @@ namespace cyanide::cymath
         Size  operator/(const float scalar);
         Size& operator/=(const Sint32 scalar);
         Size& operator/=(const float scalar);
+
+        Size  operator+(const Space& space);
+        Size& operator+=(const Space& space);
+        Size  operator-(const Space& space);
+        Size& operator-=(const Space& space);
+
+        static Size& max(Size& first, Size& second);
+        static Size& min(Size& first, Size& second);
+
+        friend bool operator==(const Size& first, const Size& second);
+        friend bool operator!=(const Size& first, const Size& second);
+        friend bool operator<(const Size& first, const Size& second);
+        friend bool operator<=(const Size& first, const Size& second);
+        friend bool operator>(const Size& first, const Size& second);
+        friend bool operator>=(const Size& first, const Size& second);
     };
 
 }  // namespace cyanide
