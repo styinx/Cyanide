@@ -25,7 +25,7 @@ namespace cyanide::cynet
         m_socket = socket;
     }
 
-    SOCKET_STATE SDLTCPSocket::open(const Uint16 port)
+    SOCKET_STATE SDLTCPSocket::open(const Uint16& port)
     {
         if(resolve(port) == 0)
         {
@@ -37,7 +37,7 @@ namespace cyanide::cynet
         return m_socket_state;
     }
 
-    SOCKET_STATE SDLTCPSocket::open(const char* endpoint, const Uint16 port)
+    SOCKET_STATE SDLTCPSocket::open(const String& endpoint, const Uint16& port)
     {
         if(resolve(endpoint, port) == 0)
         {

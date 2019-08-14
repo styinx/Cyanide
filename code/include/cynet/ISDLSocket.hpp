@@ -18,8 +18,8 @@ namespace cyanide::cynet
     public:
         virtual ~ISDLSocket() = default;
 
-        bool resolve(const char* endpoint, const Uint16 port);
-        bool resolve(const Uint16 port);
+        bool resolve(const String& endpoint, const Uint16& port);
+        bool resolve(const Uint16& port);
     };
 
     using SDLSocketSPtr = SharedPtr<ISDLSocket>;

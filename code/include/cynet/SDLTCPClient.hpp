@@ -15,7 +15,7 @@ namespace cyanide::cynet
 
     public:
         SDLTCPClient();
-        explicit SDLTCPClient(const char* endpoint, Uint16 port);
+        explicit SDLTCPClient(const String& endpoint, const Uint16& port);
         ~SDLTCPClient() = default;
 
         const SDLTCPSocketSPtr& getSocket() const;

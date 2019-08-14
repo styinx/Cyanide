@@ -10,7 +10,7 @@ namespace cyanide::cynet
     {
     }
 
-    SDLTCPClient::SDLTCPClient(const char* endpoint, Uint16 port)
+    SDLTCPClient::SDLTCPClient(const String& endpoint, const Uint16& port)
         : m_socket(new SDLTCPSocket())
     {
         m_socket->open(endpoint, port);

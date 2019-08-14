@@ -13,12 +13,12 @@ namespace cyanide::cynet
         ITCPSocket() = default;
 
     public:
-        virtual ~ITCPSocket()                                                    = default;
-        virtual SOCKET_STATE       open(const Uint16 port)                       = 0;
-        virtual SOCKET_STATE       open(const char* endpoint, const Uint16 port) = 0;
-        virtual SOCKET_STATE       close()                                       = 0;
-        virtual void               send(const NetworkPackageSPtr& package)       = 0;
-        virtual NetworkPackageSPtr receive() const                               = 0;
+        virtual ~ITCPSocket()                                                       = default;
+        virtual SOCKET_STATE       open(const Uint16& port)                         = 0;
+        virtual SOCKET_STATE       open(const String& endpoint, const Uint16& port) = 0;
+        virtual SOCKET_STATE       close()                                          = 0;
+        virtual void               send(const NetworkPackageSPtr& package)          = 0;
+        virtual NetworkPackageSPtr receive() const                                  = 0;
     };
 
     using ITCPSocketSPtr = SharedPtr<ITCPSocket>;

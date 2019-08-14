@@ -26,7 +26,7 @@ namespace cyanide::cynet
          * @param port
          * @return OPEN if the socket was opened successful otherwise CLOSED.
          */
-        virtual SOCKET_STATE open(const Uint16 port) override;
+        virtual SOCKET_STATE open(const Uint16& port) override;
 
         /**
          * @brief Opens the socket for a client connection.
@@ -34,15 +34,15 @@ namespace cyanide::cynet
          * @param port
          * @return OPEN if the socket was opened successful otherwise CLOSED.
          */
-        virtual SOCKET_STATE       open(const char* endpoint, const Uint16 port) override;
+        virtual SOCKET_STATE       open(const String& endpoint, const Uint16& port) override;
         virtual SOCKET_STATE       accept(const SDLTCPSocketSPtr& client_socket);
         virtual SOCKET_STATE       close() override;
         virtual void               send(const NetworkPackageSPtr& package) override;
-        virtual int                send(const Uint16* data, int len);
+        virtual int                send(const Uint16* data, const int len);
         virtual NetworkPackageSPtr receive() const override;
 
         template<typename T>
-        Vector<T> receive(unsigned elements) const
+        Vector<T> receive(const unsigned& elements) const
         {
             std::vector<T> data(elements);
             if(isBound())

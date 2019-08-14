@@ -22,17 +22,17 @@ namespace cyanide::cynet
         ISocket() = default;
 
     public:
-        virtual ~ISocket()                                                       = default;
-        virtual SOCKET_STATE       open(const Uint16 port)                       = 0;
-        virtual SOCKET_STATE       open(const char* endpoint, const Uint16 port) = 0;
-        virtual SOCKET_STATE       close()                                       = 0;
-        virtual void               send(const NetworkPackageSPtr& package)       = 0;
-        virtual NetworkPackageSPtr receive() const                               = 0;
+        virtual ~ISocket()                                                          = default;
+        virtual SOCKET_STATE       open(const Uint16& port)                         = 0;
+        virtual SOCKET_STATE       open(const String& endpoint, const Uint16& port) = 0;
+        virtual SOCKET_STATE       close()                                          = 0;
+        virtual void               send(const NetworkPackageSPtr& package)          = 0;
+        virtual NetworkPackageSPtr receive() const                                  = 0;
 
-        virtual SOCKET_STATE       getState() const;
-        virtual bool               isClosed() const;
-        virtual bool               isOpen() const;
-        virtual bool               isBound() const;
+        virtual SOCKET_STATE getState() const;
+        virtual bool         isClosed() const;
+        virtual bool         isOpen() const;
+        virtual bool         isBound() const;
     };
 
     using ISocketSPtr = SharedPtr<ISocket>;
