@@ -4,7 +4,7 @@
 #include "cygui/styles/Styles.hpp"
 #include "cygui/styles/WidgetStyle.hpp"
 #include "cyvideo/SDLTexture.hpp"
-#include "cyvideo/color/RGBAColor.hpp"
+#include "cyutil/color/RGBAColor.hpp"
 
 namespace cyanide::cygui
 {
@@ -14,8 +14,8 @@ namespace cyanide::cygui
         const String             FONT_FAMILY   = "Roboto";
         const Uint8              TEXT_SIZE     = 12;
         const ALIGN              TEXT_AIGNMENT = ALIGN::TOP_LEFT;
-        const cyvideo::RGBAColor TEXT_FG_COLOR = cyvideo::RGBAColor{255, 0, 0, 255};
-        const cyvideo::RGBAColor TEXT_BG_COLOR = cyvideo::RGBAColor{255, 255, 255, 255};
+        const cyutil::RGBAColor TEXT_FG_COLOR = cyutil::RGBAColor{255, 0, 0, 255};
+        const cyutil::RGBAColor TEXT_BG_COLOR = cyutil::RGBAColor{255, 255, 255, 255};
     }  // namespace Default
 
     class TextWidgetStyle : public WidgetStyle
@@ -25,8 +25,8 @@ namespace cyanide::cygui
         String                  m_font_family  = Default::FONT_FAMILY;
         Uint8                   m_text_size    = Default::TEXT_SIZE;
         ALIGN                   m_alignment    = Default::TEXT_AIGNMENT;
-        cyvideo::RGBAColor      m_fg_color     = Default::TEXT_FG_COLOR;
-        cyvideo::RGBAColor      m_bg_color     = Default::TEXT_BG_COLOR;
+        cyutil::RGBAColor      m_fg_color     = Default::TEXT_FG_COLOR;
+        cyutil::RGBAColor      m_bg_color     = Default::TEXT_BG_COLOR;
 
         TextWidgetStyle();
 
@@ -34,8 +34,8 @@ namespace cyanide::cygui
         void setFontFamily(const String& family);
         void setTextSize(const Uint8 size);
         void setTextAlignment(const ALIGN alignment);
-        void setFGColor(const cyvideo::RGBAColor& color);
-        void setBGColor(const cyvideo::RGBAColor& color);
+        void setFGColor(const cyutil::RGBAColor& color);
+        void setBGColor(const cyutil::RGBAColor& color);
 
         void drawText();
     };

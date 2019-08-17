@@ -37,7 +37,8 @@ namespace cyanide::cygui
         // If widget does not have a size set it to the size of the text.
         if(m_content == cymath::Size(0, 0))
         {
-            setSize(m_text_texture->getSize());
+            auto size = m_text_texture->getSize() + getPadding() + getBorder() + getMargin();
+            setSize(size);
         }
 
         drawBorder();

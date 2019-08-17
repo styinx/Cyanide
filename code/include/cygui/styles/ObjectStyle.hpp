@@ -6,7 +6,7 @@
 #include "cymath/Space.hpp"
 #include "cystd/stdPrototypes.hpp"
 #include "cyvideo/SDLTexture.hpp"
-#include "cyvideo/color/RGBAColor.hpp"
+#include "cyutil/color/RGBAColor.hpp"
 
 #include <cymath/Rectangle.hpp>
 
@@ -19,8 +19,10 @@ namespace cyanide::cygui
         const cymath::Space BORDER  = cymath::Space{1, 1, 1, 1};
         const cymath::Space PADDING = cymath::Space{1, 1, 1, 1};
 
-        const cyvideo::RGBAColor BACKGROUND_COLOR = cyvideo::RGBAColor{245, 245, 245, 255};
-        const cyvideo::RGBAColor BORDER_COLOR     = cyvideo::RGBAColor{200, 200, 200, 255};
+//        const cyutil::RGBAColor BACKGROUND_COLOR = cyutil::RGBAColor{245, 245, 245, 255};
+        const cyutil::RGBAColor BACKGROUND_COLOR = cyutil::RGBAColor{0, 255, 0, 255};
+//        const cyutil::RGBAColor BORDER_COLOR     = cyutil::RGBAColor{200, 200, 200, 255};
+        const cyutil::RGBAColor BORDER_COLOR     = cyutil::RGBAColor{255, 0, 0, 255};
     }  // namespace Default
 
     class ObjectStyle
@@ -37,8 +39,8 @@ namespace cyanide::cygui
         cyvideo::SDLTextureSPtr m_padding_texture = nullptr;
         cyvideo::SDLTextureSPtr m_content_texture = nullptr;
 
-        cyvideo::RGBAColor m_background_color = Default::BACKGROUND_COLOR;
-        cyvideo::RGBAColor m_border_color     = Default::BORDER_COLOR;
+        cyutil::RGBAColor m_background_color = Default::BACKGROUND_COLOR;
+        cyutil::RGBAColor m_border_color     = Default::BORDER_COLOR;
 
         ObjectStyle();
 

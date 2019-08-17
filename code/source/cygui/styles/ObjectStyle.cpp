@@ -8,15 +8,21 @@ namespace cyanide::cygui
 
     ObjectStyle::ObjectStyle()
     {
-        using namespace cyvideo;
+        using cyvideo::SDLTexture;
+        using cyvideo::SDLTextureSPtr;
+        using cymath::Size;
 
         auto renderer = GUIObjectManager::getRenderer();
         auto size = getSize();
+        auto min_size = Size{0, 0};
+        auto content_size = size - m_margin - m_border - m_padding;
+
+        m_content = Size::max(min_size, content_size);
 
         m_texture = SDLTextureSPtr(new SDLTexture(renderer, size));
-        m_border_texture = SDLTextureSPtr(new SDLTexture(renderer, size + m_margin));
-        m_padding_texture = SDLTextureSPtr(new SDLTexture(renderer, size + m_margin + m_border));
-        m_content_texture = SDLTextureSPtr(new SDLTexture(renderer, size + m_margin + m_border + m_padding));
+        m_border_texture = SDLTextureSPtr(new SDLTexture(renderer, size - m_margin));
+        m_padding_texture = SDLTextureSPtr(new SDLTexture(renderer, size - m_margin - m_border));
+        m_content_texture = SDLTextureSPtr(new SDLTexture(renderer, m_content));
     }
 
     cymath::Rectangle ObjectStyle::getDimension() const
@@ -51,18 +57,22 @@ namespace cyanide::cygui
     {
         if(size >= cymath::Size(0, 0))
         {
-            using namespace cyvideo;
+            using cyvideo::SDLTexture;
+            using cyvideo::SDLTextureSPtr;
+            using cymath::Size;
 
             m_dimension.set(m_dimension.x, m_dimension.y, size.width, size.height);
 
             auto renderer = GUIObjectManager::getRenderer();
             auto s = size;
+            auto min_size = Size{0, 0};
+            auto content_size = s - m_margin - m_border - m_padding;
 
-            m_content = s + m_margin + m_border + m_padding;
+            m_content = Size::max(min_size, content_size);
 
             m_texture         = SDLTextureSPtr(new SDLTexture(renderer, s));
-            m_border_texture  = SDLTextureSPtr(new SDLTexture(renderer, s + m_margin));
-            m_padding_texture = SDLTextureSPtr(new SDLTexture(renderer, s + m_margin + m_border));
+            m_border_texture  = SDLTextureSPtr(new SDLTexture(renderer, s - m_margin));
+            m_padding_texture = SDLTextureSPtr(new SDLTexture(renderer, s - m_margin - m_border));
             m_content_texture = SDLTextureSPtr(new SDLTexture(renderer, m_content));
         }
     }
@@ -121,7 +131,7 @@ namespace cyanide::cygui
         auto renderer = GUIObjectManager::getRenderer();
         renderer->setDrawColor(m_border_color);
         renderer->setRenderTarget(m_border_texture);
-        renderer->drawRectangle({{0, 0}, getSize() + m_margin});   // todo draw rectangle with border size
+        renderer->drawRectangle({{0, 0}, getSize() - m_margin});   // todo draw rectangle with border size
         renderer->resetRenderTarget();
     }
 
@@ -130,18 +140,24 @@ namespace cyanide::cygui
         auto renderer = GUIObjectManager::getRenderer();
         renderer->setDrawColor(m_background_color);
         renderer->setRenderTarget(m_padding_texture);
-        renderer->drawFilledRectangle({{0, 0}, m_content - m_padding});
+        renderer->drawFilledRectangle({{0, 0}, m_content + m_padding});
         renderer->resetRenderTarget();
     }
 
     void ObjectStyle::draw()
     {
         auto renderer = GUIObjectManager::getRenderer();
+        auto offset = cymath::Point(0, 0);
 
         renderer->setRenderTarget(m_texture);
-        renderer->drawSDLTexture(m_border_texture, {0, 0});
-        renderer->drawSDLTexture(m_padding_texture, {0, 0});
-        renderer->drawSDLTexture(m_content_texture, {0, 0});
+
+        offset += {m_margin.left, m_margin.top};
+        renderer->drawSDLTexture(m_border_texture, offset);
+        offset += {m_border.left, m_border.top};
+        renderer->drawSDLTexture(m_padding_texture, offset);
+        offset += {m_padding.left, m_padding.top};
+        renderer->drawSDLTexture(m_content_texture, offset);
+
         renderer->resetRenderTarget();
         renderer->drawSDLTexture(m_texture, getPosition());
     }

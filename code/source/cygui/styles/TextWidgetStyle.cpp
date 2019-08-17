@@ -31,12 +31,12 @@ namespace cyanide::cygui
         m_alignment = alignment;
     }
 
-    void TextWidgetStyle::setFGColor(const cyvideo::RGBAColor& color)
+    void TextWidgetStyle::setFGColor(const cyutil::RGBAColor& color)
     {
         m_fg_color = color;
     }
 
-    void TextWidgetStyle::setBGColor(const cyvideo::RGBAColor& color)
+    void TextWidgetStyle::setBGColor(const cyutil::RGBAColor& color)
     {
         m_bg_color = color;
     }
@@ -44,8 +44,14 @@ namespace cyanide::cygui
     void TextWidgetStyle::drawText()
     {
         auto renderer = GUIObjectManager::getRenderer();
+        auto offset = cymath::Point(0, 0);
+
+        offset += {m_margin.left, m_margin.top};
+        offset += {m_border.left, m_border.top};
+        offset += {m_padding.left, m_padding.top};
+
         renderer->setRenderTarget(m_content_texture);
-        renderer->drawSDLTexture(m_text_texture, {0, 0});
+        renderer->drawSDLTexture(m_text_texture, offset);
         renderer->resetRenderTarget();
     }
 
