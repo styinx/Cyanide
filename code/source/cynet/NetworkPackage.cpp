@@ -4,7 +4,7 @@
 namespace cyanide::cynet
 {
 
-    NetworkPackage& NetworkPackage::operator<<(const Uint8& data)
+    NetworkPackage& NetworkPackage::operator<<(const Uint8 data)
     {
         m_data.emplace_back(data);
         m_header.bytes = m_data.size();
@@ -18,7 +18,7 @@ namespace cyanide::cynet
         return *this;
     }
 
-    NetworkPackage& NetworkPackage::operator>>(Uint8& data)
+    NetworkPackage& NetworkPackage::operator>>(Uint8 data)
     {
         if(!m_data.empty())
         {

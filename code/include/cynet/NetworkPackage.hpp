@@ -24,9 +24,9 @@ namespace cyanide::cynet
         NetworkPackage()  = default;
         ~NetworkPackage() = default;
 
-        NetworkPackage& operator<<(const Uint8& data);
+        NetworkPackage& operator<<(const Uint8 data);
         NetworkPackage& operator<<(const Vector<Uint8>& data);
-        NetworkPackage& operator>>(Uint8& data);
+        NetworkPackage& operator>>(Uint8 data);
         NetworkPackage& operator>>(Vector<Uint8>& data);
         size_t          size();
         Vector<Uint8>   data();
