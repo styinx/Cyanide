@@ -3,22 +3,19 @@
 
 #include "cystd/stdPrototypes.hpp"
 
-namespace cyanide
-{
-namespace cyaudio
+namespace cyanide::cyaudio
 {
 
     class IMedium
     {
     public:
-        virtual ~IMedium() = default;
-        virtual const char* getResource() const = 0;
-        virtual void setResource(const char* resource) = 0;
+        virtual ~IMedium()                                       = default;
+        virtual const String getResource() const                 = 0;
+        virtual void         setResource(const String& resource) = 0;
     };
 
     using IMediumPtr = SharedPtr<IMedium>;
 
-}  // namespace
-}  // namespace cyanide
+}  // namespace cyanide::cyaudio
 
 #endif  // CYANIDE_IMEDIUM_HPP

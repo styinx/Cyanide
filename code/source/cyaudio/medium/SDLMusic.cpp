@@ -1,8 +1,6 @@
 #include "cyaudio/medium/SDLMusic.hpp"
 
-namespace cyanide
-{
-namespace cyaudio
+namespace cyanide::cyaudio
 {
 
     SDLMusic::SDLMusic(const char* resource)
@@ -15,20 +13,19 @@ namespace cyaudio
         return m_music;
     }
 
-    const char* SDLMusic::getResource() const
+    const String SDLMusic::getResource() const
     {
         return m_resource;
     }
 
-    void SDLMusic::setResource(const char* new_resource)
+    void SDLMusic::setResource(const String& new_resource)
     {
         m_resource = new_resource;
         if(m_music != nullptr)
         {
             Mix_FreeMusic(m_music);
         }
-        m_music = Mix_LoadMUS(m_resource);
+        m_music = Mix_LoadMUS(m_resource.c_str());
     }
 
-}  // namespace cyaudio
-}  // namespace cyanide
+}  // namespace cyanide::cyaudio
