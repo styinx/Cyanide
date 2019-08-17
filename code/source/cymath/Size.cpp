@@ -188,12 +188,12 @@ namespace cyanide::cymath
 
     Size& Size::max(Size& first, Size& second)
     {
-        return first > second ? first : second;
+        return first >= second ? first : second;
     }
 
     Size& Size::min(Size& first, Size& second)
     {
-        return first < second ? first : second;
+        return first <= second ? first : second;
     }
 
     bool operator==(const Size& first, const Size& second)

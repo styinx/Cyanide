@@ -2,9 +2,7 @@
 
 #include <cmath>
 
-namespace cyanide
-{
-namespace cymath
+namespace cyanide::cymath
 {
 
     Line::Line()
@@ -41,7 +39,7 @@ namespace cymath
         return {x2, y2};
     }
 
-    Line &Line::set(const Sint32 x1, const Sint32 y1, const Sint32 x2, const Sint32 y2)
+    Line& Line::set(const Sint32 x1, const Sint32 y1, const Sint32 x2, const Sint32 y2)
     {
         this->x1 = x1;
         this->y1 = y1;
@@ -50,7 +48,7 @@ namespace cymath
         return *this;
     }
 
-    Line &Line::add(const Sint32 x1, const Sint32 y1, const Sint32 x2, const Sint32 y2)
+    Line& Line::add(const Sint32 x1, const Sint32 y1, const Sint32 x2, const Sint32 y2)
     {
         this->x1 += x1;
         this->y1 += y1;
@@ -59,7 +57,7 @@ namespace cymath
         return *this;
     }
 
-    Line &Line::sub(const Sint32 x1, const Sint32 y1, const Sint32 x2, const Sint32 y2)
+    Line& Line::sub(const Sint32 x1, const Sint32 y1, const Sint32 x2, const Sint32 y2)
     {
         this->x1 -= x1;
         this->y1 -= y1;
@@ -68,7 +66,7 @@ namespace cymath
         return *this;
     }
 
-    Line &Line::mul(const Sint32 x1, const Sint32 y1, const Sint32 x2, const Sint32 y2)
+    Line& Line::mul(const Sint32 x1, const Sint32 y1, const Sint32 x2, const Sint32 y2)
     {
         this->x1 *= x1;
         this->y1 *= y1;
@@ -77,7 +75,7 @@ namespace cymath
         return *this;
     }
 
-    Line &Line::mul(const float x1, const float y1, const float x2, const float y2)
+    Line& Line::mul(const float x1, const float y1, const float x2, const float y2)
     {
         this->x1 = static_cast<Sint32>(std::lround(this->x1 * x1));
         this->y1 = static_cast<Sint32>(std::lround(this->y1 * y1));
@@ -86,21 +84,21 @@ namespace cymath
         return *this;
     }
 
-    Line &Line::div(const Sint32 x1, const Sint32 y1, const Sint32 x2, const Sint32 y2)
+    Line& Line::div(const Sint32 x1, const Sint32 y1, const Sint32 x2, const Sint32 y2)
     {
-        if(x1 != 0) this->x1 = static_cast<Sint32>(std::lround(this->x1 / x1));
-        if(y1 != 0) this->y1 = static_cast<Sint32>(std::lround(this->y1 / y1));
-        if(x2 != 0) this->x2 = static_cast<Sint32>(std::lround(this->x2 / x2));
-        if(y2 != 0) this->y2 = static_cast<Sint32>(std::lround(this->y2 / y2));
-        return *this;
+        return div((float)x1, (float)y1, (float)x2, (float)y2);
     }
 
-    Line &Line::div(const float x1, const float y1, const float x2, const float y2)
+    Line& Line::div(const float x1, const float y1, const float x2, const float y2)
     {
-        if(x1 != 0) this->x1 = static_cast<Sint32>(std::lround(this->x1 / x1));
-        if(y1 != 0) this->y1 = static_cast<Sint32>(std::lround(this->y1 / y1));
-        if(x2 != 0) this->x2 = static_cast<Sint32>(std::lround(this->x2 / x2));
-        if(y2 != 0) this->y2 = static_cast<Sint32>(std::lround(this->y2 / y2));
+        if(x1 != 0)
+            this->x1 = static_cast<Sint32>(std::lround(this->x1 / x1));
+        if(y1 != 0)
+            this->y1 = static_cast<Sint32>(std::lround(this->y1 / y1));
+        if(x2 != 0)
+            this->x2 = static_cast<Sint32>(std::lround(this->x2 / x2));
+        if(y2 != 0)
+            this->y2 = static_cast<Sint32>(std::lround(this->y2 / y2));
         return *this;
     }
 
@@ -142,7 +140,7 @@ namespace cymath
 
     Line& Line::operator/=(const Line& other)
     {
-        return this->div(other.x1, other.y1, other.x2, other.y2);
+        return div(other.x1, other.y1, other.x2, other.y2);
     }
 
     Line Line::operator*(const Sint32 scalar)
@@ -158,18 +156,18 @@ namespace cymath
 
     Line& Line::operator*=(const Sint32 scalar)
     {
-        return this->mul(scalar, scalar, scalar, scalar);
+        return mul(scalar, scalar, scalar, scalar);
     }
 
-    Line &Line::operator*=(const float scalar)
+    Line& Line::operator*=(const float scalar)
     {
-        return this->mul(scalar, scalar, scalar, scalar);
+        return mul(scalar, scalar, scalar, scalar);
     }
 
     Line Line::operator/(const Sint32 scalar)
     {
         Line l = *this;
-        return l.div(x1 / scalar, y1 / scalar, x2 / scalar, y2 / scalar);
+        return l / (float)scalar;
     }
 
     Line Line::operator/(const float scalar)
@@ -180,12 +178,12 @@ namespace cymath
 
     Line& Line::operator/=(const Sint32 scalar)
     {
-        return this->div(scalar, scalar, scalar, scalar);
+        return div(scalar, scalar, scalar, scalar);
     }
 
-    Line &Line::operator/=(const float scalar)
+    Line& Line::operator/=(const float scalar)
     {
-        return this->div(scalar, scalar, scalar, scalar);
+        return div(scalar, scalar, scalar, scalar);
     }
 
     bool operator==(const Line& first, const Line& second)
@@ -200,23 +198,26 @@ namespace cymath
 
     bool operator<(const Line& first, const Line& second)
     {
-        return (first.first() < second.first()) && (first.second() < second.second());
+        return first.x1 < second.x1 && first.y1 < second.y1 &&
+               first.x2 < second.x2 && first.y2 < second.y2;
     }
 
     bool operator<=(const Line& first, const Line& second)
     {
-        return (first.first() <= second.first()) && (first.second() <= second.second());
+        return first.x1 <= second.x1 && first.y1 <= second.y1 &&
+               first.x2 <= second.x2 && first.y2 <= second.y2;
     }
 
     bool operator>(const Line& first, const Line& second)
     {
-        return (first.first() > second.first()) && (first.second() > second.second());
+        return first.x1 > second.x1 && first.y1 > second.y1 &&
+               first.x2 > second.x2 && first.y2 > second.y2;
     }
 
     bool operator>=(const Line& first, const Line& second)
     {
-        return (first.first() >= second.first()) && (first.second() >= second.second());
+        return first.x1 >= second.x1 && first.y1 >= second.y1 &&
+               first.x2 >= second.x2 && first.y2 >= second.y2;
     }
 
-}  // namespace cymath
-}  // namespace cyanide
+}  // namespace cyanide::cymath

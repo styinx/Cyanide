@@ -2,9 +2,7 @@
 
 #include <cmath>
 
-namespace cyanide
-{
-namespace cymath
+namespace cyanide::cymath
 {
 
     Point::Point()
@@ -94,31 +92,49 @@ namespace cymath
 
     Point& Point::div(const Sint32 x, const Sint32 y, const Sint32 z)
     {
-        if(x != 0) this->x = static_cast<Sint32>(std::lround(this->x / x));
-        if(y != 0) this->y = static_cast<Sint32>(std::lround(this->y / y));
-        if(z != 0) this->z = static_cast<Sint32>(std::lround(this->z / z));
-        return *this;
+        return this->div((float)x, (float)y, (float)z);
     }
 
     Point& Point::div(const float x, const float y, const float z)
     {
-        if(x != 0) this->x = static_cast<Sint32>(std::lround(this->x / x));
-        if(y != 0) this->y = static_cast<Sint32>(std::lround(this->y / y));
-        if(z != 0) this->z = static_cast<Sint32>(std::lround(this->z / z));
+        if(x != 0)
+            this->x = static_cast<Sint32>(std::lround(this->x / x));
+        if(y != 0)
+            this->y = static_cast<Sint32>(std::lround(this->y / y));
+        if(z != 0)
+            this->z = static_cast<Sint32>(std::lround(this->z / z));
         return *this;
     }
 
-    Point Point::operator+(const Point& other) { return {x + other.x, y + other.y, z + other.z}; }
+    Point Point::operator+(const Point& other)
+    {
+        return {x + other.x, y + other.y, z + other.z};
+    }
 
-    Point& Point::operator+=(const Point& other) { return add(other.x, other.y, other.z); }
+    Point& Point::operator+=(const Point& other)
+    {
+        return add(other.x, other.y, other.z);
+    }
 
-    Point Point::operator-(const Point& other) { return {x - other.x, y - other.y, z - other.z}; }
+    Point Point::operator-(const Point& other)
+    {
+        return {x - other.x, y - other.y, z - other.z};
+    }
 
-    Point& Point::operator-=(const Point& other) { return sub(other.x, other.y, other.z); }
+    Point& Point::operator-=(const Point& other)
+    {
+        return sub(other.x, other.y, other.z);
+    }
 
-    Point Point::operator*(const Point& other) { return {x * other.x, y * other.y, z * other.z}; }
+    Point Point::operator*(const Point& other)
+    {
+        return {x * other.x, y * other.y, z * other.z};
+    }
 
-    Point& Point::operator*=(const Point& other) { return mul(other.x, other.y, other.z); }
+    Point& Point::operator*=(const Point& other)
+    {
+        return mul(other.x, other.y, other.z);
+    }
 
     Point Point::operator/(const Point& other)
     {
@@ -126,9 +142,15 @@ namespace cymath
         return p.div(other.x, other.y, other.z);
     }
 
-    Point& Point::operator/=(const Point& other) { return div(other.x, other.y, other.z); }
+    Point& Point::operator/=(const Point& other)
+    {
+        return div(other.x, other.y, other.z);
+    }
 
-    Point Point::operator*(const Sint32 scalar) { return {x * scalar, y * scalar, z * scalar}; }
+    Point Point::operator*(const Sint32 scalar)
+    {
+        return {x * scalar, y * scalar, z * scalar};
+    }
 
     Point Point::operator*(const float scalar)
     {
@@ -136,9 +158,15 @@ namespace cymath
         return p.mul(scalar, scalar, scalar);
     }
 
-    Point& Point::operator*=(const Sint32 scalar) { return mul(scalar, scalar, scalar); }
+    Point& Point::operator*=(const Sint32 scalar)
+    {
+        return mul(scalar, scalar, scalar);
+    }
 
-    Point& Point::operator*=(const float scalar) { return mul(scalar, scalar, scalar); }
+    Point& Point::operator*=(const float scalar)
+    {
+        return mul(scalar, scalar, scalar);
+    }
 
     Point Point::operator/(const Sint32 scalar)
     {
@@ -152,16 +180,25 @@ namespace cymath
         return p.div(scalar, scalar, scalar);
     }
 
-    Point& Point::operator/=(const Sint32 scalar) { return div(scalar, scalar, scalar); }
+    Point& Point::operator/=(const Sint32 scalar)
+    {
+        return div(scalar, scalar, scalar);
+    }
 
-    Point& Point::operator/=(const float scalar) { return div(scalar, scalar, scalar); }
+    Point& Point::operator/=(const float scalar)
+    {
+        return div(scalar, scalar, scalar);
+    }
 
     bool operator==(const Point& first, const Point& second)
     {
         return (first.x == second.x && first.y == second.y && first.z == second.z);
     }
 
-    bool operator!=(const Point& first, const Point& second) { return !(first == second); }
+    bool operator!=(const Point& first, const Point& second)
+    {
+        return !(first == second);
+    }
 
     bool operator<(const Point& first, const Point& second)
     {
@@ -183,5 +220,4 @@ namespace cymath
         return (first.x >= second.x) && (first.y >= second.y) && (first.z >= second.z);
     }
 
-}  // namespace cymath
-}  // namespace cyanide
+}  // namespace cyanide::cymath

@@ -2,7 +2,6 @@
 
 #include <cmath>
 
-
 namespace cyanide::cymath
 {
 
@@ -52,7 +51,8 @@ namespace cyanide::cymath
 
     Point Rectangle::center() const
     {
-        return bottomRight() / 2;
+        return {static_cast<Sint32>(std::lround(x + w / 2.0f)),
+                static_cast<Sint32>(std::lround(y + h / 2.0f))};
     }
 
     Size Rectangle::getSize() const
@@ -96,7 +96,7 @@ namespace cyanide::cymath
         return *this;
     }
 
-    Rectangle &Rectangle::mul(const float x, const float y, const float w, const float h)
+    Rectangle& Rectangle::mul(const float x, const float y, const float w, const float h)
     {
         this->x = static_cast<Sint32>(std::lround(this->x * x));
         this->y = static_cast<Sint32>(std::lround(this->y * y));
@@ -107,19 +107,19 @@ namespace cyanide::cymath
 
     Rectangle& Rectangle::div(const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h)
     {
-        if(x != 0) this->x = static_cast<Sint32>(std::lround(this->x / x));
-        if(y != 0) this->y = static_cast<Sint32>(std::lround(this->y / y));
-        if(w != 0) this->w = static_cast<Sint32>(std::lround(this->w / w));
-        if(h != 0) this->h = static_cast<Sint32>(std::lround(this->h / h));
-        return *this;
+        return this->div((float)x, (float)y, (float)w, (float)h);
     }
 
-    Rectangle &Rectangle::div(const float x, const float y, const float w, const float h)
+    Rectangle& Rectangle::div(const float x, const float y, const float w, const float h)
     {
-        if(x != 0) this->x = static_cast<Sint32>(std::lround(this->x / x));
-        if(y != 0) this->y = static_cast<Sint32>(std::lround(this->y / y));
-        if(w != 0) this->w = static_cast<Sint32>(std::lround(this->w / w));
-        if(h != 0) this->h = static_cast<Sint32>(std::lround(this->h / h));
+        if(x != 0)
+            this->x = static_cast<Sint32>(std::lround(this->x / x));
+        if(y != 0)
+            this->y = static_cast<Sint32>(std::lround(this->y / y));
+        if(w != 0)
+            this->w = static_cast<Sint32>(std::lround(this->w / w));
+        if(h != 0)
+            this->h = static_cast<Sint32>(std::lround(this->h / h));
         return *this;
     }
 
@@ -180,7 +180,7 @@ namespace cyanide::cymath
         return mul(scalar, scalar, scalar, scalar);
     }
 
-    Rectangle &Rectangle::operator*=(const float scalar)
+    Rectangle& Rectangle::operator*=(const float scalar)
     {
         return mul(scalar, scalar, scalar, scalar);
     }
@@ -202,7 +202,7 @@ namespace cyanide::cymath
         return div(scalar, scalar, scalar, scalar);
     }
 
-    Rectangle &Rectangle::operator/=(const float scalar)
+    Rectangle& Rectangle::operator/=(const float scalar)
     {
         return div(scalar, scalar, scalar, scalar);
     }
@@ -210,23 +210,23 @@ namespace cyanide::cymath
     Rectangle Rectangle::operator+(const Space& space)
     {
         Rectangle r = *this;
-        return r.add(space.left, space.top, -space.right, -space.bottom);
+        return r.add(-space.left, -space.top, space.right * 2, space.bottom * 2);
     }
 
     Rectangle& Rectangle::operator+=(const Space& space)
     {
-        return add(space.left, space.top, -space.right, -space.bottom);
+        return add(-space.left, -space.top, space.right * 2, space.bottom * 2);
     }
 
     Rectangle Rectangle::operator-(const Space& space)
     {
         Rectangle r = *this;
-        return r.sub(space.left, space.top, -space.right, -space.bottom);
+        return r.add(space.left, space.top, -space.right * 2, -space.bottom * 2);
     }
 
     Rectangle& Rectangle::operator-=(const Space& space)
     {
-        return sub(space.left, space.top, -space.right, -space.bottom);
+        return add(space.left, space.top, -space.right * 2, -space.bottom * 2);
     }
 
     Rectangle& Rectangle::max(Rectangle& first, Rectangle& second)
@@ -267,8 +267,7 @@ namespace cyanide::cymath
         Point br1 = first.bottomRight();
         Point br2 = second.bottomRight();
 
-        return ((tl1 >= tl2) || (br1 <= br2)) && (first.w <= second.w) &&
-               (first.h <= second.h);
+        return ((tl1 >= tl2) || (br1 <= br2)) && (first.w <= second.w) && (first.h <= second.h);
     }
 
     bool operator>(const Rectangle& first, const Rectangle& second)
@@ -288,8 +287,7 @@ namespace cyanide::cymath
         Point br1 = first.bottomRight();
         Point br2 = second.bottomRight();
 
-        return ((tl1 <= tl2) || (br1 >= br2)) && (first.w >= second.w) &&
-               (first.h >= second.h);
+        return ((tl1 <= tl2) || (br1 >= br2)) && (first.w >= second.w) && (first.h >= second.h);
     }
 
-}  // namespace cyanide
+}  // namespace cyanide::cymath
