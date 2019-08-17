@@ -3,6 +3,7 @@
 
 #include "IRenderer.hpp"
 #include "cyvideo/videoPrototypes.hpp"
+#include "cyutil/color/RGBAColor.hpp"
 
 #include <SDL2/SDL_render.h>
 
@@ -32,17 +33,17 @@ namespace cyanide::cyvideo
         explicit SDLRenderer(const SDLWindowSPtr& window);
         virtual ~SDLRenderer() override;
 
-        void createRenderer(const SDLWindowSPtr& window, const int& index, const Uint32& flags);
+        void createRenderer(const SDLWindowSPtr& window, const int index, const Uint32 flags);
         SDL_Renderer* getRenderer() const;
         cymath::Size  getSize() const;
-        void          setRendererIndex(const int& index);
-        void          setRendererFlags(const Uint32& flags);
+        void          setRendererIndex(const int index);
+        void          setRendererFlags(const Uint32 flags);
 
         virtual void clear() override;
         virtual void show() override;
         virtual void setRenderTarget(const SDLTextureSPtr& texture);
         virtual void resetRenderTarget();
-        virtual void setDrawColor(RGBAColor color) override;
+        virtual void setDrawColor(cyutil::RGBAColor color) override;
         virtual void drawText(const String& string) override;
         virtual void drawPoint(const cymath::Point& p) override;
         virtual void drawLine(const cymath::Line& l) override;

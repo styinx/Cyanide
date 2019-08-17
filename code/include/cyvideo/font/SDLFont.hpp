@@ -97,7 +97,7 @@ namespace cyanide::cyvideo
         void           openFont(const String& path, const Uint8 size);
         void           closeFont();
         TTF_Font*      getFont() const;
-        void           setFontSize(const Uint8& size);
+        void           setFontSize(const Uint8 size);
         Uint8          getFontSize() const;
         Uint32         getFontHeight() const;
         Uint32         getFontAscent() const;
@@ -110,13 +110,13 @@ namespace cyanide::cyvideo
         FONT_STYLE     getFontStyle() const;
         void           setFontStyle(const FONT_STYLE& style);
         Uint32         getFontOutline() const;
-        void           setFontOutline(const Sint32& outline);
+        void           setFontOutline(const Sint32 outline);
         FONT_HINTING   getFontHinting() const;
         void           setFontHinting(const FONT_HINTING& hinting);
         Uint32         getFontKerning() const;
-        void           setFontKerning(const Sint32& kerning);
-        bool           hasGlyph(const Uint16& character) const;
-        SDLCharMetrics getMetrics(const Uint16& character) const;
+        void           setFontKerning(const Sint32 kerning);
+        bool           hasGlyph(const Uint16 character) const;
+        SDLCharMetrics getMetrics(const Uint16 character) const;
         cymath::Size   getUTF8TextSize(const String& text) const;
         cymath::Size   getUnicodeTextSize(const WString& text) const;
     };

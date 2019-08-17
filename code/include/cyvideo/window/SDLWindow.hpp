@@ -4,7 +4,7 @@
 #include "IWindow.hpp"
 #include "cymath/Rectangle.hpp"
 #include "cymath/Size.hpp"
-#include "cyutil/color/Color.hpp"
+#include "cyutil/color/RGBAColor.hpp"
 
 #include <SDL2/SDL_video.h>
 
@@ -27,15 +27,6 @@ namespace cyanide::cyvideo
 
     public:
         explicit SDLWindow(
-            const String& title,
-            const Sint32& x,
-            const Sint32& y,
-            const Sint32& w,
-            const Sint32& h);
-
-        explicit SDLWindow(const String& title, const cymath::Rectangle& geometry);
-
-        explicit SDLWindow(
             const String&        title,
             const cymath::Point& position,
             const cymath::Size&  size);
@@ -43,23 +34,10 @@ namespace cyanide::cyvideo
         virtual ~SDLWindow() override = default;
 
         void createWindow(
-            const String& title,
-            const Sint32& x,
-            const Sint32& y,
-            const Sint32& w,
-            const Sint32& h,
-            const Uint32& flags = SDL_WINDOW_SHOWN);
-
-        void createWindow(
-            const String&            title,
-            const cymath::Rectangle& geometry,
-            const Uint32&            flags = SDL_WINDOW_SHOWN);
-
-        void createWindow(
             const String&        title,
             const cymath::Point& position,
             const cymath::Size&  size,
-            const Uint32&        flags = SDL_WINDOW_SHOWN);
+            const Uint32        flags = SDL_WINDOW_SHOWN);
 
         virtual void         setTitle(const String& title) override;
         virtual const String getTitle() const override;
@@ -74,19 +52,19 @@ namespace cyanide::cyvideo
         SDL_Window*       getWindow() const;
         cymath::Rectangle getBorderSize() const;
         void              setMinimumSize(const cymath::Size& size);
-        void              setMinimumSize(const Sint32& w, const Sint32& h);
+        void              setMinimumSize(const Sint32 w, const Sint32 h);
         cymath::Size      getMinimumSize() const;
         void              setMaximumSize(const cymath::Size& size);
-        void              setMaximumSize(const Sint32& w, const Sint32& h);
+        void              setMaximumSize(const Sint32 w, const Sint32 h);
         cymath::Size      getMaximumSize() const;
 
         // Behaviour
 
-        void   setFlags(const Uint32& flags);
+        void   setFlags(const Uint32 flags);
         Uint32 getFlags() const;
-        void   setResizeable(const bool& resizeable);
+        void   setResizeable(const bool resizeable);
         void   setModalTo(const SDLWindow* parent);
-        void   setFullScreen(const Uint32& flag);
+        void   setFullScreen(const Uint32 flag);
         void   setGrab(const bool& grabbed);
         bool   getGrab() const;
         void   setInputFocus();
@@ -96,13 +74,13 @@ namespace cyanide::cyvideo
 
         void  show();
         void  hide();
-        void  setBordered(const bool& bordered);
-        void  setBrightness(const float& brightness);
+        void  setBordered(const bool bordered);
+        void  setBrightness(const float brightness);
         float getBrightness() const;
-        void  setOpacity(const float& opacity);
+        void  setOpacity(const float opacity);
         float getOpacity() const;
-        void  setGammaRamp(const Uint16& r, const Uint16& g, const Uint16& b);
-        void  setGammaRamp(const cyutil::Color& color);
+        void  setGammaRamp(const Uint16 r, const Uint16 g, const Uint16 b);
+        void  setGammaRamp(const cyutil::RGBAColor& color);
 
         // Decoration
 

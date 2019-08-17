@@ -5,7 +5,7 @@
 #include "cymath/Point.hpp"
 #include "cymath/Rectangle.hpp"
 #include "cyvideo/ITexture.hpp"
-#include "cyvideo/color/RGBAColor.hpp"
+#include "cyutil/color/RGBAColor.hpp"
 
 namespace cyanide::cyvideo
 {
@@ -18,7 +18,7 @@ namespace cyanide::cyvideo
 
         virtual void clear()                                      = 0;
         virtual void show()                                       = 0;
-        virtual void setDrawColor(RGBAColor color)                = 0;
+        virtual void setDrawColor(cyutil::RGBAColor color)                = 0;
         virtual void drawText(const String& string)               = 0;
         virtual void drawPoint(const cymath::Point& p)            = 0;
         virtual void drawLine(const cymath::Line& l)              = 0;

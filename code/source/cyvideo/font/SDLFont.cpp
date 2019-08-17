@@ -74,7 +74,7 @@ namespace cyanide::cyvideo
         }
     }
 
-    void SDLFont::setFontSize(const Uint8& size)
+    void SDLFont::setFontSize(const Uint8 size)
     {
         closeFont();
         openFont(m_font_info.path, size);
@@ -141,7 +141,7 @@ namespace cyanide::cyvideo
         return m_font_info.outline;
     }
 
-    void SDLFont::setFontOutline(const Sint32& outline)
+    void SDLFont::setFontOutline(const Sint32 outline)
     {
         TTF_SetFontOutline(m_font, outline);
         m_font_info.outline = static_cast<Uint32>(outline);
@@ -163,18 +163,18 @@ namespace cyanide::cyvideo
         return m_font_info.kerning;
     }
 
-    void SDLFont::setFontKerning(const Sint32& kerning)
+    void SDLFont::setFontKerning(const Sint32 kerning)
     {
         TTF_SetFontKerning(m_font, kerning);
         m_font_info.kerning = static_cast<Uint32>(kerning);
     }
 
-    bool SDLFont::hasGlyph(const Uint16& character) const
+    bool SDLFont::hasGlyph(const Uint16 character) const
     {
         return (TTF_GlyphIsProvided(m_font, character) > 0);
     }
 
-    SDLCharMetrics SDLFont::getMetrics(const Uint16& character) const
+    SDLCharMetrics SDLFont::getMetrics(const Uint16 character) const
     {
         SDLCharMetrics m = {};
         m.character = character;

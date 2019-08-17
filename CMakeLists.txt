@@ -127,13 +127,17 @@ set(INCLUDES_MATH
 
 set(INCLUDES_GUI
     code/include/cygui/styles/ObjectStyle.hpp
-    code/include/cygui/widgets/Object.hpp
     code/include/cygui/styles/WidgetStyle.hpp
-    code/include/cygui/widgets/Widget.hpp
     code/include/cygui/styles/Styles.hpp
-    code/include/cygui/widgets/Button.hpp
     code/include/cygui/styles/ButtonStyle.hpp
-    code/include/cygui/styles/TextWidgetStyle.hpp code/include/cygui/widgets/TextWidget.hpp code/include/cygui/GUIObjectManager.hpp)
+    code/include/cygui/styles/TextWidgetStyle.hpp
+
+    code/include/cygui/widgets/Object.hpp
+    code/include/cygui/widgets/Widget.hpp
+    code/include/cygui/widgets/Button.hpp
+    code/include/cygui/widgets/TextWidget.hpp
+
+    code/include/cygui/GUIObjectManager.hpp)
 
 set(INCLUDES_INPUT
     code/include/cyinput/Keyboard.hpp
@@ -147,6 +151,7 @@ set(INCLUDES_INPUT
 
 set(INCLUDES_NET
     code/include/cynet/netPrototypes.hpp
+
     code/include/cynet/ISocket.hpp
     code/include/cynet/ISDLSocket.hpp
     code/include/cynet/SDLTCPSocket.hpp
@@ -162,48 +167,66 @@ set(INCLUDES_NET
     code/include/cynet/NetworkPackage.hpp)
 
 set(INCLUDES_STD
+    code/include/cystd/stdPrototypes.hpp
+
     code/include/cystd/NonCopyable.hpp
     code/include/cystd/NonMoveable.hpp
     code/include/cystd/Range.hpp
-    code/include/cystd/stdPrototypes.hpp
     code/include/cystd/Enum.hpp
     code/include/cystd/CyObj.hpp)
 
 set(INCLUDES_SYSTEM
+    code/include/cysystem/sdl/SDLEventLoop.hpp
+    code/include/cysystem/sdl/SDL.hpp
     code/include/cysystem/Platform.hpp
     code/include/cysystem/IScheduler.hpp
     code/include/cysystem/Scheduler.hpp
     code/include/cysystem/ITask.hpp
     code/include/cysystem/SchedulerTask.hpp
-    code/include/cysystem/Thread.hpp code/include/cysystem/sdl/SDLEventLoop.hpp code/include/cysystem/IDispatcher.hpp code/include/cysystem/ICommand.hpp code/include/cysystem/sdl/SDL.hpp)
+    code/include/cysystem/Thread.hpp
+    code/include/cysystem/IDispatcher.hpp
+    code/include/cysystem/ICommand.hpp)
 
 set(INCLUDES_UTIL
-    code/include/cyutil/color/Color.hpp
-    code/include/cyutil/time/ITimer.hpp
-    code/include/cyutil/io/Print.hpp
-    code/source/cyutil/time/SDLTimer.cpp
-    code/include/cyutil/time/SDLTimer.hpp
-    code/source/cyutil/time/SDLPerformanceTimer.cpp
-    code/include/cyutil/time/SDLPerformanceTimer.hpp
     code/include/cyutil/util.hpp
+
+    code/include/cyutil/color/IColor.hpp
+    code/include/cyutil/color/RGBAColor.hpp
+
+    code/include/cyutil/io/Print.hpp
+
+    code/include/cyutil/time/SDLTimer.hpp
+    code/include/cyutil/time/ITimer.hpp
+    code/include/cyutil/time/SDLPerformanceTimer.hpp
+    code/include/cyutil/time/Clock.hpp
+    code/include/cyutil/time/time.hpp
+
+    code/include/cyutil/type/TypeEnum.hpp
     code/include/cyutil/type/TypeName.hpp
+
     code/include/cyutil/serialize/ISerialize.hpp)
 
 set(INCLUDES_VIDEO
+    code/include/cyvideo/videoPrototypes.hpp
+
     code/include/cyvideo/window/IWindow.hpp
-    code/include/cyvideo/renderer/IRenderer.hpp
-    code/include/cyvideo/ITexture.hpp
     code/include/cyvideo/window/SDLWindow.hpp
+
+    code/include/cyvideo/renderer/IRenderer.hpp
     code/include/cyvideo/renderer/SDLRenderer.hpp
-    code/include/cyvideo/SDLVideo.hpp
+
     code/include/cyvideo/display/SDLDisplay.hpp
     code/include/cyvideo/display/IDisplay.hpp
-    code/include/cyvideo/ISurface.hpp
+
+    code/include/cyvideo/font/SDLFontCollection.hpp
     code/include/cyvideo/font/IFont.hpp
     code/include/cyvideo/font/SDLFont.hpp
+
+    code/include/cyvideo/ISurface.hpp
     code/include/cyvideo/SDLTexture.hpp
     code/include/cyvideo/SDLSurface.hpp
-    code/include/cyvideo/videoPrototypes.hpp code/include/cyvideo/color/IColor.hpp code/include/cyvideo/color/RGBAColor.hpp code/include/cyvideo/font/SDLFontCollection.hpp)
+    code/include/cyvideo/ITexture.hpp
+    code/include/cyvideo/SDLVideo.hpp)
 
 set(INCLUDES
     ${INCLUDES_STD}
@@ -226,7 +249,9 @@ set(SOURCES_STD)
 set(SOURCES_AUDIO
     code/source/cyaudio/SDLAudio.cpp
     code/source/cyaudio/SDLMixerAudio.cpp
+
     code/source/cyaudio/medium/SDLMusic.cpp
+
     code/source/cyaudio/devices/SDLAudioDevice.cpp)
 
 set(SOURCES_MATH
@@ -238,13 +263,17 @@ set(SOURCES_MATH
     code/source/cymath/Size.cpp)
 
 set(SOURCES_GUI
-    code/source/cygui/widgets/Widget.cpp
     code/source/cygui/styles/WidgetStyle.cpp
-    code/source/cygui/widgets/Object.cpp
     code/source/cygui/styles/ObjectStyle.cpp
-    code/source/cygui/widgets/Button.cpp
     code/source/cygui/styles/ButtonStyle.cpp
-    code/source/cygui/styles/TextWidgetStyle.cpp code/source/cygui/widgets/TextWidget.cpp code/source/cygui/GUIObjectManager.cpp)
+    code/source/cygui/styles/TextWidgetStyle.cpp
+
+    code/source/cygui/widgets/Widget.cpp
+    code/source/cygui/widgets/Object.cpp
+    code/source/cygui/widgets/Button.cpp
+    code/source/cygui/widgets/TextWidget.cpp
+
+    code/source/cygui/GUIObjectManager.cpp)
 
 set(SOURCES_INPUT
     code/source/cyinput/Controller.cpp
@@ -271,25 +300,34 @@ set(SOURCES_STD
 set(SOURCES_SYSTEM
     code/source/cysystem/Platform.cpp
     code/source/cysystem/Scheduler.cpp
-    code/source/cysystem/SchedulerTask.cpp code/source/cysystem/sdl/SDLEventLoop.cpp code/source/cysystem/sdl/SDL.cpp)
+    code/source/cysystem/SchedulerTask.cpp
+    code/source/cysystem/sdl/SDLEventLoop.cpp
+    code/source/cysystem/sdl/SDL.cpp)
 
 set(SOURCES_UTIL
-    code/source/cyutil/color/Color.cpp
+    code/source/cyutil/color/RGBAColor.cpp
+
     code/source/cyutil/io/Print.cpp
+
     code/source/cyutil/time/Clock.cpp
-    code/include/cyutil/time/Clock.hpp
-    code/include/cyutil/time/time.hpp
-    code/source/cyutil/serialize/ISerialize.cpp
-    code/include/cyutil/type/TypeEnum.hpp)
+    code/source/cyutil/time/SDLTimer.cpp
+    code/source/cyutil/time/SDLPerformanceTimer.cpp
+
+    code/source/cyutil/serialize/ISerialize.cpp)
 
 set(SOURCES_VIDEO
     code/source/cyvideo/renderer/SDLRenderer.cpp
+
     code/source/cyvideo/window/SDLWindow.cpp
-    code/source/cyvideo/SDLVideo.cpp
+
     code/source/cyvideo/display/SDLDisplay.cpp
+
     code/source/cyvideo/font/SDLFont.cpp
+    code/source/cyvideo/font/SDLFontCollection.cpp
+
+    code/source/cyvideo/SDLVideo.cpp
     code/source/cyvideo/SDLTexture.cpp
-    code/source/cyvideo/SDLSurface.cpp code/source/cyvideo/color/RGBAColor.cpp code/source/cyvideo/font/SDLFontCollection.cpp)
+    code/source/cyvideo/SDLSurface.cpp)
 
 set(SOURCES
     ${SOURCES_AUDIO}
@@ -321,7 +359,8 @@ set(TEST_SOURCES_GUI)
 set(TEST_SOURCES_INPUT)
 
 set(TEST_SOURCES_MATH
-    code/test/cymath/test_point.cpp)
+    code/test/cymath/test_point.cpp
+    code/test/cymath/test_rectangle.cpp code/test/cymath/test_size.cpp code/test/cymath/test_vector.cpp)
 
 set(TEST_SOURCES_NET)
 
@@ -346,7 +385,7 @@ set(TEST_SOURCES
 
 set(TEST_FILES
     ${FILES}
-    ${TEST_SOURCES} code/source/cyvideo/font/SDLFontCollection.cpp)
+    ${TEST_SOURCES} code/test/cymath/test_space.cpp code/test/cymath/test_line.cpp)
 
 
 #

@@ -21,7 +21,7 @@ namespace cyanide::cyvideo
         }
     }
 
-    void SDLRenderer::createRenderer(const SDLWindowSPtr& window, const int& index, const Uint32& flags)
+    void SDLRenderer::createRenderer(const SDLWindowSPtr& window, const int index, const Uint32 flags)
     {
         if(window != nullptr)
         {
@@ -68,7 +68,7 @@ namespace cyanide::cyvideo
         return {m_renderer_info.max_texture_width, m_renderer_info.max_texture_height};
     }
 
-    void SDLRenderer::setRendererIndex(const int& index)
+    void SDLRenderer::setRendererIndex(const int index)
     {
         if(m_renderer_index != index)
         {
@@ -76,7 +76,7 @@ namespace cyanide::cyvideo
         }
     }
 
-    void SDLRenderer::setRendererFlags(const Uint32& flags)
+    void SDLRenderer::setRendererFlags(const Uint32 flags)
     {
         if(m_renderer_info.flags != flags)
         {
@@ -107,7 +107,7 @@ namespace cyanide::cyvideo
         SDL_SetRenderTarget(m_renderer, nullptr);
     }
 
-    void SDLRenderer::setDrawColor(RGBAColor color)
+    void SDLRenderer::setDrawColor(cyutil::RGBAColor color)
     {
         SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
     }
