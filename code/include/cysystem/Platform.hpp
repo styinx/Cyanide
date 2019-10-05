@@ -5,7 +5,7 @@
 #include "cystd/NonCopyable.hpp"
 #include "cystd/NonMoveable.hpp"
 
-namespace Cyanide
+namespace cyanide
 {
 namespace cysystem
 {
@@ -16,7 +16,7 @@ namespace cysystem
     {
     private:
     public:
-        static void setEnvironment(const char* var, const char* path, bool override);
+        static void setEnvironment(const String& var, const String& path, const bool& override);
         static std::string getPlatform();
         static Sint32 getLogicalCPUs();
         static Sint32 getCPUCacheSize();
@@ -24,6 +24,6 @@ namespace cysystem
     };
 
 }  // namespace cysystem
-}  // namespace Cyanide
+}  // namespace cyanide
 
 #endif  // CYANIDE_PLATFORM_HPP

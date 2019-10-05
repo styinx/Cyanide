@@ -1,13 +1,7 @@
 language: cpp
 
-#env:
-#  global:
-#    - RUN_TESTS=true
-#    - COVERAGE=false
-
 os:
   - linux
-#  - windows
 
 compiler:
   - clang
@@ -19,24 +13,15 @@ cache:
 
 addons:
   apt:
-#    sources:
-#    - ubuntu-toolchain-r-test
-#    - llvm-toolchain-precise-3.8
-
     packages:
-#    - clang-6.0
-#    - gcc-7
-
     - cmake
-
-#    - lcov
 
 before_install:
   - mkdir build
   - sudo apt-get update
   - sudo apt-get install -y libsdl2-2.0.0
   - sudo apt-get install -y libsdl2-dev
-  - sudo apt-get install -y libsdl2-gfx-1.0.0
+  - sudo apt-get install -y libsdl2-gfx-1.0.4
   - sudo apt-get install -y libsdl2-gfx-dev
   - sudo apt-get install -y libsdl2-image-2.0.0
   - sudo apt-get install -y libsdl2-image-dev
@@ -49,21 +34,13 @@ before_install:
 
 install:
   - sudo python -m pip install conan
-#  - "[ $CXX = clang++ ] && export CXX=clang++-3.8 || true"
-#  - "[ $CXX = g++ ] && export CXX=g++-6 || true"
 
 script:
-  - conan install .
-  - cmake .
-#  - sudo ln -s /usr/bin/gcc-6 /usr/local/bin/gcc
-#  - sudo ln -s /usr/bin/g++-6 /usr/local/bin/g++
+  - conan install . -if build
+  - cd build
+  - cmake .. && make
+  - cd ..
 
-#after_success:
-#  - lcov --capture --directory . --output-file coverage.info
-#  - lcov --remove coverage.info '/usr/*' --output-file coverage.info
-#  - lcov --list coverage.info
-#  - bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"
-
-#notifications:
-#  email:
-#   - Cyanide@gmail.com
+notifications:
+  email:
+   - Cyanide.github@googlemail.com

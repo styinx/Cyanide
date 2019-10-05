@@ -5,9 +5,7 @@
 
 #include "cymath/Point.hpp"
 
-namespace Cyanide
-{
-namespace cymath
+namespace cyanide::cymath
 {
 
     class Line
@@ -21,6 +19,10 @@ namespace cymath
         Line();
         Line(const Point p1, const Point p2);
         Line(const Sint32 x1, const Sint32 y1, const Sint32 x2, const Sint32 y2);
+        Line(const Line& other)     = default;
+        Line(Line&& other) noexcept = default;
+        Line& operator=(const Line& other) = default;
+        Line& operator=(Line&& other) noexcept = default;
         Point       first() const;
         Point       second() const;
         Line&       set(const Sint32 x1, const Sint32 y1, const Sint32 x2, const Sint32 y2);
@@ -54,7 +56,6 @@ namespace cymath
         friend bool operator>=(const Line& first, const Line& second);
     };
 
-}  // namespace cymath
-}  // namespace Cyanide
+}  // namespace cyanide
 
 #endif  // CYANIDE_LINE_HPP

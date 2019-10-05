@@ -1,52 +1,92 @@
 #ifndef CYANIDE_OBJECTSTYLE_HPP
 #define CYANIDE_OBJECTSTYLE_HPP
 
-#include "cystd/stdPrototypes.hpp"
-
 #include "cymath/Point.hpp"
 #include "cymath/Size.hpp"
+#include "cymath/Space.hpp"
+#include "cystd/stdPrototypes.hpp"
+#include "cyutil/color/RGBAColor.hpp"
+#include "cyvideo/SDLTexture.hpp"
 
-namespace Cyanide
-{
-namespace cygui
+#include <cymath/Rectangle.hpp>
+
+namespace cyanide::cygui
 {
 
-    using SomeValue = Uint8;
+    namespace Default
+    {
+        const cymath::Space MARGIN  = cymath::Space{1, 1, 1, 1};
+        const cymath::Space BORDER  = cymath::Space{1, 1, 1, 1};
+        const cymath::Space PADDING = cymath::Space{1, 1, 1, 1};
+
+        //        const cyutil::RGBAColor BACKGROUND_COLOR = cyutil::RGBAColor{245, 245, 245, 255};
+        const cyutil::RGBAColor BACKGROUND_COLOR = cyutil::RGBAColor{0, 255, 0, 255};
+        //        const cyutil::RGBAColor BORDER_COLOR     = cyutil::RGBAColor{200, 200, 200, 255};
+        const cyutil::RGBAColor BORDER_COLOR = cyutil::RGBAColor{255, 0, 0, 255};
+    }  // namespace Default
 
     class ObjectStyle
     {
-    private:
+    protected:
         cymath::Point m_position;
         cymath::Size  m_size;
-        cymath::Point m_content_position;
-        cymath::Size  m_content_size;
-        cymath::Point m_decoration_position;
-        cymath::Size  m_decoration_size;
+        cymath::Space m_margin  = Default::MARGIN;
+        cymath::Space m_border  = Default::BORDER;
+        cymath::Space m_padding = Default::PADDING;
+        cymath::Size  m_content;
+
+        bool m_requires_texture_reload = false;
+
+        cyvideo::SDLTextureSPtr m_texture         = nullptr;
+        cyvideo::SDLTextureSPtr m_border_texture  = nullptr;
+        cyvideo::SDLTextureSPtr m_padding_texture = nullptr;
+        cyvideo::SDLTextureSPtr m_content_texture = nullptr;
+
+        cyutil::RGBAColor m_background_color = Default::BACKGROUND_COLOR;
+        cyutil::RGBAColor m_border_color     = Default::BORDER_COLOR;
+
+        ObjectStyle();
+
+        /**
+         * @brief Calculates new texture dimensions when sizes changes.
+         */
+        virtual void calculateTextures();
 
     public:
-
-        ObjectStyle() = default;
-        ObjectStyle(const ObjectStyle& object_style) = default;
-        ObjectStyle(ObjectStyle&& object_style) noexcept = default;
-        ObjectStyle& operator=(const ObjectStyle& object_style) = default;
-        ObjectStyle& operator=(ObjectStyle&& object_style) noexcept = default;
         virtual ~ObjectStyle() = default;
 
-        virtual cymath::Point getPosition() const;
-        virtual ObjectStyle&  setPosition(const cymath::Point position);
-        virtual cymath::Size  getSize() const;
-        virtual ObjectStyle&  setSize(const cymath::Size size);
-        virtual cymath::Point getContentPosition() const;
-        virtual ObjectStyle&  setContentPosition(const cymath::Point position);
-        virtual cymath::Size  getContentSize() const;
-        virtual ObjectStyle&  setContentSize(const cymath::Size size);
-        virtual cymath::Point getDecorationPosition() const;
-        virtual ObjectStyle&  setDecorationPosition(const cymath::Point position);
-        virtual cymath::Size  getDecorationSize() const;
-        virtual ObjectStyle&  setDecorationSize(const cymath::Size size);
+        virtual cymath::Rectangle getDimension() const;
+        virtual void              setDimension(const cymath::Rectangle& dimension);
+        virtual cymath::Point     getPosition() const;
+        virtual void              setPosition(const cymath::Point& position);
+        virtual cymath::Size      getSize() const;
+        virtual void              setSize(const cymath::Size& size);
+        virtual cymath::Space     getMargin() const;
+        virtual void              setMargin(const cymath::Space& margin);
+        virtual cymath::Space     getBorder() const;
+        virtual void              setBorder(const cymath::Space& border);
+        virtual cymath::Space     getPadding() const;
+        virtual void              setPadding(const cymath::Space& padding);
+        virtual cymath::Size      getContentSize() const;
+
+        /**
+         * @brief   Sets the inner content to the given size. This modifies also the
+         *          available space of the whole object.
+         * @param content_size
+         */
+        virtual void setContentSize(const cymath::Size& content_size);
+
+        /**
+         * @brief Draws the border onto the border texture.
+         */
+        virtual void drawBorder();
+
+        /**
+         * @brief Draws the background color onto the background texture.
+         */
+        virtual void drawBackground();
     };
 
-}  // namespace cygui
-}  // namespace Cyanide
+}  // namespace cyanide::cygui
 
 #endif  // CYANIDE_OBJECTSTYLE_HPP

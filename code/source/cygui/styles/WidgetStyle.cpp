@@ -1,9 +1,11 @@
 #include "cygui/styles/WidgetStyle.hpp"
 
-namespace Cyanide
-{
-namespace cygui
+namespace cyanide::cygui
 {
 
-}  // namespace cygui
-}  // namespace Cyanide
+    WidgetStyle::WidgetStyle()
+    {
+
+    }
+
+}  // namespace cyanide::cygui

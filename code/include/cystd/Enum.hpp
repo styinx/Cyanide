@@ -3,18 +3,15 @@
 
 #include <type_traits>
 
-namespace Cyanide
-{
-namespace cystd
+namespace cyanide::cystd
 {
 
     template<typename T>
-    constexpr auto fromEnum(T t)
+    constexpr auto fromEnum(const T t)
     {
         return static_cast<typename std::underlying_type<T>::type>(t);
     }
 
-}  // namespace cystd
-}  // namespace Cyanide
+}  // namespace cyanide::cystd
 
 #endif  // CYANIDE_ENUM_HPP

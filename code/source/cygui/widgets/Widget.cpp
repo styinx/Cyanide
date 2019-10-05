@@ -1,11 +1,14 @@
+#include "cygui/widgets/Widget.hpp"
 
-
-namespace Cyanide
-{
-namespace cygui
+namespace cyanide::cygui
 {
 
+    Widget::Widget()
+        : Object(nullptr)
+    {
+
+    }
 
 
-}  // namespace cygui
-}  // namespace Cyanide
+
+}  // namespace cyanide::cygui

@@ -3,7 +3,7 @@
 
 #include "stdPrototypes.hpp"
 
-namespace Cyanide
+namespace cyanide
 {
 namespace cystd
 {
@@ -18,6 +18,6 @@ namespace cystd
     };
 
 }  // namespace cystd
-}  // namespace Cyanide
+}  // namespace cyanide
 
 #endif  // CYANIDE_CYOBJ_HPP

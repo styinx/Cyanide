@@ -1,9 +1,8 @@
 
+#include <cmath>
 #include <cymath/Space.hpp>
 
-namespace Cyanide
-{
-namespace cymath
+namespace cyanide::cymath
 {
 
     Space::Space()
@@ -51,37 +50,41 @@ namespace cymath
 
     Space& Space::mul(const Sint32 top, const Sint32 right, const Sint32 bottom, const Sint32 left)
     {
-        this->top *= top;
-        this->right *= right;
-        this->bottom *= bottom;
-        this->left *= left;
-        return *this;
+        return mul(
+            static_cast<float>(top),
+            static_cast<float>(right),
+            static_cast<float>(bottom),
+            static_cast<float>(left));
     }
 
     Space& Space::mul(const float top, const float right, const float bottom, const float left)
     {
-        this->top    = static_cast<Sint32>(this->top * top);
-        this->right  = static_cast<Sint32>(this->right * right);
-        this->bottom = static_cast<Sint32>(this->bottom * bottom);
-        this->left   = static_cast<Sint32>(this->left * left);
+        this->top    = static_cast<Sint32>(std::lround(this->top * top));
+        this->right  = static_cast<Sint32>(std::lround(this->right * right));
+        this->bottom = static_cast<Sint32>(std::lround(this->bottom * bottom));
+        this->left   = static_cast<Sint32>(std::lround(this->left * left));
         return *this;
     }
 
     Space& Space::div(const Sint32 top, const Sint32 right, const Sint32 bottom, const Sint32 left)
     {
-        if(top != 0) this->top = static_cast<Sint32>(this->top * top);
-        if(right != 0) this->right = static_cast<Sint32>(this->right * right);
-        if(bottom != 0) this->bottom = static_cast<Sint32>(this->bottom * bottom);
-        if(left != 0) this->left = static_cast<Sint32>(this->left * left);
-        return *this;
+        return div(
+            static_cast<float>(top),
+            static_cast<float>(right),
+            static_cast<float>(bottom),
+            static_cast<float>(left));
     }
 
     Space& Space::div(const float top, const float right, const float bottom, const float left)
     {
-        if(top != 0) this->top = static_cast<Sint32>(this->top * top);
-        if(right != 0) this->right = static_cast<Sint32>(this->right * right);
-        if(bottom != 0) this->bottom = static_cast<Sint32>(this->bottom * bottom);
-        if(left != 0) this->left = static_cast<Sint32>(this->left * left);
+        if(top != 0)
+            this->top = static_cast<Sint32>(this->top * top);
+        if(right != 0)
+            this->right = static_cast<Sint32>(this->right * right);
+        if(bottom != 0)
+            this->bottom = static_cast<Sint32>(this->bottom * bottom);
+        if(left != 0)
+            this->left = static_cast<Sint32>(this->left * left);
         return *this;
     }
 
@@ -92,7 +95,7 @@ namespace cymath
 
     Space& Space::operator+=(const Space& other)
     {
-        return this->add(other.top, other.right, other.bottom, other.left);
+        return add(other.top, other.right, other.bottom, other.left);
     }
 
     Space Space::operator-(const Space& other)
@@ -102,7 +105,7 @@ namespace cymath
 
     Space& Space::operator-=(const Space& other)
     {
-        return this->sub(other.top, other.right, other.bottom, other.left);
+        return sub(other.top, other.right, other.bottom, other.left);
     }
 
     Space Space::operator*(const Space& other)
@@ -112,7 +115,7 @@ namespace cymath
 
     Space& Space::operator*=(const Space& other)
     {
-        return this->mul(other.top, other.right, other.bottom, other.left);
+        return mul(other.top, other.right, other.bottom, other.left);
     }
 
     Space Space::operator/(const Space& other)
@@ -123,7 +126,7 @@ namespace cymath
 
     Space& Space::operator/=(const Space& other)
     {
-        return this->div(other.top, other.right, other.bottom, other.left);
+        return div(other.top, other.right, other.bottom, other.left);
     }
 
     Space Space::operator*(const Sint32 scalar)
@@ -140,12 +143,12 @@ namespace cymath
 
     Space& Space::operator*=(const Sint32 scalar)
     {
-        return this->mul(scalar, scalar, scalar, scalar);
+        return mul(scalar, scalar, scalar, scalar);
     }
 
     Space& Space::operator*=(const float scalar)
     {
-        return this->mul(scalar, scalar, scalar, scalar);
+        return mul(scalar, scalar, scalar, scalar);
     }
 
     Space Space::operator/(const Sint32 scalar)
@@ -162,13 +165,12 @@ namespace cymath
 
     Space& Space::operator/=(const Sint32 scalar)
     {
-        return this->mul(scalar, scalar, scalar, scalar);
+        return mul(scalar, scalar, scalar, scalar);
     }
 
     Space& Space::operator/=(const float scalar)
     {
-        return this->mul(scalar, scalar, scalar, scalar);
+        return mul(scalar, scalar, scalar, scalar);
     }
 
-}  // namespace cymath
-}  // namespace Cyanide
+}  // namespace cyanide::cymath
