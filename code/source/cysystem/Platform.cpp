@@ -3,14 +3,12 @@
 #include <SDL2/SDL_config.h>
 #include <SDL2/SDL_cpuinfo.h>
 
-namespace cyanide
-{
-namespace cysystem
+namespace cyanide::cysystem
 {
 
-    void Platform::setEnvironment(const char* var, const char* path, bool override)
+    void Platform::setEnvironment(const String& var, const String& path, const bool& override)
     {
-        setenv(var, path, override ? 1 : 0);
+        setenv(var.c_str(), path.c_str(), override ? 1 : 0);
     }
 
     std::string Platform::getPlatform()
@@ -33,5 +31,4 @@ namespace cysystem
         return SDL_GetSystemRAM();
     }
 
-}  // namespace cysystem
-}  // namespace cyanide
+}  // namespace cyanide::cysystem

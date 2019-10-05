@@ -17,8 +17,17 @@ namespace cyanide::cygui
         explicit TextWidget(const String& text);
 
     public:
+        virtual ~TextWidget() = default;
+
         void   setText(const String& text);
         String getText() const;
+
+        virtual void drawText();
+
+        /*
+         * Inherited from Widget
+         */
+        virtual void draw() override;
     };
 }  // namespace cyanide::cygui
 

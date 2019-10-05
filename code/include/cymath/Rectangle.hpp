@@ -29,7 +29,10 @@ namespace cyanide::cymath
         Point       bottomLeft() const;
         Point       bottomRight() const;
         Point       center() const;
+        Point       getPosition() const;
+        Rectangle&  setPosition(const Point& p);
         Size        getSize() const;
+        Rectangle&  setSize(const Size& s);
         Rectangle&  set(const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h);
         Rectangle&  add(const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h);
         Rectangle&  sub(const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h);

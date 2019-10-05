@@ -56,37 +56,23 @@ TEST(PointTest, set)
 TEST(PointTest, add)
 {
     Point p;
-    Point q(1, 1, 1);
-    Point r(2, 2, 2);
 
     p.add(1, 2, 3).add(2, 3, 4);
-    q.add(r);
 
     ASSERT_EQ(3, p.x);
     ASSERT_EQ(5, p.y);
     ASSERT_EQ(7, p.z);
-
-    ASSERT_EQ(3, q.x);
-    ASSERT_EQ(3, q.y);
-    ASSERT_EQ(3, q.z);
 }
 
 TEST(PointTest, sub)
 {
     Point p;
-    Point q(2, 2, 2);
-    Point r(1, 1, 1);
 
     p.add(1, 2, 3).sub(2, 3, 4);
-    q.sub(r);
 
     ASSERT_EQ(-1, p.x);
     ASSERT_EQ(-1, p.y);
     ASSERT_EQ(-1, p.z);
-
-    ASSERT_EQ(1, q.x);
-    ASSERT_EQ(1, q.y);
-    ASSERT_EQ(1, q.z);
 }
 
 TEST(PointTest, mul)

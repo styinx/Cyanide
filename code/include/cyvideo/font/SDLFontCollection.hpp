@@ -9,16 +9,16 @@ namespace cyanide::cyvideo
     class SDLFontCollection final
     {
     private:
-        static UMap<String, SDLFontSPtr> s_fonts;
+        static UMap<String, SDLFont*> s_fonts;
 
         SDLFontCollection() = default;
 
     public:
         virtual ~SDLFontCollection() = default;
 
-        static void         clearFont(const String& name);
-        static SDLFontSPtr& getFont(const String& name);
-        static void         setFont(const String& name, const SDLFontSPtr& font);
+        static void     clearFont(const String& name);
+        static SDLFont* getFont(const String& name);
+        static void     setFont(const String& name, SDLFont* font);
     };
 
 }  // namespace cyanide::cyvideo

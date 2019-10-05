@@ -50,27 +50,11 @@ namespace cyanide::cymath
         return *this;
     }
 
-    Point& Point::add(Point p)
-    {
-        x += p.x;
-        y += p.y;
-        z += p.z;
-        return *this;
-    }
-
     Point& Point::sub(const Sint32 x, const Sint32 y, const Sint32 z)
     {
         this->x -= x;
         this->y -= y;
         this->z -= z;
-        return *this;
-    }
-
-    Point& Point::sub(Point p)
-    {
-        x -= p.x;
-        y -= p.y;
-        z -= p.z;
         return *this;
     }
 
@@ -92,7 +76,7 @@ namespace cyanide::cymath
 
     Point& Point::div(const Sint32 x, const Sint32 y, const Sint32 z)
     {
-        return this->div((float)x, (float)y, (float)z);
+        return div(static_cast<float>(x), static_cast<float>(y), static_cast<float>(z));
     }
 
     Point& Point::div(const float x, const float y, const float z)

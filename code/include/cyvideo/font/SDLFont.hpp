@@ -1,13 +1,12 @@
 #ifndef CYANIDE_SDLFONT_HPP
 #define CYANIDE_SDLFONT_HPP
 
-#include "IFont.hpp"
+#include "cymath/Size.hpp"
+#include "cyvideo/font/IFont.hpp"
+#include "cyvideo/videoPrototypes.hpp"
 
 #include <SDL2/SDL_ttf.h>
-
 #include <string>
-
-#include "cymath/Size.hpp"
 
 namespace cyanide::cyvideo
 {
@@ -39,7 +38,8 @@ namespace cyanide::cyvideo
         BOLD_ITALIC             = TTF_STYLE_BOLD | TTF_STYLE_ITALIC,
         BOLD_ITALIC_UNDERLINED  = TTF_STYLE_BOLD | TTF_STYLE_ITALIC | TTF_STYLE_UNDERLINE,
         BOLD_ITALIC_STRIKED     = TTF_STYLE_BOLD | TTF_STYLE_ITALIC | TTF_STYLE_STRIKETHROUGH,
-        BOLD_ITALIC_UNDERLINED_STRIKED = TTF_STYLE_BOLD | TTF_STYLE_ITALIC | TTF_STYLE_UNDERLINE | TTF_STYLE_STRIKETHROUGH,
+        BOLD_ITALIC_UNDERLINED_STRIKED =
+            TTF_STYLE_BOLD | TTF_STYLE_ITALIC | TTF_STYLE_UNDERLINE | TTF_STYLE_STRIKETHROUGH,
         ITALIC_UNDERLINED         = TTF_STYLE_ITALIC | TTF_STYLE_UNDERLINE,
         ITALIC_STRIKED            = TTF_STYLE_ITALIC,
         ITALIC_UNDERLINED_STRIKED = TTF_STYLE_ITALIC | TTF_STYLE_UNDERLINE | TTF_STYLE_STRIKETHROUGH,
@@ -48,7 +48,7 @@ namespace cyanide::cyvideo
 
     namespace Default
     {
-        const Uint8        SIZE_PT  = 12;
+        const Uint8        SIZE_PT = 12;
         const FONT_STYLE   STYLE   = FONT_STYLE::NORMAL;
         const FONT_HINTING HININTG = FONT_HINTING::NORMAL;
     }  // namespace Default
@@ -88,11 +88,13 @@ namespace cyanide::cyvideo
         SDLFontInfo                  m_font_info{};
         UMap<Uint16, SDLCharMetrics> m_metrics;
 
-        void           loadFontInfo();
+        void loadFontInfo();
 
     public:
         explicit SDLFont(const String& path, const Uint8 size);
         virtual ~SDLFont();
+
+        explicit operator bool();
 
         void           openFont(const String& path, const Uint8 size);
         void           closeFont();

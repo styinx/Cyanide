@@ -21,9 +21,7 @@ namespace cyanide::cymath
         Point&      operator=(Point&& other) noexcept = default;
         Point&      set(const Sint32 x, const Sint32 y, const Sint32 z = 0);
         Point&      add(const Sint32 x, const Sint32 y, const Sint32 z = 0);
-        Point&      add(const Point p);
         Point&      sub(const Sint32 x, const Sint32 y, const Sint32 z = 0);
-        Point&      sub(const Point p);
         Point&      mul(const Sint32 x, const Sint32 y, const Sint32 z = 1);
         Point&      mul(const float x, const float y, const float z = 1);
         Point&      div(const Sint32 x, const Sint32 y, const Sint32 z = 1);

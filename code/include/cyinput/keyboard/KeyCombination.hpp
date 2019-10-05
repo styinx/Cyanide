@@ -1,37 +1,34 @@
 #ifndef CYANIDE_KEYCOMBINATION_HPP
 #define CYANIDE_KEYCOMBINATION_HPP
 
-#include "cyinput/IKey.hpp"
+#include "cyinput/keyboard/IKey.hpp"
 
-namespace cyanide
-{
-namespace cyinput
+namespace cyanide::cyinput
 {
 
     class KeyCombination final
     {
     private:
+        Vector<KeyCode> m_and;
+        Vector<KeyCode> m_or;
 
     public:
-        KeyCombination() = default;
+        KeyCombination()  = default;
         ~KeyCombination() = default;
-        explicit KeyCombination(const IKey& key);
-        KeyCombination(const KeyCombination& key_combination) = default;
-        KeyCombination(KeyCombination&& key_combination) noexcept = default;
+        KeyCombination(const KeyCombination& other) = default;
+        KeyCombination(KeyCombination&& other) noexcept = default;
         KeyCombination& operator=(const KeyCombination& key_combination) = default;
         KeyCombination& operator=(KeyCombination&& key_combination) noexcept = default;
-        KeyCombination operator|(KeyCombination& key_combination);
+        KeyCombination  operator|(KeyCombination& key_combination);
         KeyCombination& operator|=(KeyCombination& key_combination);
-        KeyCombination operator|(IKey& key);
+        KeyCombination  operator|(IKey& key);
         KeyCombination& operator|=(IKey& key);
-        KeyCombination operator&(KeyCombination& key_combination);
+        KeyCombination  operator&(KeyCombination& key_combination);
         KeyCombination& operator&=(KeyCombination& key_combination);
-        KeyCombination operator&(IKey& key);
+        KeyCombination  operator&(IKey& key);
         KeyCombination& operator&=(IKey& key);
-        explicit operator bool() const;
     };
 
-}  // namespace cyinput
-}  // namespace cyanide
+}  // namespace cyanide::cyinput
 
 #endif  // CYANIDE_KEYCOMBINATION_HPP

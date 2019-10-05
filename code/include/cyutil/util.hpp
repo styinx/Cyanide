@@ -5,9 +5,7 @@
 #include <string>
 #include <sstream>
 
-namespace cyanide
-{
-namespace cyutil
+namespace cyanide::cyutil
 {
 
     unsigned digits(long number)
@@ -62,7 +60,6 @@ namespace cyutil
         return num;
     }
 
-}  // namespace cyutil
 }  // namespace cyanide
 
 #endif  // CYANIDE_UTIL_HPP

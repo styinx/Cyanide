@@ -22,9 +22,7 @@ namespace cyanide::cymath
         Size& operator=(Size&& other) noexcept = default;
         Size& set(const Sint32 w, const Sint32 h);
         Size& add(const Sint32 w, const Sint32 h);
-        Size& add(const Size p);
         Size& sub(const Sint32 w, const Sint32 h);
-        Size& sub(const Size p);
         Size& mul(const Sint32 w, const Sint32 h);
         Size& mul(const float w, const float h);
         Size& div(const Sint32 w, const Sint32 h);

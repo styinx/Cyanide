@@ -12,7 +12,7 @@ namespace cyanide::cygui
         DOUBLE   = 0x02
     };
 
-    enum class ORIENT : Byte
+    enum class ORIENTATION : Byte
     {
         HORIZONTAL = 0x01,
         VERTICAL   = 0x02

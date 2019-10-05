@@ -6,13 +6,9 @@
 
 namespace cyanide::cygui
 {
-    class WidgetStyle : public virtual ObjectStyle
+    class WidgetStyle
     {
     protected:
-        cymath::Space m_margin;
-        cymath::Space m_padding;
-        cymath::Space m_border;
-
         WidgetStyle();
 
     public:

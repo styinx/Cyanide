@@ -12,13 +12,13 @@ namespace cyanide::cygui
         , public ButtonStyle
     {
     public:
-        Button() = delete;
-        explicit Button(const String& text);
-        Button(const Button& button)     = default;
-        Button(Button&& button) noexcept = default;
-        Button& operator=(const Button& button) = default;
-        Button& operator=(Button&& button) noexcept = default;
-        virtual ~Button()                           = default;
+        explicit Button(const String& label);
+        virtual ~Button() = default;
+
+        /*
+         * Inherited from TextWidget
+         */
+        virtual void draw() override;
     };
 
 }  // namespace cyanide::cygui

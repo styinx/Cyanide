@@ -3,9 +3,14 @@
 namespace cyanide::cygui
 {
 
-    Button::Button(const String& text)
-        : TextWidget(text)
+    Button::Button(const String& label)
+        : TextWidget(label)
     {
+    }
+
+    void Button::draw()
+    {
+        TextWidget::draw();
     }
 
 }  // namespace cyanide::cygui

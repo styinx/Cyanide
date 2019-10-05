@@ -1,18 +1,17 @@
 #include "cygui/styles/TextWidgetStyle.hpp"
 
-#include "cygui/GUIObjectManager.hpp"
+#include "cygui/GUIRenderManager.hpp"
 #include "cyvideo/renderer/SDLRenderer.hpp"
 
 namespace cyanide::cygui
 {
 
     TextWidgetStyle::TextWidgetStyle()
-        : WidgetStyle()
     {
         using namespace cyvideo;
 
         m_text_texture = SDLTextureSPtr(new SDLTexture(
-            GUIObjectManager::getRenderer(),
+            GUIRenderManager::getRenderer(),
             cymath::Size{0, 0}));
     }
 
@@ -39,20 +38,6 @@ namespace cyanide::cygui
     void TextWidgetStyle::setBGColor(const cyutil::RGBAColor& color)
     {
         m_bg_color = color;
-    }
-
-    void TextWidgetStyle::drawText()
-    {
-        auto renderer = GUIObjectManager::getRenderer();
-        auto offset = cymath::Point(0, 0);
-
-        offset += {m_margin.left, m_margin.top};
-        offset += {m_border.left, m_border.top};
-        offset += {m_padding.left, m_padding.top};
-
-        renderer->setRenderTarget(m_content_texture);
-        renderer->drawSDLTexture(m_text_texture, offset);
-        renderer->resetRenderTarget();
     }
 
 }  // namespace cyanide::cygui

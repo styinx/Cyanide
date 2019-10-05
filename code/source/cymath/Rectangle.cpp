@@ -55,9 +55,28 @@ namespace cyanide::cymath
                 static_cast<Sint32>(std::lround(y + h / 2.0f))};
     }
 
+    Point Rectangle::getPosition() const
+    {
+        return Point(x, y);
+    }
+
+    Rectangle& Rectangle::setPosition(const Point& p)
+    {
+        x = p.x;
+        y = p.y;
+        return *this;
+    }
+
     Size Rectangle::getSize() const
     {
         return Size(w, h);
+    }
+
+    Rectangle& Rectangle::setSize(const Size& s)
+    {
+        w = s.width;
+        h = s.height;
+        return *this;
     }
 
     Rectangle& Rectangle::set(const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h)
@@ -107,7 +126,7 @@ namespace cyanide::cymath
 
     Rectangle& Rectangle::div(const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h)
     {
-        return this->div((float)x, (float)y, (float)w, (float)h);
+        return this->div(static_cast<float>(x), static_cast<float>(y), static_cast<float>(w), static_cast<float>(h));
     }
 
     Rectangle& Rectangle::div(const float x, const float y, const float w, const float h)

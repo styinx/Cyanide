@@ -3,7 +3,7 @@
 namespace cyanide::cyvideo
 {
 
-    UMap<String, SDLFontSPtr> SDLFontCollection::s_fonts = {};
+    UMap<String, SDLFont*> SDLFontCollection::s_fonts = {};
 
     /*static*/
     void SDLFontCollection::clearFont(const String& name)
@@ -15,13 +15,13 @@ namespace cyanide::cyvideo
     }
 
     /*static*/
-    SDLFontSPtr& SDLFontCollection::getFont(const String& name)
+    SDLFont* SDLFontCollection::getFont(const String& name)
     {
         return s_fonts[name];
     }
 
     /*static*/
-    void SDLFontCollection::setFont(const String& name, const SDLFontSPtr& font)
+    void SDLFontCollection::setFont(const String& name, SDLFont* font)
     {
         s_fonts[name] = font;
     }

@@ -31,24 +31,10 @@ namespace cyanide::cymath
         return *this;
     }
 
-    Size& Size::add(Size p)
-    {
-        width += p.width;
-        height += p.height;
-        return *this;
-    }
-
     Size& Size::sub(const Sint32 w, const Sint32 h)
     {
         width -= w;
         height -= h;
-        return *this;
-    }
-
-    Size& Size::sub(Size p)
-    {
-        width -= p.width;
-        height -= p.height;
         return *this;
     }
 
@@ -68,9 +54,7 @@ namespace cyanide::cymath
 
     Size& Size::div(const Sint32 w, const Sint32 h)
     {
-        width  = static_cast<Sint32>(std::lround(width / w));
-        height = static_cast<Sint32>(std::lround(height / h));
-        return *this;
+        return div(static_cast<float>(w), static_cast<float>(h));
     }
 
     Size& Size::div(const float w, const float h)

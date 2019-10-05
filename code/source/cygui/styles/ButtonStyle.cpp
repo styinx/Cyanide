@@ -3,6 +3,8 @@
 namespace cyanide::cygui
 {
 
-
+    ButtonStyle::ButtonStyle()
+    {
+    }
 
 }  // namespace cyanide::cygui

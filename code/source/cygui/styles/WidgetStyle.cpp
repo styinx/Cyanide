@@ -4,7 +4,6 @@ namespace cyanide::cygui
 {
 
     WidgetStyle::WidgetStyle()
-        : ObjectStyle()
     {
 
     }

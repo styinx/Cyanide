@@ -86,7 +86,7 @@ namespace cyanide::cymath
 
     Line& Line::div(const Sint32 x1, const Sint32 y1, const Sint32 x2, const Sint32 y2)
     {
-        return div((float)x1, (float)y1, (float)x2, (float)y2);
+        return div(static_cast<float>(x1), static_cast<float>(y1), static_cast<float>(x2), static_cast<float>(y2));
     }
 
     Line& Line::div(const float x1, const float y1, const float x2, const float y2)
@@ -167,7 +167,7 @@ namespace cyanide::cymath
     Line Line::operator/(const Sint32 scalar)
     {
         Line l = *this;
-        return l / (float)scalar;
+        return l / static_cast<float>(scalar);
     }
 
     Line Line::operator/(const float scalar)

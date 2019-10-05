@@ -7,7 +7,7 @@ namespace cyanide::cystd
 {
 
     template<typename T>
-    constexpr auto fromEnum(T t)
+    constexpr auto fromEnum(const T t)
     {
         return static_cast<typename std::underlying_type<T>::type>(t);
     }

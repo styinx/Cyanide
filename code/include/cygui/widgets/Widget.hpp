@@ -12,12 +12,12 @@ namespace cyanide::cygui
         : public Object
         , public WidgetStyle
     {
-    protected:
-
     public:
         Widget();
-        virtual ~Widget()                           = default;
+        virtual ~Widget() = default;
     };
+
+    using WidgetSPtr = SharedPtr<Widget>;
 
 }  // namespace cyanide::cygui
 

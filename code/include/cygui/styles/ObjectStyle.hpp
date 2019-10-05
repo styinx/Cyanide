@@ -5,8 +5,8 @@
 #include "cymath/Size.hpp"
 #include "cymath/Space.hpp"
 #include "cystd/stdPrototypes.hpp"
-#include "cyvideo/SDLTexture.hpp"
 #include "cyutil/color/RGBAColor.hpp"
+#include "cyvideo/SDLTexture.hpp"
 
 #include <cymath/Rectangle.hpp>
 
@@ -19,20 +19,23 @@ namespace cyanide::cygui
         const cymath::Space BORDER  = cymath::Space{1, 1, 1, 1};
         const cymath::Space PADDING = cymath::Space{1, 1, 1, 1};
 
-//        const cyutil::RGBAColor BACKGROUND_COLOR = cyutil::RGBAColor{245, 245, 245, 255};
+        //        const cyutil::RGBAColor BACKGROUND_COLOR = cyutil::RGBAColor{245, 245, 245, 255};
         const cyutil::RGBAColor BACKGROUND_COLOR = cyutil::RGBAColor{0, 255, 0, 255};
-//        const cyutil::RGBAColor BORDER_COLOR     = cyutil::RGBAColor{200, 200, 200, 255};
-        const cyutil::RGBAColor BORDER_COLOR     = cyutil::RGBAColor{255, 0, 0, 255};
+        //        const cyutil::RGBAColor BORDER_COLOR     = cyutil::RGBAColor{200, 200, 200, 255};
+        const cyutil::RGBAColor BORDER_COLOR = cyutil::RGBAColor{255, 0, 0, 255};
     }  // namespace Default
 
     class ObjectStyle
     {
     protected:
-        cymath::Rectangle m_dimension;
-        cymath::Space     m_margin  = Default::MARGIN;
-        cymath::Space     m_border  = Default::BORDER;
-        cymath::Space     m_padding = Default::PADDING;
-        cymath::Size      m_content;
+        cymath::Point m_position;
+        cymath::Size  m_size;
+        cymath::Space m_margin  = Default::MARGIN;
+        cymath::Space m_border  = Default::BORDER;
+        cymath::Space m_padding = Default::PADDING;
+        cymath::Size  m_content;
+
+        bool m_requires_texture_reload = false;
 
         cyvideo::SDLTextureSPtr m_texture         = nullptr;
         cyvideo::SDLTextureSPtr m_border_texture  = nullptr;
@@ -43,6 +46,11 @@ namespace cyanide::cygui
         cyutil::RGBAColor m_border_color     = Default::BORDER_COLOR;
 
         ObjectStyle();
+
+        /**
+         * @brief Calculates new texture dimensions when sizes changes.
+         */
+        virtual void calculateTextures();
 
     public:
         virtual ~ObjectStyle() = default;
@@ -77,7 +85,6 @@ namespace cyanide::cygui
          * @brief Draws the background color onto the background texture.
          */
         virtual void drawBackground();
-        virtual void draw();
     };
 
 }  // namespace cyanide::cygui

@@ -122,7 +122,7 @@ namespace foo
 <pre>
 namespace mynamespace
 {
-    ... some code
+    ... some m_key_code
 }
 </pre>
       </td>
@@ -134,7 +134,7 @@ namespace mynamespace
 <pre>
 class MyClassName
 {
-    ... some code
+    ... some m_key_code
 }
 </pre>
       </td>

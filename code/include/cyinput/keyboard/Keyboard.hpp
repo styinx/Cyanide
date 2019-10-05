@@ -1,12 +1,12 @@
 #ifndef CYANIDE_KEYBOARD_HPP
 #define CYANIDE_KEYBOARD_HPP
 
-namespace cyanide
-{
-namespace cyinput
+#include "cyinput/keyboard/IKeyboard.hpp"
+
+namespace cyanide::cyinput
 {
 
-    class Keyboard final
+    class Keyboard final : public IKeyboard
     {
     private:
     public:
@@ -18,7 +18,6 @@ namespace cyinput
         Keyboard& operator=(Keyboard&& keyboard) noexcept = default;
     };
 
-}  // namespace cyinput
 }  // namespace cyanide
 
 #endif  // CYANIDE_KEYBOARD_HPP

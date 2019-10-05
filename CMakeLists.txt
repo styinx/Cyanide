@@ -38,6 +38,14 @@ endif()
 include_directories(${DIR_INCLUDE} ${OS_DIR_INCLUDE})
 link_directories(${DIR_LIBRARY} ${OS_DIR_LIBRARY})
 
+#
+# Compiler
+#
+
+SET(GCC_COMPILE_FLAGS "-Wall -Wextra -ansi -pedantic")
+
+SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${GCC_COMPILE_FLAGS}")
+
 
 #
 # Libraries
@@ -131,23 +139,34 @@ set(INCLUDES_GUI
     code/include/cygui/styles/Styles.hpp
     code/include/cygui/styles/ButtonStyle.hpp
     code/include/cygui/styles/TextWidgetStyle.hpp
+    code/include/cygui/styles/BoxStyle.hpp
 
     code/include/cygui/widgets/Object.hpp
     code/include/cygui/widgets/Widget.hpp
     code/include/cygui/widgets/Button.hpp
     code/include/cygui/widgets/TextWidget.hpp
 
-    code/include/cygui/GUIObjectManager.hpp)
+    code/include/cygui/GUIRenderManager.hpp
+
+    code/include/cygui/layout/ILayout.hpp
+    code/include/cygui/layout/IBox.hpp
+    code/include/cygui/layout/Box.hpp
+    code/include/cygui/layout/VBox.hpp
+    code/include/cygui/layout/HBox.hpp)
 
 set(INCLUDES_INPUT
-    code/include/cyinput/Keyboard.hpp
+    code/include/cyinput/SDLEventLoop.hpp
+    code/include/cyinput/keyboard/Keyboard.hpp
     code/include/cyinput/Mouse.hpp
-    code/include/cyinput/Controller.hpp
-    code/include/cyinput/Keys.hpp
-    code/include/cyinput/Key.hpp
-    code/include/cyinput/IKey.hpp
-    code/include/cyinput/Keymod.hpp
-    code/include/cyinput/KeyCombination.hpp)
+    code/include/cyinput/controller/Controller.hpp
+    code/include/cyinput/keyboard/Keys.hpp
+    code/include/cyinput/keyboard/IKey.hpp
+    code/include/cyinput/keyboard/Key.hpp
+    code/include/cyinput/keyboard/SDLKey.hpp
+    code/include/cyinput/keyboard/Keymod.hpp
+    code/include/cyinput/keyboard/KeyCombination.hpp
+    code/include/cyinput/keyboard/IKeyboard.hpp
+    code/include/cyinput/controller/IController.hpp)
 
 set(INCLUDES_NET
     code/include/cynet/netPrototypes.hpp
@@ -176,7 +195,6 @@ set(INCLUDES_STD
     code/include/cystd/CyObj.hpp)
 
 set(INCLUDES_SYSTEM
-    code/include/cysystem/sdl/SDLEventLoop.hpp
     code/include/cysystem/sdl/SDL.hpp
     code/include/cysystem/Platform.hpp
     code/include/cysystem/IScheduler.hpp
@@ -267,19 +285,27 @@ set(SOURCES_GUI
     code/source/cygui/styles/ObjectStyle.cpp
     code/source/cygui/styles/ButtonStyle.cpp
     code/source/cygui/styles/TextWidgetStyle.cpp
+    code/source/cygui/styles/BoxStyle.cpp
 
     code/source/cygui/widgets/Widget.cpp
     code/source/cygui/widgets/Object.cpp
     code/source/cygui/widgets/Button.cpp
     code/source/cygui/widgets/TextWidget.cpp
 
-    code/source/cygui/GUIObjectManager.cpp)
+    code/source/cygui/GUIRenderManager.cpp
+
+    code/source/cygui/layout/Box.cpp
+    code/source/cygui/layout/VBox.cpp
+    code/source/cygui/layout/HBox.cpp)
 
 set(SOURCES_INPUT
-    code/source/cyinput/Controller.cpp
-    code/source/cyinput/KeyCombination.cpp
-    code/source/cyinput/Keyboard.cpp
-    code/source/cyinput/Keymod.cpp
+    code/source/cyinput/SDLEventLoop.cpp
+    code/source/cyinput/controller/Controller.cpp
+    code/source/cyinput/keyboard/Keyboard.cpp
+    code/source/cyinput/keyboard/Key.cpp
+    code/source/cyinput/keyboard/SDLKey.cpp
+    code/source/cyinput/keyboard/KeyCombination.cpp
+    code/source/cyinput/keyboard/Keymod.cpp
     code/source/cyinput/Mouse.cpp)
 
 set(SOURCES_NET
@@ -301,7 +327,6 @@ set(SOURCES_SYSTEM
     code/source/cysystem/Platform.cpp
     code/source/cysystem/Scheduler.cpp
     code/source/cysystem/SchedulerTask.cpp
-    code/source/cysystem/sdl/SDLEventLoop.cpp
     code/source/cysystem/sdl/SDL.cpp)
 
 set(SOURCES_UTIL
@@ -354,13 +379,18 @@ set(FILES ${INCLUDES} ${SOURCES})
 
 set(TEST_SOURCES_AUDIO)
 
-set(TEST_SOURCES_GUI)
+set(TEST_SOURCES_GUI
+    code/test/cygui/test_box.cpp)
 
 set(TEST_SOURCES_INPUT)
 
 set(TEST_SOURCES_MATH
     code/test/cymath/test_point.cpp
-    code/test/cymath/test_rectangle.cpp code/test/cymath/test_size.cpp code/test/cymath/test_vector.cpp)
+    code/test/cymath/test_rectangle.cpp
+    code/test/cymath/test_size.cpp
+    code/test/cymath/test_vector.cpp
+    code/test/cymath/test_space.cpp
+    code/test/cymath/test_line.cpp)
 
 set(TEST_SOURCES_NET)
 
@@ -385,7 +415,7 @@ set(TEST_SOURCES
 
 set(TEST_FILES
     ${FILES}
-    ${TEST_SOURCES} code/test/cymath/test_space.cpp code/test/cymath/test_line.cpp)
+    ${TEST_SOURCES} code/include/cyinput/keyboard/IKeyboard.hpp)
 
 
 #

@@ -9,7 +9,7 @@ namespace cyanide::cygui
     /**
      * @brief Base class for any other widget class in the cygui namespace.
      */
-    class Object : virtual public ObjectStyle
+    class Object : public ObjectStyle
     {
     protected:
         Object* m_parent = nullptr;
@@ -23,6 +23,7 @@ namespace cyanide::cygui
         virtual Object* getParent() const;
         virtual Object& setChild(Object* const child);
         virtual Object* getChild() const;
+        virtual void draw();
     };
 
     using ObjectSPtr = SharedPtr<Object>;

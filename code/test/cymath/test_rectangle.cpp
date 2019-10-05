@@ -101,6 +101,15 @@ TEST(RectangleTest, center)
     ASSERT_EQ(-1, c.y);
 }
 
+TEST(RectangleTest, getPosition)
+{
+    Rectangle r(-2, -3, 5, 5);
+    Point p = r.getPosition();
+
+    ASSERT_EQ(-2, p.x);
+    ASSERT_EQ(-3, p.y);
+}
+
 TEST(RectangleTest, getSize)
 {
     Rectangle r(-2, -3, 5, 5);

@@ -41,6 +41,11 @@ namespace cyanide::cyvideo
 
     // Public
 
+    SDLFont::operator bool()
+    {
+        return m_font != nullptr;
+    }
+
     TTF_Font* SDLFont::getFont() const
     {
         return m_font;
@@ -54,11 +59,12 @@ namespace cyanide::cyvideo
         if(m_font != nullptr)
         {
             loadFontInfo();
-            SDLFontCollection::setFont(m_font_info.face_family, SDLFontSPtr(this));
+            SDLFontCollection::setFont(m_font_info.face_family, this);
         }
         else
         {
             //err
+            int i = 0;
         }
     }
 
