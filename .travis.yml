@@ -15,6 +15,7 @@ cache:
 addons:
   apt:
     packages:
+    - python3-pip
     - cmake
 
 before_install:
