@@ -1,13 +1,8 @@
+dist: bionic
 language: cpp
-
-#env:
-#  global:
-#    - RUN_TESTS=true
-#    - COVERAGE=false
 
 os:
   - linux
-#  - windows
 
 compiler:
   - clang
@@ -19,37 +14,15 @@ cache:
 
 addons:
   apt:
-#    sources:
-#    - ubuntu-toolchain-r-test
-#    - llvm-toolchain-precise-3.8
-
     packages:
-#    - clang-6.0
-#    - gcc-7
-
-    - cmake-data
     - cmake
 
-#    - lcov
-
-#before_install:
-#  - eval "${MATRIX_EVAL}"
-
-#install:
-#  - "[ $CXX = clang++ ] && export CXX=clang++-3.8 || true"
-#  - "[ $CXX = g++ ] && export CXX=g++-6 || true"
+install:
+  - ./scripts/install.sh
 
 script:
-  cmake .
-#  - sudo ln -s /usr/bin/gcc-6 /usr/local/bin/gcc
-#  - sudo ln -s /usr/bin/g++-6 /usr/local/bin/g++
+  - ./scripts/compile.sh
 
-#after_success:
-#  - lcov --capture --directory . --output-file coverage.info
-#  - lcov --remove coverage.info '/usr/*' --output-file coverage.info
-#  - lcov --list coverage.info
-#  - bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"
-
-#notifications:
-#  email:
-#   - Cyanide@gmail.com
+notifications:
+  email:
+   - Cyanide.github@googlemail.com
