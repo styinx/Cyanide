@@ -1,3 +1,4 @@
+dist: bionic
 language: cpp
 
 os:
@@ -14,32 +15,20 @@ cache:
 addons:
   apt:
     packages:
+    - python3-pip
     - cmake
 
 before_install:
-  - mkdir build
-  - sudo apt-get update
-  - sudo apt-get install -y libsdl2-2.0.0
-  - sudo apt-get install -y libsdl2-dev
-  - sudo apt-get install -y libsdl2-gfx-1.0.4
-  - sudo apt-get install -y libsdl2-gfx-dev
-  - sudo apt-get install -y libsdl2-image-2.0.0
-  - sudo apt-get install -y libsdl2-image-dev
-  - sudo apt-get install -y libsdl2-mixer-2.0.0
-  - sudo apt-get install -y libsdl2-mixer-dev
-  - sudo apt-get install -y libsdl2-net-2.0.0
-  - sudo apt-get install -y libsdl2-net-dev
-  - sudo apt-get install -y libsdl2-ttf-2.0.0
-  - sudo apt-get install -y libsdl2-ttf-dev
+  - chmod +x ./scripts/install.sh
 
 install:
-  - sudo python -m pip install conan
+  - ./scripts/install.sh
+
+before_script:
+  - chmod +x ./scripts/compile.sh
 
 script:
-  - conan install . -if build
-  - cd build
-  - cmake .. && make
-  - cd ..
+  - ./scripts/compile.sh
 
 notifications:
   email:
