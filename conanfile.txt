@@ -1,5 +1,5 @@
 [requires]
-boost/1.69.0@conan/stable
+#boost/1.69.0@conan/stable
 gtest/1.8.1@bincrafters/stable
 #sqlite3/3.27.1@bincrafters/stable
 

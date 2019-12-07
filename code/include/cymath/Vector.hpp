@@ -1,9 +1,7 @@
 #ifndef CYANIDE_VECTOR_HPP
 #define CYANIDE_VECTOR_HPP
 
-namespace Cyanide
-{
-namespace cymath
+namespace cyanide::cymath
 {
 
     class Vector
@@ -44,7 +42,6 @@ namespace cymath
         friend bool operator>=(const Vector& first, const Vector& second);
     };
 
-}  // namespace cymath
-}  // namespace Cyanide
+}  // namespace cyanide
 
 #endif  // CYANIDE_VECTOR_HPP

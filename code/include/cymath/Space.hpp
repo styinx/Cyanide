@@ -3,9 +3,7 @@
 
 #include "cystd/stdPrototypes.hpp"
 
-namespace Cyanide
-{
-namespace cymath
+namespace cyanide::cymath
 {
 
     class Space
@@ -47,7 +45,6 @@ namespace cymath
         Space& operator/=(const float scalar);
     };
 
-}  // namespace cymath
-}  // namespace Cyanide
+}  // namespace cyanide
 
 #endif  // CYANIDE_SPACE_HPP

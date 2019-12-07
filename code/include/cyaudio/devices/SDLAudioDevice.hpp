@@ -1,18 +1,15 @@
 #ifndef CYANIDE_AUDIODEVICE_HPP
 #define CYANIDE_AUDIODEVICE_HPP
 
-#include <SDL2/SDL_audio.h>
-
+#include "IAudioDevice.hpp"
 #include "cystd/stdPrototypes.hpp"
 
-#include "IAudioDevice.hpp"
+#include <SDL2/SDL_audio.h>
 
-namespace Cyanide
-{
-namespace cyaudio
+namespace cyanide::cyaudio
 {
 
-    class SDLAudioDevice : public IAudioDevice
+    class SDLAudioDevice final : public IAudioDevice
     {
     private:
         SDL_AudioDeviceID m_device_id;
@@ -21,25 +18,17 @@ namespace cyaudio
 
     public:
         SDLAudioDevice();
-
         ~SDLAudioDevice() = default;
 
-        SDL_AudioDeviceID getDeviceId() const;
-
-        virtual void lock() override;
-
-        virtual DEVICE_TYPE getDeviceType() const override;
-
+        SDL_AudioDeviceID     getDeviceId() const;
+        virtual void          lock() override;
+        virtual DEVICE_TYPE   getDeviceType() const override;
         virtual DEVICE_STATUS getDeviceStatus() const override;
-
-        virtual String getDeviceName() const override;
-
-        virtual void pause() const override;
-
-        virtual void resume() const override;
+        virtual String        getDeviceName() const override;
+        virtual void          pause() const override;
+        virtual void          resume() const override;
     };
 
-}  // namespace cyaudio
-}  // namespace Cyanide
+}  // namespace cyanide::cyaudio
 
 #endif  // CYANIDE_AUDIODEVICE_HPP

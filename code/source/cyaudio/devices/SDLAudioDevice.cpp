@@ -1,14 +1,12 @@
 #include "cyaudio/devices/SDLAudioDevice.hpp"
 
-namespace Cyanide
-{
-namespace cyaudio
+namespace cyanide::cyaudio
 {
 
     SDLAudioDevice::SDLAudioDevice()
         : IAudioDevice()
     {
-        //TODO init
+        // TODO init
     }
 
     SDL_AudioDeviceID SDLAudioDevice::getDeviceId() const
@@ -30,10 +28,14 @@ namespace cyaudio
     {
         switch(SDL_GetAudioDeviceStatus(m_device_id))
         {
-        case SDL_AUDIO_STOPPED: return DEVICE_STATUS::STOPPED;
-        case SDL_AUDIO_PLAYING: return DEVICE_STATUS::PLAYING;
-        case SDL_AUDIO_PAUSED: return DEVICE_STATUS::PAUSED;
-        default: return DEVICE_STATUS::INVALID;
+        case SDL_AUDIO_STOPPED:
+            return DEVICE_STATUS::STOPPED;
+        case SDL_AUDIO_PLAYING:
+            return DEVICE_STATUS::PLAYING;
+        case SDL_AUDIO_PAUSED:
+            return DEVICE_STATUS::PAUSED;
+        default:
+            return DEVICE_STATUS::INVALID;
         }
     }
 
@@ -52,5 +54,4 @@ namespace cyaudio
         SDL_PauseAudioDevice(m_device_id, 0);
     }
 
-}  // namespace cyaudio
-}  // namespace Cyanide
+}  // namespace cyanide::cyaudio

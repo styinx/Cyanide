@@ -1,7 +1,7 @@
 #ifndef CYANIDE_NONMOVEABLE_HPP
 #define CYANIDE_NONMOVEABLE_HPP
 
-namespace Cyanide
+namespace cyanide
 {
 namespace cystd
 {
@@ -14,6 +14,6 @@ namespace cystd
     };
 
 }  // namespace cystd
-}  // namespace Cyanide
+}  // namespace cyanide
 
 #endif  // CYANIDE_NONMOVEABLE_HPP

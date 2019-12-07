@@ -1,15 +1,16 @@
 #ifndef CYANIDE_PROTOTYPES_HPP
 #define CYANIDE_PROTOTYPES_HPP
 
-#include <any>
-//#include <boost/any.hpp>
+//#include <any>
 #include <functional>
 #include <list>
 #include <map>
+#include <queue>
+#include <unordered_map>
 #include <thread>
 #include <vector>
 
-namespace Cyanide
+namespace cyanide
 {
 
 // primitive types
@@ -26,15 +27,20 @@ using Sint64 = std::int64_t;
 // complex types
 using Thread = std::thread;
 using String = std::string;
-using Any = std::any;
+using WString = std::wstring;
+//using Any = std::any;
 
 // collection types
 template<typename T>
 using Vector = std::vector<T>;
 template<typename T>
 using List = std::list<T>;
+template<typename T>
+using Queue = std::queue<T>;
 template<typename K, typename V>
 using Map = std::map<K, V>;
+template<typename K, typename V>
+using UMap = std::unordered_map<K, V>;
 
 // pointer types
 template<typename T>
@@ -48,6 +54,6 @@ using WeakPtr = std::weak_ptr<T>;
 template<typename Func>
 using Function = std::function<Func>;
 
-}  // namespace Cyanide
+}  // namespace cyanide
 
 #endif  // CYANIDE_PROTOTYPES_HPP
