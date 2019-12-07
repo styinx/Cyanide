@@ -17,8 +17,14 @@ addons:
     packages:
     - cmake
 
+before_install:
+  - chmod +x ./scripts/install.sh
+
 install:
   - ./scripts/install.sh
+
+before_script:
+  - chmod +x ./scripts/compile.sh
 
 script:
   - ./scripts/compile.sh

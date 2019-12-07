@@ -5,7 +5,7 @@ project(Cyanide)
 # CMake
 #
 
-cmake_minimum_required(VERSION 3.9)
+cmake_minimum_required(VERSION 3.12)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -21,21 +21,18 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG "${BIN_PATH}")
 
 set(DIR_CODE code)
 set(DIR_INCLUDE ${DIR_CODE}/include)
+set(DIR_SOURCE ${DIR_CODE}/source)
+set(DIR_TEST ${DIR_CODE}/test)
 set(DIR_LIBRARY ${DIR_CODE}/lib)
 
 
-if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-    set(OS_DIR_INCLUDE /usr/include/)
-    set(OS_DIR_LIBRARY /usr/libs/)
-endif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+include_directories(${DIR_INCLUDE})
+include_directories(${DIR_SOURCE})
 
-if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
-    set(OS_DIR_INCLUDE C:/Include/)
-    set(OS_DIR_LIBRARY C:/Libs/)
-endif(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+add_subdirectory(${DIR_INCLUDE})
+add_subdirectory(${DIR_SOURCE})
+add_subdirectory(${DIR_TEST})
 
-
-include_directories(${DIR_INCLUDE} ${OS_DIR_INCLUDE})
 link_directories(${DIR_LIBRARY} ${OS_DIR_LIBRARY})
 
 
@@ -98,123 +95,6 @@ pkg_search_module(SDL2MIXER REQUIRED SDL2_mixer>=2.0.0)
 pkg_search_module(SDL2NET REQUIRED SDL2_net>=2.0.0)
 pkg_search_module(SDL2TTF REQUIRED SDL2_ttf>=2.0.0)
 
-#
-# Includes
-#
-
-set(INCLUDES_STD
-    code/include/cystd/NonCopyable.hpp
-    code/include/cystd/NonMoveable.hpp
-    code/include/cystd/Range.hpp
-    code/include/cystd/stdPrototypes.hpp
-    code/include/cystd/Enum.hpp code/include/cystd/CyObj.hpp)
-
-set(INCLUDES_AUDIO
-    code/include/cyaudio/SDLAudio.hpp
-    code/include/cyaudio/SDLMixerAudio.hpp
-    code/include/cyaudio/devices/IAudioDevice.hpp
-    code/include/cyaudio/devices/SDLAudioDevice.hpp
-    code/include/cyaudio/medium/IMedium.hpp
-    code/include/cyaudio/medium/SDLMusic.hpp)
-
-set(INCLUDES_MATH
-    code/include/cymath/Point.hpp
-    code/include/cymath/Line.hpp
-    code/include/cymath/Vector.hpp
-    code/include/cymath/Rectangle.hpp
-    code/include/cymath/Space.hpp
-    code/include/cymath/Size.hpp)
-
-set(INCLUDES_GUI
-    code/include/cygui/styles/ObjectStyle.hpp
-    code/include/cygui/widgets/Object.hpp
-    code/include/cygui/styles/WidgetStyle.hpp
-    code/include/cygui/widgets/Widget.hpp)
-
-set(INCLUDES_INPUT
-    code/include/cyinput/Keyboard.hpp
-    code/include/cyinput/Mouse.hpp
-    code/include/cyinput/Controller.hpp)
-
-set(INCLUDES_NET
-    code/include/cynet/ISocket.hpp)
-
-set(INCLUDES_SYSTEM
-    code/include/cysystem/Platform.hpp)
-
-set(INCLUDES_UTIL
-    code/include/cyutil/color/Color.hpp)
-
-set(INCLUDES_VIDEO
-    code/include/cyvideo/IWindow.hpp
-    code/include/cyvideo/IRenderer.hpp
-    code/include/cyvideo/ITexture.hpp
-    code/include/cyvideo/SDLWindow.hpp
-    code/include/cyvideo/SDLRenderer.hpp)
-
-set(INCLUDES
-    ${INCLUDES_STD}
-    ${INCLUDES_AUDIO}
-    ${INCLUDES_MATH}
-    ${INCLUDES_GUI}
-    ${INCLUDES_INPUT}
-    ${INCLUDES_NET}
-    ${INCLUDES_UTIL}
-    ${INCLUDES_VIDEO})
-
-
-#
-# Sources
-#
-
-set(SOURCES_STD)
-
-set(SOURCES_AUDIO
-    code/source/cyaudio/SDLAudio.cpp
-    code/source/cyaudio/SDLMixerAudio.cpp
-    code/source/cyaudio/medium/SDLMusic.cpp
-    code/source/cyaudio/devices/SDLAudioDevice.cpp)
-
-set(SOURCES_MATH
-    code/source/cymath/Point.cpp
-    code/source/cymath/Line.cpp
-    code/source/cymath/Vector.cpp
-    code/source/cymath/Rectangle.cpp
-    code/source/cymath/Space.cpp
-    code/source/cymath/Size.cpp)
-
-set(SOURCES_GUI
-    code/source/cygui/widgets/Widget.cpp
-    code/source/cygui/styles/WidgetStyle.cpp
-    code/source/cygui/widgets/Object.cpp
-    code/source/cygui/styles/ObjectStyle.cpp)
-
-set(SOURCES_INPUT
-    code/source/cyinput/Keyboard.cpp
-    code/source/cyinput/Controller.cpp
-    code/source/cyinput/Mouse.cpp)
-
-set(SOURCES_NET)
-
-set(SOURCES_SYSTEM
-    code/source/cysystem/Platform.cpp)
-
-set(SOURCES_UTIL
-    code/source/cyutil/color/Color.cpp)
-
-set(SOURCES_VIDEO
-    code/source/cyvideo/SDLRenderer.cpp
-    code/source/cyvideo/SDLWindow.cpp)
-
-set(SOURCES
-    ${SOURCES_AUDIO}
-    ${SOURCES_MATH}
-    ${SOURCES_GUI}
-    ${SOURCES_INPUT}
-    ${SOURCES_NET}
-    ${SOURCES_UTIL}
-    ${SOURCES_VIDEO})
-
 
 #
 # All files
@@ -226,15 +106,10 @@ set(FILES ${INCLUDES} ${SOURCES})
 # Tests
 #
 
-set(TEST_SOURCES
-    code/test/cyaudio/test.cpp
-    code/test/cymath/test_point.cpp
-    code/test/cyvideo/test.cpp)
-
 set(TEST_LIBRARIES
-    ${LIBRARIES}
     -lgtest
-    -lgtest_main)
+    -lgtest_main
+    ${LIBRARIES})
 
 set(TEST_FILES
     ${FILES}
@@ -246,7 +121,7 @@ set(TEST_FILES
 #
 
 add_executable(${PROJECT_NAME} ${FILES} code/apps/main.cpp)
-#add_executable(${PROJECT_NAME}_Test ${TEST_FILES} code/test/test.cpp)
+add_executable(${PROJECT_NAME}_Test ${TEST_FILES} code/test/test.cpp)
 
 target_link_libraries(${PROJECT_NAME} ${LIBRARIES})
-#target_link_libraries(${PROJECT_NAME}_Test ${TEST_LIBRARIES})
+target_link_libraries(${PROJECT_NAME}_Test ${TEST_LIBRARIES})
