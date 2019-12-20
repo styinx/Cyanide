@@ -2,9 +2,7 @@
 
 #include "cyvideo/SDLVideo.hpp"
 
-namespace cyanide
-{
-namespace cyvideo
+namespace cyanide::cyvideo
 {
 
     Uint32 SDLDisplay::display_index = 0;
@@ -25,5 +23,4 @@ namespace cyvideo
         return static_cast<Uint32>(mode->refresh_rate);
     }
 
-}  // namespace cyvideo
 }  // namespace cyanide

@@ -2,30 +2,29 @@
 #define CYANIDE_BITSTREAMREADER_HPP
 
 #include "cyutil/io/IReader.hpp"
-
 #include "cyutil/io/ioPrototypes.hpp"
 
-namespace cyanide
-{
-namespace cyutil
+#include <fstream>
+
+namespace cyanide::cyutil
 {
 
-    class BitStreamReader : IReader
+    class BitStreamReader : public IReader
     {
     private:
-        BIT_STREAM           bits = BIT_STREAM ::INVALID;
-        Vector<Vector<bool>> buffer;
+        FILE*        m_stream;
+        Vector<bool> m_buffer;
 
     public:
         BitStreamReader() = default;
-        explicit BitStreamReader(BIT_STREAM bits);
+        explicit BitStreamReader(const String& file);
 
         virtual ~BitStreamReader() override = default;
 
         virtual void read() override;
+        void read(const Uint32 n);
     };
 
-}  // namespace cyutil
-}  // namespace cyanide
+}  // namespace cyanide::cyutil
 
 #endif  // CYANIDE_BITSTREAMREADER_HPP

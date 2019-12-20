@@ -4,9 +4,7 @@
 #include "cystd/stdPrototypes.hpp"
 #include "cysystem/ITask.hpp"
 
-namespace cyanide
-{
-namespace cysystem
+namespace cyanide::cysystem
 {
 
     class IScheduler
@@ -17,7 +15,6 @@ namespace cysystem
         virtual void run() = 0;
     };
 
-}  // namespace cysystem
 }  // namespace cyanide
 
 #endif  // CYANIDE_ISCHEDULER_HPP

@@ -1,8 +1,7 @@
-#include <iostream>
+#include "cynet/SDLTCPClient.hpp"
 
 #include <SDL2/SDL.h>
-
-#include <cynet/SDLTCPClient.hpp>
+#include <iostream>
 
 int main()
 {
@@ -15,7 +14,7 @@ int main()
     SDLTCPClientSPtr client(new SDLTCPClient("localhost", 13370));
 
     NetworkPackageSPtr package = client->getSocket()->receive();
-    NetworkPackage pack = *(package);
+    NetworkPackage     pack    = *(package);
 
     return 0;
 }

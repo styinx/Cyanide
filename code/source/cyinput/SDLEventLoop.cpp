@@ -6,7 +6,6 @@
 
 namespace cyanide::cyinput
 {
-
     SDLEventLoop::SDLEventLoop()
     {
         // Set the key state based on the event.
@@ -47,16 +46,67 @@ namespace cyanide::cyinput
             }
         };
 
+        // Set the key state based on the event.
+        const auto setMouseState = [this]() {
+            const auto button = m_event.button.button;
+            const auto motion = m_event.motion;
+            const auto type   = m_event.type;
+
+            if(!m_mouse_buttons.count(button))
+            {
+                m_mouse_buttons[button] = MOUSE_BUTTON_STATE::NONE;
+            }
+
+            switch(type)
+            {
+            case SDL_MOUSEBUTTONDOWN:
+            {
+                // If button is already down set the state to pressed.
+                if(m_mouse_buttons[button] == MOUSE_BUTTON_STATE::DOWN)
+                {
+                    m_mouse_buttons[button] = MOUSE_BUTTON_STATE::PRESSED;
+                }
+                // If the button is not pressed or down set the status to down.
+                else if(m_mouse_buttons[button] != MOUSE_BUTTON_STATE::PRESSED)
+                {
+                    m_mouse_buttons[button] = MOUSE_BUTTON_STATE::DOWN;
+                }
+                break;
+            }
+            case SDL_MOUSEBUTTONUP:
+            {
+                m_mouse_buttons[button] = MOUSE_BUTTON_STATE::RELEASED;
+                break;
+            }
+            case SDL_MOUSEWHEEL:
+            {
+                // TODO
+                break;
+            }
+            case SDL_MOUSEMOTION:
+            {
+                m_mouse_position.x = motion.x;
+                m_mouse_position.y = motion.y;
+                break;
+            }
+            default:
+            {
+                m_mouse_buttons[button] = MOUSE_BUTTON_STATE::NONE;
+            }
+            }
+        };
+
         // Stop the loop if the close event is called.
         const auto exitLoop = [this]() {
-          if(m_event.type == SDL_QUIT)
-          {
-              m_running = false;
-          }
+            if(m_event.type == SDL_QUIT)
+            {
+                m_running = false;
+            }
         };
 
         onAnyAppEvent(exitLoop);
         onAnyKeyEvent(setKeyState);
+        onAnyMouseEvent(setMouseState);
     }
 
     // Private
@@ -101,13 +151,38 @@ namespace cyanide::cyinput
         }
     }
 
+    void SDLEventLoop::callMouseButtonEvent(const MouseButtonCode key)
+    {
+        for(const auto& callback : m_mouse_button_event_callback[key])
+        {
+            callback();
+        }
+    }
+
+    void SDLEventLoop::callMouseButtonDown(const MouseButtonCode key)
+    {
+        for(const auto& callback : m_mouse_button_down_callback[key])
+        {
+            callback();
+        }
+    }
+
+    void SDLEventLoop::callMouseButtonUp(const MouseButtonCode key)
+    {
+        for(const auto& callback : m_mouse_button_up_callback[key])
+        {
+            callback();
+        }
+    }
+
     // Public
 
     void SDLEventLoop::run()
     {
-        const auto typeRange = [](const Uint32 sdlType, const SDLEventType from, const SDLEventType to)
-        {
-            return sdlType >= cystd::fromEnum(from) && sdlType < cystd::fromEnum(to);
+        using cystd::fromEnum;
+
+        const auto typeRange = [](const Uint32 sdlType, const SDLEventType from, const SDLEventType to) {
+            return sdlType >= fromEnum(from) && sdlType < fromEnum(to);
         };
 
         callLoopEvent(LoopEvent::START);
@@ -115,7 +190,7 @@ namespace cyanide::cyinput
         {
             callLoopEvent(LoopEvent::BEGIN);
 
-            // Check if any events happend.
+            // Check if any events happened.
             while(SDL_PollEvent(&m_event))
             {
                 callLoopEvent(LoopEvent::SDL_EVENT_BEGIN);
@@ -125,15 +200,15 @@ namespace cyanide::cyinput
 
                 if(typeRange(type, SDLEventType::SDL_APPEVENT, SDLEventType::SDL_WINDOWEVENT))
                 {
-                    callSDLEvent(cystd::fromEnum(SDLEventType::SDL_APPEVENT));
+                    callSDLEvent(fromEnum(SDLEventType::SDL_APPEVENT));
                 }
                 else if(typeRange(type, SDLEventType::SDL_WINDOWEVENT, SDLEventType::SDL_KEYEVENT))
                 {
-                    callSDLEvent(cystd::fromEnum(SDLEventType::SDL_WINDOWEVENT));
+                    callSDLEvent(fromEnum(SDLEventType::SDL_WINDOWEVENT));
                 }
                 else if(typeRange(type, SDLEventType::SDL_KEYEVENT, SDLEventType::SDL_MOUSEEVENT))
                 {
-                    callSDLEvent(cystd::fromEnum(SDLEventType::SDL_KEYEVENT));
+                    callSDLEvent(fromEnum(SDLEventType::SDL_KEYEVENT));
 
                     const auto key = m_event.key.keysym.sym;
                     callKeyEvent(key);
@@ -149,11 +224,23 @@ namespace cyanide::cyinput
                 }
                 else if(typeRange(type, SDLEventType::SDL_MOUSEEVENT, SDLEventType::SDL_CONTROLLEREVENT))
                 {
-                    callSDLEvent(cystd::fromEnum(SDLEventType::SDL_MOUSEEVENT));
+                    callSDLEvent(fromEnum(SDLEventType::SDL_MOUSEEVENT));
+
+                    const auto button = m_event.button.button;
+                    callMouseButtonEvent(button);
+
+                    if(type == SDL_MOUSEBUTTONDOWN)
+                    {
+                        callMouseButtonDown(button);
+                    }
+                    else if(type == SDL_MOUSEBUTTONUP)
+                    {
+                        callMouseButtonUp(button);
+                    }
                 }
                 else if(typeRange(type, SDLEventType::SDL_CONTROLLEREVENT, SDLEventType::SDL_TOUCHEVENT))
                 {
-                    callSDLEvent(cystd::fromEnum(SDLEventType::SDL_CONTROLLEREVENT));
+                    callSDLEvent(fromEnum(SDLEventType::SDL_CONTROLLEREVENT));
                 }
 
                 callLoopEvent(LoopEvent::SDL_EVENT_END);
@@ -215,6 +302,11 @@ namespace cyanide::cyinput
         onSDLEventType(cystd::fromEnum(SDLEventType::SDL_KEYEVENT), callback);
     }
 
+    void SDLEventLoop::onAnyMouseEvent(const cyanide::cyinput::SDLEventLoop::Callback& callback)
+    {
+        onSDLEventType(cystd::fromEnum(SDLEventType::SDL_MOUSEEVENT), callback);
+    }
+
     void SDLEventLoop::onKeyEvent(const KeyCode key, const SDLEventLoop::Callback& callback)
     {
         m_key_event_callback[key].emplace_back(callback);
@@ -228,6 +320,24 @@ namespace cyanide::cyinput
     void SDLEventLoop::onKeyUp(const KeyCode key, const SDLEventLoop::Callback& callback)
     {
         m_key_up_callback[key].emplace_back(callback);
+    }
+
+    void
+    SDLEventLoop::onMouseButtonEvent(const MouseButtonCode button, const SDLEventLoop::Callback& callback)
+    {
+        m_mouse_button_event_callback[button].emplace_back(callback);
+    }
+
+    void
+    SDLEventLoop::onMouseButtonDown(const MouseButtonCode button, const SDLEventLoop::Callback& callback)
+    {
+        m_mouse_button_down_callback[button].emplace_back(callback);
+    }
+
+    void
+    SDLEventLoop::onMouseButtonUp(const MouseButtonCode button, const SDLEventLoop::Callback& callback)
+    {
+        m_mouse_button_up_callback[button].emplace_back(callback);
     }
 
     void SDLEventLoop::onAnyWindowEvent(const Callback& callback)

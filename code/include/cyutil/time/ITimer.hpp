@@ -3,9 +3,7 @@
 
 #include "cyutil/time/time.hpp"
 
-namespace cyanide
-{
-namespace cyutil
+namespace cyanide::cyutil
 {
 
     class ITimer
@@ -14,7 +12,6 @@ namespace cyutil
         virtual ~ ITimer() = default;
     };
 
-}  // namespace cyutil
 }  // namespace cyanide
 
 #endif  // CYANIDE_ITIMER_HPP

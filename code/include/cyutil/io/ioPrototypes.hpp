@@ -3,9 +3,7 @@
 
 #include "cystd/stdPrototypes.hpp"
 
-namespace cyanide
-{
-namespace cyutil
+namespace cyanide::cyutil
 {
 
     enum class BIT_STREAM : Byte
@@ -25,7 +23,6 @@ namespace cyutil
         UTF_32  = 32
     };
 
-}  // namespace cyutil
 }  // namespace cyanide
 
 #endif  // CYANIDE_IOPROTOTYPES_HPP

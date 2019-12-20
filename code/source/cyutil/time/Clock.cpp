@@ -6,9 +6,7 @@
 
 #include "cyutil/util.hpp"
 
-namespace cyanide
-{
-namespace cyutil
+namespace cyanide::cyutil
 {
     Uint32 Clock::getTicks() { return SDL_GetTicks(); }
 
@@ -159,5 +157,4 @@ namespace cyutil
         return ss.str();
     }
 
-}  // namespace cyutil
 }  // namespace cyanide
