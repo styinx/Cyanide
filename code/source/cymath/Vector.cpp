@@ -1,8 +1,6 @@
 #include "cymath/Vector.hpp"
 
-namespace cyanide
-{
-namespace cymath
+namespace cyanide::cymath
 {
 
     Vector::Vector()
@@ -151,5 +149,4 @@ namespace cymath
         return (first.x >= second.x) && (first.y >= second.y) && (first.z >= second.z);
     }
 
-}  // namespace cymath
 }  // namespace cyanide

@@ -5,9 +5,7 @@
 #include "cystd/NonCopyable.hpp"
 #include "cystd/NonMoveable.hpp"
 
-namespace cyanide
-{
-namespace cysystem
+namespace cyanide::cysystem
 {
 
     class Platform
@@ -23,7 +21,6 @@ namespace cysystem
         static Sint32 getRAM();
     };
 
-}  // namespace cysystem
 }  // namespace cyanide
 
 #endif  // CYANIDE_PLATFORM_HPP

@@ -1,9 +1,8 @@
+#include "cyinput/keyboard/Keyboard.hpp"
 
-
-namespace cyanide
-{
-namespace cyinput
+namespace cyanide::cyinput
 {
 
-}  // namespace cyinput
+
+
 }  // namespace cyanide

@@ -1,9 +1,7 @@
 
 #include <cyaudio/SDLAudio.hpp>
 
-namespace cyanide
-{
-namespace cyaudio
+namespace cyanide::cyaudio
 {
 
     void SDLAudio::pause()
@@ -136,5 +134,4 @@ namespace cyaudio
         return audio_drivers;
     }
 
-}  // namespace cyaudio
 }  // namespace cyanide

@@ -3,9 +3,7 @@
 
 #include "cyutil/time/ITimer.hpp"
 
-namespace cyanide
-{
-namespace cyutil
+namespace cyanide::cyutil
 {
 
     /**
@@ -59,7 +57,6 @@ namespace cyutil
         Uint64 getPausedTime();
     };
 
-}  // namespace cyutil
 }  // namespace cyanide
 
 #endif  // CYANIDE_SDLPERFORMANCETIMER_HPP

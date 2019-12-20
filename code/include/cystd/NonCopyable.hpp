@@ -1,9 +1,7 @@
 #ifndef CYANIDE_NONCOPYABLE_HPP
 #define CYANIDE_NONCOPYABLE_HPP
 
-namespace cyanide
-{
-namespace cystd
+namespace cyanide::cystd
 {
 
     class NonCopyable
@@ -13,7 +11,6 @@ namespace cystd
         NonCopyable operator=(const NonCopyable& non_copyable) = delete;
     };
 
-}  // namespace cystd
 }  // namespace cyanide
 
 #endif  // CYANIDE_NONCOPYABLE_HPP

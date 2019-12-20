@@ -3,9 +3,7 @@
 
 #include "cyutil/formats/Value.hpp"
 
-namespace cyanide
-{
-namespace cyutil
+namespace cyanide::cyutil
 {
 
     Value::Value()
@@ -231,5 +229,4 @@ namespace cyutil
         return *this;
     }
 
-}  // namespace cyutil
 }  // namespace cyanide

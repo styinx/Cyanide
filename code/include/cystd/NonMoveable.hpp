@@ -1,9 +1,7 @@
 #ifndef CYANIDE_NONMOVEABLE_HPP
 #define CYANIDE_NONMOVEABLE_HPP
 
-namespace cyanide
-{
-namespace cystd
+namespace cyanide::cystd
 {
 
     class NonMoveable
@@ -13,7 +11,6 @@ namespace cystd
         NonMoveable& operator=(NonMoveable&& non_moveable) = delete;
     };
 
-}  // namespace cystd
 }  // namespace cyanide
 
 #endif  // CYANIDE_NONMOVEABLE_HPP

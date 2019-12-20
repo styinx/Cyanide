@@ -1,8 +1,6 @@
 #include "cyaudio/SDLMixerAudio.hpp"
 
-namespace cyanide
-{
-namespace cyaudio
+namespace cyanide::cyaudio
 {
     Uint8             SDLMixerAudio::music_volume   = 0;
     Map<Uint8, Uint8> SDLMixerAudio::channel_volume = Map<Uint8, Uint8>();
@@ -74,5 +72,4 @@ namespace cyaudio
             SDLMixerAudio::setChannelVolume(channel, SDLMixerAudio::channel_volume[channel]);
         }
     }
-}  // namespace cyaudio
 }  // namespace cyanide

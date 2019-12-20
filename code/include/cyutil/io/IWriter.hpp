@@ -1,9 +1,7 @@
 #ifndef CYANIDE_IWRITER_HPP
 #define CYANIDE_IWRITER_HPP
 
-namespace cyanide
-{
-namespace cyutil
+namespace cyanide::cyutil
 {
 
     class IWriter
@@ -13,7 +11,6 @@ namespace cyutil
         virtual ~IWriter() = default;
     };
 
-}  // namespace cyutil
 }  // namespace cyanide
 
 #endif  // CYANIDE_IWRITER_HPP

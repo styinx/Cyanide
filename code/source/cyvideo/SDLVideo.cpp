@@ -3,9 +3,7 @@
 
 #include <iostream>
 
-namespace cyanide
-{
-namespace cyvideo
+namespace cyanide::cyvideo
 {
 
     SDL_DisplayMode* SDLVideo::getDesktopDisplayModeById(const Uint32 display_id, const Uint32 mode_id)
@@ -117,5 +115,4 @@ namespace cyvideo
         return video_drivers;
     }
 
-}  // namespace cyvideo
 }  // namespace cyanide

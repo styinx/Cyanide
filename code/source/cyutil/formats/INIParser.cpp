@@ -5,9 +5,7 @@
 #include <regex>
 #include <sstream>
 
-namespace cyanide
-{
-namespace cyutil
+namespace cyanide::cyutil
 {
 
     static inline void ltrim(std::string& s)
@@ -165,5 +163,4 @@ namespace cyutil
         }
     }
 
-}  // namespace cyutil
 }  // namespace cyanide

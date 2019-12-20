@@ -3,9 +3,7 @@
 
 #include "cyutil/time/time.hpp"
 
-namespace cyanide
-{
-namespace cyutil
+namespace cyanide::cyutil
 {
 
     class Clock
@@ -56,7 +54,6 @@ namespace cyutil
         static std::string getTimestampToString(const Uint64 timestamp, const String format = "%H:%M:%S %d.%m.%Y");
     };
 
-}  // namespace cyutil
 }  // namespace cyanide
 
 #endif  // CYANIDE_CLOCK_HPP

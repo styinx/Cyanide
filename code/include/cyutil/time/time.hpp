@@ -3,9 +3,7 @@
 
 #include "cystd/stdPrototypes.hpp"
 
-namespace cyanide
-{
-namespace cyutil
+namespace cyanide::cyutil
 {
     using system_clock = std::chrono::system_clock;
     using nanoseconds  = std::chrono::nanoseconds;
@@ -20,7 +18,6 @@ namespace cyutil
         PAUSED  = 0x03
     };
 
-}  // namespace cyutil
 }  // namespace cyanide
 
 #endif  // CYANIDE_TIME_HPP

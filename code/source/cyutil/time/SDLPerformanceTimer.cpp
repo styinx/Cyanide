@@ -1,8 +1,6 @@
 #include "cyutil/time/SDLPerformanceTimer.hpp"
 
-namespace cyanide
-{
-namespace cyutil
+namespace cyanide::cyutil
 {
 
     Uint16 SDLPerformanceTimer::timers = 0;
@@ -146,5 +144,4 @@ namespace cyutil
         return paused_time;
     }
     
-}  // namespace cyutil
 }  // namespace cyanide

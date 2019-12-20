@@ -1,8 +1,6 @@
 #include "cyutil/io/Print.hpp"
 
-namespace cyanide
-{
-namespace cyutil
+namespace cyanide::cyutil
 {
 
     std::ostream& operator<<(std::ostream& out, const cymath::Line& l)
@@ -41,5 +39,4 @@ namespace cyutil
         return out;
     }
 
-}  // namespace cyutil
 }  // namespace cyanide

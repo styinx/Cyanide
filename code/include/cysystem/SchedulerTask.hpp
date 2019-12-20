@@ -4,9 +4,7 @@
 #include "cystd/stdPrototypes.hpp"
 #include "cysystem/ITask.hpp"
 
-namespace cyanide
-{
-namespace cysystem
+namespace cyanide::cysystem
 {
 
     template<typename ReturnType, typename ...Args>
@@ -31,7 +29,6 @@ namespace cysystem
         }
     };
 
-}  // namespace cysystem
 }  // namespace cyanide
 
 #endif  // CYANIDE_SCHEDULERTASK_HPP

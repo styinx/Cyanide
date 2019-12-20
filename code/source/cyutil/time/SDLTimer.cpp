@@ -2,9 +2,7 @@
 
 #include "cyutil/time/Clock.hpp"
 
-namespace cyanide
-{
-namespace cyutil
+namespace cyanide::cyutil
 {
 
     Uint16 Timer::timers = 0;
@@ -140,5 +138,4 @@ namespace cyutil
         return paused_time;
     }
 
-}  // namespace cyutil
 }  // namespace cyanide

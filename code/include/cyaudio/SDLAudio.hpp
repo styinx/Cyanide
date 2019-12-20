@@ -9,9 +9,7 @@
 
 #include "cyaudio/devices/IAudioDevice.hpp"
 
-namespace cyanide
-{
-namespace cyaudio
+namespace cyanide::cyaudio
 {
 
     class SDLAudio
@@ -41,7 +39,6 @@ namespace cyaudio
         static List<String> getAudioDriverNames();
     };
 
-}  // namespace cyaudio
 }  // namespace cyanide
 
 #endif  // CYANIDE_AUDIO_HPP

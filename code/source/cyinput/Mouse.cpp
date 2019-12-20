@@ -2,9 +2,7 @@
 
 #include <SDL2/SDL_mouse.h>
 
-namespace cyanide
-{
-namespace cyinput
+namespace cyanide::cyinput
 {
 
     bool Mouse::setMousePosition(Sint32 x, Sint32 y)
@@ -17,5 +15,4 @@ namespace cyinput
         return Mouse::setMousePosition(p.x, p.y);
     }
 
-}  // namespace cyinput
 }  // namespace cyanide

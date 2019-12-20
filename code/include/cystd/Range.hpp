@@ -1,9 +1,7 @@
 #ifndef CYANIDE_RANGE_HPP
 #define CYANIDE_RANGE_HPP
 
-namespace cyanide
-{
-namespace cystd
+namespace cyanide::cystd
 {
 
     template<typename T>
@@ -95,7 +93,6 @@ namespace cystd
         return Range<T>(from, to, step);
     }
 
-}  // namespace cystd
 }  // namespace cyanide
 
 #endif  // CYANIDE_RANGE_HPP
