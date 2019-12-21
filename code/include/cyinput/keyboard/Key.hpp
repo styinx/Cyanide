@@ -24,9 +24,9 @@ namespace cyanide::cyinput
         Key& operator=(Key&& other) noexcept;
 
         KEY_STATE getKeyState() const;
-        bool      isReleased(const KeyCode key) const;
-        bool      isDown(const KeyCode key) const;
-        bool      isPressed(const KeyCode key) const;
+        bool      isReleased() const;
+        bool      isDown() const;
+        bool      isPressed() const;
 
         /*
          * Inherited from IKey

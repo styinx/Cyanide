@@ -24,15 +24,18 @@ namespace cyanide::cyinput
         };
 
     private:
-        using Callback        = Function<void(void)>;
-        using KeyCode         = cyinput::KeyCode;
-        using MouseButtonCode = cyinput::MouseButtonCode;
+        using Callback            = Function<void(void)>;
+        using MouseMotionCallback = Function<void(const Uint32 x, const Uint32 y)>;
+        using KeyCode             = cyinput::KeyCode;
+        using MouseButtonCode     = cyinput::MouseButtonCode;
 
         enum class SDLEventType : Uint16
         {
             SDL_NOEVENT         = 0x0000,
             SDL_APPEVENT        = 0x0100,
+            SDL_MOBILEEVENT     = 0x0101,
             SDL_WINDOWEVENT     = 0x0200,
+            SDL_SYSTEMEVENT     = 0x0201,
             SDL_KEYEVENT        = 0x0300,
             SDL_MOUSEEVENT      = 0x0400,
             SDL_CONTROLLEREVENT = 0x0600,
@@ -45,7 +48,8 @@ namespace cyanide::cyinput
             SDL_USEREVENT       = 0x8000,
         };
 
-        bool      m_running = true;
+        bool      m_running       = true;
+        bool      m_system_events = true;
         SDL_Event m_event{};
 
         /*
@@ -59,13 +63,14 @@ namespace cyanide::cyinput
         UMap<MouseButtonCode, Vector<Callback>> m_mouse_button_event_callback;
         UMap<MouseButtonCode, Vector<Callback>> m_mouse_button_down_callback;
         UMap<MouseButtonCode, Vector<Callback>> m_mouse_button_up_callback;
+        Vector<MouseMotionCallback>             m_mouse_motion_callback;
 
         /*
          * Keyboard and mouse
          */
-        UMap<KeyCode, KEY_STATE> m_keys;
+        UMap<KeyCode, KEY_STATE>                  m_keys;
         UMap<MouseButtonCode, MOUSE_BUTTON_STATE> m_mouse_buttons;
-        cymath::Point m_mouse_position;
+        cymath::Point                             m_mouse_position;
 
         void callLoopEvent(const LoopEvent event);
         void callSDLEvent(const Uint16 event);
@@ -75,6 +80,7 @@ namespace cyanide::cyinput
         void callMouseButtonEvent(const MouseButtonCode key);
         void callMouseButtonDown(const MouseButtonCode key);
         void callMouseButtonUp(const MouseButtonCode key);
+        void callMouseMotion();
 
     public:
         SDLEventLoop();
@@ -99,19 +105,21 @@ namespace cyanide::cyinput
         void onAnySDLEventEnd(const Callback& callback);
 
         /*
-         * Event callbacks
+         * Input event callbacks
          */
         void onSDLEventType(const Uint16 type, const Callback& callback);
         void onAnyAppEvent(const Callback& callback);
+        void onAnyWindowEvent(const Callback& callback);
+        void onAnySystemEvent(const Callback& callback);
         void onAnyKeyEvent(const Callback& callback);
-        void onAnyMouseEvent(const Callback& callback);
         void onKeyEvent(const KeyCode key, const Callback& callback);
         void onKeyDown(const KeyCode key, const Callback& callback);
         void onKeyUp(const KeyCode key, const Callback& callback);
+        void onAnyMouseEvent(const Callback& callback);
         void onMouseButtonEvent(const MouseButtonCode button, const Callback& callback);
         void onMouseButtonDown(const MouseButtonCode button, const Callback& callback);
         void onMouseButtonUp(const MouseButtonCode button, const Callback& callback);
-        void onAnyWindowEvent(const Callback& callback);
+        void onMouseMotion(const MouseMotionCallback& callback);
     };
 }  // namespace cyanide::cyinput
 

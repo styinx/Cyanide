@@ -38,17 +38,17 @@ namespace cyanide::cyinput
         return m_key_state;
     }
 
-    bool Key::isReleased(const KeyCode key) const
+    bool Key::isReleased() const
     {
         return m_key_state == KEY_STATE::RELEASED;
     }
 
-    bool Key::isDown(const KeyCode key) const
+    bool Key::isDown() const
     {
         return m_key_state == KEY_STATE::DOWN;
     }
 
-    bool Key::isPressed(const KeyCode key) const
+    bool Key::isPressed() const
     {
         return m_key_state == KEY_STATE::PRESSED;
     }

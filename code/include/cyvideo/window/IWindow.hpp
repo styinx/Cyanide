@@ -13,7 +13,7 @@ namespace cyanide::cyvideo
         virtual ~IWindow() = default;
 
         virtual void          setTitle(const String& title)              = 0;
-        virtual const String  getTitle() const                           = 0;
+        virtual String        getTitle() const                           = 0;
         virtual void          setPosition(const cymath::Point& position) = 0;
         virtual cymath::Point getPosition() const                        = 0;
         virtual void          setSize(const cymath::Size& size)          = 0;

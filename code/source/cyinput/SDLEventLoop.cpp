@@ -3,11 +3,21 @@
 #include "cystd/Enum.hpp"
 
 #include <SDL2/SDL_timer.h>
+#include <SDL2/SDL_syswm.h>
+#include <iostream>
 
 namespace cyanide::cyinput
 {
     SDLEventLoop::SDLEventLoop()
     {
+        // Stop the loop if the close event is called.
+        const auto exitLoop = [this]() {
+            if(m_event.type == SDL_QUIT)
+            {
+                m_running = false;
+            }
+        };
+
         // Set the key state based on the event.
         const auto setKeyState = [this]() {
             const auto key  = m_event.key.keysym.sym;
@@ -96,14 +106,6 @@ namespace cyanide::cyinput
             }
         };
 
-        // Stop the loop if the close event is called.
-        const auto exitLoop = [this]() {
-            if(m_event.type == SDL_QUIT)
-            {
-                m_running = false;
-            }
-        };
-
         onAnyAppEvent(exitLoop);
         onAnyKeyEvent(setKeyState);
         onAnyMouseEvent(setMouseState);
@@ -175,6 +177,14 @@ namespace cyanide::cyinput
         }
     }
 
+    void SDLEventLoop::callMouseMotion()
+    {
+        for(const auto& callback : m_mouse_motion_callback)
+        {
+            callback(m_mouse_position.x, m_mouse_position.y);
+        }
+    }
+
     // Public
 
     void SDLEventLoop::run()
@@ -197,6 +207,14 @@ namespace cyanide::cyinput
 
                 const auto type = m_event.type;
                 callSDLEvent(type);
+
+                if(m_system_events)
+                {
+                    if(m_event.type == SDL_SYSWMEVENT)
+                    {
+                        //TODO
+                    }
+                }
 
                 if(typeRange(type, SDLEventType::SDL_APPEVENT, SDLEventType::SDL_WINDOWEVENT))
                 {
@@ -237,6 +255,11 @@ namespace cyanide::cyinput
                     {
                         callMouseButtonUp(button);
                     }
+                    else if(type == SDL_MOUSEMOTION)
+                    {
+                        std::cout << m_event.button.which << "\n";
+                        callMouseMotion();
+                    }
                 }
                 else if(typeRange(type, SDLEventType::SDL_CONTROLLEREVENT, SDLEventType::SDL_TOUCHEVENT))
                 {
@@ -251,6 +274,10 @@ namespace cyanide::cyinput
         }
         callLoopEvent(LoopEvent::STOP);
     }
+
+    /*
+     * Loop callbacks
+     */
 
     void SDLEventLoop::onLoopEvent(const LoopEvent event, const SDLEventLoop::Callback& callback)
     {
@@ -287,6 +314,10 @@ namespace cyanide::cyinput
         onLoopEvent(LoopEvent::SDL_EVENT_END, callback);
     }
 
+    /*
+     * Input event callbacks
+     */
+
     void SDLEventLoop::onSDLEventType(const Uint16 type, const SDLEventLoop::Callback& callback)
     {
         m_sdl_event_callback[type].emplace_back(callback);
@@ -297,14 +328,19 @@ namespace cyanide::cyinput
         onSDLEventType(cystd::fromEnum(SDLEventType::SDL_APPEVENT), callback);
     }
 
+    void SDLEventLoop::onAnyWindowEvent(const Callback& callback)
+    {
+        onSDLEventType(cystd::fromEnum(SDLEventType::SDL_WINDOWEVENT), callback);
+    }
+
+    void SDLEventLoop::onAnySystemEvent(const cyanide::cyinput::SDLEventLoop::Callback& callback)
+    {
+        onSDLEventType(cystd::fromEnum(SDLEventType::SDL_SYSTEMEVENT), callback);
+    }
+
     void SDLEventLoop::onAnyKeyEvent(const SDLEventLoop::Callback& callback)
     {
         onSDLEventType(cystd::fromEnum(SDLEventType::SDL_KEYEVENT), callback);
-    }
-
-    void SDLEventLoop::onAnyMouseEvent(const cyanide::cyinput::SDLEventLoop::Callback& callback)
-    {
-        onSDLEventType(cystd::fromEnum(SDLEventType::SDL_MOUSEEVENT), callback);
     }
 
     void SDLEventLoop::onKeyEvent(const KeyCode key, const SDLEventLoop::Callback& callback)
@@ -320,6 +356,11 @@ namespace cyanide::cyinput
     void SDLEventLoop::onKeyUp(const KeyCode key, const SDLEventLoop::Callback& callback)
     {
         m_key_up_callback[key].emplace_back(callback);
+    }
+
+    void SDLEventLoop::onAnyMouseEvent(const cyanide::cyinput::SDLEventLoop::Callback& callback)
+    {
+        onSDLEventType(cystd::fromEnum(SDLEventType::SDL_MOUSEEVENT), callback);
     }
 
     void
@@ -340,9 +381,9 @@ namespace cyanide::cyinput
         m_mouse_button_up_callback[button].emplace_back(callback);
     }
 
-    void SDLEventLoop::onAnyWindowEvent(const Callback& callback)
+    void SDLEventLoop::onMouseMotion(const SDLEventLoop::MouseMotionCallback& callback)
     {
-        onSDLEventType(cystd::fromEnum(SDLEventType::SDL_WINDOWEVENT), callback);
+        m_mouse_motion_callback.emplace_back(callback);
     }
 
 }  // namespace cyanide::cyinput

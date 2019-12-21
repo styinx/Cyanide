@@ -29,7 +29,7 @@ namespace cyanide::cyvideo
         SDL_SetWindowTitle(m_window, title.c_str());
     }
 
-    const String SDLWindow::getTitle() const
+    String SDLWindow::getTitle() const
     {
         return SDL_GetWindowTitle(m_window);
     }
