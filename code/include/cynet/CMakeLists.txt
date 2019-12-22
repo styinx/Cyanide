@@ -1,4 +1,2 @@
-project(net)
-
-set(INCLUDES_NET
+set(INCLUDES ${INCLUDES}
     ISocket.hpp)

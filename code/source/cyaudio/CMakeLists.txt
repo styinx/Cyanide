@@ -1,5 +1,3 @@
-project(audio)
-
 set(SOURCES_AUDIO
     code/source/cyaudio/SDLAudio.cpp
     code/source/cyaudio/SDLMixerAudio.cpp

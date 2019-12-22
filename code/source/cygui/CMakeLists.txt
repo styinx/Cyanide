@@ -1,5 +1,3 @@
-project(gui)
-
 set(SOURCES_GUI
     code/source/cygui/widgets/Widget.cpp
     code/source/cygui/styles/WidgetStyle.cpp

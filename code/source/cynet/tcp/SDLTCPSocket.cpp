@@ -1,4 +1,4 @@
-#include "cynet/SDLTCPSocket.hpp"
+#include "cynet/tcp/SDLTCPSocket.hpp"
 
 #include <iostream>
 

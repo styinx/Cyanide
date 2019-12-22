@@ -117,13 +117,8 @@ pkg_search_module(SDL2TTF REQUIRED SDL2_ttf>=2.0.0)
 # Includes
 #
 
-set(INCLUDES_AUDIO
-    code/include/cyaudio/SDLAudio.hpp
-    code/include/cyaudio/SDLMixerAudio.hpp
-    code/include/cyaudio/devices/IAudioDevice.hpp
-    code/include/cyaudio/devices/SDLAudioDevice.hpp
-    code/include/cyaudio/medium/IMedium.hpp
-    code/include/cyaudio/medium/SDLMusic.hpp)
+set(INCLUDES_AUDIO)
+add_subdirectory("${PROJECT_SOURCE_DIR}/code/include/cyaudio")
 
 set(INCLUDES_MATH
     code/include/cymath/Point.hpp
@@ -157,7 +152,7 @@ set(INCLUDES_GUI
 set(INCLUDES_INPUT
     code/include/cyinput/SDLEventLoop.hpp
     code/include/cyinput/keyboard/Keyboard.hpp
-    code/include/cyinput/Mouse.hpp
+    code/include/cyinput/mouse/Mouse.hpp
     code/include/cyinput/controller/Controller.hpp
     code/include/cyinput/keyboard/Keys.hpp
     code/include/cyinput/keyboard/IKey.hpp
@@ -166,23 +161,28 @@ set(INCLUDES_INPUT
     code/include/cyinput/keyboard/Keymod.hpp
     code/include/cyinput/keyboard/KeyCombination.hpp
     code/include/cyinput/keyboard/IKeyboard.hpp
-    code/include/cyinput/controller/IController.hpp code/include/cyinput/window/WindowInput.hpp code/include/cyinput/IInputDevice.hpp code/include/cyinput/keyboard/KeyboardInput.hpp)
+    code/include/cyinput/controller/IController.hpp
+    code/include/cyinput/window/WindowInput.hpp
+    code/include/cyinput/IInputDevice.hpp
+    code/include/cyinput/keyboard/KeyboardInput.hpp
+    code/include/cyinput/inputPrototypes.hpp
+    code/include/cyinput/mouse/MouseInput.hpp)
 
 set(INCLUDES_NET
     code/include/cynet/netPrototypes.hpp
 
     code/include/cynet/ISocket.hpp
     code/include/cynet/ISDLSocket.hpp
-    code/include/cynet/SDLTCPSocket.hpp
+    code/include/cynet/tcp/SDLTCPSocket.hpp
     code/include/cynet/IP4Address.hpp
     code/include/cynet/IIPAddress.hpp
-    code/include/cynet/ITCPServer.hpp
+    code/include/cynet/tcp/ITCPServer.hpp
     code/include/cynet/IServer.hpp
     code/include/cynet/IClient.hpp
-    code/include/cynet/ITCPClient.hpp
-    code/include/cynet/ITCPSocket.hpp
-    code/include/cynet/SDLTCPClient.hpp
-    code/include/cynet/SDLTCPServer.hpp
+    code/include/cynet/tcp/ITCPClient.hpp
+    code/include/cynet/tcp/ITCPSocket.hpp
+    code/include/cynet/tcp/SDLTCPClient.hpp
+    code/include/cynet/tcp/SDLTCPServer.hpp
     code/include/cynet/NetworkPackage.hpp)
 
 set(INCLUDES_STD
@@ -308,18 +308,20 @@ set(SOURCES_INPUT
     code/source/cyinput/keyboard/SDLKey.cpp
     code/source/cyinput/keyboard/KeyCombination.cpp
     code/source/cyinput/keyboard/Keymod.cpp
-    code/source/cyinput/Mouse.cpp)
+    code/source/cyinput/mouse/Mouse.cpp
+    code/source/cyinput/keyboard/KeyboardInput.cpp
+    code/source/cyinput/mouse/MouseInput.cpp)
 
 set(SOURCES_NET
     code/source/cynet/ISDLSocket.cpp
-    code/source/cynet/SDLTCPSocket.cpp
-    code/source/cynet/ITCPServer.cpp
+    code/source/cynet/tcp/SDLTCPSocket.cpp
+    code/source/cynet/tcp/ITCPServer.cpp
     code/source/cynet/IP4Address.cpp
-    code/source/cynet/ITCPClient.cpp
+    code/source/cynet/tcp/ITCPClient.cpp
     code/source/cynet/ISocket.cpp
-    code/source/cynet/ITCPSocket.cpp
-    code/source/cynet/SDLTCPClient.cpp
-    code/source/cynet/SDLTCPServer.cpp
+    code/source/cynet/tcp/ITCPSocket.cpp
+    code/source/cynet/tcp/SDLTCPClient.cpp
+    code/source/cynet/tcp/SDLTCPServer.cpp
     code/source/cynet/NetworkPackage.cpp)
 
 set(SOURCES_STD

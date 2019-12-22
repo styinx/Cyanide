@@ -7,6 +7,7 @@ namespace cyanide::cystd
     class NonMoveable
     {
     public:
+        NonMoveable() = default;
         NonMoveable(NonMoveable&& non_moveable) = delete;
         NonMoveable& operator=(NonMoveable&& non_moveable) = delete;
     };

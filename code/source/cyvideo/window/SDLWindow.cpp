@@ -1,5 +1,5 @@
 
-#include <cyvideo/window/SDLWindow.hpp>
+#include "cyvideo/window/SDLWindow.hpp"
 
 namespace cyanide::cyvideo
 {

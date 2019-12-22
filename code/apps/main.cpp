@@ -6,13 +6,13 @@
 #include "cyvideo/window/SDLWindow.hpp"
 
 #include <SDL2/SDL.h>
-#include <cygui/GUIRenderManager.hpp>
-#include <cygui/layout/HBox.hpp>
-#include <cygui/widgets/Button.hpp>
-#include <cysystem/sdl/SDL.hpp>
-#include <cyvideo/SDLSurface.hpp>
-#include <cyvideo/SDLTexture.hpp>
-#include <cyvideo/renderer/SDLRenderer.hpp>
+#include "cygui/GUIRenderManager.hpp"
+#include "cygui/layout/HBox.hpp"
+#include "cygui/widgets/Button.hpp"
+#include "cysystem/sdl/SDL.hpp"
+#include "cyvideo/SDLSurface.hpp"
+#include "cyvideo/SDLTexture.hpp"
+#include "cyvideo/renderer/SDLRenderer.hpp"
 
 int main()
 {
@@ -43,12 +43,7 @@ int main()
         std::cout << "can capture\n";
     }
 
-    eventLoop.onMouseMotion([](const Uint32 x, const Uint32 y) {
-        int gx, gy;
-        SDL_GetGlobalMouseState(&gx, &gy);
-        std::cout << x << " " << y << "\n";
-        std::cout << gx << " " << gy << "\n";
-    });
+    eventLoop.keyboard()->onKeyDown(SDLK_a, [](const cyinput::KeyboardInput::KeyCode){ std::cout << "a down\n";});
 
     eventLoop.run();
 

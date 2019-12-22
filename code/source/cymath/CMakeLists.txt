@@ -1,5 +1,3 @@
-project(math)
-
 set(SOURCES_MATH
     code/source/cymath/Point.cpp
     code/source/cymath/Line.cpp

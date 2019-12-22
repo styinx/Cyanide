@@ -2,7 +2,7 @@
 #define CYANIDE_NETWORKPACKAGE_HPP
 
 #include <any>
-#include <cystd/stdPrototypes.hpp>
+#include "cystd/stdPrototypes.hpp"
 
 namespace cyanide::cynet
 {

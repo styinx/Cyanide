@@ -11,12 +11,13 @@ AlignTrailingComments: true
 AllowAllParametersOfDeclarationOnNextLine: false
 AllowShortBlocksOnASingleLine: false
 AllowShortCaseLabelsOnASingleLine: false
-AllowShortFunctionsOnASingleLine: false
-AllowShortIfStatementsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: Never
 AllowShortLoopsOnASingleLine: false
 AlwaysBreakAfterDefinitionReturnType: None
+AlwaysBreakAfterReturnType: None
 AlwaysBreakBeforeMultilineStrings: false
-AlwaysBreakTemplateDeclarations: true
+AlwaysBreakTemplateDeclarations: Yes
 BinPackArguments: false
 BinPackParameters: false
 BraceWrapping:
@@ -34,7 +35,7 @@ BraceWrapping:
   SplitEmptyFunction: true
   SplitEmptyRecord: true
   SplitEmptyNamespace: true
-BreakBeforeBinaryOperators: false
+BreakBeforeBinaryOperators: None
 BreakBeforeBraces: Allman
 BreakBeforeInheritanceComma: true
 BreakBeforeTernaryOperators: true
@@ -56,16 +57,15 @@ IncludeBlocks: Regroup
 IndentCaseLabels: false
 IndentWidth: 4
 IndentWrappedFunctionNames: false
-IndentFunctionDeclarationAfterType: false
 KeepEmptyLinesAtTheStartOfBlocks: true
 MaxEmptyLinesToKeep: 1
 NamespaceIndentation: All
-PenaltyBreakBeforeFirstCallParameter: 5
+PenaltyBreakBeforeFirstCallParameter: 10
 PenaltyBreakComment: 5
 PenaltyBreakString: 5
 PenaltyBreakFirstLessLess: 5
 PenaltyExcessCharacter: 5
-PenaltyReturnTypeOnItsOwnLine: 5
+PenaltyReturnTypeOnItsOwnLine: 200
 PointerAlignment: Left
 SortIncludes: true
 SortUsingDeclarations: true

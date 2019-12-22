@@ -1,4 +1,4 @@
-#include "cynet/ITCPSocket.hpp"
+#include "cynet/tcp/ITCPSocket.hpp"
 
 namespace cyanide::cynet
 {

@@ -1,5 +1,3 @@
-project(math)
-
 set(INCLUDES_MATH
     Point.hpp
     Line.hpp

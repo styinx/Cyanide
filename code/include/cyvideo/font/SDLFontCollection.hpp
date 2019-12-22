@@ -1,7 +1,7 @@
 #ifndef CYANIDE_SDLFONTCOLLECTION_HPP
 #define CYANIDE_SDLFONTCOLLECTION_HPP
 
-#include <cyvideo/videoPrototypes.hpp>
+#include "cyvideo/videoPrototypes.hpp"
 
 namespace cyanide::cyvideo
 {

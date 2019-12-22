@@ -1,5 +1,3 @@
-project(video)
-
 set(INCLUDES_VIDEO
     IWindow.hpp
     IRenderer.hpp

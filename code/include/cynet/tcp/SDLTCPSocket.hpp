@@ -1,8 +1,8 @@
 #ifndef CYANIDE_SDLTCPSOCKET_HPP
 #define CYANIDE_SDLTCPSOCKET_HPP
 
+#include "ITCPSocket.hpp"
 #include "cynet/ISDLSocket.hpp"
-#include "cynet/ITCPSocket.hpp"
 #include "cynet/netPrototypes.hpp"
 
 namespace cyanide::cynet

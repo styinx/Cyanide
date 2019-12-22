@@ -1,6 +1,6 @@
-#include "cynet/SDLTCPServer.hpp"
+#include "cynet/tcp/SDLTCPServer.hpp"
 
-#include "cynet/SDLTCPSocket.hpp"
+#include "cynet/tcp/SDLTCPSocket.hpp"
 
 namespace cyanide::cynet
 {

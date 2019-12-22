@@ -1,9 +1,8 @@
 #ifndef CYANIDE_SDLTCPCLIENT_HPP
 #define CYANIDE_SDLTCPCLIENT_HPP
 
-#include "cynet/ITCPClient.hpp"
-
-#include "cynet/SDLTCPSocket.hpp"
+#include "ITCPClient.hpp"
+#include "SDLTCPSocket.hpp"
 
 namespace cyanide::cynet
 {

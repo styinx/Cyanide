@@ -1,9 +1,13 @@
-project(audio)
-
 set(INCLUDES_AUDIO
-    SDLAudio.hpp
-    SDLMixerAudio.hpp
-    devices/IAudioDevice.hpp
-    devices/SDLAudioDevice.hpp
-    medium/IMedium.hpp
-    medium/SDLMusic.hpp)
+    ${INCLUDES_AUDIO}
+
+    ${CMAKE_CURRENT_SOURCE_DIR}/SDLAudio.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/SDLMixerAudio.hpp
+
+    ${CMAKE_CURRENT_SOURCE_DIR}/devices/IAudioDevice.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/devices/SDLAudioDevice.hpp
+
+    ${CMAKE_CURRENT_SOURCE_DIR}/medium/IMedium.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/medium/SDLMusic.hpp
+
+    PARENT_SCOPE)
