@@ -17,8 +17,8 @@ namespace cyanide::cyinput
             NONE    = 0x00,
             DOWN    = 0x01,
             UP      = 0x02,
-            PRESSED = 0x03,
-            ANY,
+            PRESSED = 0x04,
+            ANY     = 0x07,
         };
 
         enum class KEY_STATE : Byte
@@ -26,7 +26,8 @@ namespace cyanide::cyinput
             NONE     = 0x00,
             RELEASED = 0x01,
             DOWN     = 0x02,
-            PRESSED  = 0x04
+            PRESSED  = 0x04,
+            ANY      = 0x07
         };
 
         using KeyCode     = Uint16;

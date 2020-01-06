@@ -1,13 +1,9 @@
-set(INCLUDES_AUDIO
-    ${INCLUDES_AUDIO}
+cy_add_includes(
+    SDLAudio.hpp
+    SDLMixerAudio.hpp
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/SDLAudio.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/SDLMixerAudio.hpp
+    devices/IAudioDevice.hpp
+    devices/SDLAudioDevice.hpp
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/devices/IAudioDevice.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/devices/SDLAudioDevice.hpp
-
-    ${CMAKE_CURRENT_SOURCE_DIR}/medium/IMedium.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/medium/SDLMusic.hpp
-
-    PARENT_SCOPE)
+    medium/IMedium.hpp
+    medium/SDLMusic.hpp)

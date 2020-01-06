@@ -1,6 +1,20 @@
-set(INCLUDES_VIDEO
-    IWindow.hpp
-    IRenderer.hpp
+cy_add_includes(
+    ISurface.hpp
     ITexture.hpp
-    SDLWindow.hpp
-    SDLRenderer.hpp)
+    SDLSurface.hpp
+    SDLTexture.hpp
+    SDLVideo.hpp
+    videoPrototypes.hpp
+
+    display/SDLDisplay.hpp
+    display/IDisplay.hpp
+
+    font/SDLFontCollection.hpp
+    font/IFont.hpp
+    font/SDLFont.hpp
+
+    renderer/IRenderer.hpp
+    renderer/SDLRenderer.hpp
+
+    window/IWindow.hpp
+    window/SDLWindow.hpp)

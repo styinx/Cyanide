@@ -1,18 +1,14 @@
-
-#include "cygui/widgets/Widget.hpp"
+#include "cygui/GUIRenderManager.hpp"
 #include "cyinput/SDLEventLoop.hpp"
+#include "cysystem/sdl/SDL.hpp"
 #include "cyutil/io/Print.hpp"
+#include "cyvideo/SDLSurface.hpp"
+#include "cyvideo/SDLTexture.hpp"
 #include "cyvideo/font/SDLFont.hpp"
+#include "cyvideo/renderer/SDLRenderer.hpp"
 #include "cyvideo/window/SDLWindow.hpp"
 
 #include <SDL2/SDL.h>
-#include "cygui/GUIRenderManager.hpp"
-#include "cygui/layout/HBox.hpp"
-#include "cygui/widgets/Button.hpp"
-#include "cysystem/sdl/SDL.hpp"
-#include "cyvideo/SDLSurface.hpp"
-#include "cyvideo/SDLTexture.hpp"
-#include "cyvideo/renderer/SDLRenderer.hpp"
 
 int main()
 {
@@ -43,7 +39,11 @@ int main()
         std::cout << "can capture\n";
     }
 
-    eventLoop.keyboard()->onKeyDown(SDLK_a, [](const cyinput::KeyboardInput::KeyCode){ std::cout << "a down\n";});
+    eventLoop.keyboard()->onKeyDown(
+        SDLK_a, [](const cyinput::KeyboardInput::KeyCode) { std::cout << "a down\n"; });
+    eventLoop.mouse()->on(cyinput::MouseInput::MOUSE_EVENT::ANY, [](const SDL_Event& event) {
+        std::cout << event.button.button << "\n";
+    });
 
     eventLoop.run();
 

@@ -80,7 +80,7 @@ namespace cyanide::cyinput
 
     void KeyboardInput::on(const KEYBOARD_EVENT event, const EventCallback& callback)
     {
-        m_event_callbacks.at(event).emplace_back(callback);
+        m_event_callbacks[event].emplace_back(callback);
     }
 
     void KeyboardInput::on(const String& event, const KeyCode key, const KeyCallback& callback)
@@ -115,7 +115,6 @@ namespace cyanide::cyinput
             onKey(key, callback);
             break;
         }
-        case KEYBOARD_EVENT::NONE:
         default:
         {
             break;
@@ -166,12 +165,9 @@ namespace cyanide::cyinput
 
     void KeyboardInput::anyKeyEvent(const SDL_Event& event) const
     {
-        if(m_event_callbacks.count(KEYBOARD_EVENT::ANY))
+        for(const auto& callback : m_event_callbacks.at(KEYBOARD_EVENT::ANY))
         {
-            for(const auto& callback : m_event_callbacks.at(KEYBOARD_EVENT::ANY))
-            {
-                callback(event);
-            }
+            callback(event);
         }
     }
 

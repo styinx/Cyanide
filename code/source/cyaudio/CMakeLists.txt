@@ -1,5 +1,7 @@
-set(SOURCES_AUDIO
-    code/source/cyaudio/SDLAudio.cpp
-    code/source/cyaudio/SDLMixerAudio.cpp
-    code/source/cyaudio/medium/SDLMusic.cpp
-    code/source/cyaudio/devices/SDLAudioDevice.cpp)
+cy_add_sources(
+    SDLAudio.cpp
+    SDLMixerAudio.cpp
+
+    devices/SDLAudioDevice.cpp
+
+    medium/SDLMusic.cpp)

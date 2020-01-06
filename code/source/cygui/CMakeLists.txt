@@ -1,5 +1,17 @@
-set(SOURCES_GUI
-    code/source/cygui/widgets/Widget.cpp
-    code/source/cygui/styles/WidgetStyle.cpp
-    code/source/cygui/widgets/Object.cpp
-    code/source/cygui/styles/ObjectStyle.cpp)
+cy_add_sources(
+    GUIRenderManager.cpp
+
+    layout/Box.cpp
+    layout/HBox.cpp
+    layout/VBox.cpp
+
+    styles/BoxStyle.cpp
+    styles/ButtonStyle.cpp
+    styles/ObjectStyle.cpp
+    styles/TextWidgetStyle.cpp
+    styles/WidgetStyle.cpp
+
+    widgets/Button.cpp
+    widgets/Object.cpp
+    widgets/TextWidget.cpp
+    widgets/Widget.cpp)

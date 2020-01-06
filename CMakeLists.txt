@@ -19,8 +19,10 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG "${BIN_PATH}")
 # Paths
 #
 
-set(DIR_CODE code)
+set(DIR_CODE ${PROJECT_SOURCE_DIR}/code)
 set(DIR_INCLUDE ${DIR_CODE}/include)
+set(DIR_SOURCE ${DIR_CODE}/source)
+set(DIR_TEST ${DIR_CODE}/test)
 set(DIR_LIBRARY ${DIR_CODE}/lib)
 
 
@@ -37,6 +39,53 @@ endif()
 
 include_directories(${DIR_INCLUDE} ${OS_DIR_INCLUDE})
 link_directories(${DIR_LIBRARY} ${OS_DIR_LIBRARY})
+
+#
+# Functions
+#
+
+function(cy_add_include_dir path)
+    include("${DIR_INCLUDE}/${path}/CMakeLists.txt")
+    set(INCLUDES ${INCLUDES} PARENT_SCOPE)
+endfunction()
+
+function(cy_add_source_dir path)
+    include("${DIR_SOURCE}/${path}/CMakeLists.txt")
+    set(SOURCES ${SOURCES} PARENT_SCOPE)
+endfunction()
+
+function(cy_add_test_dir path)
+    include("${DIR_TEST}/${path}/CMakeLists.txt")
+    set(TEST_SOURCES ${TEST_SOURCES} PARENT_SCOPE)
+endfunction()
+
+function(cy_add_includes)
+    set(files "")
+    foreach(file ${ARGN})
+        list(APPEND files "${CMAKE_CURRENT_LIST_DIR}/${file}")
+    endforeach()
+
+    set(INCLUDES ${INCLUDES} ${files} PARENT_SCOPE)
+endfunction()
+
+function(cy_add_sources)
+    set(files "")
+    foreach(file ${ARGN})
+        list(APPEND files "${CMAKE_CURRENT_LIST_DIR}/${file}")
+    endforeach()
+
+    set(SOURCES ${SOURCES} ${files} PARENT_SCOPE)
+endfunction()
+
+function(cy_add_test_sources)
+    set(files "")
+    foreach(file ${ARGN})
+        list(APPEND files "${CMAKE_CURRENT_LIST_DIR}/${file}")
+    endforeach()
+
+    set(TEST_SOURCES ${TEST_SOURCES} ${files} PARENT_SCOPE)
+endfunction()
+
 
 #
 # Compiler
@@ -117,257 +166,30 @@ pkg_search_module(SDL2TTF REQUIRED SDL2_ttf>=2.0.0)
 # Includes
 #
 
-set(INCLUDES_AUDIO)
-add_subdirectory("${PROJECT_SOURCE_DIR}/code/include/cyaudio")
-
-set(INCLUDES_MATH
-    code/include/cymath/Point.hpp
-    code/include/cymath/Line.hpp
-    code/include/cymath/Vector.hpp
-    code/include/cymath/Rectangle.hpp
-    code/include/cymath/Space.hpp
-    code/include/cymath/Size.hpp)
-
-set(INCLUDES_GUI
-    code/include/cygui/styles/ObjectStyle.hpp
-    code/include/cygui/styles/WidgetStyle.hpp
-    code/include/cygui/styles/Styles.hpp
-    code/include/cygui/styles/ButtonStyle.hpp
-    code/include/cygui/styles/TextWidgetStyle.hpp
-    code/include/cygui/styles/BoxStyle.hpp
-
-    code/include/cygui/widgets/Object.hpp
-    code/include/cygui/widgets/Widget.hpp
-    code/include/cygui/widgets/Button.hpp
-    code/include/cygui/widgets/TextWidget.hpp
-
-    code/include/cygui/GUIRenderManager.hpp
-
-    code/include/cygui/layout/ILayout.hpp
-    code/include/cygui/layout/IBox.hpp
-    code/include/cygui/layout/Box.hpp
-    code/include/cygui/layout/VBox.hpp
-    code/include/cygui/layout/HBox.hpp)
-
-set(INCLUDES_INPUT
-    code/include/cyinput/SDLEventLoop.hpp
-    code/include/cyinput/keyboard/Keyboard.hpp
-    code/include/cyinput/mouse/Mouse.hpp
-    code/include/cyinput/controller/Controller.hpp
-    code/include/cyinput/keyboard/Keys.hpp
-    code/include/cyinput/keyboard/IKey.hpp
-    code/include/cyinput/keyboard/Key.hpp
-    code/include/cyinput/keyboard/SDLKey.hpp
-    code/include/cyinput/keyboard/Keymod.hpp
-    code/include/cyinput/keyboard/KeyCombination.hpp
-    code/include/cyinput/keyboard/IKeyboard.hpp
-    code/include/cyinput/controller/IController.hpp
-    code/include/cyinput/window/WindowInput.hpp
-    code/include/cyinput/IInputDevice.hpp
-    code/include/cyinput/keyboard/KeyboardInput.hpp
-    code/include/cyinput/inputPrototypes.hpp
-    code/include/cyinput/mouse/MouseInput.hpp)
-
-set(INCLUDES_NET
-    code/include/cynet/netPrototypes.hpp
-
-    code/include/cynet/ISocket.hpp
-    code/include/cynet/ISDLSocket.hpp
-    code/include/cynet/tcp/SDLTCPSocket.hpp
-    code/include/cynet/IP4Address.hpp
-    code/include/cynet/IIPAddress.hpp
-    code/include/cynet/tcp/ITCPServer.hpp
-    code/include/cynet/IServer.hpp
-    code/include/cynet/IClient.hpp
-    code/include/cynet/tcp/ITCPClient.hpp
-    code/include/cynet/tcp/ITCPSocket.hpp
-    code/include/cynet/tcp/SDLTCPClient.hpp
-    code/include/cynet/tcp/SDLTCPServer.hpp
-    code/include/cynet/NetworkPackage.hpp)
-
-set(INCLUDES_STD
-    code/include/cystd/stdPrototypes.hpp
-
-    code/include/cystd/NonCopyable.hpp
-    code/include/cystd/NonMoveable.hpp
-    code/include/cystd/Range.hpp
-    code/include/cystd/Enum.hpp
-    code/include/cystd/CyObj.hpp)
-
-set(INCLUDES_SYSTEM
-    code/include/cysystem/sdl/SDL.hpp
-    code/include/cysystem/Platform.hpp
-    code/include/cysystem/IScheduler.hpp
-    code/include/cysystem/Scheduler.hpp
-    code/include/cysystem/ITask.hpp
-    code/include/cysystem/SchedulerTask.hpp
-    code/include/cysystem/Thread.hpp
-    code/include/cysystem/IDispatcher.hpp
-    code/include/cysystem/ICommand.hpp)
-
-set(INCLUDES_UTIL
-    code/include/cyutil/util.hpp
-
-    code/include/cyutil/color/IColor.hpp
-    code/include/cyutil/color/RGBAColor.hpp
-
-    code/include/cyutil/io/Print.hpp
-
-    code/include/cyutil/time/SDLTimer.hpp
-    code/include/cyutil/time/ITimer.hpp
-    code/include/cyutil/time/SDLPerformanceTimer.hpp
-    code/include/cyutil/time/Clock.hpp
-    code/include/cyutil/time/time.hpp
-
-    code/include/cyutil/type/TypeEnum.hpp
-    code/include/cyutil/type/TypeName.hpp
-
-    code/include/cyutil/serialize/ISerialize.hpp
-    code/include/cyutil/io/ByteStreamReader.hpp)
-
-set(INCLUDES_VIDEO
-    code/include/cyvideo/videoPrototypes.hpp
-
-    code/include/cyvideo/window/IWindow.hpp
-    code/include/cyvideo/window/SDLWindow.hpp
-
-    code/include/cyvideo/renderer/IRenderer.hpp
-    code/include/cyvideo/renderer/SDLRenderer.hpp
-
-    code/include/cyvideo/display/SDLDisplay.hpp
-    code/include/cyvideo/display/IDisplay.hpp
-
-    code/include/cyvideo/font/SDLFontCollection.hpp
-    code/include/cyvideo/font/IFont.hpp
-    code/include/cyvideo/font/SDLFont.hpp
-
-    code/include/cyvideo/ISurface.hpp
-    code/include/cyvideo/SDLTexture.hpp
-    code/include/cyvideo/SDLSurface.hpp
-    code/include/cyvideo/ITexture.hpp
-    code/include/cyvideo/SDLVideo.hpp)
-
-set(INCLUDES
-    ${INCLUDES_STD}
-    ${INCLUDES_AUDIO}
-    ${INCLUDES_MATH}
-    ${INCLUDES_GUI}
-    ${INCLUDES_INPUT}
-    ${INCLUDES_NET}
-    ${INCLUDES_SYSTEM}
-    ${INCLUDES_UTIL}
-    ${INCLUDES_VIDEO})
+cy_add_include_dir(cyaudio)
+cy_add_include_dir(cygui)
+cy_add_include_dir(cyinput)
+cy_add_include_dir(cymath)
+cy_add_include_dir(cynet)
+cy_add_include_dir(cystd)
+cy_add_include_dir(cysystem)
+cy_add_include_dir(cyutil)
+cy_add_include_dir(cyvideo)
 
 
 #
 # Sources
 #
 
-set(SOURCES_STD)
-
-set(SOURCES_AUDIO
-    code/source/cyaudio/SDLAudio.cpp
-    code/source/cyaudio/SDLMixerAudio.cpp
-
-    code/source/cyaudio/medium/SDLMusic.cpp
-
-    code/source/cyaudio/devices/SDLAudioDevice.cpp)
-
-set(SOURCES_MATH
-    code/source/cymath/Point.cpp
-    code/source/cymath/Line.cpp
-    code/source/cymath/Vector.cpp
-    code/source/cymath/Rectangle.cpp
-    code/source/cymath/Space.cpp
-    code/source/cymath/Size.cpp)
-
-set(SOURCES_GUI
-    code/source/cygui/styles/WidgetStyle.cpp
-    code/source/cygui/styles/ObjectStyle.cpp
-    code/source/cygui/styles/ButtonStyle.cpp
-    code/source/cygui/styles/TextWidgetStyle.cpp
-    code/source/cygui/styles/BoxStyle.cpp
-
-    code/source/cygui/widgets/Widget.cpp
-    code/source/cygui/widgets/Object.cpp
-    code/source/cygui/widgets/Button.cpp
-    code/source/cygui/widgets/TextWidget.cpp
-
-    code/source/cygui/GUIRenderManager.cpp
-
-    code/source/cygui/layout/Box.cpp
-    code/source/cygui/layout/VBox.cpp
-    code/source/cygui/layout/HBox.cpp)
-
-set(SOURCES_INPUT
-    code/source/cyinput/SDLEventLoop.cpp
-    code/source/cyinput/controller/Controller.cpp
-    code/include/cyinput/keyboard/IKeyboard.hpp
-    code/source/cyinput/keyboard/Keyboard.cpp
-    code/source/cyinput/keyboard/Key.cpp
-    code/source/cyinput/keyboard/SDLKey.cpp
-    code/source/cyinput/keyboard/KeyCombination.cpp
-    code/source/cyinput/keyboard/Keymod.cpp
-    code/source/cyinput/mouse/Mouse.cpp
-    code/source/cyinput/keyboard/KeyboardInput.cpp
-    code/source/cyinput/mouse/MouseInput.cpp)
-
-set(SOURCES_NET
-    code/source/cynet/ISDLSocket.cpp
-    code/source/cynet/tcp/SDLTCPSocket.cpp
-    code/source/cynet/tcp/ITCPServer.cpp
-    code/source/cynet/IP4Address.cpp
-    code/source/cynet/tcp/ITCPClient.cpp
-    code/source/cynet/ISocket.cpp
-    code/source/cynet/tcp/ITCPSocket.cpp
-    code/source/cynet/tcp/SDLTCPClient.cpp
-    code/source/cynet/tcp/SDLTCPServer.cpp
-    code/source/cynet/NetworkPackage.cpp)
-
-set(SOURCES_STD
-    )
-
-set(SOURCES_SYSTEM
-    code/source/cysystem/Platform.cpp
-    code/source/cysystem/Scheduler.cpp
-    code/source/cysystem/SchedulerTask.cpp
-    code/source/cysystem/sdl/SDL.cpp)
-
-set(SOURCES_UTIL
-    code/source/cyutil/color/RGBAColor.cpp
-
-    code/source/cyutil/io/Print.cpp
-
-    code/source/cyutil/time/Clock.cpp
-    code/source/cyutil/time/SDLTimer.cpp
-    code/source/cyutil/time/SDLPerformanceTimer.cpp
-
-    code/source/cyutil/serialize/ISerialize.cpp)
-
-set(SOURCES_VIDEO
-    code/source/cyvideo/renderer/SDLRenderer.cpp
-
-    code/source/cyvideo/window/SDLWindow.cpp
-
-    code/source/cyvideo/display/SDLDisplay.cpp
-
-    code/source/cyvideo/font/SDLFont.cpp
-    code/source/cyvideo/font/SDLFontCollection.cpp
-
-    code/source/cyvideo/SDLVideo.cpp
-    code/source/cyvideo/SDLTexture.cpp
-    code/source/cyvideo/SDLSurface.cpp)
-
-set(SOURCES
-    ${SOURCES_AUDIO}
-    ${SOURCES_MATH}
-    ${SOURCES_GUI}
-    ${SOURCES_INPUT}
-    ${SOURCES_NET}
-    ${SOURCES_STD}
-    ${SOURCES_SYSTEM}
-    ${SOURCES_UTIL}
-    ${SOURCES_VIDEO})
+cy_add_source_dir(cyaudio)
+cy_add_source_dir(cygui)
+cy_add_source_dir(cyinput)
+cy_add_source_dir(cymath)
+cy_add_source_dir(cynet)
+cy_add_source_dir(cystd)
+cy_add_source_dir(cysystem)
+cy_add_source_dir(cyutil)
+cy_add_source_dir(cyvideo)
 
 
 #
@@ -381,41 +203,16 @@ set(FILES ${INCLUDES} ${SOURCES})
 # Tests
 #
 
-set(TEST_SOURCES_AUDIO)
+cy_add_test_dir(cyaudio)
+cy_add_test_dir(cygui)
+cy_add_test_dir(cyinput)
+cy_add_test_dir(cymath)
+cy_add_test_dir(cynet)
+cy_add_test_dir(cystd)
+cy_add_test_dir(cysystem)
+cy_add_test_dir(cyutil)
+cy_add_test_dir(cyvideo)
 
-set(TEST_SOURCES_GUI
-    code/test/cygui/test_box.cpp)
-
-set(TEST_SOURCES_INPUT)
-
-set(TEST_SOURCES_MATH
-    code/test/cymath/test_point.cpp
-    code/test/cymath/test_rectangle.cpp
-    code/test/cymath/test_size.cpp
-    code/test/cymath/test_vector.cpp
-    code/test/cymath/test_space.cpp
-    code/test/cymath/test_line.cpp)
-
-set(TEST_SOURCES_NET)
-
-set(TEST_SOURCES_STD)
-
-set(TEST_SOURCES_SYSTEM)
-
-set(TEST_SOURCES_UTIL)
-
-set(TEST_SOURCES_VIDEO)
-
-set(TEST_SOURCES
-    ${TEST_SOURCES_AUDIO}
-    ${TEST_SOURCES_GUI}
-    ${TEST_SOURCES_INPUT}
-    ${TEST_SOURCES_MATH}
-    ${TEST_SOURCES_NET}
-    ${TEST_SOURCES_STD}
-    ${TEST_SOURCES_SYSTEM}
-    ${TEST_SOURCES_UTIL}
-    ${TEST_SOURCES_VIDEO})
 
 set(TEST_FILES
     ${FILES}
@@ -427,11 +224,11 @@ set(TEST_FILES
 #
 
 add_executable(${PROJECT_NAME} ${FILES} code/apps/main.cpp)
-add_executable(${PROJECT_NAME}_Server ${FILES} code/apps/server.cpp)
 add_executable(${PROJECT_NAME}_Client ${FILES} code/apps/client.cpp)
+add_executable(${PROJECT_NAME}_Server ${FILES} code/apps/server.cpp)
 add_executable(${PROJECT_NAME}_Test ${TEST_FILES} code/test/test.cpp)
 
 target_link_libraries(${PROJECT_NAME} ${LIBRARIES})
-target_link_libraries(${PROJECT_NAME}_Server ${LIBRARIES})
 target_link_libraries(${PROJECT_NAME}_Client ${LIBRARIES})
+target_link_libraries(${PROJECT_NAME}_Server ${LIBRARIES})
 target_link_libraries(${PROJECT_NAME}_Test ${TEST_LIBRARIES})

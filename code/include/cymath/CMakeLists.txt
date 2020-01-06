@@ -1,7 +1,7 @@
-set(INCLUDES_MATH
-    Point.hpp
+cy_add_includes(
     Line.hpp
-    Vector.hpp
+    Point.hpp
     Rectangle.hpp
+    Size.hpp
     Space.hpp
-    Size.hpp)
+    Vector.hpp)

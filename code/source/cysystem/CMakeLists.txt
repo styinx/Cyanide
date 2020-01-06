@@ -1,2 +1,6 @@
-set(SOURCES_SYSTEM
-    code/source/cysystem/Platform.cpp)
+cy_add_sources(
+    Platform.cpp
+    Scheduler.cpp
+    SchedulerTask.cpp
+
+    sdl/SDL.cpp)
