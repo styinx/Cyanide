@@ -1,6 +1,6 @@
 
 #include <cmath>
-#include <cymath/Space.hpp>
+#include "cymath/Space.hpp"
 
 namespace cyanide::cymath
 {

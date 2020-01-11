@@ -1,1 +1,1 @@
-project(std)
+cy_add_sources()

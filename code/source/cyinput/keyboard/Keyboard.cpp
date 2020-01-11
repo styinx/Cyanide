@@ -5,4 +5,4 @@ namespace cyanide::cyinput
 
 
 
-}  // namespace cyanide
+}  // namespace cyanide::cyinput

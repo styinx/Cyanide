@@ -1,4 +1,4 @@
-#include "cynet/SDLTCPClient.hpp"
+#include "cynet/tcp/SDLTCPClient.hpp"
 
 #include <SDL2/SDL.h>
 #include <iostream>

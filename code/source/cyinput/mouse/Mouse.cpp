@@ -1,4 +1,4 @@
-#include "cyinput/Mouse.hpp"
+#include "cyinput/mouse/Mouse.hpp"
 
 #include <SDL2/SDL_mouse.h>
 

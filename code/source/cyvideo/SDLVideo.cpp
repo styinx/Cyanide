@@ -1,5 +1,5 @@
 
-#include <cyvideo/SDLVideo.hpp>
+#include "cyvideo/SDLVideo.hpp"
 
 #include <iostream>
 

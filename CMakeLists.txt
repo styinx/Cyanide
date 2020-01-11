@@ -5,7 +5,7 @@ project(Cyanide)
 # CMake
 #
 
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.9)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -19,22 +19,73 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG "${BIN_PATH}")
 # Paths
 #
 
-set(DIR_CODE code)
+set(DIR_CODE ${PROJECT_SOURCE_DIR}/code)
 set(DIR_INCLUDE ${DIR_CODE}/include)
 set(DIR_SOURCE ${DIR_CODE}/source)
 set(DIR_TEST ${DIR_CODE}/test)
 set(DIR_LIBRARY ${DIR_CODE}/lib)
 
 
-include_directories(${DIR_INCLUDE})
-include_directories(${DIR_SOURCE})
+if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+    set(OS_DIR_INCLUDE /usr/include/)
+    set(OS_DIR_LIBRARY /usr/libs/)
+endif()
 
-add_subdirectory(${DIR_INCLUDE})
-add_subdirectory(${DIR_SOURCE})
-add_subdirectory(${DIR_TEST})
+if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+    set(OS_DIR_INCLUDE C:/Include/)
+    set(OS_DIR_LIBRARY C:/Libs/)
+endif()
 
 
+include_directories(${DIR_INCLUDE} ${OS_DIR_INCLUDE})
 link_directories(${DIR_LIBRARY} ${OS_DIR_LIBRARY})
+
+#
+# Functions
+#
+
+function(cy_add_include_dir path)
+    include("${DIR_INCLUDE}/${path}/CMakeLists.txt")
+    set(INCLUDES ${INCLUDES} PARENT_SCOPE)
+endfunction()
+
+function(cy_add_source_dir path)
+    include("${DIR_SOURCE}/${path}/CMakeLists.txt")
+    set(SOURCES ${SOURCES} PARENT_SCOPE)
+endfunction()
+
+function(cy_add_test_dir path)
+    include("${DIR_TEST}/${path}/CMakeLists.txt")
+    set(TEST_SOURCES ${TEST_SOURCES} PARENT_SCOPE)
+endfunction()
+
+function(cy_add_includes)
+    set(files "")
+    foreach(file ${ARGN})
+        list(APPEND files "${CMAKE_CURRENT_LIST_DIR}/${file}")
+    endforeach()
+
+    set(INCLUDES ${INCLUDES} ${files} PARENT_SCOPE)
+endfunction()
+
+function(cy_add_sources)
+    set(files "")
+    foreach(file ${ARGN})
+        list(APPEND files "${CMAKE_CURRENT_LIST_DIR}/${file}")
+    endforeach()
+
+    set(SOURCES ${SOURCES} ${files} PARENT_SCOPE)
+endfunction()
+
+function(cy_add_test_sources)
+    set(files "")
+    foreach(file ${ARGN})
+        list(APPEND files "${CMAKE_CURRENT_LIST_DIR}/${file}")
+    endforeach()
+
+    set(TEST_SOURCES ${TEST_SOURCES} ${files} PARENT_SCOPE)
+endfunction()
+
 
 #
 # Compiler
@@ -105,11 +156,41 @@ conan_basic_setup()
 include(FindPkgConfig)
 
 pkg_search_module(SDL2 REQUIRED sdl2)
-pkg_search_module(SDL2GFX REQUIRED SDL2_gfx>=1.0.4)
+pkg_search_module(SDL2GFX REQUIRED SDL2_gfx>=1.0.0)
 pkg_search_module(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
 pkg_search_module(SDL2MIXER REQUIRED SDL2_mixer>=2.0.0)
 pkg_search_module(SDL2NET REQUIRED SDL2_net>=2.0.0)
 pkg_search_module(SDL2TTF REQUIRED SDL2_ttf>=2.0.0)
+
+#
+# Includes
+#
+
+cy_add_include_dir(cyaudio)
+cy_add_include_dir(cygui)
+cy_add_include_dir(cyinput)
+cy_add_include_dir(cymath)
+cy_add_include_dir(cynet)
+cy_add_include_dir(cystd)
+cy_add_include_dir(cysystem)
+cy_add_include_dir(cyutil)
+cy_add_include_dir(cyvideo)
+
+
+#
+# Sources
+#
+
+cy_add_source_dir(cyaudio)
+cy_add_source_dir(cygui)
+cy_add_source_dir(cyinput)
+cy_add_source_dir(cymath)
+cy_add_source_dir(cynet)
+cy_add_source_dir(cystd)
+cy_add_source_dir(cysystem)
+cy_add_source_dir(cyutil)
+cy_add_source_dir(cyvideo)
+
 
 #
 # All files
@@ -122,15 +203,20 @@ set(FILES ${INCLUDES} ${SOURCES})
 # Tests
 #
 
-set(TEST_LIBRARIES
-    -lgtest
-    -lgtest_main
-    ${LIBRARIES})
-    
+cy_add_test_dir(cyaudio)
+cy_add_test_dir(cygui)
+cy_add_test_dir(cyinput)
+cy_add_test_dir(cymath)
+cy_add_test_dir(cynet)
+cy_add_test_dir(cystd)
+cy_add_test_dir(cysystem)
+cy_add_test_dir(cyutil)
+cy_add_test_dir(cyvideo)
+
 
 set(TEST_FILES
     ${FILES}
-    ${TEST_SOURCES} code/include/cyinput/keyboard/IKeyboard.hpp)
+    ${TEST_SOURCES})
 
 
 #
@@ -138,11 +224,11 @@ set(TEST_FILES
 #
 
 add_executable(${PROJECT_NAME} ${FILES} code/apps/main.cpp)
-add_executable(${PROJECT_NAME}_Server ${FILES} code/apps/server.cpp)
 add_executable(${PROJECT_NAME}_Client ${FILES} code/apps/client.cpp)
+add_executable(${PROJECT_NAME}_Server ${FILES} code/apps/server.cpp)
 add_executable(${PROJECT_NAME}_Test ${TEST_FILES} code/test/test.cpp)
 
 target_link_libraries(${PROJECT_NAME} ${LIBRARIES})
-target_link_libraries(${PROJECT_NAME}_Server ${LIBRARIES})
 target_link_libraries(${PROJECT_NAME}_Client ${LIBRARIES})
+target_link_libraries(${PROJECT_NAME}_Server ${LIBRARIES})
 target_link_libraries(${PROJECT_NAME}_Test ${TEST_LIBRARIES})

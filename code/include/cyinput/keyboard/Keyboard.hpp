@@ -2,22 +2,22 @@
 #define CYANIDE_KEYBOARD_HPP
 
 #include "cyinput/keyboard/IKeyboard.hpp"
+#include "cyinput/keyboard/KeyboardInput.hpp"
 
 namespace cyanide::cyinput
 {
 
-    class Keyboard final : public IKeyboard
+    class Keyboard final
+        : public IKeyboard
+        , public KeyboardInput
     {
     private:
+
     public:
         Keyboard() = default;
-        ~Keyboard() = default;
-        Keyboard(const Keyboard& keyboard) = default;
-        Keyboard(Keyboard&& keyboard) noexcept = default;
-        Keyboard& operator=(const Keyboard& keyboard) = default;
-        Keyboard& operator=(Keyboard&& keyboard) noexcept = default;
+        virtual ~Keyboard() = default;
     };
 
-}  // namespace cyanide
+}  // namespace cyanide::cyinput
 
 #endif  // CYANIDE_KEYBOARD_HPP

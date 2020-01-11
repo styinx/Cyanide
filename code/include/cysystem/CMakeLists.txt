@@ -1,4 +1,11 @@
-project(system)
+cy_add_includes(
+    ICommand.hpp
+    IDispatcher.hpp
+    IScheduler.hpp
+    ITask.hpp
+    Platform.hpp
+    Scheduler.hpp
+    SchedulerTask.hpp
+    Thread.hpp
 
-set(INCLUDES_SYSTEM
-    Platform.hpp)
+    sdl/SDL.hpp)

@@ -1,8 +1,7 @@
-#include <iostream>
+#include "cynet/tcp/SDLTCPServer.hpp"
 
 #include <SDL2/SDL.h>
-
-#include <cynet/SDLTCPServer.hpp>
+#include <iostream>
 
 void print(std::string what)
 {

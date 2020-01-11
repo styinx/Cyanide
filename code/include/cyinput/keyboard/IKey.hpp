@@ -6,6 +6,15 @@
 
 namespace cyanide::cyinput
 {
+    enum class KEY_STATE : Byte
+    {
+        NONE     = 0x00,
+        RELEASED = 0x01,
+        DOWN     = 0x02,
+        PRESSED  = 0x04
+    };
+    using KeyCode = Uint16;
+    using KeyMod = Uint16;
 
     class IKey
     {

@@ -1,5 +1,3 @@
-project(test)
-
 add_subdirectory(cyaudio)
 add_subdirectory(cygui)
 add_subdirectory(cyinput)
@@ -8,7 +6,7 @@ add_subdirectory(cystd)
 add_subdirectory(cyutil)
 add_subdirectory(cyvideo)
 
-set(TESTS
+set(TESTS ${TESTS}
     ${TESTS_AUDIO}
     ${TESTS_GUI}
     ${TESTS_INPUT}

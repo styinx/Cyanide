@@ -1,7 +1,10 @@
-project(util)
+cy_add_sources(
+    color/RGBAColor.cpp
 
-set(SOURCES_UTIL
-    io/BitStreamReader.cpp
-    code/source/cyutil/formats/INIParser.cpp
-    code/source/cyutil/color/Color.cpp
-    code/source/cyutil/formats/Value.cpp)
+    io/Print.cpp
+
+    serialize/ISerialize.cpp
+
+    time/Clock.cpp
+    time/SDLPerformanceTimer.cpp
+    time/SDLTimer.cpp)

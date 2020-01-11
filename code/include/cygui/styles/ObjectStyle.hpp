@@ -8,7 +8,7 @@
 #include "cyutil/color/RGBAColor.hpp"
 #include "cyvideo/SDLTexture.hpp"
 
-#include <cymath/Rectangle.hpp>
+#include "cymath/Rectangle.hpp"
 
 namespace cyanide::cygui
 {

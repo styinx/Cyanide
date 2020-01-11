@@ -40,7 +40,7 @@ namespace cyanide::cyvideo
             const Uint32        flags = SDL_WINDOW_SHOWN);
 
         virtual void         setTitle(const String& title) override;
-        virtual const String getTitle() const override;
+        virtual String getTitle() const override;
 
         // Size and position
 

@@ -1,5 +1,5 @@
 
-#include <cyaudio/SDLAudio.hpp>
+#include "cyaudio/SDLAudio.hpp"
 
 namespace cyanide::cyaudio
 {

@@ -7,6 +7,7 @@ namespace cyanide::cystd
     class NonCopyable
     {
     public:
+        NonCopyable() = default;
         NonCopyable(const NonCopyable& non_copyable) = delete;
         NonCopyable operator=(const NonCopyable& non_copyable) = delete;
     };
