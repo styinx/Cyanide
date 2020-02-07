@@ -1,7 +1,7 @@
 #ifndef CYANIDE_INPUTPROTOTYPES_HPP
 #define CYANIDE_INPUTPROTOTYPES_HPP
 
-#include "cystd/stdPrototypes.hpp"
+#include "cystd/Types.hpp"
 
 namespace cyanide::cyinput
 {

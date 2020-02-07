@@ -2,7 +2,7 @@
 #define CYANIDE_ISOCKET_HPP
 
 #include "cynet/NetworkPackage.hpp"
-#include "cystd/stdPrototypes.hpp"
+#include "cystd/Types.hpp"
 
 namespace cyanide::cynet
 {

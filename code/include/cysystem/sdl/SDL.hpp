@@ -1,7 +1,7 @@
 #ifndef CYANIDE_SDL_HPP
 #define CYANIDE_SDL_HPP
 
-#include "cystd/stdPrototypes.hpp"
+#include "cystd/Types.hpp"
 
 namespace cyanide::cysystem
 {

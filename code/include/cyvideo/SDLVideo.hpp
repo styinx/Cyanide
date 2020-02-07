@@ -1,11 +1,11 @@
 #ifndef CYANIDE_SDLVIDEO_HPP
 #define CYANIDE_SDLVIDEO_HPP
 
-#include <SDL2/SDL_video.h>
-
 #include "cystd/NonCopyable.hpp"
 #include "cystd/NonMoveable.hpp"
-#include "cystd/stdPrototypes.hpp"
+#include "cystd/Types.hpp"
+
+#include <SDL2/SDL_video.h>
 
 namespace cyanide::cyvideo
 {

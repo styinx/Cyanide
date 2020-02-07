@@ -1,7 +1,7 @@
 #ifndef CYANIDE_IINPUTDEVICE_HPP
 #define CYANIDE_IINPUTDEVICE_HPP
 
-#include "cystd/stdPrototypes.hpp"
+#include "cystd/Types.hpp"
 
 #include <SDL2/SDL_events.h>
 

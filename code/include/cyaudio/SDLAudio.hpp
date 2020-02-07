@@ -1,13 +1,12 @@
 #ifndef CYANIDE_AUDIO_HPP
 #define CYANIDE_AUDIO_HPP
 
-#include <SDL2/SDL_audio.h>
-
+#include "cyaudio/devices/IAudioDevice.hpp"
 #include "cystd/NonCopyable.hpp"
 #include "cystd/NonMoveable.hpp"
-#include "cystd/stdPrototypes.hpp"
+#include "cystd/Types.hpp"
 
-#include "cyaudio/devices/IAudioDevice.hpp"
+#include <SDL2/SDL_audio.h>
 
 namespace cyanide::cyaudio
 {

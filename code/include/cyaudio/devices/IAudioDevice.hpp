@@ -1,7 +1,7 @@
 #ifndef CYANIDE_IAUDIODEVICE_HPP
 #define CYANIDE_IAUDIODEVICE_HPP
 
-#include "cystd/stdPrototypes.hpp"
+#include "cystd/Types.hpp"
 
 namespace cyanide::cyaudio
 {

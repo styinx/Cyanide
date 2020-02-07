@@ -6,6 +6,9 @@ cy_add_includes(
     SDLVideo.hpp
     videoPrototypes.hpp
 
+    animation/Animation.hpp
+    animation/IAnimationStep.hpp
+
     display/SDLDisplay.hpp
     display/IDisplay.hpp
 

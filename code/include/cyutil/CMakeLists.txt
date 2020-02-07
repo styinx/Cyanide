@@ -3,6 +3,7 @@ cy_add_includes(
 
     color/IColor.hpp
     color/RGBAColor.hpp
+    color/animation/ColorAnimation.hpp
 
     io/ByteStreamReader.hpp
     io/Print.hpp

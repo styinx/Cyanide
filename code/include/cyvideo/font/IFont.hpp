@@ -1,7 +1,7 @@
 #ifndef CYANIDE_IFONT_HPP
 #define CYANIDE_IFONT_HPP
 
-#include "cystd/stdPrototypes.hpp"
+#include "cystd/Types.hpp"
 
 namespace cyanide::cyvideo
 {

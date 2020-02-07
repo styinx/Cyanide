@@ -1,8 +1,9 @@
 #ifndef CYANIDE_NETWORKPACKAGE_HPP
 #define CYANIDE_NETWORKPACKAGE_HPP
 
+#include "cystd/Types.hpp"
+
 #include <any>
-#include "cystd/stdPrototypes.hpp"
 
 namespace cyanide::cynet
 {

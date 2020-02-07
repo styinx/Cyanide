@@ -1,7 +1,7 @@
 #ifndef CYANIDE_TIME_HPP
 #define CYANIDE_TIME_HPP
 
-#include "cystd/stdPrototypes.hpp"
+#include "cystd/Types.hpp"
 
 namespace cyanide::cyutil
 {

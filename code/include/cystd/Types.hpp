@@ -1,5 +1,5 @@
-#ifndef CYANIDE_PROTOTYPES_HPP
-#define CYANIDE_PROTOTYPES_HPP
+#ifndef CYANIDE_TYPES_HPP
+#define CYANIDE_TYPES_HPP
 
 //#include <any>
 #include <functional>
@@ -56,4 +56,4 @@ using Function = std::function<Func>;
 
 }  // namespace cyanide
 
-#endif  // CYANIDE_PROTOTYPES_HPP
+#endif  // CYANIDE_TYPES_HPP

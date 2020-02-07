@@ -1,7 +1,7 @@
 #ifndef CYANIDE_SCHEDULERTASK_HPP
 #define CYANIDE_SCHEDULERTASK_HPP
 
-#include "cystd/stdPrototypes.hpp"
+#include "cystd/Types.hpp"
 #include "cysystem/ITask.hpp"
 
 namespace cyanide::cysystem

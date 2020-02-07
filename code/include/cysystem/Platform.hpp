@@ -1,9 +1,9 @@
 #ifndef CYANIDE_PLATFORM_HPP
 #define CYANIDE_PLATFORM_HPP
 
-#include "cystd/stdPrototypes.hpp"
 #include "cystd/NonCopyable.hpp"
 #include "cystd/NonMoveable.hpp"
+#include "cystd/Types.hpp"
 
 namespace cyanide::cysystem
 {

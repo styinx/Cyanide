@@ -2,7 +2,7 @@
 #define CYANIDE_AUDIODEVICE_HPP
 
 #include "IAudioDevice.hpp"
-#include "cystd/stdPrototypes.hpp"
+#include "cystd/Types.hpp"
 
 #include <SDL2/SDL_audio.h>
 
