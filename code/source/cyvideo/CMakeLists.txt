@@ -1,13 +1,15 @@
 cy_add_sources(
-    SDLSurface.cpp
-    SDLTexture.cpp
-    SDLVideo.cpp
+        SDLSurface.cpp
+        SDLTexture.cpp
+        SDLVideo.cpp
 
-    display/SDLDisplay.cpp
+        animation/Animation.cpp
 
-    font/SDLFont.cpp
-    font/SDLFontCollection.cpp
-    
-    renderer/SDLRenderer.cpp
+        display/SDLDisplay.cpp
 
-    window/SDLWindow.cpp)
+        font/SDLFont.cpp
+        font/SDLFontCollection.cpp
+
+        renderer/SDLRenderer.cpp
+
+        window/SDLWindow.cpp)
