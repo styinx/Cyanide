@@ -15,6 +15,7 @@ namespace cyanide::cymath
         Vector(const float x, const float y, const float z = 0);
         Vector(const Vector& other)     = default;
         Vector(Vector&& other) noexcept = default;
+        virtual ~Vector()               = default;
         Vector&     operator=(const Vector& other) = default;
         Vector&     operator=(Vector&& other) noexcept = default;
         Vector&     set(const float x, const float y, const float z = 0);

@@ -57,7 +57,7 @@ namespace cyanide::cymath
 
     Point Rectangle::getPosition() const
     {
-        return Point(x, y);
+        return {x, y};
     }
 
     Rectangle& Rectangle::setPosition(const Point& p)
@@ -69,7 +69,7 @@ namespace cyanide::cymath
 
     Size Rectangle::getSize() const
     {
-        return Size(w, h);
+        return {w, h};
     }
 
     Rectangle& Rectangle::setSize(const Size& s)
@@ -106,15 +106,6 @@ namespace cyanide::cymath
         return *this;
     }
 
-    Rectangle& Rectangle::mul(const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h)
-    {
-        this->x *= x;
-        this->y *= y;
-        this->w *= w;
-        this->h *= h;
-        return *this;
-    }
-
     Rectangle& Rectangle::mul(const float x, const float y, const float w, const float h)
     {
         this->x = static_cast<Sint32>(std::lround(this->x * x));
@@ -122,11 +113,6 @@ namespace cyanide::cymath
         this->w = static_cast<Sint32>(std::lround(this->w * w));
         this->h = static_cast<Sint32>(std::lround(this->h * h));
         return *this;
-    }
-
-    Rectangle& Rectangle::div(const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h)
-    {
-        return this->div(static_cast<float>(x), static_cast<float>(y), static_cast<float>(w), static_cast<float>(h));
     }
 
     Rectangle& Rectangle::div(const float x, const float y, const float w, const float h)
@@ -183,20 +169,10 @@ namespace cyanide::cymath
         return div(other.x, other.y, other.w, other.h);
     }
 
-    Rectangle Rectangle::operator*(const Sint32 scalar)
-    {
-        return {x * scalar, y * scalar, w * scalar, h * scalar};
-    }
-
     Rectangle Rectangle::operator*(const float scalar)
     {
         Rectangle r = *this;
         return r.mul(scalar, scalar, scalar, scalar);
-    }
-
-    Rectangle& Rectangle::operator*=(const Sint32 scalar)
-    {
-        return mul(scalar, scalar, scalar, scalar);
     }
 
     Rectangle& Rectangle::operator*=(const float scalar)
@@ -204,21 +180,10 @@ namespace cyanide::cymath
         return mul(scalar, scalar, scalar, scalar);
     }
 
-    Rectangle Rectangle::operator/(const Sint32 scalar)
-    {
-        Rectangle r = *this;
-        return r.div(scalar, scalar, scalar, scalar);
-    }
-
     Rectangle Rectangle::operator/(const float scalar)
     {
         Rectangle r = *this;
         return r.div(scalar, scalar, scalar, scalar);
-    }
-
-    Rectangle& Rectangle::operator/=(const Sint32 scalar)
-    {
-        return div(scalar, scalar, scalar, scalar);
     }
 
     Rectangle& Rectangle::operator/=(const float scalar)
