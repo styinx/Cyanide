@@ -58,25 +58,12 @@ namespace cyanide::cymath
         return *this;
     }
 
-    Point& Point::mul(const Sint32 x, const Sint32 y, const Sint32 z)
-    {
-        this->x *= x;
-        this->y *= y;
-        this->z *= z;
-        return *this;
-    }
-
     Point& Point::mul(const float x, const float y, const float z)
     {
         this->x = static_cast<Sint32>(std::lround(this->x * x));
         this->y = static_cast<Sint32>(std::lround(this->y * y));
         this->z = static_cast<Sint32>(std::lround(this->z * z));
         return *this;
-    }
-
-    Point& Point::div(const Sint32 x, const Sint32 y, const Sint32 z)
-    {
-        return div(static_cast<float>(x), static_cast<float>(y), static_cast<float>(z));
     }
 
     Point& Point::div(const float x, const float y, const float z)
@@ -131,20 +118,10 @@ namespace cyanide::cymath
         return div(other.x, other.y, other.z);
     }
 
-    Point Point::operator*(const Sint32 scalar)
-    {
-        return {x * scalar, y * scalar, z * scalar};
-    }
-
     Point Point::operator*(const float scalar)
     {
         Point p = *this;
         return p.mul(scalar, scalar, scalar);
-    }
-
-    Point& Point::operator*=(const Sint32 scalar)
-    {
-        return mul(scalar, scalar, scalar);
     }
 
     Point& Point::operator*=(const float scalar)
@@ -152,21 +129,10 @@ namespace cyanide::cymath
         return mul(scalar, scalar, scalar);
     }
 
-    Point Point::operator/(const Sint32 scalar)
-    {
-        Point p = *this;
-        return p.div(scalar, scalar, scalar);
-    }
-
     Point Point::operator/(const float scalar)
     {
         Point p = *this;
         return p.div(scalar, scalar, scalar);
-    }
-
-    Point& Point::operator/=(const Sint32 scalar)
-    {
-        return div(scalar, scalar, scalar);
     }
 
     Point& Point::operator/=(const float scalar)

@@ -1,7 +1,7 @@
 #ifndef CYANIDE_IREADER_HPP
 #define CYANIDE_IREADER_HPP
 
-#include "cystd/stdPrototypes.hpp"
+#include "cystd/Types.hpp"
 
 namespace cyanide::cyutil
 {

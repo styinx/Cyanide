@@ -4,4 +4,4 @@ cy_add_includes(
     NonCopyable.hpp
     NonMoveable.hpp
     Range.hpp
-    stdPrototypes.hpp)
+    Types.hpp)

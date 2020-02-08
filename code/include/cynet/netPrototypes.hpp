@@ -1,7 +1,7 @@
 #ifndef CYANIDE_NETPROTOTYPES_HPP
 #define CYANIDE_NETPROTOTYPES_HPP
 
-#include "cystd/stdPrototypes.hpp"
+#include "cystd/Types.hpp"
 
 namespace cyanide::cynet
 {

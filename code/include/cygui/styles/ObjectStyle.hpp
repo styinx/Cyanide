@@ -2,13 +2,12 @@
 #define CYANIDE_OBJECTSTYLE_HPP
 
 #include "cymath/Point.hpp"
+#include "cymath/Rectangle.hpp"
 #include "cymath/Size.hpp"
 #include "cymath/Space.hpp"
-#include "cystd/stdPrototypes.hpp"
+#include "cystd/Types.hpp"
 #include "cyutil/color/RGBAColor.hpp"
 #include "cyvideo/SDLTexture.hpp"
-
-#include "cymath/Rectangle.hpp"
 
 namespace cyanide::cygui
 {

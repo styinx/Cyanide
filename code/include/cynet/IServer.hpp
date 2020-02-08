@@ -1,7 +1,7 @@
 #ifndef CYANIDE_ISERVER_HPP
 #define CYANIDE_ISERVER_HPP
 
-#include "cystd/stdPrototypes.hpp"
+#include "cystd/Types.hpp"
 
 namespace cyanide::cynet
 {

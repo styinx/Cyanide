@@ -1,8 +1,7 @@
 #ifndef CYANIDE_ISERIALIZE_HPP
 #define CYANIDE_ISERIALIZE_HPP
 
-#include "cystd/stdPrototypes.hpp"
-
+#include "cystd/Types.hpp"
 #include "cyutil/type/TypeName.hpp"
 
 namespace cyanide::cyutil

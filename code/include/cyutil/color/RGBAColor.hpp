@@ -1,7 +1,7 @@
 #ifndef CYANIDE_RGBACOLOR_HPP
 #define CYANIDE_RGBACOLOR_HPP
 
-#include "cystd/stdPrototypes.hpp"
+#include "cystd/Types.hpp"
 #include "cyutil/color/IColor.hpp"
 
 namespace cyanide::cyutil
@@ -47,26 +47,33 @@ namespace cyanide::cyutil
         Byte b;
         Byte a;
 
-        explicit RGBAColor(Uint32 color);
-        explicit RGBAColor(Byte r, Byte g, Byte b, Byte a = 0);
+        RGBAColor();
+        explicit RGBAColor(const Uint32 color);
+        explicit RGBAColor(const RGBA color);
+        explicit RGBAColor(const Byte r, const Byte g, const Byte b, const Byte a = 0);
         RGBAColor(const RGBAColor& color)     = default;
         RGBAColor(RGBAColor&& color) noexcept = default;
         RGBAColor& operator=(const RGBAColor& color) = default;
         RGBAColor& operator=(RGBAColor&& color) noexcept = default;
         virtual ~RGBAColor()                             = default;
         explicit    operator Uint32();
-        RGBAColor&  add(const RGBAColor& color);
-        RGBAColor&  add(const Uint32 color);
-        RGBAColor&  sub(const RGBAColor& color);
-        RGBAColor&  sub(const Uint32 color);
-        RGBAColor&  operator+=(const RGBAColor& color);
-        RGBAColor&  operator+=(const Uint32 color);
+        RGBAColor&  set(const Byte r, const Byte g, const Byte b, const Byte a);
+        RGBAColor&  add(const Byte r, const Byte g, const Byte b, const Byte a);
+        RGBAColor&  sub(const Byte r, const Byte g, const Byte b, const Byte a);
+        RGBAColor&  mul(const float r, const float g, const float b, const float a);
+        RGBAColor&  div(const float r, const float g, const float b, const float a);
         RGBAColor   operator+(const RGBAColor& color);
-        RGBAColor   operator+(const Uint32 color);
-        RGBAColor&  operator-=(const RGBAColor& color);
-        RGBAColor&  operator-=(const Uint32 color);
+        RGBAColor&  operator+=(const RGBAColor& color);
         RGBAColor   operator-(const RGBAColor& color);
+        RGBAColor&  operator-=(const RGBAColor& color);
+        RGBAColor   operator+(const Uint32 color);
+        RGBAColor&  operator+=(const Uint32 color);
         RGBAColor   operator-(const Uint32 color);
+        RGBAColor&  operator-=(const Uint32 color);
+        RGBAColor   operator*(const float scalar);
+        RGBAColor&  operator*=(const float scalar);
+        RGBAColor   operator/(const float scalar);
+        RGBAColor&  operator/=(const float scalar);
         friend bool operator==(const RGBAColor& left, const RGBAColor& right);
         friend bool operator!=(const RGBAColor& left, const RGBAColor& right);
         friend bool operator<(const RGBAColor& left, const RGBAColor& right);

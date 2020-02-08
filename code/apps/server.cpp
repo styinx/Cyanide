@@ -3,9 +3,18 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 
-void print(std::string what)
+void print(const std::string& what)
 {
     std::cout << what << "\n";
+}
+
+void print(const std::vector<Uint8>& what)
+{
+    for(const auto& b : what)
+    {
+        std::cout << b;
+    }
+    std::cout << "\n";
 }
 
 int main()
@@ -27,9 +36,22 @@ int main()
     }
 
     print("Server has one client");
-    NetworkPackage data{};
-    data << Vector<Uint8>{2, 5, 6, 9, 55, 23, 54};
-    server->send(std::make_shared<NetworkPackage>(data));
+
+    bool running = true;
+
+    while(running)
+    {
+        std::string line;
+        std::getline(std::cin, line);
+
+        if(line == "0")
+        {
+            running = false;
+        }
+
+        server->send(std::make_shared<NetworkPackage>(line));
+        SDL_Delay(1);
+    }
 
     return 0;
 }

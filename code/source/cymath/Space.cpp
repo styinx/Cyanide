@@ -48,15 +48,6 @@ namespace cyanide::cymath
         return *this;
     }
 
-    Space& Space::mul(const Sint32 top, const Sint32 right, const Sint32 bottom, const Sint32 left)
-    {
-        return mul(
-            static_cast<float>(top),
-            static_cast<float>(right),
-            static_cast<float>(bottom),
-            static_cast<float>(left));
-    }
-
     Space& Space::mul(const float top, const float right, const float bottom, const float left)
     {
         this->top    = static_cast<Sint32>(std::lround(this->top * top));
@@ -64,15 +55,6 @@ namespace cyanide::cymath
         this->bottom = static_cast<Sint32>(std::lround(this->bottom * bottom));
         this->left   = static_cast<Sint32>(std::lround(this->left * left));
         return *this;
-    }
-
-    Space& Space::div(const Sint32 top, const Sint32 right, const Sint32 bottom, const Sint32 left)
-    {
-        return div(
-            static_cast<float>(top),
-            static_cast<float>(right),
-            static_cast<float>(bottom),
-            static_cast<float>(left));
     }
 
     Space& Space::div(const float top, const float right, const float bottom, const float left)
@@ -129,21 +111,10 @@ namespace cyanide::cymath
         return div(other.top, other.right, other.bottom, other.left);
     }
 
-    Space Space::operator*(const Sint32 scalar)
-    {
-        Space s = *this;
-        return s.mul(scalar, scalar, scalar, scalar);
-    }
-
     Space Space::operator*(const float scalar)
     {
         Space s = *this;
         return s.mul(scalar, scalar, scalar, scalar);
-    }
-
-    Space& Space::operator*=(const Sint32 scalar)
-    {
-        return mul(scalar, scalar, scalar, scalar);
     }
 
     Space& Space::operator*=(const float scalar)
@@ -151,21 +122,10 @@ namespace cyanide::cymath
         return mul(scalar, scalar, scalar, scalar);
     }
 
-    Space Space::operator/(const Sint32 scalar)
-    {
-        Space s = *this;
-        return s.div(scalar, scalar, scalar, scalar);
-    }
-
     Space Space::operator/(const float scalar)
     {
         Space s = *this;
         return s.div(scalar, scalar, scalar, scalar);
-    }
-
-    Space& Space::operator/=(const Sint32 scalar)
-    {
-        return mul(scalar, scalar, scalar, scalar);
     }
 
     Space& Space::operator/=(const float scalar)

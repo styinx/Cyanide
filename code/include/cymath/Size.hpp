@@ -2,8 +2,7 @@
 #define CYANIDE_SIZE_HPP
 
 #include "cymath/Space.hpp"
-
-#include "cystd/stdPrototypes.hpp"
+#include "cystd/Types.hpp"
 
 namespace cyanide::cymath
 {
@@ -11,7 +10,7 @@ namespace cyanide::cymath
     class Size final
     {
     public:
-        Sint32 width = 0;
+        Sint32 width  = 0;
         Sint32 height = 0;
 
         Size();
@@ -20,12 +19,11 @@ namespace cyanide::cymath
         Size(Size&& other) noexcept = default;
         Size& operator=(const Size& other) = default;
         Size& operator=(Size&& other) noexcept = default;
+        virtual ~Size()                        = default;
         Size& set(const Sint32 w, const Sint32 h);
         Size& add(const Sint32 w, const Sint32 h);
         Size& sub(const Sint32 w, const Sint32 h);
-        Size& mul(const Sint32 w, const Sint32 h);
         Size& mul(const float w, const float h);
-        Size& div(const Sint32 w, const Sint32 h);
         Size& div(const float w, const float h);
         Size  operator+(const Size& other);
         Size& operator+=(const Size& other);
@@ -35,13 +33,9 @@ namespace cyanide::cymath
         Size& operator*=(const Size& other);
         Size  operator/(const Size& other);
         Size& operator/=(const Size& other);
-        Size  operator*(const Sint32 scalar);
         Size  operator*(const float scalar);
-        Size& operator*=(const Sint32 scalar);
         Size& operator*=(const float scalar);
-        Size  operator/(const Sint32 scalar);
         Size  operator/(const float scalar);
-        Size& operator/=(const Sint32 scalar);
         Size& operator/=(const float scalar);
 
         Size  operator+(const Space& space);
@@ -60,6 +54,6 @@ namespace cyanide::cymath
         friend bool operator>=(const Size& first, const Size& second);
     };
 
-}  // namespace cyanide
+}  // namespace cyanide::cymath
 
 #endif  // CYANIDE_SIZE_HPP

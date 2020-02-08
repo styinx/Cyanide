@@ -1,7 +1,7 @@
 #ifndef CYANIDE_CYOBJ_HPP
 #define CYANIDE_CYOBJ_HPP
 
-#include "stdPrototypes.hpp"
+#include "Types.hpp"
 
 namespace cyanide::cystd
 {

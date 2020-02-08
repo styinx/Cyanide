@@ -2,7 +2,7 @@
 #define CYANIDE_IKEY_HPP
 
 #include "Keys.hpp"
-#include "cystd/stdPrototypes.hpp"
+#include "cystd/Types.hpp"
 
 namespace cyanide::cyinput
 {

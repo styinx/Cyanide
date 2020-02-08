@@ -1,10 +1,9 @@
 #ifndef CYANIDE_RECTANGLE_HPP
 #define CYANIDE_RECTANGLE_HPP
 
-#include "cystd/stdPrototypes.hpp"
-
 #include "cymath/Point.hpp"
 #include "cymath/Size.hpp"
+#include "cystd/Types.hpp"
 
 namespace cyanide::cymath
 {
@@ -24,6 +23,7 @@ namespace cyanide::cymath
         Rectangle(Rectangle&& other) noexcept = default;
         Rectangle&  operator=(const Rectangle& other) = default;
         Rectangle&  operator=(Rectangle&& other) noexcept = default;
+        virtual ~Rectangle()                              = default;
         Point       topLeft() const;
         Point       topRight() const;
         Point       bottomLeft() const;
@@ -36,9 +36,7 @@ namespace cyanide::cymath
         Rectangle&  set(const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h);
         Rectangle&  add(const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h);
         Rectangle&  sub(const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h);
-        Rectangle&  mul(const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h);
         Rectangle&  mul(const float x, const float y, const float w, const float h);
-        Rectangle&  div(const Sint32 x, const Sint32 y, const Sint32 w, const Sint32 h);
         Rectangle&  div(const float x, const float y, const float w, const float h);
         Rectangle   operator+(const Rectangle& other);
         Rectangle&  operator+=(const Rectangle& other);
@@ -48,13 +46,9 @@ namespace cyanide::cymath
         Rectangle&  operator*=(const Rectangle& other);
         Rectangle   operator/(const Rectangle& other);
         Rectangle&  operator/=(const Rectangle& other);
-        Rectangle   operator*(const Sint32 scalar);
         Rectangle   operator*(const float scalar);
-        Rectangle&  operator*=(const Sint32 scalar);
         Rectangle&  operator*=(const float scalar);
-        Rectangle   operator/(const Sint32 scalar);
         Rectangle   operator/(const float scalar);
-        Rectangle&  operator/=(const Sint32 scalar);
         Rectangle&  operator/=(const float scalar);
 
         /**

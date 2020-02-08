@@ -66,15 +66,6 @@ namespace cyanide::cymath
         return *this;
     }
 
-    Line& Line::mul(const Sint32 x1, const Sint32 y1, const Sint32 x2, const Sint32 y2)
-    {
-        this->x1 *= x1;
-        this->y1 *= y1;
-        this->x2 *= x2;
-        this->y2 *= y2;
-        return *this;
-    }
-
     Line& Line::mul(const float x1, const float y1, const float x2, const float y2)
     {
         this->x1 = static_cast<Sint32>(std::lround(this->x1 * x1));
@@ -82,11 +73,6 @@ namespace cyanide::cymath
         this->x2 = static_cast<Sint32>(std::lround(this->x2 * x2));
         this->y2 = static_cast<Sint32>(std::lround(this->y2 * y2));
         return *this;
-    }
-
-    Line& Line::div(const Sint32 x1, const Sint32 y1, const Sint32 x2, const Sint32 y2)
-    {
-        return div(static_cast<float>(x1), static_cast<float>(y1), static_cast<float>(x2), static_cast<float>(y2));
     }
 
     Line& Line::div(const float x1, const float y1, const float x2, const float y2)
@@ -143,20 +129,10 @@ namespace cyanide::cymath
         return div(other.x1, other.y1, other.x2, other.y2);
     }
 
-    Line Line::operator*(const Sint32 scalar)
-    {
-        return {x1 * scalar, y1 * scalar, x2 * scalar, y2 * scalar};
-    }
-
     Line Line::operator*(const float scalar)
     {
         Line l = *this;
         return l.mul(scalar, scalar, scalar, scalar);
-    }
-
-    Line& Line::operator*=(const Sint32 scalar)
-    {
-        return mul(scalar, scalar, scalar, scalar);
     }
 
     Line& Line::operator*=(const float scalar)
@@ -164,21 +140,10 @@ namespace cyanide::cymath
         return mul(scalar, scalar, scalar, scalar);
     }
 
-    Line Line::operator/(const Sint32 scalar)
-    {
-        Line l = *this;
-        return l / static_cast<float>(scalar);
-    }
-
     Line Line::operator/(const float scalar)
     {
         Line l = *this;
         return l.div(scalar, scalar, scalar, scalar);
-    }
-
-    Line& Line::operator/=(const Sint32 scalar)
-    {
-        return div(scalar, scalar, scalar, scalar);
     }
 
     Line& Line::operator/=(const float scalar)

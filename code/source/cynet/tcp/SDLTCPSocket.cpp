@@ -1,7 +1,5 @@
 #include "cynet/tcp/SDLTCPSocket.hpp"
 
-#include <iostream>
-
 namespace cyanide::cynet
 {
     SDLTCPSocket::SDLTCPSocket()
@@ -75,9 +73,9 @@ namespace cyanide::cynet
     {
         if(isBound())
         {
-            SDLNet_TCP_Send(m_socket, &package->header(), sizeof(NetworkPackage::Header));
-            SDLNet_TCP_Send(
-                m_socket, package->data().data(), package->data().size() * sizeof(Uint8));
+            NetworkPackage::Header header = package->getHeader();
+            SDLNet_TCP_Send(m_socket, &header, sizeof(NetworkPackage::Header));
+            SDLNet_TCP_Send(m_socket, package->getData().data(), package->size() * sizeof(Uint8));
         }
     }
 
@@ -90,6 +88,7 @@ namespace cyanide::cynet
         return -1;
     }
 
+    // TODO 2 packages are sent, pack getHeader and getData into one package.
     NetworkPackageSPtr SDLTCPSocket::receive() const
     {
         NetworkPackageSPtr package(new NetworkPackage());
@@ -100,13 +99,7 @@ namespace cyanide::cynet
             if(!result.empty())
             {
                 NetworkPackage::Header header = result.at(0);
-                Vector<Uint8> data = receive<Uint8>(header.bytes / header.byte_per_element);
-                for(auto& p: data)
-                    std::cout << (int)p;
-            }
-            else
-            {
-                std::cout << "empty";
+                *package << receive<Uint8>(header.bytes / header.byte_per_element);
             }
         }
         return package;

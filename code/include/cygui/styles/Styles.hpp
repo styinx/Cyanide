@@ -1,7 +1,7 @@
 #ifndef CYANIDE_STYLES_HPP
 #define CYANIDE_STYLES_HPP
 
-#include "cystd/stdPrototypes.hpp"
+#include "cystd/Types.hpp"
 
 namespace cyanide::cygui
 {

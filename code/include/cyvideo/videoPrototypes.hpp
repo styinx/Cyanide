@@ -1,7 +1,7 @@
 #ifndef CYANIDE_VIDEOPROTOTYPES_HPP
 #define CYANIDE_VIDEOPROTOTYPES_HPP
 
-#include "cystd/stdPrototypes.hpp"
+#include "cystd/Types.hpp"
 
 namespace cyanide::cyvideo
 {
