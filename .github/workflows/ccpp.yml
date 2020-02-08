@@ -10,6 +10,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: install
-      run: ./scripts/install.sh
+      run: chmod +x ./scripts/install.sh && ./scripts/install.sh
     - name: compile
-      run: ./scripts/compile.sh
+      run: chmod +x ./scripts/compile.sh && ./scripts/compile.sh
