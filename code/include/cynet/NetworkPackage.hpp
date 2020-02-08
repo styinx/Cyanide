@@ -13,6 +13,7 @@ namespace cyanide::cynet
     public:
         struct Header
         {
+            Uint64 command          = 0;
             Uint32 bytes            = 0;
             Uint8  byte_per_element = 1;  // TODO only bytes atm
         };
@@ -22,16 +23,22 @@ namespace cyanide::cynet
         Header        m_header{};
 
     public:
-        NetworkPackage()  = default;
+        NetworkPackage() = default;
+        explicit NetworkPackage(const Uint8& data);
+        explicit NetworkPackage(const std::string& text);
+        explicit NetworkPackage(const Vector<Uint8>& data);
         ~NetworkPackage() = default;
 
         NetworkPackage& operator<<(const Uint8 data);
         NetworkPackage& operator<<(const Vector<Uint8>& data);
-        NetworkPackage& operator>>(Uint8 data);
+        NetworkPackage& operator>>(Uint8& data);
         NetworkPackage& operator>>(Vector<Uint8>& data);
-        size_t          size();
-        Vector<Uint8>   data();
-        Header&         header();
+        bool            empty() const;
+        size_t          size() const;
+        void            setData(const Vector<Uint8>& data);
+        Vector<Uint8>   getData();
+        void            setHeader(const Header& header);
+        Header          getHeader() const;
     };
 
     using NetworkPackageSPtr = SharedPtr<NetworkPackage>;
