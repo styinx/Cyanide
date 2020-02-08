@@ -1,16 +1,11 @@
-add_subdirectory(cyaudio)
-add_subdirectory(cygui)
-add_subdirectory(cyinput)
-add_subdirectory(cymath)
-add_subdirectory(cystd)
-add_subdirectory(cyutil)
-add_subdirectory(cyvideo)
+cy_add_target_files(
+        cytest_files
 
-set(TESTS ${TESTS}
-    ${TESTS_AUDIO}
-    ${TESTS_GUI}
-    ${TESTS_INPUT}
-    ${TESTS_MATH}
-    ${TESTS_STD}
-    ${TESTS_UTIL}
-    ${TESTS_VIDEO})
+        cygui/test_box.cpp
+
+        cymath/test_line.cpp
+        cymath/test_point.cpp
+        cymath/test_rectangle.cpp
+        cymath/test_size.cpp
+        cymath/test_space.cpp
+        cymath/test_vector.cpp)

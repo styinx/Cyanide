@@ -1,23 +1,25 @@
-cy_add_includes(
-    ISurface.hpp
-    ITexture.hpp
-    SDLSurface.hpp
-    SDLTexture.hpp
-    SDLVideo.hpp
-    videoPrototypes.hpp
+cy_add_target_files(
+        cyvideo_includes
 
-    animation/Animation.hpp
-    animation/IAnimationStep.hpp
+        ISurface.hpp
+        ITexture.hpp
+        SDLSurface.hpp
+        SDLTexture.hpp
+        SDLVideo.hpp
+        videoPrototypes.hpp
 
-    display/SDLDisplay.hpp
-    display/IDisplay.hpp
+        animation/Animation.hpp
+        animation/IAnimationStep.hpp
 
-    font/SDLFontCollection.hpp
-    font/IFont.hpp
-    font/SDLFont.hpp
+        display/SDLDisplay.hpp
+        display/IDisplay.hpp
 
-    renderer/IRenderer.hpp
-    renderer/SDLRenderer.hpp
+        font/SDLFontCollection.hpp
+        font/IFont.hpp
+        font/SDLFont.hpp
 
-    window/IWindow.hpp
-    window/SDLWindow.hpp)
+        renderer/IRenderer.hpp
+        renderer/SDLRenderer.hpp
+
+        window/IWindow.hpp
+        window/SDLWindow.hpp)

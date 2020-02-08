@@ -1,4 +1,6 @@
-cy_add_sources(
+cy_add_target_files(
+        cyutil_sources
+
         color/RGBAColor.cpp
         color/animation/ColorAnimation.cpp
 

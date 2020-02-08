@@ -1,4 +1,6 @@
-cy_add_sources(
+cy_add_target_files(
+        cyvideo_sources
+
         SDLSurface.cpp
         SDLTexture.cpp
         SDLVideo.cpp

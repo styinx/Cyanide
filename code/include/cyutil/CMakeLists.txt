@@ -1,20 +1,22 @@
-cy_add_includes(
-    util.hpp
+cy_add_target_files(
+        cyutil_includes
 
-    color/IColor.hpp
-    color/RGBAColor.hpp
-    color/animation/ColorAnimation.hpp
+        util.hpp
 
-    io/ByteStreamReader.hpp
-    io/Print.hpp
+        color/IColor.hpp
+        color/RGBAColor.hpp
+        color/animation/ColorAnimation.hpp
 
-    serialize/ISerialize.hpp
+        io/ByteStreamReader.hpp
+        io/Print.hpp
 
-    time/Clock.hpp
-    time/ITimer.hpp
-    time/SDLPerformanceTimer.hpp
-    time/SDLTimer.hpp
-    time/time.hpp
+        serialize/ISerialize.hpp
 
-    type/TypeEnum.hpp
-    type/TypeName.hpp)
+        time/Clock.hpp
+        time/ITimer.hpp
+        time/SDLPerformanceTimer.hpp
+        time/SDLTimer.hpp
+        time/time.hpp
+
+        type/TypeEnum.hpp
+        type/TypeName.hpp)
