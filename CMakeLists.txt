@@ -45,34 +45,23 @@ link_directories(${DIR_LIBRARY} ${OS_DIR_LIBRARY})
 # Functions
 #
 
-function(cy_add_library library)
-    set(${library}_includes)
-    set(${library}_sources)
+# Build a static library from files in a given path.
+function(cy_add_module module)
+    set(${module}_includes)
+    set(${module}_sources)
 
-    include("${DIR_INCLUDE}/${library}/CMakeLists.txt")
-    include("${DIR_SOURCE}/${library}/CMakeLists.txt")
+    include("${DIR_INCLUDE}/${module}/CMakeLists.txt")
+    include("${DIR_SOURCE}/${module}/CMakeLists.txt")
 
-    add_library(${library} STATIC ${${library}_includes} ${${library}_sources})
-    target_link_libraries(${library} ${ARGN})
+    add_library(${module} STATIC ${${module}_includes} ${${module}_sources})
+    target_link_libraries(${module} ${ARGN})
     set_target_properties(
-            ${library} PROPERTIES
+            ${module} PROPERTIES
             LIBRARY_OUTPUT_DIRECTORY ${DIR_LIBRARY}
             LINKER_LANGUAGE CXX)
 endfunction()
 
-function(cy_add_test library)
-    set(${library}_files)
-
-    include("${DIR_TEST}/CMakeLists.txt")
-
-    add_library(${library} STATIC ${${library}_files})
-    target_link_libraries(${library} ${ARGN})
-    set_target_properties(
-            ${library} PROPERTIES
-            LIBRARY_OUTPUT_DIRECTORY ${DIR_LIBRARY}
-            LINKER_LANGUAGE CXX)
-endfunction()
-
+# Add files to a library.
 function(cy_add_target_files target)
     set(files "")
     foreach(file ${ARGN})
@@ -82,6 +71,7 @@ function(cy_add_target_files target)
     set(${target} ${files} PARENT_SCOPE)
 endfunction()
 
+# Build the executable from library dependencies.
 function(cy_build_target name target_file libs)
     set(exe_name ${PROJECT_NAME})
 
@@ -99,13 +89,26 @@ function(cy_build_target name target_file libs)
     target_link_libraries(${exe_name} ${module_list} ${libs})
 endfunction()
 
+# Build the tests.
+function(cy_build_test name target_file libs)
+    set(exe_name ${PROJECT_NAME}_${name})
+
+    set(cytest_files)
+
+    include("${DIR_TEST}/CMakeLists.txt")
+
+    add_executable(${exe_name} ${DIR_CODE}/${target_file} ${cytest_files})
+
+    target_link_libraries(${exe_name} ${ARGN} ${libs})
+endfunction()
+
 #
 # Compiler
 #
 
-SET(GCC_COMPILE_FLAGS "-Wall -Wextra -ansi -pedantic")
+set(GCC_COMPILE_FLAGS "-Wall -Wextra -ansi -pedantic")
 
-SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${GCC_COMPILE_FLAGS}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COMPILE_FLAGS}")
 
 set(CMAKE_BUILD_TYPE RELEASE)
 
@@ -154,20 +157,19 @@ pkg_search_module(SDL2TTF REQUIRED SDL2_ttf>=2.0.0)
 # Builds
 #
 
-cy_add_library(cyaudio -lSDL2_mixer)
-cy_add_library(cygui)
-cy_add_library(cyinput)
-cy_add_library(cymath)
-cy_add_library(cynet -lSDL2_net)
-cy_add_library(cystd)
-cy_add_library(cysystem "-lSDL2_image;-lSDL2_gfx;-lSDL2_mixer;-lSDL2_net;-lSDL2_ttf")
-cy_add_library(cyutil)
-cy_add_library(cyvideo "cymath;-lSDL2_image;-lSDL2_gfx;-lSDL2_ttf")
-
-cy_add_test(cytest ${TEST_LIBRARIES})
+cy_add_module(cyaudio -lSDL2_mixer)
+cy_add_module(cygui)
+cy_add_module(cyinput)
+cy_add_module(cymath)
+cy_add_module(cynet -lSDL2_net)
+cy_add_module(cystd)
+cy_add_module(cysystem "-lSDL2_image;-lSDL2_gfx;-lSDL2_mixer;-lSDL2_net;-lSDL2_ttf")
+cy_add_module(cyutil)
+cy_add_module(cyvideo "cymath;-lSDL2_image;-lSDL2_gfx;-lSDL2_ttf")
 
 cy_build_target(Main apps/main.cpp "${LIBRARIES}" "cygui;cyinput;cymath;cyutil;cysystem;cyvideo")
 cy_build_target(Animation apps/animation.cpp "${LIBRARIES}" "cyinput;cymath;cyutil;cysystem;cyvideo")
 cy_build_target(Client apps/client.cpp "${LIBRARIES}" "cynet")
 cy_build_target(Server apps/server.cpp "${LIBRARIES}" "cynet")
-cy_build_target(Test test/test.cpp "${TEST_LIBRARIES}" "cytest")
+
+cy_build_test(Test test/test.cpp "${TEST_LIBRARIES}" "cygui;cymath;cyutil;cyvideo")

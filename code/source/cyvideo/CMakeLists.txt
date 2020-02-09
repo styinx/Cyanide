@@ -5,7 +5,7 @@ cy_add_target_files(
         SDLTexture.cpp
         SDLVideo.cpp
 
-        animation/Animation.cpp
+        ../cyutil/animation/Animation.cpp
 
         display/SDLDisplay.cpp
 

@@ -1,8 +1,8 @@
 #ifndef UTIL_COLORANIMATION_HPP
 #define UTIL_COLORANIMATION_HPP
 
+#include "cyutil/animation/Animation.hpp"
 #include "cyutil/color/RGBAColor.hpp"
-#include "cyvideo/animation/Animation.hpp"
 
 namespace cyanide::cyutil
 {
@@ -33,8 +33,7 @@ namespace cyanide::cyutil
 
         virtual void next() override;
         virtual void previous() override;
-        virtual void add() override;
-        virtual void sub() override;
+        virtual void update() override;
         virtual void min() override;
         virtual void max() override;
 

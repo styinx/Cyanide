@@ -8,8 +8,8 @@ cy_add_target_files(
         SDLVideo.hpp
         videoPrototypes.hpp
 
-        animation/Animation.hpp
-        animation/IAnimationStep.hpp
+        ../cyutil/animation/Animation.hpp
+        ../cyutil/animation/IAnimationStep.hpp
 
         display/SDLDisplay.hpp
         display/IDisplay.hpp

@@ -24,7 +24,7 @@ namespace cyanide::cyutil
         return bits;
     }
 
-    unsigned bitTrue(long number)
+    unsigned bitsTrue(long number)
     {
         unsigned bits = 0;
         while(number > 0)

@@ -3,6 +3,8 @@ cy_add_target_files(
 
         util.hpp
 
+        animation/Animation.hpp
+
         color/IColor.hpp
         color/RGBAColor.hpp
         color/animation/ColorAnimation.hpp
