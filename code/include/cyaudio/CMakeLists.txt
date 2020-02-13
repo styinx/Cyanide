@@ -1,6 +1,10 @@
 cy_add_target_files(
         cyaudio_includes
 
+        cyaudio.hpp
+
+        player/AudioPlayer.hpp
+
         SDLAudio.hpp
         SDLMixerAudio.hpp
 

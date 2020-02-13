@@ -6,6 +6,7 @@ cy_add_target_files(
         SDLEventLoop.hpp
 
         controller/Controller.hpp
+        controller/ControllerInput.hpp
         controller/IController.hpp
 
         keyboard/IKey.hpp

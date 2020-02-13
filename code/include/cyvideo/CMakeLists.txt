@@ -1,15 +1,14 @@
 cy_add_target_files(
         cyvideo_includes
 
+        cyvideo.hpp
+
         ISurface.hpp
         ITexture.hpp
         SDLSurface.hpp
         SDLTexture.hpp
         SDLVideo.hpp
         videoPrototypes.hpp
-
-        ../cyutil/animation/Animation.hpp
-        ../cyutil/animation/IAnimationStep.hpp
 
         display/SDLDisplay.hpp
         display/IDisplay.hpp

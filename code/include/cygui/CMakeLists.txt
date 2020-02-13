@@ -1,6 +1,8 @@
 cy_add_target_files(
         cygui_includes
 
+        cygui.hpp
+
         GUIRenderManager.hpp
 
         layout/ILayout.hpp
