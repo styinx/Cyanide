@@ -32,13 +32,9 @@ namespace cyanide::cyvideo
         virtual void next()     = 0;
         virtual void previous() = 0;
         /**
-         * @brief Adds the step value to the current value.
+         * @brief Calculates the upcoming step.
          */
-        virtual void add() = 0;
-        /**
-         * @brief Subtracts the step value to the current value.
-         */
-        virtual void sub() = 0;
+        virtual void update() = 0;
         /**
          * @brief Sets the current value to the minimum.
          */

@@ -31,21 +31,9 @@ int main()
 
     cyinput::SDLEventLoop eventLoop{};
 
-    eventLoop.keyboard()->onKeyDown(SDLK_PLUS, [color_animation](const cyinput::KeyboardInput::KeyCode) {
-        color_animation->next();
-        auto col = color_animation->current();
-        std::cout << "next " << col.r << " " << col.g << " " << col.b << " " << col.a << "\n";
-    });
-
-    eventLoop.keyboard()->onKeyDown(SDLK_MINUS, [color_animation](const cyinput::KeyboardInput::KeyCode) {
-        color_animation->previous();
-        auto col = color_animation->current();
-        std::cout << "prev " << col.r << " " << col.g << " " << col.b << " " << col.a << "\n";
-    });
-
     eventLoop.onLoopBegin([ren, color_animation]() {
         ren->clear();
-        color_animation->next();
+        color_animation->update();
         ren->setDrawColor(color_animation->current());
         ren->drawFilledRectangle(Rectangle{0, 0, 50, 50});
     });

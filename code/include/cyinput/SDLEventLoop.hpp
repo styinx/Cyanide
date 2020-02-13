@@ -1,6 +1,7 @@
 #ifndef CYANIDE_SDLEVENTLOOP_HPP
 #define CYANIDE_SDLEVENTLOOP_HPP
 
+#include "cyinput/controller/Controller.hpp"
 #include "cyinput/keyboard/Keyboard.hpp"
 #include "cyinput/keyboard/SDLKey.hpp"
 #include "cyinput/mouse/Mouse.hpp"
@@ -23,7 +24,7 @@ namespace cyanide::cyinput
             SDL_EVENT_END
         };
 
-        using Callback            = Function<void(void)>;
+        using Callback = Function<void(void)>;
 
     private:
         enum class SDLEventType : Uint16
@@ -49,8 +50,9 @@ namespace cyanide::cyinput
         bool      m_system_events = true;
         SDL_Event m_event{};
 
-        SharedPtr<Keyboard> m_keyboard;
-        SharedPtr<Mouse>    m_mouse;
+        SharedPtr<Keyboard>   m_keyboard;
+        SharedPtr<Mouse>      m_mouse;
+        SharedPtr<Controller> m_controller;
 
         /*
          * Events
@@ -67,8 +69,9 @@ namespace cyanide::cyinput
 
         void run();
 
-        SharedPtr<Keyboard>& keyboard();
-        SharedPtr<Mouse>&    mouse();
+        SharedPtr<Keyboard>&   keyboard();
+        SharedPtr<Mouse>&      mouse();
+        SharedPtr<Controller>& controller();
 
         /*
          * Loop callbacks

@@ -1,9 +1,24 @@
 #ifndef CYANIDE_UTIL_HPP
 #define CYANIDE_UTIL_HPP
 
+#include "cyutil/animation/Animation.hpp"
+#include "cyutil/color/IColor.hpp"
+#include "cyutil/color/RGBAColor.hpp"
+#include "cyutil/color/animation/ColorAnimation.hpp"
+#include "cyutil/io/ByteStreamReader.hpp"
+#include "cyutil/io/Print.hpp"
+#include "cyutil/serialize/ISerialize.hpp"
+#include "cyutil/time/Clock.hpp"
+#include "cyutil/time/ITimer.hpp"
+#include "cyutil/time/SDLPerformanceTimer.hpp"
+#include "cyutil/time/SDLTimer.hpp"
+#include "cyutil/time/time.hpp"
+#include "cyutil/type/TypeEnum.hpp"
+#include "cyutil/type/TypeName.hpp"
+
 #include <cmath>
-#include <string>
 #include <sstream>
+#include <string>
 
 namespace cyanide::cyutil
 {
@@ -24,7 +39,7 @@ namespace cyanide::cyutil
         return bits;
     }
 
-    unsigned bitTrue(long number)
+    unsigned bitsTrue(long number)
     {
         unsigned bits = 0;
         while(number > 0)
@@ -54,12 +69,12 @@ namespace cyanide::cyutil
 
     unsigned toNumber(const std::string number)
     {
-        unsigned num = 0;
+        unsigned          num = 0;
         std::stringstream ss(number);
         ss >> num;
         return num;
     }
 
-}  // namespace cyanide
+}  // namespace cyanide::cyutil
 
 #endif  // CYANIDE_UTIL_HPP

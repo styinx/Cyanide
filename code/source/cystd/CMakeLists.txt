@@ -1,1 +1,1 @@
-cy_add_sources()
+#cy_build_module(std_sources)

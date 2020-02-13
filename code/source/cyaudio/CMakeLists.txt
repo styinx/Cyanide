@@ -1,7 +1,9 @@
-cy_add_sources(
-    SDLAudio.cpp
-    SDLMixerAudio.cpp
+cy_add_target_files(
+        cyaudio_sources
 
-    devices/SDLAudioDevice.cpp
+        SDLAudio.cpp
+        SDLMixerAudio.cpp
 
-    medium/SDLMusic.cpp)
+        devices/SDLAudioDevice.cpp
+
+        medium/SDLMusic.cpp)

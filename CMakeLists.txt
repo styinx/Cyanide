@@ -20,10 +20,11 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG "${BIN_PATH}")
 #
 
 set(DIR_CODE ${PROJECT_SOURCE_DIR}/code)
+set(DIR_APP ${DIR_CODE}/apps)
 set(DIR_INCLUDE ${DIR_CODE}/include)
 set(DIR_SOURCE ${DIR_CODE}/source)
 set(DIR_TEST ${DIR_CODE}/test)
-set(DIR_LIBRARY ${DIR_CODE}/lib)
+set(DIR_LIBRARY /lib)
 
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
@@ -44,101 +45,91 @@ link_directories(${DIR_LIBRARY} ${OS_DIR_LIBRARY})
 # Functions
 #
 
-function(cy_add_include_dir path)
-    include("${DIR_INCLUDE}/${path}/CMakeLists.txt")
-    set(INCLUDES ${INCLUDES} PARENT_SCOPE)
+# Build a static library from files in a given path.
+function(cy_add_module module)
+    set(${module}_includes)
+    set(${module}_sources)
+
+    include("${DIR_INCLUDE}/${module}/CMakeLists.txt")
+    include("${DIR_SOURCE}/${module}/CMakeLists.txt")
+
+    add_library(${module} STATIC ${${module}_includes} ${${module}_sources})
+    target_link_libraries(${module} ${ARGN})
+    set_target_properties(
+            ${module} PROPERTIES
+            LIBRARY_OUTPUT_DIRECTORY ${DIR_LIBRARY}
+            LINKER_LANGUAGE CXX)
 endfunction()
 
-function(cy_add_source_dir path)
-    include("${DIR_SOURCE}/${path}/CMakeLists.txt")
-    set(SOURCES ${SOURCES} PARENT_SCOPE)
-endfunction()
-
-function(cy_add_test_dir path)
-    include("${DIR_TEST}/${path}/CMakeLists.txt")
-    set(TEST_SOURCES ${TEST_SOURCES} PARENT_SCOPE)
-endfunction()
-
-function(cy_add_includes)
+# Add files to a library.
+function(cy_add_target_files target)
     set(files "")
     foreach(file ${ARGN})
         list(APPEND files "${CMAKE_CURRENT_LIST_DIR}/${file}")
     endforeach()
 
-    set(INCLUDES ${INCLUDES} ${files} PARENT_SCOPE)
+    set(${target} ${files} PARENT_SCOPE)
 endfunction()
 
-function(cy_add_sources)
-    set(files "")
-    foreach(file ${ARGN})
-        list(APPEND files "${CMAKE_CURRENT_LIST_DIR}/${file}")
+# Build the executable from library dependencies.
+function(cy_build_target name target_file libs)
+    set(exe_name ${PROJECT_NAME})
+
+    if(${name} MATCHES "")
+        set(exe_name ${PROJECT_NAME}_${name})
+    endif()
+
+    add_executable(${exe_name} ${DIR_CODE}/${target_file})
+
+    set(module_list "")
+    foreach(module ${ARGN})
+        list(APPEND module_list "${module}")
     endforeach()
 
-    set(SOURCES ${SOURCES} ${files} PARENT_SCOPE)
+    target_link_libraries(${exe_name} ${module_list} ${libs})
 endfunction()
 
-function(cy_add_test_sources)
-    set(files "")
-    foreach(file ${ARGN})
-        list(APPEND files "${CMAKE_CURRENT_LIST_DIR}/${file}")
-    endforeach()
+# Build the tests.
+function(cy_build_test name target_file libs)
+    set(exe_name ${PROJECT_NAME}_${name})
 
-    set(TEST_SOURCES ${TEST_SOURCES} ${files} PARENT_SCOPE)
+    set(cytest_files)
+
+    include("${DIR_TEST}/CMakeLists.txt")
+
+    add_executable(${exe_name} ${DIR_CODE}/${target_file} ${cytest_files})
+
+    target_link_libraries(${exe_name} ${ARGN} ${libs})
 endfunction()
-
 
 #
 # Compiler
 #
 
-SET(GCC_COMPILE_FLAGS "-Wall -Wextra -ansi -pedantic")
+set(GCC_COMPILE_FLAGS "-Wall -Wextra -ansi -pedantic")
 
-SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${GCC_COMPILE_FLAGS}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COMPILE_FLAGS}")
+
+set(CMAKE_BUILD_TYPE RELEASE)
 
 
 #
 # Libraries
 #
 
-set(LIB_SDL2
-    -lSDL2main
-    -lSDL2
-    -lSDL2_gfx
-    -lSDL2_image
-    -lSDL2_mixer
-    -lSDL2_net
-    -lSDL2_ttf)
+set(LIB_OPENGL -lGLEW -lGL)
 
-set(LIB_OPENGL
-    -lGLEW
-    -lGL)
+set(LIB_PYTHON -lpython3.6m)
 
-set(LIB_PYTHON
-    -lpython3.6m)
+set(LIB_LUA -llua5.2)
 
-set(LIB_LUA
-    -llua5.2)
+set(LIB_SQLITE3 -lsqlite3)
 
-set(LIB_SQLITE3
-    -lsqlite3)
+set(LIB_MYSQL -lmysqlclient)
 
-set(LIB_MYSQL
-    -lmysqlclient)
+set(LIBRARIES -lpthread -lSDL2main -lSDL2)
 
-set(LIBRARIES
-    -lpthread
-    ${LIB_SDL2}
-    #${LIB_OPENGEL}
-    #${LIB_PYTHON}
-    #${LIB_LUA}
-    #${LIB_SQLITE3}
-    #${LIB_MYSQL}
-    )
-
-set(TEST_LIBRARIES
-    -lgtest
-    -lgtest_main
-    ${LIBRARIES})
+set(TEST_LIBRARIES -lgtest -lgtest_main ${LIBRARIES})
 
 
 #
@@ -163,72 +154,22 @@ pkg_search_module(SDL2NET REQUIRED SDL2_net>=2.0.0)
 pkg_search_module(SDL2TTF REQUIRED SDL2_ttf>=2.0.0)
 
 #
-# Includes
-#
-
-cy_add_include_dir(cyaudio)
-cy_add_include_dir(cygui)
-cy_add_include_dir(cyinput)
-cy_add_include_dir(cymath)
-cy_add_include_dir(cynet)
-cy_add_include_dir(cystd)
-cy_add_include_dir(cysystem)
-cy_add_include_dir(cyutil)
-cy_add_include_dir(cyvideo)
-
-
-#
-# Sources
-#
-
-cy_add_source_dir(cyaudio)
-cy_add_source_dir(cygui)
-cy_add_source_dir(cyinput)
-cy_add_source_dir(cymath)
-cy_add_source_dir(cynet)
-cy_add_source_dir(cystd)
-cy_add_source_dir(cysystem)
-cy_add_source_dir(cyutil)
-cy_add_source_dir(cyvideo)
-
-
-#
-# All files
-#
-
-set(FILES ${INCLUDES} ${SOURCES})
-
-
-#
-# Tests
-#
-
-cy_add_test_dir(cyaudio)
-cy_add_test_dir(cygui)
-cy_add_test_dir(cyinput)
-cy_add_test_dir(cymath)
-cy_add_test_dir(cynet)
-cy_add_test_dir(cystd)
-cy_add_test_dir(cysystem)
-cy_add_test_dir(cyutil)
-cy_add_test_dir(cyvideo)
-
-
-set(TEST_FILES
-    ${FILES}
-    ${TEST_SOURCES})
-
-
-#
 # Builds
 #
 
-add_executable(${PROJECT_NAME} ${FILES} code/apps/main.cpp)
-add_executable(${PROJECT_NAME}_Client ${FILES} code/apps/client.cpp)
-add_executable(${PROJECT_NAME}_Server ${FILES} code/apps/server.cpp)
-add_executable(${PROJECT_NAME}_Test ${TEST_FILES} code/test/test.cpp)
+cy_add_module(cyaudio -lSDL2_mixer)
+cy_add_module(cygui)
+cy_add_module(cyinput)
+cy_add_module(cymath)
+cy_add_module(cynet -lSDL2_net)
+cy_add_module(cystd)
+cy_add_module(cysystem "-lSDL2_image;-lSDL2_gfx;-lSDL2_mixer;-lSDL2_net;-lSDL2_ttf")
+cy_add_module(cyutil)
+cy_add_module(cyvideo "cymath;-lSDL2_image;-lSDL2_gfx;-lSDL2_ttf")
 
-target_link_libraries(${PROJECT_NAME} ${LIBRARIES})
-target_link_libraries(${PROJECT_NAME}_Client ${LIBRARIES})
-target_link_libraries(${PROJECT_NAME}_Server ${LIBRARIES})
-target_link_libraries(${PROJECT_NAME}_Test ${TEST_LIBRARIES})
+cy_build_target(Main apps/main.cpp "${LIBRARIES}" "cygui;cyinput;cymath;cyutil;cysystem;cyvideo")
+cy_build_target(Animation apps/animation.cpp "${LIBRARIES}" "cyinput;cymath;cyutil;cysystem;cyvideo")
+cy_build_target(Client apps/client.cpp "${LIBRARIES}" "cynet")
+cy_build_target(Server apps/server.cpp "${LIBRARIES}" "cynet")
+
+cy_build_test(Test test/test.cpp "${TEST_LIBRARIES}" "cygui;cymath;cyutil;cyvideo")

@@ -4,7 +4,7 @@ namespace cyanide::cyinput
 {
 
     const UMap<String, MouseInput::MOUSE_EVENT> MouseInput::s_event = {
-        {"motion", MouseInput::MOUSE_EVENT::MOTION},
+        {"stickMotion", MouseInput::MOUSE_EVENT::MOTION},
         {"button", MouseInput::MOUSE_EVENT::BUTTON},
         {"buttondown", MouseInput::MOUSE_EVENT::BUTTON_DOWN},
         {"buttonup", MouseInput::MOUSE_EVENT::BUTTON_UP},
@@ -32,7 +32,7 @@ namespace cyanide::cyinput
         }
     }
 
-    void MouseInput::buttonEvent(const MouseButtonCode button) const
+    void MouseInput::buttonEvent(const MouseButton button) const
     {
         if(m_button_event_callbacks.count(button))
         {
@@ -43,7 +43,7 @@ namespace cyanide::cyinput
         }
     }
 
-    void MouseInput::buttonDown(const MouseButtonCode button) const
+    void MouseInput::buttonDown(const MouseButton button) const
     {
         if(m_button_down_callbacks.count(button))
         {
@@ -54,7 +54,7 @@ namespace cyanide::cyinput
         }
     }
 
-    void MouseInput::buttonUp(const MouseButtonCode button) const
+    void MouseInput::buttonUp(const MouseButton button) const
     {
         if(m_button_up_callbacks.count(button))
         {
@@ -65,7 +65,7 @@ namespace cyanide::cyinput
         }
     }
 
-    void MouseInput::buttonPressed(const MouseButtonCode button) const
+    void MouseInput::buttonPressed(const MouseButton button) const
     {
         if(m_button_pressed_callbacks.count(button))
         {
@@ -84,7 +84,7 @@ namespace cyanide::cyinput
         }
     }
 
-    MouseInput::MOUSE_BUTTON_STATE MouseInput::getButtonState(const MouseButtonCode button) const
+    MouseInput::MOUSE_BUTTON_STATE MouseInput::getButtonState(const MouseButton button) const
     {
         if(m_button_states.count(button))
         {
@@ -121,7 +121,7 @@ namespace cyanide::cyinput
         m_event_callbacks[MOUSE_EVENT::BUTTON].emplace_back(callback);
     }
 
-    void MouseInput::onButton(const MouseButtonCode button, const MouseButtonCallback& callback)
+    void MouseInput::onButton(const MouseButton button, const MouseButtonCallback& callback)
     {
         if(!m_button_event_callbacks.count(button))
         {
@@ -130,7 +130,7 @@ namespace cyanide::cyinput
         m_button_event_callbacks[button].emplace_back(callback);
     }
 
-    void MouseInput::onButtonDown(const MouseButtonCode button, const MouseButtonCallback& callback)
+    void MouseInput::onButtonDown(const MouseButton button, const MouseButtonCallback& callback)
     {
         if(!m_button_down_callbacks.count(button))
         {
@@ -139,7 +139,7 @@ namespace cyanide::cyinput
         m_button_down_callbacks[button].emplace_back(callback);
     }
 
-    void MouseInput::onButtonUp(const MouseButtonCode button, const MouseButtonCallback& callback)
+    void MouseInput::onButtonUp(const MouseButton button, const MouseButtonCallback& callback)
     {
         if(!m_button_up_callbacks.count(button))
         {
@@ -148,7 +148,7 @@ namespace cyanide::cyinput
         m_button_up_callbacks[button].emplace_back(callback);
     }
 
-    void MouseInput::onButtonPressed(const MouseButtonCode button, const MouseButtonCallback& callback)
+    void MouseInput::onButtonPressed(const MouseButton button, const MouseButtonCallback& callback)
     {
         if(!m_button_pressed_callbacks.count(button))
         {
@@ -182,6 +182,7 @@ namespace cyanide::cyinput
 
                 if(event.type == SDL_MOUSEMOTION)
                 {
+                    strong_this->m_mouse_position.set(event.motion.x, event.motion.y);
                     strong_this->motion(event.motion.x, event.motion.y);
                 }
                 else if(event.type == SDL_MOUSEBUTTONDOWN)

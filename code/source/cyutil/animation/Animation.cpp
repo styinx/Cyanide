@@ -1,4 +1,4 @@
-#include "cyvideo/animation/Animation.hpp"
+#include "cyutil/animation/Animation.hpp"
 
 namespace cyanide::cyvideo
 {

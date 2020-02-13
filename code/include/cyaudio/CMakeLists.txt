@@ -1,9 +1,15 @@
-cy_add_includes(
-    SDLAudio.hpp
-    SDLMixerAudio.hpp
+cy_add_target_files(
+        cyaudio_includes
 
-    devices/IAudioDevice.hpp
-    devices/SDLAudioDevice.hpp
+        cyaudio.hpp
 
-    medium/IMedium.hpp
-    medium/SDLMusic.hpp)
+        player/AudioPlayer.hpp
+
+        SDLAudio.hpp
+        SDLMixerAudio.hpp
+
+        devices/IAudioDevice.hpp
+        devices/SDLAudioDevice.hpp
+
+        medium/IMedium.hpp
+        medium/SDLMusic.hpp)

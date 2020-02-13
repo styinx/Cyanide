@@ -59,40 +59,26 @@ namespace cyanide::cyutil
 
     void ColorAnimation::next()
     {
-        if(m_direction == AnimationDirection::FORWARD)
-        {
-            add();
-        }
-        else if(m_direction == AnimationDirection::BACKWARD)
-        {
-            sub();
-        }
-
-        checkBounds();
+        m_current += m_step;
     }
 
     void ColorAnimation::previous()
     {
+        m_current -= m_step;
+    }
+
+    void ColorAnimation::update()
+    {
         if(m_direction == AnimationDirection::FORWARD)
         {
-            sub();
+            next();
         }
         else if(m_direction == AnimationDirection::BACKWARD)
         {
-            add();
+            previous();
         }
 
         checkBounds();
-    }
-
-    void ColorAnimation::add()
-    {
-        m_current += m_step;
-    }
-
-    void ColorAnimation::sub()
-    {
-        m_current -= m_step;
     }
 
     void ColorAnimation::min()
