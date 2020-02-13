@@ -1,12 +1,15 @@
 #ifndef CYANIDE_CONTROLLER_HPP
 #define CYANIDE_CONTROLLER_HPP
 
+#include "ControllerInput.hpp"
 #include "cyinput/controller/IController.hpp"
 
 namespace cyanide::cyinput
 {
 
-    class Controller : public IController
+    class Controller
+        : public IController
+        , public ControllerInput
     {
     private:
     public:

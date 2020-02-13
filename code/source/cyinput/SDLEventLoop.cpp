@@ -11,6 +11,7 @@ namespace cyanide::cyinput
     SDLEventLoop::SDLEventLoop()
         : m_keyboard(std::make_shared<Keyboard>())
         , m_mouse(std::make_shared<Mouse>())
+        , m_controller(std::make_shared<Controller>())
     {
         // Stop the loop if the close event is called.
         const auto exitLoop = [this]() {
@@ -24,6 +25,7 @@ namespace cyanide::cyinput
 
         m_keyboard->defaultKeyboardHandler();
         m_mouse->defaultMouseHandler();
+        m_controller->defaultControllerHandler();
     }
 
     // Private
@@ -93,7 +95,7 @@ namespace cyanide::cyinput
                 }
                 else if(typeRange(type, SDLEventType::SDL_CONTROLLEREVENT, SDLEventType::SDL_TOUCHEVENT))
                 {
-                    callSDLEvent(fromEnum(SDLEventType::SDL_CONTROLLEREVENT));
+                    m_controller->anyControllerEvent(m_event);
                 }
 
                 callLoopEvent(LoopEvent::SDL_EVENT_END);
@@ -113,6 +115,11 @@ namespace cyanide::cyinput
     SharedPtr<Mouse>& SDLEventLoop::mouse()
     {
         return m_mouse;
+    }
+
+    SharedPtr<Controller>& SDLEventLoop::controller()
+    {
+        return m_controller;
     }
 
     /*

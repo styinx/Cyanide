@@ -4,6 +4,7 @@ cy_add_target_files(
         SDLEventLoop.cpp
 
         controller/Controller.cpp
+        controller/ControllerInput.cpp
 
         keyboard/Key.cpp
         keyboard/Keyboard.cpp
