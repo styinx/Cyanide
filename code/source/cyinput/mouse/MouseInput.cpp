@@ -170,15 +170,15 @@ namespace cyanide::cyinput
         }
     }
 
-    void MouseInput::defaultMouseHandler()
+    void MouseInput::defaultHandler()
     {
         const WeakPtr<MouseInput> weak_this = shared_from_this();
 
         const auto setMouseState = [weak_this](const SDL_Event& event) {
             if(const SharedPtr<MouseInput> strong_this = weak_this.lock())
             {
-                const auto button = event.button.button;
-                bool mouse_button_event = false;
+                const auto button             = event.button.button;
+                bool       mouse_button_event = false;
 
                 if(event.type == SDL_MOUSEMOTION)
                 {

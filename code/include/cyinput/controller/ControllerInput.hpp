@@ -19,39 +19,41 @@ namespace cyanide::cyinput
         RT = 0x01,
     };
 
+    enum class CONTROLLER_EVENT : Byte
+    {
+        NONE           = 0x00,
+        BUTTON         = 0x01,
+        BUTTON_DOWN    = 0x02,
+        BUTTON_UP      = 0x03,
+        BUTTON_PRESSED = 0x04,
+        STICK_MOTION   = 0x05,
+        TRIGGER_MOTION = 0x06,
+        ANY            = 0xF5,
+    };
+
+    enum class CONTROLLER_BUTTON_STATE : Byte
+    {
+        NONE     = 0x00,
+        RELEASED = 0x01,
+        DOWN     = 0x02,
+        PRESSED  = 0x04
+    };
+
+    using ControllerButton          = Uint8;
+    using ControllerStick           = Uint8;
+    using ControllerTrigger         = Uint8;
+    using ControllerButtonCallback  = Function<void(const ControllerButton)>;
+    using ControllerStickCallback   = Function<void(const Sint16 x, const Sint16 y)>;
+    using ControllerTriggerCallback = Function<void(const Sint16 y)>;
+
     class ControllerInput
         : public IInputDevice
         , public std::enable_shared_from_this<ControllerInput>
     {
-    private:
-        enum class CONTROLLER_EVENT : Byte
-        {
-            BUTTON         = 0x01,
-            BUTTON_DOWN    = 0x02,
-            BUTTON_UP      = 0x03,
-            BUTTON_PRESSED = 0x04,
-            STICK_MOTION   = 0x05,
-            TRIGGER_MOTION = 0x06,
-            ANY,
-        };
-
-        enum class CONTROLLER_BUTTON_STATE : Byte
-        {
-            NONE     = 0x00,
-            RELEASED = 0x01,
-            DOWN     = 0x02,
-            PRESSED  = 0x04
-        };
-
-        using ControllerButton          = Uint8;
-        using ControllerStick           = Uint8;
-        using ControllerTrigger         = Uint8;
-        using ControllerButtonCallback  = Function<void(const ControllerButton)>;
-        using ControllerStickCallback   = Function<void(const Sint16 x, const Sint16 y)>;
-        using ControllerTriggerCallback = Function<void(const Sint16 y)>;
-
     protected:
         static const UMap<String, CONTROLLER_EVENT> s_event;
+
+        SDL_GameController* m_controller = nullptr;
 
         UMap<ControllerButton, CONTROLLER_BUTTON_STATE> m_button_states;
         UMap<CONTROLLER_STICK, cymath::Point>           m_stick_position;
@@ -65,7 +67,7 @@ namespace cyanide::cyinput
         UMap<CONTROLLER_STICK, Vector<ControllerStickCallback>>     m_stick_motion_callbacks;
         UMap<CONTROLLER_TRIGGER, Vector<ControllerTriggerCallback>> m_trigger_motion_callbacks;
 
-        ControllerInput();
+        explicit ControllerInput(const Uint8 id);
 
         void buttonEvent(const ControllerButton button) const;
         void buttonDown(const ControllerButton button) const;
@@ -75,7 +77,7 @@ namespace cyanide::cyinput
         void triggerMotion(const CONTROLLER_TRIGGER trigger) const;
 
     public:
-        virtual ~ControllerInput() = default;
+        virtual ~ControllerInput();
 
         CONTROLLER_BUTTON_STATE getButtonState(const ControllerButton button) const;
 
@@ -96,8 +98,8 @@ namespace cyanide::cyinput
 
         // TODO
 
-        void anyControllerEvent(const SDL_Event& event) const;
-        void defaultControllerHandler();
+        void         anyControllerEvent(const SDL_Event& event) const;
+        virtual void defaultHandler() override;
     };
 
 }  // namespace cyanide::cyinput

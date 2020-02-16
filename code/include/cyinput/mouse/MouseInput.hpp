@@ -76,8 +76,8 @@ namespace cyanide::cyinput
         virtual void onButtonPressed(const MouseButton button, const MouseButtonCallback& callback) final;
         virtual void onWheelMotion(const MouseMotionCallback& callback) final;
 
-        void anyMouseEvent(const SDL_Event& event) const;
-        void defaultMouseHandler();
+        void         anyMouseEvent(const SDL_Event& event) const;
+        virtual void defaultHandler() override;
     };
 
 }  // namespace cyanide::cyinput

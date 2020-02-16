@@ -67,7 +67,7 @@ namespace cyanide::cyinput
         virtual void onKeyPressed(const KeyCode key, const KeyCallback& callback) final;
 
         virtual void anyKeyEvent(const SDL_Event& event) const final;
-        virtual void defaultKeyboardHandler();
+        virtual void defaultHandler() override;
     };
 
 }  // namespace cyanide::cyinput
