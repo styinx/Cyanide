@@ -7,16 +7,16 @@
 
 namespace cyanide::cyinput
 {
+    using Callback      = Function<void(void)>;
+    using EventCallback = Function<void(const SDL_Event& event)>;
 
     class IInputDevice
     {
     public:
-        using Callback = Function<void(void)>;
-        using EventCallback = Function<void(const SDL_Event& event)>;
-
-//        virtual void on(const String& event, const EventCallback& callback) = 0;
+        virtual void defaultHandler() = 0;
+        //        virtual void on(const String& event, const EventCallback& callback) = 0;
     };
 
-} // namespace cyanide::cyinput
+}  // namespace cyanide::cyinput
 
 #endif  // CYANIDE_IINPUTDEVICE_HPP

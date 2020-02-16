@@ -9,6 +9,9 @@ cy_add_target_files(
         controller/ControllerInput.hpp
         controller/IController.hpp
 
+        joystick/IJoystick.hpp
+        joystick/Joystick.hpp
+
         keyboard/IKey.hpp
         keyboard/IKeyboard.hpp
         keyboard/Key.hpp

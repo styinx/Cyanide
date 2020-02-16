@@ -13,12 +13,8 @@ namespace cyanide::cyinput
     {
     private:
     public:
-        Controller()                                 = default;
-        ~Controller()                                = default;
-        Controller(const Controller& controller)     = default;
-        Controller(Controller&& controller) noexcept = default;
-        Controller& operator=(const Controller& controller) = default;
-        Controller& operator=(Controller&& controller) noexcept = default;
+        explicit Controller(const Uint8 id);
+        virtual ~Controller() = default;
     };
 
 }  // namespace cyanide::cyinput

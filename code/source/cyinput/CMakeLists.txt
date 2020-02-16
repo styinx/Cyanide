@@ -6,6 +6,9 @@ cy_add_target_files(
         controller/Controller.cpp
         controller/ControllerInput.cpp
 
+        joystick/Joystick.cpp
+        joystick/JoystickInput.cpp
+
         keyboard/Key.cpp
         keyboard/Keyboard.cpp
         keyboard/KeyboardInput.cpp

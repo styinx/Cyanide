@@ -171,7 +171,7 @@ namespace cyanide::cyinput
         }
     }
 
-    void KeyboardInput::defaultKeyboardHandler()
+    void KeyboardInput::defaultHandler()
     {
         const WeakPtr<KeyboardInput> weak_this = shared_from_this();
 

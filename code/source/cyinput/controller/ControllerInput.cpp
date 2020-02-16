@@ -3,18 +3,21 @@
 namespace cyanide::cyinput
 {
 
-    const UMap<String, ControllerInput::CONTROLLER_EVENT> ControllerInput::s_event = {
-        {"button", ControllerInput::CONTROLLER_EVENT::BUTTON},
-        {"buttondown", ControllerInput::CONTROLLER_EVENT::BUTTON_DOWN},
-        {"buttonup", ControllerInput::CONTROLLER_EVENT::BUTTON_UP},
-        {"buttonpressed", ControllerInput::CONTROLLER_EVENT::BUTTON_PRESSED},
-        {"stickMotion", ControllerInput::CONTROLLER_EVENT::STICK_MOTION},
-        {"triggerMotion", ControllerInput::CONTROLLER_EVENT::TRIGGER_MOTION},
-        {"any", ControllerInput::CONTROLLER_EVENT::ANY},
+    const UMap<String, CONTROLLER_EVENT> ControllerInput::s_event = {
+        {"button", CONTROLLER_EVENT::BUTTON},
+        {"buttondown", CONTROLLER_EVENT::BUTTON_DOWN},
+        {"buttonup", CONTROLLER_EVENT::BUTTON_UP},
+        {"buttonpressed", CONTROLLER_EVENT::BUTTON_PRESSED},
+        {"stickmotion", CONTROLLER_EVENT::STICK_MOTION},
+        {"triggermotion", CONTROLLER_EVENT::TRIGGER_MOTION},
+        {"any", CONTROLLER_EVENT::ANY},
     };
 
-    ControllerInput::ControllerInput()
+    ControllerInput::ControllerInput(const Uint8 id)
     {
+        m_controller = SDL_GameControllerOpen(id);
+        // todo axis of controller
+
         m_event_callbacks[CONTROLLER_EVENT::BUTTON]         = Vector<EventCallback>();
         m_event_callbacks[CONTROLLER_EVENT::BUTTON_DOWN]    = Vector<EventCallback>();
         m_event_callbacks[CONTROLLER_EVENT::BUTTON_UP]      = Vector<EventCallback>();
@@ -24,7 +27,12 @@ namespace cyanide::cyinput
         m_event_callbacks[CONTROLLER_EVENT::ANY]            = Vector<EventCallback>();
     }
 
-    void ControllerInput::buttonEvent(const ControllerInput::ControllerButton button) const
+    ControllerInput::~ControllerInput()
+    {
+        SDL_GameControllerClose(m_controller);
+    }
+
+    void ControllerInput::buttonEvent(ControllerButton button) const
     {
         if(m_button_event_callbacks.count(button))
         {
@@ -35,7 +43,7 @@ namespace cyanide::cyinput
         }
     }
 
-    void ControllerInput::buttonDown(const ControllerInput::ControllerButton button) const
+    void ControllerInput::buttonDown(ControllerButton button) const
     {
         if(m_button_down_callbacks.count(button))
         {
@@ -46,7 +54,7 @@ namespace cyanide::cyinput
         }
     }
 
-    void ControllerInput::buttonUp(const ControllerInput::ControllerButton button) const
+    void ControllerInput::buttonUp(ControllerButton button) const
     {
         if(m_button_up_callbacks.count(button))
         {
@@ -57,7 +65,7 @@ namespace cyanide::cyinput
         }
     }
 
-    void ControllerInput::buttonPressed(const ControllerInput::ControllerButton button) const
+    void ControllerInput::buttonPressed(ControllerButton button) const
     {
         if(m_button_pressed_callbacks.count(button))
         {
@@ -92,8 +100,7 @@ namespace cyanide::cyinput
         }
     }
 
-    ControllerInput::CONTROLLER_BUTTON_STATE ControllerInput::getButtonState(
-        const ControllerInput::ControllerButton button) const
+    CONTROLLER_BUTTON_STATE ControllerInput::getButtonState(ControllerButton button) const
     {
         if(m_button_states.count(button))
         {
@@ -102,7 +109,7 @@ namespace cyanide::cyinput
         return CONTROLLER_BUTTON_STATE::NONE;
     }
 
-    void ControllerInput::on(const String& event, const IInputDevice::EventCallback& callback)
+    void ControllerInput::on(const String& event, const EventCallback& callback)
     {
         if(ControllerInput::s_event.count(event))
         {
@@ -110,26 +117,22 @@ namespace cyanide::cyinput
         }
     }
 
-    void ControllerInput::on(
-        const ControllerInput::CONTROLLER_EVENT event,
-        const IInputDevice::EventCallback&      callback)
+    void ControllerInput::on(CONTROLLER_EVENT event, const EventCallback& callback)
     {
         m_event_callbacks[event].emplace_back(callback);
     }
 
-    void ControllerInput::onAnyControllerEvent(const IInputDevice::EventCallback& callback)
+    void ControllerInput::onAnyControllerEvent(const EventCallback& callback)
     {
         m_event_callbacks[CONTROLLER_EVENT::ANY].emplace_back(callback);
     }
 
-    void ControllerInput::onAnyButtonEvent(const IInputDevice::EventCallback& callback)
+    void ControllerInput::onAnyButtonEvent(const EventCallback& callback)
     {
         m_event_callbacks[CONTROLLER_EVENT::BUTTON].emplace_back(callback);
     }
 
-    void ControllerInput::onButton(
-        const ControllerInput::ControllerButton          button,
-        const ControllerInput::ControllerButtonCallback& callback)
+    void ControllerInput::onButton(const ControllerButton button, const ControllerButtonCallback& callback)
     {
         if(!m_button_event_callbacks.count(button))
         {
@@ -138,9 +141,7 @@ namespace cyanide::cyinput
         m_button_event_callbacks[button].emplace_back(callback);
     }
 
-    void ControllerInput::onButtonDown(
-        const ControllerInput::ControllerButton          button,
-        const ControllerInput::ControllerButtonCallback& callback)
+    void ControllerInput::onButtonDown(const ControllerButton button, const ControllerButtonCallback& callback)
     {
         if(!m_button_down_callbacks.count(button))
         {
@@ -149,9 +150,7 @@ namespace cyanide::cyinput
         m_button_down_callbacks[button].emplace_back(callback);
     }
 
-    void ControllerInput::onButtonUp(
-        const ControllerInput::ControllerButton          button,
-        const ControllerInput::ControllerButtonCallback& callback)
+    void ControllerInput::onButtonUp(const ControllerButton button, const ControllerButtonCallback& callback)
     {
         if(!m_button_up_callbacks.count(button))
         {
@@ -160,9 +159,7 @@ namespace cyanide::cyinput
         m_button_up_callbacks[button].emplace_back(callback);
     }
 
-    void ControllerInput::onButtonPressed(
-        const ControllerInput::ControllerButton          button,
-        const ControllerInput::ControllerButtonCallback& callback)
+    void ControllerInput::onButtonPressed(const ControllerButton button, const ControllerButtonCallback& callback)
     {
         if(!m_button_pressed_callbacks.count(button))
         {
@@ -199,7 +196,7 @@ namespace cyanide::cyinput
         }
     }
 
-    void ControllerInput::defaultControllerHandler()
+    void ControllerInput::defaultHandler()
     {
         const WeakPtr<ControllerInput> weak_this = shared_from_this();
 
