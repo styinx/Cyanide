@@ -21,12 +21,13 @@ namespace cyanide::cygui
     class TextWidgetStyle
     {
     protected:
-        cyvideo::SDLTextureSPtr m_text_texture = nullptr;
-        String                  m_font_family  = Default::FONT_FAMILY;
-        Uint8                   m_text_size    = Default::TEXT_SIZE;
-        ALIGN                   m_alignment    = Default::TEXT_AIGNMENT;
-        cyutil::RGBAColor       m_fg_color     = Default::TEXT_FG_COLOR;
-        cyutil::RGBAColor       m_bg_color     = Default::TEXT_BG_COLOR;
+        cyvideo::SDLTextureSPtr m_text_texture         = nullptr;
+        bool                    m_text_texture_changed = true;
+        String                  m_font_family          = Default::FONT_FAMILY;
+        Uint8                   m_text_size            = Default::TEXT_SIZE;
+        ALIGN                   m_alignment            = Default::TEXT_AIGNMENT;
+        cyutil::RGBAColor       m_fg_color             = Default::TEXT_FG_COLOR;
+        cyutil::RGBAColor       m_bg_color             = Default::TEXT_BG_COLOR;
 
         TextWidgetStyle();
 

@@ -14,14 +14,12 @@ namespace cyanide::cygui
 
     namespace Default
     {
-        const cymath::Space MARGIN  = cymath::Space{1, 1, 1, 1};
-        const cymath::Space BORDER  = cymath::Space{1, 1, 1, 1};
-        const cymath::Space PADDING = cymath::Space{1, 1, 1, 1};
+        static const cymath::Space MARGIN  = cymath::Space{1, 1, 1, 1};
+        static const cymath::Space BORDER  = cymath::Space{1, 1, 1, 1};
+        static const cymath::Space PADDING = cymath::Space{1, 1, 1, 1};
 
-        //        const cyutil::RGBAColor BACKGROUND_COLOR = cyutil::RGBAColor{245, 245, 245, 255};
-        const cyutil::RGBAColor BACKGROUND_COLOR = cyutil::RGBAColor{0, 255, 0, 255};
-        //        const cyutil::RGBAColor BORDER_COLOR     = cyutil::RGBAColor{200, 200, 200, 255};
-        const cyutil::RGBAColor BORDER_COLOR = cyutil::RGBAColor{255, 0, 0, 255};
+        static const cyutil::RGBAColor BACKGROUND_COLOR = cyutil::RGBAColor{245, 245, 245, 255};
+        static const cyutil::RGBAColor BORDER_COLOR     = cyutil::RGBAColor{200, 200, 200, 255};
     }  // namespace Default
 
     class ObjectStyle
@@ -34,7 +32,7 @@ namespace cyanide::cygui
         cymath::Space m_padding = Default::PADDING;
         cymath::Size  m_content;
 
-        bool m_requires_texture_reload = false;
+        bool m_requires_texture_reload = true;
 
         cyvideo::SDLTextureSPtr m_texture         = nullptr;
         cyvideo::SDLTextureSPtr m_border_texture  = nullptr;

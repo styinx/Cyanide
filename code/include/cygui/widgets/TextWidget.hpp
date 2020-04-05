@@ -10,6 +10,9 @@ namespace cyanide::cygui
         : public Widget
         , public TextWidgetStyle
     {
+    private:
+        void initTextTexture();
+
     protected:
         String m_text;
 

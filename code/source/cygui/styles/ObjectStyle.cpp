@@ -17,16 +17,20 @@ namespace cyanide::cygui
     {
         if(m_requires_texture_reload)
         {
+            using cymath::Size;
             using cyvideo::SDLTexture;
             using cyvideo::SDLTextureSPtr;
-            using cymath::Size;
 
             auto renderer = GUIRenderManager::getRenderer();
 
-            m_texture        = SDLTextureSPtr(new SDLTexture(renderer, m_size));
-            m_border_texture = SDLTextureSPtr(new SDLTexture(renderer, m_size - m_margin));
-            m_padding_texture = SDLTextureSPtr(new SDLTexture(renderer, m_size - m_margin - m_border));
-            m_content_texture = SDLTextureSPtr(new SDLTexture(renderer, m_content));
+            if(renderer)
+            {
+                m_texture        = SDLTextureSPtr(new SDLTexture(renderer, m_size));
+                m_border_texture = SDLTextureSPtr(new SDLTexture(renderer, m_size - m_margin));
+                m_padding_texture =
+                    SDLTextureSPtr(new SDLTexture(renderer, m_size - m_margin - m_border));
+                m_content_texture = SDLTextureSPtr(new SDLTexture(renderer, m_content));
+            }
 
             m_requires_texture_reload = false;
         }
