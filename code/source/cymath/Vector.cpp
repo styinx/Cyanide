@@ -17,7 +17,17 @@ namespace cyanide::cymath
     {
     }
 
-    Vector &Vector::set(const float x, const float y, const float z)
+    Vector::operator bool() const
+    {
+        return !empty();
+    }
+
+    bool Vector::empty() const
+    {
+        return x + y + z == 0;
+    }
+
+    Vector& Vector::set(const float x, const float y, const float z)
     {
         this->x = x;
         this->y = y;
@@ -25,7 +35,7 @@ namespace cyanide::cymath
         return *this;
     }
 
-    Vector &Vector::add(const float x, const float y, const float z)
+    Vector& Vector::add(const float x, const float y, const float z)
     {
         this->x += x;
         this->y += y;

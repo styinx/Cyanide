@@ -38,6 +38,28 @@ TEST(SizeTest, CpyAssign)
     ASSERT_TRUE(s.height == t.height);
 }
 
+TEST(SizeTest, bool)
+{
+    Size s;
+
+    ASSERT_FALSE(s);
+
+    s.set(2, 1);
+
+    ASSERT_TRUE(s);
+}
+
+TEST(SizeTest, empty)
+{
+    Size s;
+
+    ASSERT_TRUE(s.empty());
+
+    s.set(2, 1);
+
+    ASSERT_FALSE(s.empty());
+}
+
 TEST(SizeTest, set)
 {
     Size s;
@@ -74,7 +96,7 @@ TEST(SizeTest, mul)
     Size t = s;
 
     s.mul(3, 2);
-    t.mul(1.5f, 1.5f);
+    t.mul(1.5F, 1.5F);
 
     ASSERT_EQ(3, s.width);
     ASSERT_EQ(4, s.height);
@@ -89,7 +111,7 @@ TEST(SizeTest, div)
     Size t = s;
 
     s.div(2, 3);
-    t.div(0.1f, 0.5f);
+    t.div(0.1F, 0.5F);
 
     ASSERT_EQ(3, s.width);
     ASSERT_EQ(2, s.height);
@@ -190,8 +212,8 @@ TEST(SizeTest, opmulscalar)
 {
     Size s(1, 2);
 
-    Size t = s * 3;
-    Size u = s * 1.5f;
+    Size t = s * 3.0F;
+    Size u = s * 1.5F;
 
     ASSERT_EQ(3, t.width);
     ASSERT_EQ(6, t.height);
@@ -206,7 +228,7 @@ TEST(SizeTest, opimulscalar)
     Size t(1, 2);
 
     s *= 3;
-    t *= 2.5f;
+    t *= 2.5F;
 
     ASSERT_EQ(3, s.width);
     ASSERT_EQ(6, s.height);
@@ -219,8 +241,8 @@ TEST(SizeTest, opdivscalar)
 {
     Size s(1, 2);
 
-    Size t = s / 3;
-    Size u = s / 1.5f;
+    Size t = s / 3.0F;
+    Size u = s / 1.5F;
 
     ASSERT_EQ(0, t.width);
     ASSERT_EQ(1, t.height);
@@ -235,7 +257,7 @@ TEST(SizeTest, opidivscalar)
     Size t(1, 2);
 
     s /= 2;
-    t /= 2.5f;
+    t /= 2.5F;
 
     ASSERT_EQ(1, s.width);
     ASSERT_EQ(1, s.height);
@@ -255,7 +277,7 @@ TEST(SizeTest, eq)
 TEST(SizeTest, neq)
 {
     Size s(1, 2);
-    Size t = s * 2;
+    Size t = s * 2.0F;
 
     ASSERT_TRUE(s != t);
 }
@@ -263,7 +285,7 @@ TEST(SizeTest, neq)
 TEST(SizeTest, lt)
 {
     Size s(1, 2);
-    Size t = s * 2;
+    Size t = s * 2.0F;
 
     ASSERT_TRUE(s < t);
 }
@@ -271,7 +293,7 @@ TEST(SizeTest, lt)
 TEST(SizeTest, lteq)
 {
     Size s(1, 2);
-    Size t = s * 2;
+    Size t = s * 2.0F;
     Size u = s;
 
     ASSERT_TRUE(s <= t && s <= u);
@@ -280,7 +302,7 @@ TEST(SizeTest, lteq)
 TEST(SizeTest, gt)
 {
     Size s(1, 2);
-    Size t = s * 2;
+    Size t = s * 2.0F;
 
     ASSERT_TRUE(t > s);
 }
@@ -288,7 +310,7 @@ TEST(SizeTest, gt)
 TEST(SizeTest, gteq)
 {
     Size s(1, 2);
-    Size t = s * 2;
+    Size t = s * 2.0F;
     Size u = s;
 
     ASSERT_TRUE(t >= s && u >= s);
