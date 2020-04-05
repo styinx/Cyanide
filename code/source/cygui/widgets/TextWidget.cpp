@@ -22,27 +22,40 @@ namespace cyanide::cygui
         : Widget()
         , m_text(text)
     {
+        initTextTexture();
+    }
+
+    // Private
+
+    void TextWidget::initTextTexture()
+    {
         using namespace cyvideo;
 
-        SDLFont* font = SDLFontCollection::getFont(m_font_family);
+        const SDLFont* font = SDLFontCollection::getFont(m_font_family);
 
         if(font != nullptr)
         {
-            SDL_Surface* text_surface = TTF_RenderText_Blended(
-                font->getFont(),
-                text.c_str(),
-                {m_fg_color.r, m_fg_color.g, m_fg_color.b, m_fg_color.a});
-
-            auto surface   = std::make_shared<SDLSurface>(text_surface);
-            m_text_texture = std::make_shared<SDLTexture>(GUIRenderManager::getRenderer(), surface);
-
-            surface.reset();
-
             // If widget does not have a size set it to the size of the text.
-            if(m_content == cymath::Size(0, 0))
+            if(!m_content)
             {
-                auto size = m_text_texture->getSize() + getPadding() + getBorder() + getMargin();
+                SDL_Surface* text_surface = TTF_RenderText_Blended(
+                    font->getFont(),
+                    m_text.c_str(),
+                    {m_fg_color.r, m_fg_color.g, m_fg_color.b, m_fg_color.a});
+
+                auto surface = std::make_shared<SDLSurface>(text_surface);
+                m_text_texture =
+                    std::make_shared<SDLTexture>(GUIRenderManager::getRenderer(), surface);
+
+                const auto size = m_text_texture->getSize() + getPadding() + getBorder() + getMargin();
                 setSize(size);
+
+                // Clear the temporary surface
+                surface.reset();
+            }
+            else
+            {
+                // TODO
             }
         }
         else
@@ -51,9 +64,12 @@ namespace cyanide::cygui
         }
     }
 
+    // Public
+
     void TextWidget::setText(const String& text)
     {
-        m_text = text;
+        m_text                 = text;
+        m_text_texture_changed = true;
     }
 
     String TextWidget::getText() const
@@ -79,6 +95,12 @@ namespace cyanide::cygui
 
     void TextWidget::draw()
     {
+        if(m_text_texture_changed)
+        {
+            initTextTexture();
+            m_text_texture_changed = false;
+        }
+
         drawText();
 
         Object::draw();

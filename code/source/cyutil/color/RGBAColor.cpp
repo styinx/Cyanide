@@ -1,5 +1,7 @@
 #include "cyutil/color/RGBAColor.hpp"
 
+#include "cystd/Enum.hpp"
+
 #include <cmath>
 
 namespace cyanide::cyutil
@@ -9,26 +11,73 @@ namespace cyanide::cyutil
         : r(0)
         , g(0)
         , b(0)
-        , a(0xFF)
+        , a(Default::MASK)
     {
     }
 
     RGBAColor::RGBAColor(const Uint32 color)
     {
-        r = static_cast<Byte>((color >> 24U) & 0xFF);
-        g = static_cast<Byte>((color >> 16U) & 0xFF);
-        b = static_cast<Byte>((color >> 8U) & 0xFF);
-        a = static_cast<Byte>(color & 0xFFU);
+        const auto rgba = toRGBA(color);
+
+        r = rgba.r;
+        g = rgba.g;
+        b = rgba.b;
+        a = rgba.a;
+    }
+
+    RGBAColor::RGBAColor(const String& color)
+    {
+        if(color.front() != '#')
+        {
+            // err
+        }
+
+        String value = color.substr(1);
+
+        // TODO refactor
+        for(const auto& c : value)
+        {
+            if(!((c >= 48 && c <= 57) || (c >= 65 && c <= 70) || (c >= 97 && c <= 102)))
+            {
+                // err
+                break;
+            }
+        }
+
+        if(value.size() == 3)
+        {
+            char*  hex = value.data();
+            String temp{};
+            temp += hex[0];
+            temp += hex[0];
+            temp += hex[1];
+            temp += hex[1];
+            temp += hex[2];
+            temp += hex[2];
+            value = temp;
+        }
+
+        if(value.size() != 6)
+        {
+            // err
+        }
+
+        const auto rgba = RGBAColor::toRGBA(std::stoi(value));
+
+        r = rgba.r;
+        g = rgba.g;
+        b = rgba.b;
+        a = rgba.a;
     }
 
     RGBAColor::RGBAColor(const RGBA color)
     {
-        const auto rgba = static_cast<Uint32>(color);
+        const auto rgba = RGBAColor::toRGBA(cystd::fromEnum(color));
 
-        r = static_cast<Byte>((rgba >> 24U) & 0xFF);
-        g = static_cast<Byte>((rgba >> 16U) & 0xFF);
-        b = static_cast<Byte>((rgba >> 8U) & 0xFF);
-        a = static_cast<Byte>(rgba & 0xFFU);
+        r = rgba.r;
+        g = rgba.g;
+        b = rgba.b;
+        a = rgba.a;
     }
 
     RGBAColor::RGBAColor(const Byte r, const Byte g, const Byte b, const Byte a)
@@ -38,6 +87,22 @@ namespace cyanide::cyutil
         , a(a)
     {
     }
+
+    // Private
+
+    RGBAColor RGBAColor::toRGBA(const Uint32 value)
+    {
+        RGBAColor color;
+
+        color.r = static_cast<Byte>((value >> 24U) & Default::MASK);
+        color.g = static_cast<Byte>((value >> 16U) & Default::MASK);
+        color.b = static_cast<Byte>((value >> 8U) & Default::MASK);
+        color.a = static_cast<Byte>(value & Default::MASK);
+
+        return color;
+    }
+
+    // Public
 
     RGBAColor::operator Uint32()
     {
@@ -61,19 +126,19 @@ namespace cyanide::cyutil
 
     RGBAColor& RGBAColor::add(const Byte r, const Byte g, const Byte b, const Byte a)
     {
-        this->r = std::min(255, this->r + r);
-        this->g = std::min(255, this->g + g);
-        this->b = std::min(255, this->b + b);
-        this->a = std::min(255, this->a + a);
+        this->r = std::min<Byte>(Default::RGBA_MAX, this->r + r);
+        this->g = std::min<Byte>(Default::RGBA_MAX, this->g + g);
+        this->b = std::min<Byte>(Default::RGBA_MAX, this->b + b);
+        this->a = std::min<Byte>(Default::RGBA_MAX, this->a + a);
         return *this;
     }
 
     RGBAColor& RGBAColor::sub(const Byte r, const Byte g, const Byte b, const Byte a)
     {
-        this->r = std::max(0, this->r - r);
-        this->g = std::max(0, this->g - r);
-        this->b = std::max(0, this->b - r);
-        this->a = std::max(0, this->a - a);
+        this->r = std::max<Byte>(Default::RGBA_MIN, this->r - r);
+        this->g = std::max<Byte>(Default::RGBA_MIN, this->g - r);
+        this->b = std::max<Byte>(Default::RGBA_MIN, this->b - r);
+        this->a = std::max<Byte>(Default::RGBA_MIN, this->a - a);
         return *this;
     }
 

@@ -26,12 +26,14 @@ namespace cyanide::cymath
         z = other.z;
     }
 
-    Point& Point::operator=(const Point& other)
+    Point::operator bool() const
     {
-        x = other.x;
-        y = other.y;
-        z = other.z;
-        return *this;
+        return !empty();
+    }
+
+    bool Point::empty() const
+    {
+        return x + y + z == 0;
     }
 
     Point& Point::set(const Sint32 x, const Sint32 y, const Sint32 z)

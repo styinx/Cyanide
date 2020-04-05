@@ -10,10 +10,10 @@ namespace cyanide::cymath
     class Line
     {
     public:
-        Sint32 x1;
-        Sint32 y1;
-        Sint32 x2;
-        Sint32 y2;
+        Sint32 x1 = 0;
+        Sint32 y1 = 0;
+        Sint32 x2 = 0;
+        Sint32 y2 = 0;
 
         Line();
         Line(const Point p1, const Point p2);
@@ -23,6 +23,8 @@ namespace cyanide::cymath
         Line& operator=(const Line& other) = default;
         Line& operator=(Line&& other) noexcept = default;
         virtual ~Line()                        = default;
+        explicit    operator bool() const;
+        bool        empty() const;
         Point       first() const;
         Point       second() const;
         Line&       set(const Sint32 x1, const Sint32 y1, const Sint32 x2, const Sint32 y2);

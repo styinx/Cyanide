@@ -29,6 +29,16 @@ namespace cyanide::cymath
     {
     }
 
+    Rectangle::operator bool() const
+    {
+        return !empty();
+    }
+
+    bool Rectangle::empty() const
+    {
+        return x + y + w + h == 0;
+    }
+
     Point Rectangle::topLeft() const
     {
         return {x, y};
@@ -51,8 +61,8 @@ namespace cyanide::cymath
 
     Point Rectangle::center() const
     {
-        return {static_cast<Sint32>(std::lround(x + w / 2.0f)),
-                static_cast<Sint32>(std::lround(y + h / 2.0f))};
+        return {static_cast<Sint32>(std::lround(x + w / 2.0F)),
+                static_cast<Sint32>(std::lround(y + h / 2.0F))};
     }
 
     Point Rectangle::getPosition() const

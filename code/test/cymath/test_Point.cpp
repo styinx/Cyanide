@@ -42,6 +42,28 @@ TEST(PointTest, CpyAssign)
     ASSERT_TRUE(p.z == r.z);
 }
 
+TEST(PointTest, bool)
+{
+    Point p;
+
+    ASSERT_FALSE(p);
+
+    p.set(2, 1, 2);
+
+    ASSERT_TRUE(p);
+}
+
+TEST(PointTest, empty)
+{
+    Point p;
+
+    ASSERT_TRUE(p.empty());
+
+    p.set(2, 1, 2);
+
+    ASSERT_FALSE(p.empty());
+}
+
 TEST(PointTest, set)
 {
     Point p;
@@ -81,7 +103,7 @@ TEST(PointTest, mul)
     Point q = p;
 
     p.mul(3, 2, 1);
-    q.mul(1.5f, 1.5f, 1.5f);
+    q.mul(1.5F, 1.5F, 1.5F);
 
     ASSERT_EQ(3, p.x);
     ASSERT_EQ(4, p.y);
@@ -98,7 +120,7 @@ TEST(PointTest, div)
     Point q = p;
 
     p.div(2, 3, 4);
-    q.div(0.1f, 0.5f, 1.5f);
+    q.div(0.1F, 0.5F, 1.5F);
 
     ASSERT_EQ(3, p.x);
     ASSERT_EQ(2, p.y);
@@ -209,8 +231,8 @@ TEST(PointTest, opmulscalar)
 {
     Point p(1, 2, 3);
 
-    Point q = p * 3;
-    Point r = p * 1.5f;
+    Point q = p * 3.0F;
+    Point r = p * 1.5F;
 
     ASSERT_EQ(3, q.x);
     ASSERT_EQ(6, q.y);
@@ -227,7 +249,7 @@ TEST(PointTest, opimulscalar)
     Point q(1, 2, 3);
 
     p *= 3;
-    q *= 2.5f;
+    q *= 2.5F;
 
     ASSERT_EQ(3, p.x);
     ASSERT_EQ(6, p.y);
@@ -242,8 +264,8 @@ TEST(PointTest, opdivscalar)
 {
     Point p(1, 2, 3);
 
-    Point q = p / 3;
-    Point r = p / 1.5f;
+    Point q = p / 3.0F;
+    Point r = p / 1.5F;
 
     ASSERT_EQ(0, q.x);
     ASSERT_EQ(1, q.y);
@@ -260,7 +282,7 @@ TEST(PointTest, opidivscalar)
     Point q(1, 2, 3);
 
     p /= 2;
-    q /= 2.5f;
+    q /= 2.5F;
 
     ASSERT_EQ(1, p.x);
     ASSERT_EQ(1, p.y);
@@ -282,7 +304,7 @@ TEST(PointTest, eq)
 TEST(PointTest, neq)
 {
     Point p(1, 2, 3);
-    Point q = p * 2;
+    Point q = p * 2.0F;
 
     ASSERT_TRUE(p != q);
 }
@@ -290,7 +312,7 @@ TEST(PointTest, neq)
 TEST(PointTest, lt)
 {
     Point p(1, 2, 3);
-    Point q = p * 2;
+    Point q = p * 2.0F;
 
     ASSERT_TRUE(p < q);
 }
@@ -298,7 +320,7 @@ TEST(PointTest, lt)
 TEST(PointTest, lteq)
 {
     Point p(1, 2, 3);
-    Point q = p * 2;
+    Point q = p * 2.0F;
     Point r = p;
 
     ASSERT_TRUE(p <= q && p <= r);
@@ -307,7 +329,7 @@ TEST(PointTest, lteq)
 TEST(PointTest, gt)
 {
     Point p(1, 2, 3);
-    Point q = p * 2;
+    Point q = p * 2.0F;
 
     ASSERT_TRUE(q > p);
 }
@@ -315,7 +337,7 @@ TEST(PointTest, gt)
 TEST(PointTest, gteq)
 {
     Point p(1, 2, 3);
-    Point q = p * 2;
+    Point q = p * 2.0F;
     Point r = p;
 
     ASSERT_TRUE(q >= p && r >= p);

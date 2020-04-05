@@ -17,6 +17,16 @@ namespace cyanide::cymath
     {
     }
 
+    Size::operator bool() const
+    {
+        return !empty();
+    }
+
+    bool Size::empty() const
+    {
+        return width + height == 0;
+    }
+
     Size& Size::set(const Sint32 w, const Sint32 h)
     {
         width  = w;

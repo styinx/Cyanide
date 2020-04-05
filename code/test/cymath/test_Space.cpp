@@ -1,6 +1,6 @@
-#include <gtest/gtest.h>
-
 #include "cymath/Space.hpp"
+
+#include <gtest/gtest.h>
 
 using namespace cyanide::cymath;
 
@@ -46,6 +46,28 @@ TEST(SpaceTest, CpyAssign)
     ASSERT_TRUE(s.left == t.left);
 }
 
+TEST(SpaceTest, bool)
+{
+    Space s;
+
+    ASSERT_FALSE(s);
+
+    s.set(2, 1, 1, 0);
+
+    ASSERT_TRUE(s);
+}
+
+TEST(SpaceTest, empty)
+{
+    Space s;
+
+    ASSERT_TRUE(s.empty());
+
+    s.set(2, 1, 1, 0);
+
+    ASSERT_FALSE(s.empty());
+}
+
 TEST(SpaceTest, set)
 {
     Space s;
@@ -88,7 +110,7 @@ TEST(SpaceTest, mul)
     Space t(s);
 
     s.mul(2, 3, 4, 5);
-    t.mul(0.5f, 1.5f, 2.5f, 1.5f);
+    t.mul(0.5F, 1.5F, 2.5F, 1.5F);
 
     ASSERT_EQ(-10, s.top);
     ASSERT_EQ(9, s.right);
@@ -107,7 +129,7 @@ TEST(SpaceTest, div)
     Space t(s);
 
     s.div(2, 3, 4, 5);
-    t.div(0.5f, 1.5f, 2.5f, 1.5f);
+    t.div(0.5F, 1.5F, 2.5F, 1.5F);
 
     ASSERT_EQ(-10, s.top);
     ASSERT_EQ(9, s.right);

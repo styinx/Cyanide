@@ -1,9 +1,9 @@
 #include "cyinput/SDLEventLoop.hpp"
 #include "cysystem/sdl/SDL.hpp"
 #include "cyutil/io/Print.hpp"
-#include "cyvideo/SDLSurface.hpp"
-#include "cyvideo/font/SDLFont.hpp"
 #include "cyvideo/window/SDLWindow.hpp"
+
+#include <SDL2/SDL.h>
 
 int main()
 {

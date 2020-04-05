@@ -54,6 +54,7 @@ function(cy_add_module module)
     include("${DIR_SOURCE}/${module}/CMakeLists.txt")
 
     add_library(${module} STATIC ${${module}_includes} ${${module}_sources})
+#    add_library(${module} SHARED ${${module}_includes} ${${module}_sources})
     target_link_libraries(${module} ${ARGN})
     set_target_properties(
             ${module} PROPERTIES
@@ -110,7 +111,7 @@ set(GCC_COMPILE_FLAGS "-Wall -Wextra -ansi -pedantic")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COMPILE_FLAGS}")
 
-set(CMAKE_BUILD_TYPE RELEASE)
+#set(CMAKE_BUILD_TYPE RELEASE)
 
 
 #
@@ -159,7 +160,7 @@ pkg_search_module(SDL2TTF REQUIRED SDL2_ttf>=2.0.0)
 
 cy_add_module(cyaudio -lSDL2_mixer)
 cy_add_module(cygui)
-cy_add_module(cyinput)
+cy_add_module(cyinput cymath)
 cy_add_module(cymath)
 cy_add_module(cynet -lSDL2_net)
 cy_add_module(cystd)
@@ -169,7 +170,9 @@ cy_add_module(cyvideo "cymath;-lSDL2_image;-lSDL2_gfx;-lSDL2_ttf")
 
 cy_build_target(Main apps/main.cpp "${LIBRARIES}" "cygui;cyinput;cymath;cyutil;cysystem;cyvideo")
 cy_build_target(Animation apps/animation.cpp "${LIBRARIES}" "cyinput;cymath;cyutil;cysystem;cyvideo")
+cy_build_target(Input apps/input.cpp "${LIBRARIES}" "cygui;cyinput;cymath;cyutil;cysystem;cyvideo")
 cy_build_target(Client apps/client.cpp "${LIBRARIES}" "cynet")
 cy_build_target(Server apps/server.cpp "${LIBRARIES}" "cynet")
+cy_build_target(UI apps/ui.cpp "${LIBRARIES}" "cygui;cyinput;cymath;cyutil;cysystem;cyvideo")
 
-cy_build_test(Test test/test.cpp "${TEST_LIBRARIES}" "cygui;cymath;cyutil;cyvideo")
+cy_build_test(Test test/test.cpp "${TEST_LIBRARIES}" "cygui;cymath;cyutil;cysystem;cyvideo")

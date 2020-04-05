@@ -41,6 +41,8 @@ template<typename K, typename V>
 using Map = std::map<K, V>;
 template<typename K, typename V>
 using UMap = std::unordered_map<K, V>;
+template<typename F, typename S>
+using Pair = std::pair<F, S>;
 
 // pointer types
 template<typename T>

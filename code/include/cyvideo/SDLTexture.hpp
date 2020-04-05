@@ -19,11 +19,13 @@ namespace cyanide::cyvideo
     class SDLTexture final : public ITexture
     {
     private:
-        SDL_Texture* m_texture = nullptr;
-        Uint32       m_format  = Default::TEXTURE_FORMAT;
-        int          m_access  = Default::TEXTURE_ACCESS;
-        cymath::Size m_size    = {0, 0};
+        SDL_Texture* m_texture  = nullptr;
+        Uint32       m_format   = Default::TEXTURE_FORMAT;
+        int          m_access   = Default::TEXTURE_ACCESS;
+        int          m_rotation = 0;
+        cymath::Size m_size     = {0, 0};
 
+        SDLTexture() = default;
         void loadTextureInfo();
 
     public:
@@ -35,11 +37,14 @@ namespace cyanide::cyvideo
         SDL_Texture* getTexture() const;
         cymath::Size getSize() const;
 
+        void          rotate(const int deg);
+        void          setRotatation(const int deg);
+        int           getRotation() const;
         void          setBlendMode(const SDL_BlendMode mode);
         SDL_BlendMode getBlendMode() const;
         void          setAlphaMod(const Uint8 alpha);
         Uint8         getAlphaMod() const;
-        void          setColorMod(const SDL_Color color);
+        void          setColorMod(const SDL_Color& color);
         SDL_Color     getColorMod() const;
     };
 

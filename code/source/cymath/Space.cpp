@@ -21,6 +21,16 @@ namespace cyanide::cymath
     {
     }
 
+    Space::operator bool() const
+    {
+        return !empty();
+    }
+
+    bool Space::empty() const
+    {
+        return top + right + bottom + left == 0;
+    }
+
     Space& Space::set(const Sint32 top, const Sint32 right, const Sint32 bottom, const Sint32 left)
     {
         this->top    = top;

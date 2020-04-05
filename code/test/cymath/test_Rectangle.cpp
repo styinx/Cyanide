@@ -56,10 +56,32 @@ TEST(RectangleTest, CpyAssign)
     ASSERT_EQ(r.h, s.h);
 }
 
+TEST(RectangleTest, bool)
+{
+    Rectangle r;
+
+    ASSERT_FALSE(r);
+
+    r.set(2, 1, 1, 0);
+
+    ASSERT_TRUE(r);
+}
+
+TEST(RectangleTest, empty)
+{
+    Space s;
+
+    ASSERT_TRUE(s.empty());
+
+    s.set(2, 1, 1, 0);
+
+    ASSERT_FALSE(s.empty());
+}
+
 TEST(RectangleTest, topLeft)
 {
     Rectangle r(-2, -3, 5, 5);
-    Point tl = r.topLeft();
+    Point     tl = r.topLeft();
 
     ASSERT_EQ(-2, tl.x);
     ASSERT_EQ(-3, tl.y);
@@ -161,7 +183,7 @@ TEST(RectangleTest, mul)
     Rectangle s = r;
 
     r.mul(2, 3, 1, 4);
-    s.mul(2.0f, 1.5f, -1.0f, 2.5f);
+    s.mul(2.0F, 1.5F, -1.0F, 2.5F);
 
     ASSERT_EQ(4, r.x);
     ASSERT_EQ(6, r.y);
@@ -180,7 +202,7 @@ TEST(RectangleTest, div)
     Rectangle s = r;
 
     r.div(1, 2, 4, 5);
-    s.div(-2.0f, 1.5f, 0.5f, 1.5f);
+    s.div(-2.0F, 1.5F, 0.5F, 1.5F);
 
     ASSERT_EQ(2, r.x);
     ASSERT_EQ(2, r.y);
@@ -301,8 +323,8 @@ TEST(RectangleTest, opmulscalar)
 {
     Rectangle r(2, 3, 6, 7);
 
-    Rectangle q = r * 3;
-    Rectangle s = r * 1.5f;
+    Rectangle q = r * 3.0F;
+    Rectangle s = r * 1.5F;
 
     ASSERT_EQ(6, q.x);
     ASSERT_EQ(9, q.y);
@@ -321,7 +343,7 @@ TEST(RectangleTest, opimulscalar)
     Rectangle q(2, 3, 6, 7);
 
     r *= 3;
-    q *= 1.5f;
+    q *= 1.5F;
 
     ASSERT_EQ(6, r.x);
     ASSERT_EQ(9, r.y);
@@ -338,8 +360,8 @@ TEST(RectangleTest, opdivscalar)
 {
     Rectangle r(2, 3, 6, 7);
 
-    Rectangle q = r / 3;
-    Rectangle s = r / 1.5f;
+    Rectangle q = r / 3.0F;
+    Rectangle s = r / 1.5F;
 
     ASSERT_EQ(1, q.x);
     ASSERT_EQ(1, q.y);
@@ -358,7 +380,7 @@ TEST(RectangleTest, opidivscalar)
     Rectangle q(2, 3, 6, 7);
 
     r /= 3;
-    q /= 1.5f;
+    q /= 1.5F;
 
     ASSERT_EQ(1, r.x);
     ASSERT_EQ(1, r.y);
@@ -467,7 +489,7 @@ TEST(RectangleTest, lteq)
 {
     Rectangle r(2, 2, 3, 3);
     Rectangle s = r;
-    Rectangle t = r * 2;
+    Rectangle t = r * 2.0F;
 
     ASSERT_TRUE(r <= s && r <= t);
 }
@@ -484,7 +506,7 @@ TEST(RectangleTest, gteq)
 {
     Rectangle r(2, 2, 4, 4);
     Rectangle s = r;
-    Rectangle t = r * 2;
+    Rectangle t = r * 2.0F;
 
     ASSERT_TRUE(s >= r && t >= r);
 }

@@ -7,17 +7,19 @@ namespace cyanide::cymath
     class Vector
     {
     public:
-        float x;
-        float y;
-        float z;
+        float x = 0;
+        float y = 0;
+        float z = 0;
 
         Vector();
         Vector(const float x, const float y, const float z = 0);
         Vector(const Vector& other)     = default;
         Vector(Vector&& other) noexcept = default;
-        virtual ~Vector()               = default;
-        Vector&     operator=(const Vector& other) = default;
-        Vector&     operator=(Vector&& other) noexcept = default;
+        Vector& operator=(const Vector& other) = default;
+        Vector& operator=(Vector&& other) noexcept = default;
+        virtual ~Vector()                          = default;
+        explicit    operator bool() const;
+        bool        empty() const;
         Vector&     set(const float x, const float y, const float z = 0);
         Vector&     add(const float x, const float y, const float z = 0);
         Vector&     sub(const float x, const float y, const float z = 0);
@@ -43,6 +45,6 @@ namespace cyanide::cymath
         friend bool operator>=(const Vector& first, const Vector& second);
     };
 
-}  // namespace cyanide
+}  // namespace cyanide::cymath
 
 #endif  // CYANIDE_VECTOR_HPP
