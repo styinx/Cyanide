@@ -1,5 +1,6 @@
 #include "cyvideo/font/SDLFont.hpp"
 
+#include "cystd/Enum.hpp"
 #include "cyvideo/font/SDLFontCollection.hpp"
 
 namespace cyanide::cyvideo
@@ -53,7 +54,7 @@ namespace cyanide::cyvideo
 
     void SDLFont::openFont(const String& path, const Uint8 size)
     {
-        m_font             = TTF_OpenFont(path.c_str(), size);
+        m_font              = TTF_OpenFont(path.c_str(), size);
         m_font_info.size_pt = size;
 
         if(m_font != nullptr)
@@ -63,8 +64,7 @@ namespace cyanide::cyvideo
         }
         else
         {
-            //err
-            int i = 0;
+            // err
         }
     }
 
@@ -74,7 +74,7 @@ namespace cyanide::cyvideo
         {
             SDLFontCollection::clearFont(m_font_info.face_family);
             TTF_CloseFont(m_font);
-            m_font = nullptr;
+            m_font      = nullptr;
             m_font_info = SDLFontInfo{};
             m_metrics.clear();
         }
@@ -138,7 +138,7 @@ namespace cyanide::cyvideo
 
     void SDLFont::setFontStyle(const FONT_STYLE& style)
     {
-        TTF_SetFontStyle(m_font, static_cast<int>(style));
+        TTF_SetFontStyle(m_font, cystd::fromEnum(style));
         m_font_info.style = style;
     }
 
@@ -183,9 +183,10 @@ namespace cyanide::cyvideo
     SDLCharMetrics SDLFont::getMetrics(const Uint16 character) const
     {
         SDLCharMetrics m = {};
-        m.character = character;
+        m.character      = character;
 
-        if(TTF_GlyphMetrics(m_font, m.character, &m.min_x, &m.max_x, &m.min_y, &m.max_y, &m.advance) == -1)
+        if(TTF_GlyphMetrics(m_font, m.character, &m.min_x, &m.max_x, &m.min_y, &m.max_y, &m.advance) ==
+           -1)
         {
             // err
         }
@@ -217,4 +218,4 @@ namespace cyanide::cyvideo
 
         return size;
     }
-}
+}  // namespace cyanide::cyvideo

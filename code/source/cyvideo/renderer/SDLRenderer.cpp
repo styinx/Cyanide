@@ -76,12 +76,32 @@ namespace cyanide::cyvideo
         }
     }
 
+    int SDLRenderer::getRendererIndex() const
+    {
+        return m_renderer_index;
+    }
+
     void SDLRenderer::setRendererFlags(const Uint32 flags)
     {
         if(m_renderer_info.flags != flags)
         {
             createRenderer(m_window, m_renderer_index, flags);
         }
+    }
+
+    int SDLRenderer::getRendererFlags() const
+    {
+        return m_renderer_info.flags;
+    }
+
+    int SDLRenderer::getMaxTextureWidth()
+    {
+        return m_renderer_info.max_texture_width;
+    }
+
+    int SDLRenderer::getMaxTextureHeight()
+    {
+        return m_renderer_info.max_texture_height;
     }
 
     void SDLRenderer::clear()
@@ -131,6 +151,9 @@ namespace cyanide::cyvideo
         const cymath::Point& p2,
         const cymath::Point& p3)
     {
+        drawLine({p1, p2});
+        drawLine({p2, p3});
+        drawLine({p3, p1});
     }
 
     void cyvideo::SDLRenderer::drawRectangle(const cymath::Rectangle& r)
@@ -147,14 +170,39 @@ namespace cyanide::cyvideo
 
     void cyvideo::SDLRenderer::drawPolygon(const Vector<cymath::Point>& p)
     {
+        if(p.size() > 1)
+        {
+            cymath::Point start = p.front();
+            auto          it    = p.begin() + 1;
+            while(it != p.end())
+            {
+                drawLine({start, *it});
+                start = *it;
+            }
+        }
     }
 
     void SDLRenderer::drawSDLTexture(const SDLTextureSPtr& texture, const cymath::Point& position)
     {
-        cymath::Size s = texture->getSize();
-        SDL_Rect src{0, 0, s.width, s.height};
-        SDL_Rect dst{position.x, position.y, s.width, s.height};
-        SDL_RenderCopy(m_renderer, texture->getTexture(), &src, &dst);
+        const auto      s = texture->getSize();
+        const SDL_Rect  src{0, 0, s.width, s.height};
+        const SDL_Rect  dst{position.x, position.y, s.width, s.height};
+        const SDL_Point p{dst.x + dst.w / 2, dst.y + dst.h / 2};
+        SDL_RenderCopyEx(
+            m_renderer, texture->getTexture(), &src, &dst, texture->getRotation(), &p, SDL_FLIP_NONE);
+    }
+
+    void SDLRenderer::drawSDLTexture(
+        const SDLTextureSPtr& texture,
+        const cymath::Point&  position,
+        const cymath::Size&   size)
+    {
+        const auto      s = texture->getSize();
+        const SDL_Rect  src{0, 0, s.width, s.height};
+        const SDL_Rect  dst{position.x, position.y, size.width, size.height};
+        const SDL_Point p{dst.x + dst.w / 2, dst.y + dst.h / 2};
+        SDL_RenderCopyEx(
+            m_renderer, texture->getTexture(), &src, &dst, texture->getRotation(), &p, SDL_FLIP_NONE);
     }
 
 }  // namespace cyanide::cyvideo

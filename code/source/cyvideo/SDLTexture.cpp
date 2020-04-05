@@ -60,6 +60,22 @@ namespace cyanide::cyvideo
         return m_size;
     }
 
+    void SDLTexture::rotate(const int deg)
+    {
+        m_rotation += deg;
+        m_rotation %= 360;
+    }
+
+    void SDLTexture::setRotatation(const int deg)
+    {
+        m_rotation = deg % 360;
+    }
+
+    int SDLTexture::getRotation() const
+    {
+        return m_rotation;
+    }
+
     void SDLTexture::setBlendMode(const SDL_BlendMode mode)
     {
         SDL_SetTextureBlendMode(m_texture, mode);
@@ -72,7 +88,7 @@ namespace cyanide::cyvideo
         return mode;
     }
 
-    void SDLTexture::setAlphaMod(Uint8 alpha_mod)
+    void SDLTexture::setAlphaMod(const Uint8 alpha_mod)
     {
         SDL_SetTextureAlphaMod(m_texture, alpha_mod);
     }
@@ -84,7 +100,7 @@ namespace cyanide::cyvideo
         return mod;
     }
 
-    void SDLTexture::setColorMod(SDL_Color color_mod)
+    void SDLTexture::setColorMod(const SDL_Color& color_mod)
     {
         SDL_SetTextureColorMod(m_texture, color_mod.r, color_mod.g, color_mod.r);
     }

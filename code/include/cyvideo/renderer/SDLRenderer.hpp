@@ -2,8 +2,8 @@
 #define CYANIDE_SDLRENDERER_HPP
 
 #include "IRenderer.hpp"
-#include "cyvideo/videoPrototypes.hpp"
 #include "cyutil/color/RGBAColor.hpp"
+#include "cyvideo/videoPrototypes.hpp"
 
 #include <SDL2/SDL_render.h>
 
@@ -37,7 +37,11 @@ namespace cyanide::cyvideo
         SDL_Renderer* getRenderer() const;
         cymath::Size  getSize() const;
         void          setRendererIndex(const int index);
+        int           getRendererIndex() const;
         void          setRendererFlags(const Uint32 flags);
+        int           getRendererFlags() const;
+        int           getMaxTextureWidth();
+        int           getMaxTextureHeight();
 
         virtual void clear() override;
         virtual void show() override;
@@ -54,7 +58,11 @@ namespace cyanide::cyvideo
         virtual void drawRectangle(const cymath::Rectangle& r) override;
         virtual void drawFilledRectangle(const cymath::Rectangle& r) override;
         virtual void drawPolygon(const Vector<cyanide::cymath::Point>& p) override;
-        void drawSDLTexture(const SDLTextureSPtr& texture, const cymath::Point& position);
+        void         drawSDLTexture(const SDLTextureSPtr& texture, const cymath::Point& position);
+        void         drawSDLTexture(
+                    const SDLTextureSPtr& texture,
+                    const cymath::Point&  position,
+                    const cymath::Size&   size);
     };
 
 }  // namespace cyanide::cyvideo
