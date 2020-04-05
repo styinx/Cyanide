@@ -3,6 +3,8 @@
 
 #include "cystd/Types.hpp"
 
+#include <SDL2/SDL.h>
+
 namespace cyanide::cysystem
 {
 
@@ -19,20 +21,20 @@ namespace cyanide::cysystem
         SDL(SDL&& SDL) noexcept = default;
         SDL& operator=(const SDL& SDL) = default;
         SDL& operator=(SDL&& SDL) noexcept = default;
-        ~SDL()                     = default;
+        ~SDL()                             = default;
 
         Uint32 initSDL(const Uint32& flags);
-        void quitSDL(const Uint32& flags);
+        void   quitSDL(const Uint32& flags);
         Uint32 initIMG(const Uint32& flags);
-        void quitIMG();
+        void   quitIMG();
         Uint32 initMIX(const Uint32& flags);
-        void quitMIX();
+        void   quitMIX();
         Uint32 initNET();
-        void quitNET();
+        void   quitNET();
         Uint32 initTTF();
-        void quitTTF();
+        void   quitTTF();
     };
 
-}
+}  // namespace cyanide::cysystem
 
 #endif  // CYANIDE_SDL_HPP
