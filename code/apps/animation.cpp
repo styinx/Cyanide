@@ -29,17 +29,18 @@ int main()
         cyvideo::AnimationDirection::BACKWARD,
         255);
 
-    cyinput::SDLEventLoop eventLoop{};
-
-    eventLoop.onLoopBegin([ren, color_animation]() {
+    const auto update = [ren, color_animation](const SDL_Event& event) {
         ren->clear();
         color_animation->update();
         ren->setDrawColor(color_animation->current());
         ren->drawFilledRectangle(Rectangle{0, 0, 50, 50});
-    });
+    };
 
-    eventLoop.onLoopEnd([ren]() { ren->show(); });
+    const auto draw = [ren](const SDL_Event& event) { ren->show(); };
 
+    cyinput::SDLEventLoop eventLoop{};
+    eventLoop.onLoopBegin(update);
+    eventLoop.onLoopEnd(draw);
     eventLoop.run();
 
     return 0;
