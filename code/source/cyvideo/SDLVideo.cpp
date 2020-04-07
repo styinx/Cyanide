@@ -1,7 +1,7 @@
 
 #include "cyvideo/SDLVideo.hpp"
 
-#include <iostream>
+#include "cyutil/logging/Logging.hpp"
 
 namespace cyanide::cyvideo
 {
@@ -9,11 +9,12 @@ namespace cyanide::cyvideo
     SDL_DisplayMode* SDLVideo::getDesktopDisplayModeById(const Uint32 display_id, const Uint32 mode_id)
     {
         SDL_DisplayMode* mode = nullptr;
-        if(display_id < SDLVideo::getNumberOfVideoDisplays() && mode_id < SDLVideo::getNumberOfDisplayModes(display_id))
+        if(display_id < SDLVideo::getNumberOfVideoDisplays() &&
+           mode_id < SDLVideo::getNumberOfDisplayModes(display_id))
         {
             if(SDL_GetDisplayMode(display_id, mode_id, mode) == 0)
             {
-                //Todo
+                // Todo
             }
         }
         return mode;
@@ -21,15 +22,17 @@ namespace cyanide::cyvideo
 
     SDL_DisplayMode* SDLVideo::getCurrentDesktopDisplayMode(const Uint32 display_id)
     {
+        using cyutil::print;
+
         SDL_DisplayMode* current = nullptr;
 
         if(display_id < SDLVideo::getNumberOfVideoDisplays())
         {
             if(SDL_GetCurrentDisplayMode(display_id, current) != 0)
             {
-                std::cout << SDL_GetError() << "error\n";
+                print(SDL_GetError());
             }
-            std::cout << SDL_GetError() << "\n";
+            print(SDL_GetError());
         }
         return current;
     }
@@ -42,7 +45,7 @@ namespace cyanide::cyvideo
         {
             if(SDL_GetClosestDisplayMode(display_id, mode, closest) != nullptr)
             {
-                //todo
+                // todo
             }
         }
         return closest;
@@ -55,7 +58,7 @@ namespace cyanide::cyvideo
         {
             if(SDL_GetDesktopDisplayMode(display_id, mode) == 0)
             {
-                //todo
+                // todo
             }
         }
         return mode;
@@ -89,9 +92,15 @@ namespace cyanide::cyvideo
         return 0;
     }
 
-    String SDLVideo::getVideoDriverName(const Uint32 id) { return String(SDL_GetVideoDriver(id)); }
+    String SDLVideo::getVideoDriverName(const Uint32 id)
+    {
+        return String(SDL_GetVideoDriver(id));
+    }
 
-    String SDLVideo::getCurrentVideoDriverName() { return String(SDL_GetCurrentVideoDriver()); }
+    String SDLVideo::getCurrentVideoDriverName()
+    {
+        return String(SDL_GetCurrentVideoDriver());
+    }
 
     Uint32 SDLVideo::getNumberOfVideoDrivers()
     {
@@ -115,4 +124,4 @@ namespace cyanide::cyvideo
         return video_drivers;
     }
 
-}  // namespace cyanide
+}  // namespace cyanide::cyvideo

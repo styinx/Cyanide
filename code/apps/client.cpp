@@ -1,24 +1,28 @@
 #include "cynet/tcp/SDLTCPClient.hpp"
+#include "cysystem/sdl/SDL.hpp"
+#include "cyutil/logging/Logging.hpp"
 
-#include <SDL2/SDL.h>
-#include <iostream>
-
-void print(const std::vector<Uint8>& what)
+void printVec(const cyanide::Vector<cyanide::Byte>& vec)
 {
-    for(const auto& b : what)
+    using namespace cyanide::cyutil;
+    for(const auto& e : vec)
     {
-        std::cout << b;
+        print("{}", (char)e);
     }
-    std::cout << "\n";
+    print("\n");
+    fflush(stdout);
 }
 
 int main()
 {
     using namespace cyanide;
     using namespace cynet;
+    using namespace cyutil;
+    using namespace cysystem;
 
-    SDL_Init(SDL_INIT_EVERYTHING);
-    SDLNet_Init();
+    SDL sdl{};
+    sdl.initSDL(SDL_INIT_EVERYTHING);
+    sdl.initNET();
 
     SDLTCPClientSPtr client(new SDLTCPClient("localhost", 13370));
 
@@ -31,7 +35,7 @@ int main()
 
         if(!pack.empty())
         {
-            print(pack.getData());
+            printVec(pack.getData());
 
             if(*pack.getData().begin() == '0')
             {

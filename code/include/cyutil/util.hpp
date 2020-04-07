@@ -7,6 +7,7 @@
 #include "cyutil/color/animation/ColorAnimation.hpp"
 #include "cyutil/io/ByteStreamReader.hpp"
 #include "cyutil/io/Print.hpp"
+#include "cyutil/logging/Logging.hpp"
 #include "cyutil/serialize/ISerialize.hpp"
 #include "cyutil/time/Clock.hpp"
 #include "cyutil/time/ITimer.hpp"

@@ -8,8 +8,6 @@
 #include "cyvideo/renderer/SDLRenderer.hpp"
 #include "cyvideo/window/SDLWindow.hpp"
 
-#include <SDL2/SDL.h>
-
 int main()
 {
     using namespace cyanide;
@@ -28,22 +26,6 @@ int main()
     auto font = std::make_shared<cyvideo::SDLFont>(font_dir, 20);
 
     cyinput::SDLEventLoop eventLoop{};
-
-    if(SDL_EventState(SDL_SYSWMEVENT, SDL_ENABLE) == 1)
-    {
-        std::cout << "can hook\n";
-    }
-
-    if(SDL_CaptureMouse(SDL_TRUE) == 0)
-    {
-        std::cout << "can capture\n";
-    }
-
-    eventLoop.keyboard()->onKeyDown(
-        SDLK_a, [](const cyinput::KeyboardInput::KeyCode) { std::cout << "a down\n"; });
-    eventLoop.mouse()->on(cyinput::MouseInput::MOUSE_EVENT::ANY, [](const SDL_Event& event) {
-        std::cout << event.button.button << "\n";
-    });
 
     eventLoop.run();
 
