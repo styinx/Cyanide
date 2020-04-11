@@ -1,8 +1,6 @@
 cy_add_target_files(
         cygui_sources
 
-        GUIRenderManager.cpp
-
         layout/Box.cpp
         layout/HBox.cpp
         layout/VBox.cpp

@@ -14,9 +14,9 @@ namespace cyanide::cygui
 
     namespace Default
     {
-        static const cymath::Space MARGIN  = cymath::Space{1, 1, 1, 1};
+        static const cymath::Space MARGIN  = cymath::Space{0, 0, 0, 0};
         static const cymath::Space BORDER  = cymath::Space{1, 1, 1, 1};
-        static const cymath::Space PADDING = cymath::Space{1, 1, 1, 1};
+        static const cymath::Space PADDING = cymath::Space{3, 3, 3, 3};
 
         static const cyutil::RGBAColor BACKGROUND_COLOR = cyutil::RGBAColor{245, 245, 245, 255};
         static const cyutil::RGBAColor BORDER_COLOR     = cyutil::RGBAColor{200, 200, 200, 255};
@@ -65,6 +65,10 @@ namespace cyanide::cygui
         virtual cymath::Space     getPadding() const;
         virtual void              setPadding(const cymath::Space& padding);
         virtual cymath::Size      getContentSize() const;
+        virtual void              setBackgroundColor(const cyutil::RGBAColor& color);
+        virtual cyutil::RGBAColor getBackgroundColor() const;
+        virtual void              setBorderColor(const cyutil::RGBAColor& color);
+        virtual cyutil::RGBAColor getBorderColor() const;
 
         /**
          * @brief   Sets the inner content to the given size. This modifies also the

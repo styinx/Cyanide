@@ -62,7 +62,7 @@ namespace cyanide::cymath
         return *this;
     }
 
-    Size Size::operator+(const Size& other)
+    Size Size::operator+(const Size& other) const
     {
         return {width + other.width, height + other.height};
     }
@@ -72,7 +72,7 @@ namespace cyanide::cymath
         return add(other.width, other.height);
     }
 
-    Size Size::operator-(const Size& other)
+    Size Size::operator-(const Size& other) const
     {
         return {width - other.width, height - other.height};
     }
@@ -82,7 +82,7 @@ namespace cyanide::cymath
         return sub(other.width, other.height);
     }
 
-    Size Size::operator*(const Size& other)
+    Size Size::operator*(const Size& other) const
     {
         return {width * other.width, height * other.height};
     }
@@ -92,7 +92,7 @@ namespace cyanide::cymath
         return mul(other.width, other.height);
     }
 
-    Size Size::operator/(const Size& other)
+    Size Size::operator/(const Size& other) const
     {
         Size s = *this;
         return s.div(other.width, other.height);
@@ -103,7 +103,7 @@ namespace cyanide::cymath
         return div(other.width, other.height);
     }
 
-    Size Size::operator*(const float scalar)
+    Size Size::operator*(const float scalar) const
     {
         Size s = *this;
         return s.mul(scalar, scalar);
@@ -114,7 +114,7 @@ namespace cyanide::cymath
         return mul(scalar, scalar);
     }
 
-    Size Size::operator/(const float scalar)
+    Size Size::operator/(const float scalar) const
     {
         Size s = *this;
         return s.div(scalar, scalar);
@@ -125,7 +125,7 @@ namespace cyanide::cymath
         return div(scalar, scalar);
     }
 
-    Size Size::operator+(const Space& space)
+    Size Size::operator+(const Space& space) const
     {
         Size s = *this;
         return s.add(space.left + space.right, space.top + space.right);
@@ -136,7 +136,7 @@ namespace cyanide::cymath
         return add(space.left + space.right, space.top + space.right);
     }
 
-    Size Size::operator-(const Space& space)
+    Size Size::operator-(const Space& space) const
     {
         Size s = *this;
         return s.sub(space.left + space.right, space.top + space.right);

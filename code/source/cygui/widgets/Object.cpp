@@ -1,6 +1,6 @@
 #include "cygui/widgets/Object.hpp"
 
-#include "cygui/GUIRenderManager.hpp"
+#include "cyvideo/renderer/GUIRenderManager.hpp"
 #include "cyvideo/renderer/SDLRenderer.hpp"
 
 namespace cyanide::cygui
@@ -57,7 +57,7 @@ namespace cyanide::cygui
         drawBorder();
         drawBackground();
 
-        auto renderer = GUIRenderManager::getRenderer();
+        auto renderer = cyvideo::GUIRenderManager::getRenderer();
         auto offset   = cymath::Point(0, 0);
 
         renderer->setRenderTarget(m_texture);

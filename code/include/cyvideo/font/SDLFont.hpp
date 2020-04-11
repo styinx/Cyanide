@@ -2,6 +2,7 @@
 #define CYANIDE_SDLFONT_HPP
 
 #include "cymath/Size.hpp"
+#include "cyutil/color/RGBAColor.hpp"
 #include "cyvideo/font/IFont.hpp"
 #include "cyvideo/videoPrototypes.hpp"
 
@@ -44,6 +45,13 @@ namespace cyanide::cyvideo
         ITALIC_STRIKED            = TTF_STYLE_ITALIC,
         ITALIC_UNDERLINED_STRIKED = TTF_STYLE_ITALIC | TTF_STYLE_UNDERLINE | TTF_STYLE_STRIKETHROUGH,
         UNDERLINED_STRIKED        = TTF_STYLE_UNDERLINE | TTF_STYLE_STRIKETHROUGH
+    };
+
+    enum class RENDER_TYPE : Byte
+    {
+        SOLID   = 0x00,
+        SHADED  = 0x01,
+        BLENDED = 0x02
     };
 
     namespace Default
@@ -121,6 +129,9 @@ namespace cyanide::cyvideo
         SDLCharMetrics getMetrics(const Uint16 character) const;
         cymath::Size   getUTF8TextSize(const String& text) const;
         cymath::Size   getUnicodeTextSize(const WString& text) const;
+
+        SDLTextureSPtr render(const String& text, const cyutil::RGBAColor& color, const RENDER_TYPE type) const;
+        SDLTextureSPtr render(const WString& text, const cyutil::RGBAColor& color, const RENDER_TYPE type) const;
     };
 
     using SDLFontSPtr = SharedPtr<SDLFont>;

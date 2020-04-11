@@ -14,7 +14,7 @@ namespace cyanide::cygui
         const String            FONT_FAMILY   = "Roboto";
         const Uint8             TEXT_SIZE     = 12;
         const ALIGN             TEXT_AIGNMENT = ALIGN::TOP_LEFT;
-        const cyutil::RGBAColor TEXT_FG_COLOR = cyutil::RGBAColor{255, 0, 0, 255};
+        const cyutil::RGBAColor TEXT_FG_COLOR = cyutil::RGBAColor{0, 0, 0, 255};
         const cyutil::RGBAColor TEXT_BG_COLOR = cyutil::RGBAColor{255, 255, 255, 255};
     }  // namespace Default
 
@@ -26,8 +26,9 @@ namespace cyanide::cygui
         String                  m_font_family          = Default::FONT_FAMILY;
         Uint8                   m_text_size            = Default::TEXT_SIZE;
         ALIGN                   m_alignment            = Default::TEXT_AIGNMENT;
-        cyutil::RGBAColor       m_fg_color             = Default::TEXT_FG_COLOR;
-        cyutil::RGBAColor       m_bg_color             = Default::TEXT_BG_COLOR;
+        cymath::Point           m_alignment_offset     = {0, 0};
+        cyutil::RGBAColor       m_text_fg_color        = Default::TEXT_FG_COLOR;
+        cyutil::RGBAColor       m_text_bg_color        = Default::TEXT_BG_COLOR;
 
         TextWidgetStyle();
 
@@ -37,8 +38,8 @@ namespace cyanide::cygui
         void setFontFamily(const String& family);
         void setTextSize(const Uint8 size);
         void setTextAlignment(const ALIGN alignment);
-        void setFGColor(const cyutil::RGBAColor& color);
-        void setBGColor(const cyutil::RGBAColor& color);
+        void setTextFGColor(const cyutil::RGBAColor& color);
+        void setTextBGColor(const cyutil::RGBAColor& color);
     };
 
 }  // namespace cyanide::cygui

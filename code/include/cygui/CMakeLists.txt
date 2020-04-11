@@ -3,8 +3,6 @@ cy_add_target_files(
 
         cygui.hpp
 
-        GUIRenderManager.hpp
-
         layout/ILayout.hpp
         layout/IBox.hpp
         layout/Box.hpp

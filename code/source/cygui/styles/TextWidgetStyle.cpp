@@ -1,6 +1,6 @@
 #include "cygui/styles/TextWidgetStyle.hpp"
 
-#include "cygui/GUIRenderManager.hpp"
+#include "cyvideo/renderer/GUIRenderManager.hpp"
 #include "cyvideo/renderer/SDLRenderer.hpp"
 
 namespace cyanide::cygui
@@ -10,9 +10,8 @@ namespace cyanide::cygui
     {
         using namespace cyvideo;
 
-        m_text_texture = SDLTextureSPtr(new SDLTexture(
-            GUIRenderManager::getRenderer(),
-            cymath::Size{0, 0}));
+        m_text_texture =
+            SDLTextureSPtr(new SDLTexture(GUIRenderManager::getRenderer(), cymath::Size{0, 0}));
     }
 
     void TextWidgetStyle::setFontFamily(const String& family)
@@ -33,15 +32,15 @@ namespace cyanide::cygui
         m_text_texture_changed = true;
     }
 
-    void TextWidgetStyle::setFGColor(const cyutil::RGBAColor& color)
+    void TextWidgetStyle::setTextFGColor(const cyutil::RGBAColor& color)
     {
-        m_fg_color             = color;
+        m_text_fg_color        = color;
         m_text_texture_changed = true;
     }
 
-    void TextWidgetStyle::setBGColor(const cyutil::RGBAColor& color)
+    void TextWidgetStyle::setTextBGColor(const cyutil::RGBAColor& color)
     {
-        m_bg_color             = color;
+        m_text_bg_color        = color;
         m_text_texture_changed = true;
     }
 
