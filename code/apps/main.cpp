@@ -1,10 +1,10 @@
-#include "cygui/GUIRenderManager.hpp"
 #include "cyinput/SDLEventLoop.hpp"
 #include "cysystem/sdl/SDL.hpp"
 #include "cyutil/io/Print.hpp"
 #include "cyvideo/SDLSurface.hpp"
 #include "cyvideo/SDLTexture.hpp"
 #include "cyvideo/font/SDLFont.hpp"
+#include "cyvideo/renderer/GUIRenderManager.hpp"
 #include "cyvideo/renderer/SDLRenderer.hpp"
 #include "cyvideo/window/SDLWindow.hpp"
 
@@ -19,7 +19,7 @@ int main()
     auto win =
         std::make_shared<cyvideo::SDLWindow>("asd", cymath::Point{50, 50}, cymath::Size{250, 250});
     auto ren         = std::make_shared<cyvideo::SDLRenderer>(win);
-    auto gui_manager = std::make_shared<cygui::GUIRenderManager>(ren);
+    cygui::GUIRenderManager::createInstance(ren);
 
     const String font_dir = "/home/chris/Projekte/Cyanide/resources/fonts/Roboto/"
                             "Roboto-Regular.ttf";

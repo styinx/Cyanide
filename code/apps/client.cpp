@@ -1,5 +1,5 @@
 #include "cynet/tcp/SDLTCPClient.hpp"
-#include "cysystem/sdl/SDL.hpp"
+#include "cysystem/Cyanide.hpp"
 #include "cyutil/logging/Logging.hpp"
 
 void printVec(const cyanide::Vector<cyanide::Byte>& vec)
@@ -20,9 +20,8 @@ int main()
     using namespace cyutil;
     using namespace cysystem;
 
-    SDL sdl{};
-    sdl.initSDL(SDL_INIT_EVERYTHING);
-    sdl.initNET();
+    Cyanide cyanide{};
+    cyanide.initNET();
 
     SDLTCPClientSPtr client(new SDLTCPClient("localhost", 13370));
 
