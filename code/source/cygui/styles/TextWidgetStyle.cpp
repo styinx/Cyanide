@@ -10,8 +10,7 @@ namespace cyanide::cygui
     {
         using namespace cyvideo;
 
-        m_text_texture =
-            SDLTextureSPtr(new SDLTexture(GUIRenderManager::getRenderer(), cymath::Size{0, 0}));
+        m_text_texture = SDLTexture::Create(GUIRenderManager::getRenderer(), cymath::Size{0, 0});
     }
 
     void TextWidgetStyle::setFontFamily(const String& family)

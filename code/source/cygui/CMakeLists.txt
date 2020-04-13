@@ -1,7 +1,10 @@
 cy_add_target_files(
         cygui_sources
 
+        input/ObjectInput.cpp
+
         layout/Box.cpp
+        layout/Grid.cpp
         layout/HBox.cpp
         layout/VBox.cpp
 

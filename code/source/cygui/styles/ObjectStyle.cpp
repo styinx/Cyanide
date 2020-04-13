@@ -25,14 +25,31 @@ namespace cyanide::cygui
 
             if(renderer)
             {
-                m_texture        = SDLTextureSPtr(new SDLTexture(renderer, m_size));
-                m_border_texture = SDLTextureSPtr(new SDLTexture(renderer, m_size - m_margin));
-                m_padding_texture =
-                    SDLTextureSPtr(new SDLTexture(renderer, m_size - m_margin - m_border));
-                m_content_texture = SDLTextureSPtr(new SDLTexture(renderer, m_content));
+                calculateSizes();
+
+                m_texture         = SDLTexture::Create(renderer, m_size);
+                m_border_texture  = SDLTexture::Create(renderer, m_size - m_margin);
+                m_padding_texture = SDLTexture::Create(renderer, m_size - m_margin - m_border);
+                m_content_texture = SDLTexture::Create(renderer, m_content);
             }
 
             m_requires_texture_reload = false;
+        }
+    }
+
+    void ObjectStyle::calculateSizes()
+    {
+        if(m_content)
+        {
+            m_size = m_content + m_padding + m_border + m_margin;
+        }
+        else if(m_size)
+        {
+            const auto desired_content_size = m_size - m_margin - m_border - m_padding;
+            if(desired_content_size)
+            {
+                m_content = desired_content_size;
+            }
         }
     }
 
@@ -45,7 +62,7 @@ namespace cyanide::cygui
 
     void ObjectStyle::setDimension(const cymath::Rectangle& dimension)
     {
-        if(dimension.getSize() >= cymath::Size(0, 0))
+        if(dimension.getSize())
         {
             setPosition(dimension.getPosition());
             setSize(dimension.getSize());
@@ -72,11 +89,6 @@ namespace cyanide::cygui
         if(size)
         {
             m_size = size;
-
-            auto content_size = m_size - m_margin - m_border - m_padding;
-            auto min_size     = cymath::Size{0, 0};
-
-            m_content = cymath::Size::max(min_size, content_size);
 
             m_requires_texture_reload = true;
         }
@@ -145,10 +157,9 @@ namespace cyanide::cygui
 
     void ObjectStyle::setContentSize(const cymath::Size& content_size)
     {
-        if(content_size >= cymath::Size(0, 0))
+        if(content_size)
         {
             m_content = content_size;
-            m_size    = m_content + m_padding + m_border + m_margin;
 
             m_requires_texture_reload = true;
         }

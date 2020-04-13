@@ -1,12 +1,13 @@
 #include "cygui/layout/Box.hpp"
 
+#include "cymath/scaling.hpp"
+
 namespace cyanide::cygui
 {
 
     Box::Box(ORIENTATION orientation)
         : m_orientation(orientation)
     {
-
     }
 
     ORIENTATION Box::getOrientation()
@@ -24,8 +25,7 @@ namespace cyanide::cygui
             // Store the offset of a child in x,y and the size of a child in w,h.
             if(m_orientation == ORIENTATION::HORIZONTAL)
             {
-                float width = static_cast<float>(m_size.width) / m_children.size();
-                child_dimension.w = static_cast<Sint32>(width);
+                child_dimension.w = cymath::scale<Sint32>(m_size.width, m_children.size());
                 child_dimension.h = m_size.height;
                 child_dimension.x = child_dimension.w;
 
@@ -33,15 +33,14 @@ namespace cyanide::cygui
             }
             else if(m_orientation == ORIENTATION::VERTICAL)
             {
-                float height = static_cast<float>(m_size.height) / m_children.size();
                 child_dimension.w = m_size.width;
-                child_dimension.h = static_cast<Sint32>(height);
+                child_dimension.h = cymath::scale<Sint32>(m_size.height, m_children.size());
                 child_dimension.y = child_dimension.h;
 
                 child_dimension.setPosition({0, child_dimension.h});
             }
 
-            for(const auto& child: m_children)
+            for(const auto& child : m_children)
             {
                 child->setDimension(cymath::Rectangle(child_offset, child_dimension.getSize()));
 
@@ -142,4 +141,4 @@ namespace cyanide::cygui
         }
     }
 
-}
+}  // namespace cyanide::cygui

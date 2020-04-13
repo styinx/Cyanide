@@ -48,6 +48,7 @@ namespace cyanide::cygui
          * @brief Calculates new texture dimensions when sizes changes.
          */
         virtual void calculateTextures();
+        virtual void calculateSizes();
 
     public:
         virtual ~ObjectStyle() = default;

@@ -9,15 +9,15 @@
 #include "cyvideo/font/SDLFontCollection.hpp"
 #include "cyvideo/renderer/GUIRenderManager.hpp"
 #include "cyvideo/renderer/SDLRenderer.hpp"
-#include "cyvideo/videoPrototypes.hpp"
 
 namespace cyanide::cygui
 {
+
     TextWidget::TextWidget()
         : Widget()
     {
-        m_text_texture = cyvideo::SDLTextureSPtr(
-            new cyvideo::SDLTexture(cyvideo::GUIRenderManager::getRenderer(), cymath::Size{0, 0}));
+        m_text_texture =
+            cyvideo::SDLTexture::Create(cyvideo::GUIRenderManager::getRenderer(), cymath::Size{0, 0});
     }
 
     TextWidget::TextWidget(const String& text)
@@ -33,7 +33,7 @@ namespace cyanide::cygui
     {
         using namespace cyvideo;
 
-        const SDLFont* font = SDLFontCollection::getFont(m_font_family);
+        const SDLFont* font = SDLFontCollection::getFont(m_font_family, m_text_size);
 
         if(font)
         {
@@ -42,8 +42,7 @@ namespace cyanide::cygui
             // If widget does not have a size set it to the size of the text.
             if(!m_content)
             {
-                const auto size = m_text_texture->getSize() + getPadding() + getBorder() + getMargin();
-                setSize(size);
+                setContentSize(m_text_texture->getSize());
             }
         }
     }

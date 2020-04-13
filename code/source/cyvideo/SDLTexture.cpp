@@ -22,6 +22,16 @@ namespace cyanide::cyvideo
         SDL_DestroyTexture(m_texture);
     }
 
+    SDLTextureSPtr SDLTexture::Create(const SDLRendererSPtr& renderer, const SDLSurfaceSPtr& surface)
+    {
+        return std::make_shared<SDLTexture>(renderer, surface);
+    }
+
+    SDLTextureSPtr SDLTexture::Create(const SDLRendererSPtr& renderer, const cymath::Size& size)
+    {
+        return std::make_shared<SDLTexture>(renderer, size);
+    }
+
     // Private
 
     void SDLTexture::loadTextureInfo()
