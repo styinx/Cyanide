@@ -163,7 +163,7 @@ find_package(fmt)
 #
 
 cy_add_module(cyaudio -lSDL2_mixer)
-cy_add_module(cygui)
+cy_add_module(cygui cyinput)
 cy_add_module(cyinput cymath)
 cy_add_module(cymath)
 cy_add_module(cynet -lSDL2_net)

@@ -19,7 +19,7 @@ int main()
     auto win =
         std::make_shared<cyvideo::SDLWindow>("asd", cymath::Point{50, 50}, cymath::Size{250, 250});
     auto ren         = std::make_shared<cyvideo::SDLRenderer>(win);
-    cygui::GUIRenderManager::createInstance(ren);
+    cyvideo::GUIRenderManager::createInstance(ren);
 
     const String font_dir = "/home/chris/Projekte/Cyanide/resources/fonts/Roboto/"
                             "Roboto-Regular.ttf";

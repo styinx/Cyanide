@@ -36,18 +36,18 @@ int main()
     cyinput::SDLEventLoop eventLoop{};
 
     eventLoop.controller(-1)->onStickMotion(CONTROLLER_STICK::LS, [](const Sint16 x, const Sint16 y) {
-        print("Stick {4:d} {4:d}", x, y);
+        print("Stick {:4d} {:4d}\n", x, y);
     });
 
-    eventLoop.joystick(-1)->onAxisMotion(1, [](const Sint16 x) { print("Axis {4:d}", x); });
+    eventLoop.joystick(-1)->onAxisMotion(1, [](const Sint16 x) { print("Axis {:4d}\n", x); });
 
     eventLoop.keyboard()->onKeyPressed(
-        SDLK_a, [](const KeyboardInput::KeyCode) { print("'a' pressed"); });
+        SDLK_a, [](const KeyboardInput::KeyCode) { print("'a' pressed\n"); });
 
     eventLoop.keyboard()->onKeyDown(SDLK_a, [](const KeyboardInput::KeyCode) { print("'a' down"); });
 
     eventLoop.mouse()->onMotion(
-        [](const Sint16 x, const Sint16 y) { print("Mouse {4:d} {4:d}", x, y); });
+        [](const Sint16 x, const Sint16 y) { print("Mouse {:4d} {:4d}\n", x, y); });
 
     eventLoop.run();
 
