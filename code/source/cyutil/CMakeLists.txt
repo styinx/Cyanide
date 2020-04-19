@@ -8,6 +8,8 @@ cy_add_target_files(
 
         io/Print.cpp
 
+        logging/Logging.cpp
+
         serialize/ISerialize.cpp
 
         time/Clock.cpp

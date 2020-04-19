@@ -5,13 +5,12 @@ cy_add_target_files(
         SDLTexture.cpp
         SDLVideo.cpp
 
-        ../cyutil/animation/Animation.cpp
-
         display/SDLDisplay.cpp
 
         font/SDLFont.cpp
         font/SDLFontCollection.cpp
 
         renderer/SDLRenderer.cpp
+        renderer/GUIRenderManager.cpp
 
         window/SDLWindow.cpp)

@@ -12,6 +12,8 @@ cy_add_target_files(
         io/ByteStreamReader.hpp
         io/Print.hpp
 
+        logging/Logging.hpp
+
         serialize/ISerialize.hpp
 
         time/Clock.hpp

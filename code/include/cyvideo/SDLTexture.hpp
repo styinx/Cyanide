@@ -33,6 +33,9 @@ namespace cyanide::cyvideo
         explicit SDLTexture(const SDLRendererSPtr& renderer, const cymath::Size& size);
         ~SDLTexture() override;
 
+        static SDLTextureSPtr Create(const SDLRendererSPtr& renderer, const SDLSurfaceSPtr& surface);
+        static SDLTextureSPtr Create(const SDLRendererSPtr& renderer, const cymath::Size& size);
+
         void         createTexture(const SDLRendererSPtr& renderer, const SDLSurfaceSPtr& surface);
         SDL_Texture* getTexture() const;
         cymath::Size getSize() const;

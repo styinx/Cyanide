@@ -1,7 +1,6 @@
 #ifndef CYANIDE_CYGUI_HPP
 #define CYANIDE_CYGUI_HPP
 
-#include "cygui/GUIRenderManager.hpp"
 #include "cygui/layout/Box.hpp"
 #include "cygui/layout/HBox.hpp"
 #include "cygui/layout/IBox.hpp"
@@ -17,5 +16,6 @@
 #include "cygui/widgets/Object.hpp"
 #include "cygui/widgets/TextWidget.hpp"
 #include "cygui/widgets/Widget.hpp"
+#include "cyvideo/renderer/GUIRenderManager.hpp"
 
 #endif  // CYANIDE_CYGUI_HPP

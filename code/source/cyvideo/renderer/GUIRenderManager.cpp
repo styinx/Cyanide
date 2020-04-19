@@ -1,11 +1,11 @@
-#include "cygui/GUIRenderManager.hpp"
+#include "cyvideo/renderer/GUIRenderManager.hpp"
 
-namespace cyanide::cygui
+namespace cyanide::cyvideo
 {
 
     cyvideo::SDLRendererSPtr GUIRenderManager::s_renderer = nullptr;
 
-    GUIRenderManager::GUIRenderManager(const cyvideo::SDLRendererSPtr& renderer)
+    void GUIRenderManager::createInstance(const cyvideo::SDLRendererSPtr& renderer)
     {
         GUIRenderManager::s_renderer = renderer;
     }
@@ -15,4 +15,4 @@ namespace cyanide::cygui
         return GUIRenderManager::s_renderer;
     }
 
-}
+}  // namespace cyanide::cyvideo

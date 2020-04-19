@@ -17,7 +17,7 @@ namespace cyanide::cyvideo
         virtual ~SDLFontCollection() = default;
 
         static void     clearFont(const String& name);
-        static SDLFont* getFont(const String& name);
+        static SDLFont* getFont(const String& name, const Uint8 size = 0);
         static void     setFont(const String& name, SDLFont* font);
     };
 

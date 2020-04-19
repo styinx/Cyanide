@@ -27,22 +27,22 @@ namespace cyanide::cymath
         Size&    sub(const Sint32 w, const Sint32 h);
         Size&    mul(const float w, const float h);
         Size&    div(const float w, const float h);
-        Size     operator+(const Size& other);
+        Size     operator+(const Size& other) const;
         Size&    operator+=(const Size& other);
-        Size     operator-(const Size& other);
+        Size     operator-(const Size& other) const;
         Size&    operator-=(const Size& other);
-        Size     operator*(const Size& other);
+        Size     operator*(const Size& other) const;
         Size&    operator*=(const Size& other);
-        Size     operator/(const Size& other);
+        Size     operator/(const Size& other) const;
         Size&    operator/=(const Size& other);
-        Size     operator*(const float scalar);
+        Size     operator*(const float scalar) const;
         Size&    operator*=(const float scalar);
-        Size     operator/(const float scalar);
+        Size     operator/(const float scalar) const;
         Size&    operator/=(const float scalar);
 
-        Size  operator+(const Space& space);
+        Size  operator+(const Space& space) const;
         Size& operator+=(const Space& space);
-        Size  operator-(const Space& space);
+        Size  operator-(const Space& space) const;
         Size& operator-=(const Space& space);
 
         static Size& max(Size& first, Size& second);

@@ -4,6 +4,7 @@
 #include "cystd/Types.hpp"
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
 namespace cyanide::cysystem
 {

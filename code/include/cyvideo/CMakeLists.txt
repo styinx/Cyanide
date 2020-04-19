@@ -17,6 +17,7 @@ cy_add_target_files(
         font/IFont.hpp
         font/SDLFont.hpp
 
+        renderer/GUIRenderManager.hpp
         renderer/IRenderer.hpp
         renderer/SDLRenderer.hpp
 

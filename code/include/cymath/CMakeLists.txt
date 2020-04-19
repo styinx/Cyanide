@@ -1,6 +1,8 @@
 cy_add_target_files(
         cymath_includes
 
+        scaling.hpp
+
         Line.hpp
         Point.hpp
         Rectangle.hpp

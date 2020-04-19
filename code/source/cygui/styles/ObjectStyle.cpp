@@ -1,6 +1,6 @@
 #include "cygui/styles/ObjectStyle.hpp"
 
-#include "cygui/GUIRenderManager.hpp"
+#include "cyvideo/renderer/GUIRenderManager.hpp"
 #include "cyvideo/renderer/SDLRenderer.hpp"
 
 namespace cyanide::cygui
@@ -21,18 +21,35 @@ namespace cyanide::cygui
             using cyvideo::SDLTexture;
             using cyvideo::SDLTextureSPtr;
 
-            auto renderer = GUIRenderManager::getRenderer();
+            auto renderer = cyvideo::GUIRenderManager::getRenderer();
 
             if(renderer)
             {
-                m_texture        = SDLTextureSPtr(new SDLTexture(renderer, m_size));
-                m_border_texture = SDLTextureSPtr(new SDLTexture(renderer, m_size - m_margin));
-                m_padding_texture =
-                    SDLTextureSPtr(new SDLTexture(renderer, m_size - m_margin - m_border));
-                m_content_texture = SDLTextureSPtr(new SDLTexture(renderer, m_content));
+                calculateSizes();
+
+                m_texture         = SDLTexture::Create(renderer, m_size);
+                m_border_texture  = SDLTexture::Create(renderer, m_size - m_margin);
+                m_padding_texture = SDLTexture::Create(renderer, m_size - m_margin - m_border);
+                m_content_texture = SDLTexture::Create(renderer, m_content);
             }
 
             m_requires_texture_reload = false;
+        }
+    }
+
+    void ObjectStyle::calculateSizes()
+    {
+        if(m_content)
+        {
+            m_size = m_content + m_padding + m_border + m_margin;
+        }
+        else if(m_size)
+        {
+            const auto desired_content_size = m_size - m_margin - m_border - m_padding;
+            if(desired_content_size)
+            {
+                m_content = desired_content_size;
+            }
         }
     }
 
@@ -45,7 +62,7 @@ namespace cyanide::cygui
 
     void ObjectStyle::setDimension(const cymath::Rectangle& dimension)
     {
-        if(dimension.getSize() >= cymath::Size(0, 0))
+        if(dimension.getSize())
         {
             setPosition(dimension.getPosition());
             setSize(dimension.getSize());
@@ -69,14 +86,9 @@ namespace cyanide::cygui
 
     void ObjectStyle::setSize(const cymath::Size& size)
     {
-        auto min_size = cymath::Size{0, 0};
-
-        if(size >= min_size)
+        if(size)
         {
             m_size = size;
-
-            auto content_size = m_size - m_margin - m_border - m_padding;
-            m_content = cymath::Size::max(min_size, content_size);
 
             m_requires_texture_reload = true;
         }
@@ -123,12 +135,31 @@ namespace cyanide::cygui
         return m_content;
     }
 
+    void ObjectStyle::setBackgroundColor(const cyutil::RGBAColor& color)
+    {
+        m_background_color = color;
+    }
+
+    cyutil::RGBAColor ObjectStyle::getBackgroundColor() const
+    {
+        return m_background_color;
+    }
+
+    void ObjectStyle::setBorderColor(const cyutil::RGBAColor& color)
+    {
+        m_border_color = color;
+    }
+
+    cyutil::RGBAColor ObjectStyle::getBorderColor() const
+    {
+        return m_border_color;
+    }
+
     void ObjectStyle::setContentSize(const cymath::Size& content_size)
     {
-        if(content_size >= cymath::Size(0, 0))
+        if(content_size)
         {
             m_content = content_size;
-            m_size = m_content + m_padding + m_border + m_margin;
 
             m_requires_texture_reload = true;
         }
@@ -136,7 +167,7 @@ namespace cyanide::cygui
 
     void ObjectStyle::drawBorder()
     {
-        auto renderer = GUIRenderManager::getRenderer();
+        auto renderer = cyvideo::GUIRenderManager::getRenderer();
         renderer->setDrawColor(m_border_color);
         renderer->setRenderTarget(m_border_texture);
         renderer->drawRectangle({{0, 0}, getSize() - m_margin});
@@ -145,7 +176,7 @@ namespace cyanide::cygui
 
     void ObjectStyle::drawBackground()
     {
-        auto renderer = GUIRenderManager::getRenderer();
+        auto renderer = cyvideo::GUIRenderManager::getRenderer();
         renderer->setDrawColor(m_background_color);
         renderer->setRenderTarget(m_padding_texture);
         renderer->drawFilledRectangle({{0, 0}, m_content + m_padding});

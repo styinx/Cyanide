@@ -15,8 +15,14 @@ namespace cyanide::cyvideo
     }
 
     /*static*/
-    SDLFont* SDLFontCollection::getFont(const String& name)
+    SDLFont* SDLFontCollection::getFont(const String& name, const Uint8 size)
     {
+        if(size == 0)
+        {
+            // TODO select next best font
+        }
+
+        // TODO select font with targeted size
         return s_fonts[name];
     }
 

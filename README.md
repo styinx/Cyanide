@@ -5,6 +5,12 @@
 [![Build Status master](https://travis-ci.com/styinx/Cyanide.svg?branch=master)](https://travis-ci.com/styinx/Cyanide)
 [![Build Status dev](https://travis-ci.com/styinx/Cyanide.svg?branch=dev)](https://travis-ci.com/styinx/Cyanide)
 
+[![Build Status dev](https://github.com/styinx/Cyanide/workflows/.github/workflows/main.yml/badge.svg)](https://github.com/styinx/Cyanide/workflows/.github/workflows/main.yml/badge.svg)
+
 - [Wiki](https://github.com/styinx/Cyanide/wiki)
 
-## blub
+## Principles
+
+- Simplicity 
+- Single responsibility principle
+- Interface-based modules

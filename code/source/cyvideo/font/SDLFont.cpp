@@ -1,7 +1,10 @@
 #include "cyvideo/font/SDLFont.hpp"
 
 #include "cystd/Enum.hpp"
+#include "cyvideo/SDLSurface.hpp"
+#include "cyvideo/SDLTexture.hpp"
 #include "cyvideo/font/SDLFontCollection.hpp"
+#include "cyvideo/renderer/GUIRenderManager.hpp"
 
 namespace cyanide::cyvideo
 {
@@ -218,4 +221,24 @@ namespace cyanide::cyvideo
 
         return size;
     }
+
+    SDLTextureSPtr SDLFont::render(const String& text, const cyutil::RGBAColor& color, const RENDER_TYPE type) const
+    {
+        if(!m_font)
+        {
+            // err
+        }
+
+        SDL_Surface* text_surface =
+            TTF_RenderText_Blended(m_font, text.c_str(), {color.r, color.g, color.b, color.a});
+
+        auto surface = std::make_shared<SDLSurface>(text_surface);
+        return std::make_shared<SDLTexture>(GUIRenderManager::getRenderer(), surface);
+    }
+
+    SDLTextureSPtr SDLFont::render(const WString& text, const cyutil::RGBAColor& color, const RENDER_TYPE type) const
+    {
+        return cyanide::cyvideo::SDLTextureSPtr();
+    }
+
 }  // namespace cyanide::cyvideo

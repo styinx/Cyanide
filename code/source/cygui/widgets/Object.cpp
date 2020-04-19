@@ -1,6 +1,7 @@
 #include "cygui/widgets/Object.hpp"
 
-#include "cygui/GUIRenderManager.hpp"
+#include "cystd/Enum.hpp"
+#include "cyvideo/renderer/GUIRenderManager.hpp"
 #include "cyvideo/renderer/SDLRenderer.hpp"
 
 namespace cyanide::cygui
@@ -57,7 +58,7 @@ namespace cyanide::cygui
         drawBorder();
         drawBackground();
 
-        auto renderer = GUIRenderManager::getRenderer();
+        auto renderer = cyvideo::GUIRenderManager::getRenderer();
         auto offset   = cymath::Point(0, 0);
 
         renderer->setRenderTarget(m_texture);
@@ -71,6 +72,95 @@ namespace cyanide::cygui
 
         renderer->resetRenderTarget();
         renderer->drawSDLTexture(m_texture, getPosition());
+    }
+
+    void Object::pollEvent(cyinput::SDLEventLoop& loop)
+    {
+        loop.mouse()->onAnyMouseEvent([this](const SDL_Event& event) {
+            m_event_mask ^= cystd::fromEnum(EVENT::FOCUS_GAINED);
+            m_event_mask ^= cystd::fromEnum(EVENT::FOCUS_LOST);
+            m_event_mask ^= cystd::fromEnum(EVENT::ENTER);
+            m_event_mask ^= cystd::fromEnum(EVENT::LEAVE);
+
+            if(event.type == SDL_MOUSEMOTION)
+            {
+                cymath::Point     mouse{event.motion.x, event.motion.y};
+                cymath::Rectangle dim{m_position, m_size};
+                if(mouse >= dim.topLeft() && mouse <= dim.bottomRight())
+                {
+                    if(!m_is_hovered)
+                    {
+                        if(!(m_event_mask & cystd::fromEnum(EVENT::ENTER)))
+                        {
+                            m_is_hovered = true;
+                            m_event_mask |= cystd::fromEnum(EVENT::ENTER);
+                            enter();
+                        }
+                    }
+
+                    // Logging::print("on move\n");
+                }
+                else
+                {
+                    if(m_is_hovered)
+                    {
+                        m_is_hovered = false;
+                        m_event_mask |= cystd::fromEnum(EVENT::LEAVE);
+                        // Logging::print("on leave\n");
+                    }
+                }
+            }
+            else if(event.type == SDL_MOUSEBUTTONDOWN)
+            {
+                cymath::Point     mouse{event.motion.x, event.motion.y};
+                cymath::Rectangle dim{m_position, m_size};
+                if(mouse >= dim.topLeft() && mouse <= dim.bottomRight())
+                {
+                    m_event_mask |= cystd::fromEnum(EVENT::CLICK);
+                    click();
+
+                    if(!m_has_focus)
+                    {
+                        m_has_focus = true;
+                        m_event_mask |= cystd::fromEnum(EVENT::FOCUS_GAINED);
+                        focusGained();
+                    }
+                }
+                else
+                {
+                    if(m_has_focus)
+                    {
+                        m_has_focus = false;
+                        m_event_mask |= cystd::fromEnum(EVENT::FOCUS_LOST);
+                        // Logging::print("on focus lost\n");
+                    }
+                }
+            }
+            else if(event.type == SDL_MOUSEBUTTONUP)
+            {
+                cymath::Point     mouse{event.motion.x, event.motion.y};
+                cymath::Rectangle dim{m_position, m_size};
+                if(mouse >= dim.topLeft() && mouse <= dim.bottomRight())
+                {
+                    m_event_mask ^= cystd::fromEnum(EVENT::CLICK);
+                    // Logging::print("on click up\n");
+                }
+            }
+        });
+    }
+    void Object::onFocus(const cyinput::Callback& callback)
+    {
+        m_focus_callback = callback;
+    }
+
+    void Object::onHover(const cyinput::Callback& callback)
+    {
+        m_hover_callback = callback;
+    }
+
+    void Object::onClick(const cyinput::Callback& callback)
+    {
+        m_click_callback = callback;
     }
 
 }  // namespace cyanide::cygui

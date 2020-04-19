@@ -142,7 +142,7 @@ conan_basic_setup()
 
 
 #
-# SDL
+# Third party
 #
 
 include(FindPkgConfig)
@@ -154,25 +154,29 @@ pkg_search_module(SDL2MIXER REQUIRED SDL2_mixer>=2.0.0)
 pkg_search_module(SDL2NET REQUIRED SDL2_net>=2.0.0)
 pkg_search_module(SDL2TTF REQUIRED SDL2_ttf>=2.0.0)
 
+
+find_package(fmt)
+#add_subdirectory(fmt)
+
 #
 # Builds
 #
 
 cy_add_module(cyaudio -lSDL2_mixer)
-cy_add_module(cygui)
+cy_add_module(cygui cyinput)
 cy_add_module(cyinput cymath)
 cy_add_module(cymath)
 cy_add_module(cynet -lSDL2_net)
 cy_add_module(cystd)
 cy_add_module(cysystem "-lSDL2_image;-lSDL2_gfx;-lSDL2_mixer;-lSDL2_net;-lSDL2_ttf")
-cy_add_module(cyutil)
+cy_add_module(cyutil fmt)
 cy_add_module(cyvideo "cymath;-lSDL2_image;-lSDL2_gfx;-lSDL2_ttf")
 
 cy_build_target(Main apps/main.cpp "${LIBRARIES}" "cygui;cyinput;cymath;cyutil;cysystem;cyvideo")
 cy_build_target(Animation apps/animation.cpp "${LIBRARIES}" "cyinput;cymath;cyutil;cysystem;cyvideo")
 cy_build_target(Input apps/input.cpp "${LIBRARIES}" "cygui;cyinput;cymath;cyutil;cysystem;cyvideo")
-cy_build_target(Client apps/client.cpp "${LIBRARIES}" "cynet")
-cy_build_target(Server apps/server.cpp "${LIBRARIES}" "cynet")
+cy_build_target(Client apps/client.cpp "${LIBRARIES}" "cynet;cysystem;cyutil;")
+cy_build_target(Server apps/server.cpp "${LIBRARIES}" "cynet;cysystem;cyutil;")
 cy_build_target(UI apps/ui.cpp "${LIBRARIES}" "cygui;cyinput;cymath;cyutil;cysystem;cyvideo")
 
 cy_build_test(Test test/test.cpp "${TEST_LIBRARIES}" "cygui;cymath;cyutil;cysystem;cyvideo")

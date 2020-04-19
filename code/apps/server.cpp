@@ -1,41 +1,28 @@
 #include "cynet/tcp/SDLTCPServer.hpp"
+#include "cysystem/sdl/SDL.hpp"
+#include "cyutil/logging/Logging.hpp"
 
-#include <SDL2/SDL.h>
 #include <iostream>
-
-void print(const std::string& what)
-{
-    std::cout << what << "\n";
-}
-
-void print(const std::vector<Uint8>& what)
-{
-    for(const auto& b : what)
-    {
-        std::cout << b;
-    }
-    std::cout << "\n";
-}
 
 int main()
 {
     using namespace cyanide;
     using namespace cynet;
+    using namespace cyutil;
+    using namespace cysystem;
 
-    SDL_Init(SDL_INIT_EVERYTHING);
-    SDLNet_Init();
-
-    int i = 0;
+    SDL sdl{};
+    sdl.initSDL(SDL_INIT_EVERYTHING);
+    sdl.initNET();
 
     SDLTCPServerSPtr server(new SDLTCPServer(13370));
 
     while(server->accept() != SOCKET_STATE::BOUND)
     {
         SDL_Delay(1000);
-        i += 1;
     }
 
-    print("Server has one client");
+    print("Server has one client\n");
 
     bool running = true;
 
@@ -43,6 +30,7 @@ int main()
     {
         std::string line;
         std::getline(std::cin, line);
+        fflush(stdout);
 
         if(line == "0")
         {
