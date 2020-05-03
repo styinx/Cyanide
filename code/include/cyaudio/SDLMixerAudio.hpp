@@ -19,6 +19,13 @@ namespace cyanide::cyaudio
         static Map<Uint8, Uint8> channel_volume;
 
     public:
+        static void play(Mix_Music* music, const Uint32 fadein = 0, const Uint32 loops = 0);
+        static void pause();
+        static void stop(const Uint32 fadeout = 0);
+        static void
+                     play(Mix_Chunk* chunk, const Uint8 channel, const Uint32 fadein = 0, const Uint32 loops = 0);
+        static void  pause(const Uint8 channel);
+        static void  stop(const Uint8 channel, const Uint32 fadeout = 0);
         static Uint8 getMusicVolume();
         static void  setMusicVolume(const Uint8 volume);
         static bool  isMusicMuted();
