@@ -4,6 +4,7 @@ cy_add_target_files(
         cyaudio.hpp
 
         player/AudioPlayer.hpp
+        player/Playlist.hpp
 
         SDLAudio.hpp
         SDLMixerAudio.hpp

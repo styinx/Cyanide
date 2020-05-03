@@ -4,25 +4,45 @@
 namespace cyanide::cyaudio
 {
 
+    void SDLAudio::open(const String& filename)
+    {
+        SDL_AudioSpec spec;
+        Uint8*        buffer;
+        Uint8*        stream;
+        Uint32        length;
+
+        if(SDL_LoadWAV(filename.c_str(), &spec, &buffer, &length) == nullptr)
+        {
+            // err
+        }
+
+        if(SDL_OpenAudio(&spec, nullptr) < 0)
+        {
+            // err
+        }
+
+        SDL_MixAudio(buffer, stream, length, SDL_MIX_MAXVOLUME / 2);
+    }
+
+    void SDLAudio::play()
+    {
+        SDL_PauseAudio(0);
+    }
+
     void SDLAudio::pause()
     {
         SDL_PauseAudio(1);
     }
 
-    void SDLAudio::resume()
-    {
-        SDL_PauseAudio(0);
-    }
-
     Uint32 SDLAudio::getPlaybackDeviceId(const String name)
     {
-        //TODO
+        // TODO
         return 0;
     }
 
     Uint32 SDLAudio::getCaptureDeviceId(const String name)
     {
-        //TODO
+        // TODO
         return 0;
     }
 
@@ -87,7 +107,7 @@ namespace cyanide::cyaudio
 
     List<String> SDLAudio::getDeviceNames()
     {
-        List<String> devices = SDLAudio::getCaptureDeviceNames();
+        List<String> devices          = SDLAudio::getCaptureDeviceNames();
         List<String> playback_devices = SDLAudio::getPlaybackDeviceNames();
 
         devices.splice(devices.end(), playback_devices);
@@ -134,4 +154,4 @@ namespace cyanide::cyaudio
         return audio_drivers;
     }
 
-}  // namespace cyanide
+}  // namespace cyanide::cyaudio
