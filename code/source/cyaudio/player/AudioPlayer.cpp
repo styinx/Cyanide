@@ -5,9 +5,15 @@
 namespace cyanide::cyaudio
 {
 
+    AudioPlayer::AudioPlayer()
+    {
+        SDLMixerAudio::open();
+    }
+
     AudioPlayer::AudioPlayer(const PlaylistSPtr& playlist)
         : m_playlist(playlist)
     {
+        SDLMixerAudio::open();
     }
 
     void AudioPlayer::play()
@@ -23,6 +29,7 @@ namespace cyanide::cyaudio
     void AudioPlayer::pause()
     {
         SDLMixerAudio::pause();
+        m_state = PLAYBACK_STATE::PAUSED;
     }
 
     bool AudioPlayer::isPaused() const
@@ -32,6 +39,8 @@ namespace cyanide::cyaudio
 
     void AudioPlayer::resume()
     {
+        SDLMixerAudio::resume();
+        m_state = PLAYBACK_STATE::PLAYING;
     }
 
     void AudioPlayer::stop()
@@ -54,19 +63,23 @@ namespace cyanide::cyaudio
 
     void AudioPlayer::mute()
     {
+        SDLMixerAudio::setMusicVolume(0);
     }
 
     void AudioPlayer::unmute()
     {
+        SDLMixerAudio::setMusicVolume(m_volume);
     }
 
     bool AudioPlayer::isMuted() const
     {
+        return SDLMixerAudio::getMusicVolume() == 0;
     }
 
-    void AudioPlayer::setVolume(const Uint32 volume)
+    void AudioPlayer::setVolume(const Uint8 volume)
     {
         SDLMixerAudio::setMusicVolume(volume);
+        m_volume = volume;
     }
 
     void AudioPlayer::setFadein(const Uint32 millis)
@@ -81,25 +94,29 @@ namespace cyanide::cyaudio
 
     void AudioPlayer::rewind()
     {
+        SDLMixerAudio::rewind();
     }
 
     void AudioPlayer::next()
     {
+        m_playlist->next();
     }
 
     void AudioPlayer::previous()
     {
+        m_playlist->previous();
     }
 
-    void AudioPlayer::forward(const Uint32 skip)
+    void AudioPlayer::forward(const Uint64 skip)
     {
     }
 
-    void AudioPlayer::seek(const Uint32 position)
+    void AudioPlayer::seek(const Uint64 position)
     {
+        SDLMixerAudio::seek(position);
     }
 
-    void AudioPlayer::backward(const Uint32 skip)
+    void AudioPlayer::backward(const Uint64 skip)
     {
     }
 

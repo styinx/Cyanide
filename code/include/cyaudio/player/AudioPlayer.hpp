@@ -23,13 +23,14 @@ namespace cyanide::cyaudio
 
         Uint32         m_fadein  = 500;
         Uint32         m_fadeout = 500;
+        Uint8          m_volume  = 128;
         PLAYBACK_STATE m_state   = PLAYBACK_STATE::STOPPED;
 
         // Playlist
         PlaylistSPtr m_playlist;
 
     public:
-        AudioPlayer() = default;
+        AudioPlayer();
         explicit AudioPlayer(const PlaylistSPtr& playlist);
         virtual ~AudioPlayer() = default;
 
@@ -46,16 +47,16 @@ namespace cyanide::cyaudio
         void mute();
         void unmute();
         bool isMuted() const;
-        void setVolume(const Uint32 volume);
+        void setVolume(const Uint8 volume);
         void setFadein(const Uint32 millis);
         void setFadeout(const Uint32 millis);
 
         void rewind();
         void next();
         void previous();
-        void forward(const Uint32 skip);
-        void seek(const Uint32 position);
-        void backward(const Uint32 skip);
+        void forward(const Uint64 skip);
+        void seek(const Uint64 position);
+        void backward(const Uint64 skip);
     };
 
 }  // namespace cyanide::cyaudio
