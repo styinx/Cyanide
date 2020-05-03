@@ -14,7 +14,7 @@ namespace cyanide::cyaudio
         virtual void         setResource(const String& resource) = 0;
     };
 
-    using IMediumPtr = SharedPtr<IMedium>;
+    using IMediumSPtr = SharedPtr<IMedium>;
 
 }  // namespace cyanide::cyaudio
 

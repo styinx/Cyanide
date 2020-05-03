@@ -5,6 +5,53 @@ namespace cyanide::cyaudio
     Uint8             SDLMixerAudio::music_volume   = 0;
     Map<Uint8, Uint8> SDLMixerAudio::channel_volume = Map<Uint8, Uint8>();
 
+    void SDLMixerAudio::open()
+    {
+        if(Mix_OpenAudio(44100, AUDIO_F32, 2, 4096) < 0)
+        {
+            // err
+        }
+    }
+
+    void SDLMixerAudio::play(Mix_Music* music, const Uint32 fadein, const Uint32 loops)
+    {
+        if(fadein == 0)
+        {
+            Mix_PlayMusic(music, loops);
+        }
+        else
+        {
+            Mix_FadeInMusic(music, loops, fadein);
+        }
+    }
+
+    void SDLMixerAudio::pause()
+    {
+        Mix_PauseMusic();
+    }
+
+    void SDLMixerAudio::resume()
+    {
+        Mix_ResumeMusic();
+    }
+
+    void SDLMixerAudio::rewind()
+    {
+        Mix_RewindMusic();
+    }
+
+    void SDLMixerAudio::stop(const Uint32 fadeout)
+    {
+        if(fadeout == 0)
+        {
+            Mix_HaltMusic();
+        }
+        else
+        {
+            Mix_FadeOutMusic(fadeout);
+        }
+    }
+
     Uint8 SDLMixerAudio::getMusicVolume()
     {
         return static_cast<Uint8>(Mix_VolumeMusic(-1));
@@ -36,6 +83,40 @@ namespace cyanide::cyaudio
         if(SDLMixerAudio::getMusicVolume() == 0)
         {
             SDLMixerAudio::setMusicVolume(SDLMixerAudio::music_volume);
+        }
+    }
+
+    void SDLMixerAudio::seek(const Uint64 position)
+    {
+        Mix_SetMusicPosition(position);
+    }
+
+    void SDLMixerAudio::play(Mix_Chunk* chunk, const Uint8 channel, Uint32 fadein, Uint32 loops)
+    {
+        if(fadein == 0)
+        {
+            Mix_PlayChannel(channel, chunk, loops);
+        }
+        else
+        {
+            Mix_FadeInChannel(channel, chunk, loops, fadein);
+        }
+    }
+
+    void SDLMixerAudio::pause(const Uint8 channel)
+    {
+        Mix_Pause(channel);
+    }
+
+    void SDLMixerAudio::stop(const Uint8 channel, Uint32 fadeout)
+    {
+        if(fadeout == 0)
+        {
+            Mix_HaltChannel(channel);
+        }
+        else
+        {
+            Mix_FadeOutChannel(channel, fadeout);
         }
     }
 

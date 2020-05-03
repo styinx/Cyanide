@@ -11,15 +11,17 @@
 namespace cyanide::cyaudio
 {
 
-    class SDLAudio
+    class SDLAudio final
         : public cystd::NonCopyable
         , public cystd::NonMoveable
     {
     public:
-        //UMap<Uint32, IAudioDevice*> devices;
+        // UMap<Uint32, IAudioDevice*> devices;
 
+        static void open(const String& filename);
+
+        static void play();
         static void pause();
-        static void resume();
 
         static Uint32       getCaptureDeviceId(const String name);
         static Uint32       getPlaybackDeviceId(const String name);
