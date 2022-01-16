@@ -11,18 +11,22 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Build dependencies
-      - uses: lukka/get-cmake@latest
-      - uses: actions/cache@v1
+      - name: Get CMake
+        uses: lukka/get-cmake@latest
+
+      - name: Get Cache
+        uses: actions/cache@v1
         with:
           path: ~/cache
           key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
-      - run: |
+
+      - name: Bootstrap vcpkg
+        run: |
           cd ${{ github.workspace }}/vcpkg/
           bootstrap-vcpkg.bat
 
       - name: vcpkg dependencies
-      - run: |
+        run: |
           cd ${{ github.workspace }}/vcpkg/
           vcpkg install lua:${{ env.arch }}-windows-static
           vcpkg install python3:${{ env.arch }}-windows-static
@@ -34,15 +38,15 @@ jobs:
           vcpkg install sdl2-ttf:${{ env.arch }}-windows-static
 
       - name: Integrate vcpkg
-      - run: |
+        run: |
           cd ${{ github.workspace }}/vcpkg/
           vcpkg.exe integrate install
 
       - name: Checkout
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
 
       - name: Setup CMake
-      - run: |
+        run: |
           cd ${{ github.workspace }}
           mkdir build
           cd build
@@ -54,12 +58,12 @@ jobs:
           -Wno-dev
 
       - name: Build Main Debug
-      - run: |
+        run: |
           cd build/
           cmake --build . --target Main --config Debug
 
       - name: Build Main Release
-      - run: |
+        run: |
           cd build/
           cmake --build . --target Main --config Release
 
