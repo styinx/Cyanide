@@ -25,6 +25,18 @@ jobs:
           path: ~/cache
           key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
 
+      - name: Setup CMake
+        run: |
+          cd ${{ github.workspace }}
+          mkdir build
+          cd build
+          cmake .. \
+            -DCMAKE_BUILD_TYPE=Debug \
+            -DDIR_VCPKG_ROOT:PATH="${{ env.vcpkg_dir }}" \
+            -DVCPKG_TARGET_TRIPLET:STRING="${{ env.arch }}-windows-static" \
+            -DCMAKE_TOOLCHAIN_FILE:PATH="${{ env.vcpkg_dir }}\scripts\buildsystems\vcpkg.cmake" \
+            -Wno-dev
+
       - name: Bootstrap vcpkg
         run: |
           cd ${{ github.workspace }}\vcpkg\
@@ -46,18 +58,6 @@ jobs:
         run: |
           cd ${{ github.workspace }}\vcpkg\
           vcpkg.exe integrate install
-
-      - name: Setup CMake
-        run: |
-          cd ${{ github.workspace }}
-          mkdir build
-          cd build
-          cmake .. \
-          -DCMAKE_BUILD_TYPE=Debug \
-          -DDIR_VCPKG_ROOT:PATH="${{ env.vcpkg_dir }}" \
-          -DVCPKG_TARGET_TRIPLET:STRING="${{ env.arch }}-windows-static" \
-          -DCMAKE_TOOLCHAIN_FILE:PATH="${{ env.vcpkg_dir }}\scripts\buildsystems\vcpkg.cmake" \
-          -Wno-dev
 
       - name: Build Main Debug
         run: |
