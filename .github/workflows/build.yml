@@ -23,35 +23,35 @@ jobs:
 
       - name: vcpkg dependencies
       - run: |
-        cd ${{ github.workspace }}/vcpkg/
-        vcpkg install lua:${{ env.arch }}-windows-static
-        vcpkg install python3:${{ env.arch }}-windows-static
-        vcpkg install sdl2:${{ env.arch }}-windows-static
-        vcpkg install sdl2-image:${{ env.arch }}-windows-static
-        vcpkg install sdl2-gfx:${{ env.arch }}-windows-static
-        vcpkg install sdl2-mixer:${{ env.arch }}-windows-static
-        vcpkg install sdl2-net:${{ env.arch }}-windows-static
-        vcpkg install sdl2-ttf:${{ env.arch }}-windows-static
+          cd ${{ github.workspace }}/vcpkg/
+          vcpkg install lua:${{ env.arch }}-windows-static
+          vcpkg install python3:${{ env.arch }}-windows-static
+          vcpkg install sdl2:${{ env.arch }}-windows-static
+          vcpkg install sdl2-image:${{ env.arch }}-windows-static
+          vcpkg install sdl2-gfx:${{ env.arch }}-windows-static
+          vcpkg install sdl2-mixer:${{ env.arch }}-windows-static
+          vcpkg install sdl2-net:${{ env.arch }}-windows-static
+          vcpkg install sdl2-ttf:${{ env.arch }}-windows-static
 
       - name: Integrate vcpkg
       - run: |
-        cd ${{ github.workspace }}/vcpkg/
-        vcpkg.exe integrate install
+          cd ${{ github.workspace }}/vcpkg/
+          vcpkg.exe integrate install
 
       - name: Checkout
       - uses: actions/checkout@v2
 
       - name: Setup CMake
       - run: |
-        cd ${{ github.workspace }}
-        mkdir build
-        cd build
-        cmake .. \
-        -DCMAKE_BUILD_TYPE=Debug \
-        -DDIR_VCPKG_ROOT:PATH="${{ env.vcpkg_dir }}" \
-        -DVCPKG_TARGET_TRIPLET:STRING="${{ env.arch }}-windows-static" \
-        -DCMAKE_TOOLCHAIN_FILE:PATH="${{ env.vcpkg_dir }}/scripts/buildsystems/vcpkg.cmake" \
-        -Wno-dev
+          cd ${{ github.workspace }}
+          mkdir build
+          cd build
+          cmake .. \
+          -DCMAKE_BUILD_TYPE=Debug \
+          -DDIR_VCPKG_ROOT:PATH="${{ env.vcpkg_dir }}" \
+          -DVCPKG_TARGET_TRIPLET:STRING="${{ env.arch }}-windows-static" \
+          -DCMAKE_TOOLCHAIN_FILE:PATH="${{ env.vcpkg_dir }}/scripts/buildsystems/vcpkg.cmake" \
+          -Wno-dev
 
       - name: Build Main Debug
       - run: |
