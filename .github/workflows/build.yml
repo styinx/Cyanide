@@ -19,28 +19,14 @@ jobs:
       - name: Get CMake
         uses: lukka/get-cmake@latest
 
-      - name: Get Cache
-        uses: actions/cache@v1
-        with:
-          path: ~/cache
-          key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
+      - name: Restore artifacts
+        uses: lukka/run-vcpkg@v10
+        id: runvcpkg
 
       - name: Bootstrap vcpkg
         run: |
           cd ${{ github.workspace }}\vcpkg\
           bootstrap-vcpkg.bat
-
-      - name: vcpkg dependencies
-        run: |
-          cd ${{ github.workspace }}\vcpkg\
-          vcpkg install lua:${{ env.arch }}-windows-static
-          vcpkg install python3:${{ env.arch }}-windows-static
-          vcpkg install sdl2:${{ env.arch }}-windows-static
-          vcpkg install sdl2-image:${{ env.arch }}-windows-static
-          vcpkg install sdl2-gfx:${{ env.arch }}-windows-static
-          vcpkg install sdl2-mixer:${{ env.arch }}-windows-static
-          vcpkg install sdl2-net:${{ env.arch }}-windows-static
-          vcpkg install sdl2-ttf:${{ env.arch }}-windows-static
 
       - name: Integrate vcpkg
         run: |
@@ -52,7 +38,7 @@ jobs:
           cd ${{ github.workspace }}
           mkdir build
           cd build
-          cmake .. -DDIR_VCPKG_ROOT:PATH="${{ env.vcpkg_dir }}" -DVCPKG_TARGET_TRIPLET:STRING="${{ env.arch }}-windows-static" -DCMAKE_TOOLCHAIN_FILE:PATH="${{ env.vcpkg_dir }}\scripts\buildsystems\vcpkg.cmake" -Wno-dev
+          cmake .. -DDIR_VCPKG_ROOT:PATH="${{ env.vcpkg_dir }}" -DVCPKG_MANIFEST_INSTALL:PATH="${{ github.workspace }}\vcpkg\installed\" -DVCPKG_TARGET_TRIPLET:STRING="${{ env.arch }}-windows-static" -DCMAKE_TOOLCHAIN_FILE:PATH="${{ env.vcpkg_dir }}\scripts\buildsystems\vcpkg.cmake" -Wno-dev
 
       - name: Build Main Debug
         run: |

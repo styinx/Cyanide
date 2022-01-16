@@ -128,7 +128,7 @@ set(TEST_LIBRARIES -lgtest -lgtest_main ${LIBRARIES})
 # Third party
 #
 
-find_package(SDL2 CONFIG REQUIRED)
+find_package(SDL2 REQUIRED)
 
 
 #
