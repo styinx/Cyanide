@@ -22,12 +22,12 @@ jobs:
 
       - name: Bootstrap vcpkg
         run: |
-          cd ${{ github.workspace }}/vcpkg/
+          cd ${{ github.workspace }}\vcpkg\
           bootstrap-vcpkg.bat
 
       - name: vcpkg dependencies
         run: |
-          cd ${{ github.workspace }}/vcpkg/
+          cd ${{ github.workspace }}\vcpkg\
           vcpkg install lua:${{ env.arch }}-windows-static
           vcpkg install python3:${{ env.arch }}-windows-static
           vcpkg install sdl2:${{ env.arch }}-windows-static
@@ -39,7 +39,7 @@ jobs:
 
       - name: Integrate vcpkg
         run: |
-          cd ${{ github.workspace }}/vcpkg/
+          cd ${{ github.workspace }}\vcpkg\
           vcpkg.exe integrate install
 
       - name: Checkout
@@ -54,17 +54,17 @@ jobs:
           -DCMAKE_BUILD_TYPE=Debug \
           -DDIR_VCPKG_ROOT:PATH="${{ env.vcpkg_dir }}" \
           -DVCPKG_TARGET_TRIPLET:STRING="${{ env.arch }}-windows-static" \
-          -DCMAKE_TOOLCHAIN_FILE:PATH="${{ env.vcpkg_dir }}/scripts/buildsystems/vcpkg.cmake" \
+          -DCMAKE_TOOLCHAIN_FILE:PATH="${{ env.vcpkg_dir }}\scripts\buildsystems\vcpkg.cmake" \
           -Wno-dev
 
       - name: Build Main Debug
         run: |
-          cd build/
+          cd build
           cmake --build . --target Main --config Debug
 
       - name: Build Main Release
         run: |
-          cd build/
+          cd build
           cmake --build . --target Main --config Release
 
 
