@@ -234,4 +234,31 @@ namespace cyanide::cyinput
         onSDLEventType(cystd::fromEnum(SDLEventType::SDL_SYSTEMEVENT), callback);
     }
 
+    void SDLEventLoop::onAnyKeyEvent(const Callback& callback)
+    {
+        onSDLEventType(cystd::fromEnum(SDLEventType::SDL_KEYEVENT), callback);
+    }
+
+    void SDLEventLoop::onAnyMouseEvent(const Callback& callback)
+    {
+        onSDLEventType(cystd::fromEnum(SDLEventType::SDL_MOUSEEVENT), callback);
+    }
+
+    void SDLEventLoop::onAnyJoystickEvent(const Callback& callback)
+    {
+        onSDLEventType(cystd::fromEnum(SDLEventType::SDL_JOYSTICKEVENT), callback);
+    }
+
+    void SDLEventLoop::onAnyControllerEvent(const Callback& callback)
+    {
+        onSDLEventType(cystd::fromEnum(SDLEventType::SDL_CONTROLLEREVENT), callback);
+    }
+
+    /*
+     * Scheduled event callbacks
+     */
+    void SDLEventLoop::onInterval(const Uint32 ms, const Callback& callback)
+    {
+    }
+
 }  // namespace cyanide::cyinput

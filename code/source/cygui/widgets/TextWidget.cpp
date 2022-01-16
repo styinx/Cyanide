@@ -47,7 +47,7 @@ namespace cyanide::cygui
         }
     }
 
-    cymath::Rectangle TextWidget::calculateTextAlignment()
+    void TextWidget::calculateTextAlignment()
     {
         const auto   original_size   = m_text_texture->getSize();
         const auto   available_space = m_content;

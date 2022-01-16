@@ -1,6 +1,9 @@
 #ifndef CYANIDE_SDL_HPP
 #define CYANIDE_SDL_HPP
 
+// Windows
+#define SDL_MAIN_HANDLED
+
 #include "cystd/Types.hpp"
 
 #include <SDL2/SDL.h>

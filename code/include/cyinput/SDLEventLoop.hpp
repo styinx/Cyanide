@@ -34,6 +34,7 @@ namespace cyanide::cyinput
             SDL_NOEVENT         = 0x0000,
             SDL_APPEVENT        = 0x0100,
             SDL_MOBILEEVENT     = 0x0101,
+            SDL_DISPLAYEVENT    = 0x0150,
             SDL_WINDOWEVENT     = 0x0200,
             SDL_SYSTEMEVENT     = 0x0201,
             SDL_KEYEVENT        = 0x0300,
@@ -99,20 +100,26 @@ namespace cyanide::cyinput
          */
         void onSDLEventType(const Uint16 type, const Callback& callback);
         void onAnyAppEvent(const Callback& callback);
-        //        void onAnyMobileEvent(const Callback& callback);
+        // void onAnyMobileEvent(const Callback& callback);
         void onAnyWindowEvent(const Callback& callback);
         void onAnySystemEvent(const Callback& callback);
-        //        void onAnyKeyEvent(const Callback& callback);
-        //        void onAnyMouseEvent(const Callback& callback);
-        //        void onAnyJoystickEvent(const Callback& callback);
-        //        void onAnyControllerEvent(const Callback& callback);
-        //        void onAnyTouchEvent(const Callback& callback);
-        //        void onAnyGestureEvent(const Callback& callback);
-        //        void onAnyClipboardEvent(const Callback& callback);
-        //        void onAnyDragDropEvent(const Callback& callback);
-        //        void onAnyAudioEvent(const Callback& callback);
-        //        void onAnyRenderEvent(const Callback& callback);
-        //        void onAnyUserEvent(const Callback& callback);
+        void onAnyKeyEvent(const Callback& callback);
+        void onAnyMouseEvent(const Callback& callback);
+        void onAnyJoystickEvent(const Callback& callback);
+        void onAnyControllerEvent(const Callback& callback);
+        // void onAnyTouchEvent(const Callback& callback);
+        // void onAnyGestureEvent(const Callback& callback);
+        // void onAnyClipboardEvent(const Callback& callback);
+        // void onAnyDragDropEvent(const Callback& callback);
+        // void onAnyAudioEvent(const Callback& callback);
+        // void onAnyRenderEvent(const Callback& callback);
+        // void onAnyUserEvent(const Callback& callback);
+
+        /*
+         * Scheduled event callbacks
+         */
+        // Is triggered every n milliseconds.
+        void onInterval(const Uint32 ms, const Callback& callback);
     };
 
 }  // namespace cyanide::cyinput

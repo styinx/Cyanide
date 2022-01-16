@@ -11,8 +11,8 @@ namespace cyanide::cygui
         , public TextWidgetStyle
     {
     private:
-        void              initTextTexture();
-        cymath::Rectangle calculateTextAlignment();
+        void initTextTexture();
+        void calculateTextAlignment();
 
     protected:
         String m_text;
