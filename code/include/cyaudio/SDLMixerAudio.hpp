@@ -15,8 +15,8 @@ namespace cyanide::cyaudio
         , public cystd::NonMoveable
     {
     private:
-        static Uint8             music_volume;
-        static Map<Uint8, Uint8> channel_volume;
+        static Uint8             m_music_volume;
+        static Map<Uint8, Uint8> m_channel_volume;
 
     public:
         static void open();

@@ -2,8 +2,8 @@
 
 namespace cyanide::cyaudio
 {
-    Uint8             SDLMixerAudio::music_volume   = 0;
-    Map<Uint8, Uint8> SDLMixerAudio::channel_volume = Map<Uint8, Uint8>();
+    Uint8             SDLMixerAudio::m_music_volume = 0;
+    Map<Uint8, Uint8> SDLMixerAudio::m_channel_volume = Map<Uint8, Uint8>();
 
     void SDLMixerAudio::open()
     {
@@ -73,7 +73,7 @@ namespace cyanide::cyaudio
 
         if(volume > 0)
         {
-            SDLMixerAudio::music_volume = volume;
+            SDLMixerAudio::m_music_volume = volume;
             SDLMixerAudio::setMusicVolume(0);
         }
     }
@@ -82,7 +82,7 @@ namespace cyanide::cyaudio
     {
         if(SDLMixerAudio::getMusicVolume() == 0)
         {
-            SDLMixerAudio::setMusicVolume(SDLMixerAudio::music_volume);
+            SDLMixerAudio::setMusicVolume(SDLMixerAudio::m_music_volume);
         }
     }
 
@@ -141,7 +141,7 @@ namespace cyanide::cyaudio
 
         if(volume > 0)
         {
-            SDLMixerAudio::channel_volume[channel] = volume;
+            SDLMixerAudio::m_channel_volume[channel] = volume;
             SDLMixerAudio::setChannelVolume(channel, 0);
         }
     }
@@ -150,7 +150,7 @@ namespace cyanide::cyaudio
     {
         if(SDLMixerAudio::getChannelVolume(channel) == 0)
         {
-            SDLMixerAudio::setChannelVolume(channel, SDLMixerAudio::channel_volume[channel]);
+            SDLMixerAudio::setChannelVolume(channel, SDLMixerAudio::m_channel_volume[channel]);
         }
     }
 }  // namespace cyanide

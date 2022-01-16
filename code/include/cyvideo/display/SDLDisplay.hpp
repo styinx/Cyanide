@@ -2,10 +2,9 @@
 #define CYANIDE_SDLDISPLAY_HPP
 
 #include "IDisplay.hpp"
+#include "cymath/Size.hpp"
 
 #include <SDL2/SDL_video.h>
-
-#include "cymath/Size.hpp"
 
 namespace cyanide::cyvideo
 {
@@ -13,17 +12,17 @@ namespace cyanide::cyvideo
     class SDLDisplay final : public IDisplay
     {
     private:
-        static Uint32 display_index;
-        Uint32 index = 0;
-        SDL_DisplayMode* mode = nullptr;
+        static Uint32    s_display_index;
+        Uint32           m_index = 0;
+        SDL_DisplayMode* m_mode  = nullptr;
 
     public:
         SDLDisplay();
         ~SDLDisplay() = default;
         cymath::Size getDisplaySize() const;
-        Uint32 getRefreshrate() const;
+        Uint32       getRefreshrate() const;
     };
 
-}  // namespace cyanide
+}  // namespace cyanide::cyvideo
 
 #endif  // CYANIDE_SDLDISPLAY_HPP
