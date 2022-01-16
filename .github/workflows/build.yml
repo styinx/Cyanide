@@ -1,0 +1,78 @@
+name: Build
+
+env:
+  arch: 'x64'
+  vcpkg_dir: '${{ github.workspace }}/vcpkg'
+
+on: [ push, pull_request ]
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Build dependencies
+      - uses: lukka/get-cmake@latest
+      - uses: actions/cache@v1
+        with:
+          path: ~/cache
+          key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
+      - run: |
+          cd ${{ github.workspace }}\vcpkg\
+          bootstrap-vcpkg.bat
+
+      - name: vcpkg dependencies
+      - run: |
+        cd ${{ github.workspace }}\vcpkg\
+        vcpkg install lua:${{ env.arch }}-windows-static
+        vcpkg install python3:${{ env.arch }}-windows-static
+        vcpkg install sdl2:${{ env.arch }}-windows-static
+        vcpkg install sdl2-image:${{ env.arch }}-windows-static
+        vcpkg install sdl2-gfx:${{ env.arch }}-windows-static
+        vcpkg install sdl2-mixer:${{ env.arch }}-windows-static
+        vcpkg install sdl2-net:${{ env.arch }}-windows-static
+        vcpkg install sdl2-ttf:${{ env.arch }}-windows-static
+
+      - name: Integrate vcpkg
+      - run: |
+        cd ${{ github.workspace }}\vcpkg\
+        vcpkg.exe integrate install
+
+      - name: Checkout
+      - uses: actions/checkout@v2
+
+      - name: Setup CMake
+      - run: |
+        cd ${{ github.workspace }}
+        mkdir build
+        cd build
+        cmake .. \
+          -DCMAKE_BUILD_TYPE=Debug \
+          -DDIR_VCPKG_ROOT:PATH="${{ env.vcpkg_dir }}" \
+          -DVCPKG_TARGET_TRIPLET:STRING="${{ env.arch }}-windows-static" \
+          -DCMAKE_TOOLCHAIN_FILE:PATH="${{ env.vcpkg_dir }}/scripts/buildsystems/vcpkg.cmake" \
+          -Wno-dev
+
+      - name: Build Main Debug
+      - run: |
+          cd build/
+          cmake --build . --target Main --config Debug
+
+      - name: Build Main Release
+      - run: |
+          cd build/
+          cmake --build . --target Main --config Release
+
+
+#  build-linux:
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Dependencies
+#        uses: lukka/get-cmake@latest
+#
+#      - name: Checkout
+#        uses: actions/checkout@v2
+#
+#      - name: Build
+#        run: cmake .. -DCMAKE_BUILD_TYPE=Debug -DDIR_VCPKG_ROOT:PATH="" -DVCPKG_TARGET_TRIPLET:STRING="${{ env.arch }}-windows-static" -DCMAKE_TOOLCHAIN_FILE:PATH="[vcpkg base path]/scripts/buildsystems/vcpkg.cmake" -Wno-dev
