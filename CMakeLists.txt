@@ -1,30 +1,36 @@
-project(Cyanide)
+project(Cyanide CXX)
 
 
 #
 # CMake
 #
 
-cmake_minimum_required(VERSION 3.9)
-
-set(CMAKE_CXX_STANDARD 17)
-
-set(BIN_PATH "bin")
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG "${BIN_PATH}")
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG "${BIN_PATH}")
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG "${BIN_PATH}")
+cmake_minimum_required(VERSION 3.21.1)
 
 
 #
 # Paths
 #
 
-set(DIR_CODE ${PROJECT_SOURCE_DIR}/code)
-set(DIR_APP ${DIR_CODE}/apps)
-set(DIR_INCLUDE ${DIR_CODE}/include)
-set(DIR_SOURCE ${DIR_CODE}/source)
-set(DIR_TEST ${DIR_CODE}/test)
-set(DIR_LIBRARY /lib)
+set(DIR_ROOT "${PROJECT_SOURCE_DIR}")
+set(DIR_CODE "${DIR_ROOT}/code")
+set(DIR_APP "${DIR_CODE}/apps")
+set(DIR_INCLUDE "${DIR_CODE}/include")
+set(DIR_SOURCE "${DIR_CODE}/source")
+set(DIR_TEST "${DIR_CODE}/test")
+set(DIR_LIBRARY "${DIR_ROOT}/lib")
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG "${DIR_LIBRARY}/deb")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG "${DIR_LIBRARY}/deb")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${DIR_ROOT})
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE "${DIR_LIBRARY}/rel")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE "${DIR_LIBRARY}/rel")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${DIR_ROOT})
+
+set(DIR_VCPKG_INSTALL "${DIR_VCPKG_ROOT}/installed/${VCPKG_TARGET_TRIPLET}")
+set(DIR_VCPKG_INCLUDE "${DIR_VCPKG_INSTALL}/include")
+set(DIR_VCPKG_LIBRARY "${DIR_VCPKG_INSTALL}/lib")
+set(DIR_VCPKG_LIBRARY_DEBUG "${DIR_VCPKG_INSTALL}/debug/lib")
 
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
@@ -38,8 +44,16 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 endif()
 
 
-include_directories(${DIR_INCLUDE} ${OS_DIR_INCLUDE})
-link_directories(${DIR_LIBRARY} ${OS_DIR_LIBRARY})
+if (CMAKE_BUILD_TYPE EQUAL "DEBUG")
+    set(LIBRARY_DIRECTORIES
+            ${DIR_VCPKG_LIBRARY}
+            ${DIR_VCPKG_LIBRARY}/deb)
+else()
+    set(LIBRARY_DIRECTORIES
+            ${DIR_VCPKG_LIBRARY}
+            ${DIR_VCPKG_LIBRARY}/rel)
+endif()
+
 
 #
 # Functions
@@ -47,71 +61,52 @@ link_directories(${DIR_LIBRARY} ${OS_DIR_LIBRARY})
 
 # Build a static library from files in a given path.
 function(cy_add_module module)
-    set(${module}_includes)
-    set(${module}_sources)
-
-    include("${DIR_INCLUDE}/${module}/CMakeLists.txt")
-    include("${DIR_SOURCE}/${module}/CMakeLists.txt")
-
-    add_library(${module} STATIC ${${module}_includes} ${${module}_sources})
-#    add_library(${module} SHARED ${${module}_includes} ${${module}_sources})
-    target_link_libraries(${module} ${ARGN})
-    set_target_properties(
-            ${module} PROPERTIES
-            LIBRARY_OUTPUT_DIRECTORY ${DIR_LIBRARY}
-            LINKER_LANGUAGE CXX)
-endfunction()
-
-# Add files to a library.
-function(cy_add_target_files target)
-    set(files "")
-    foreach(file ${ARGN})
-        list(APPEND files "${CMAKE_CURRENT_LIST_DIR}/${file}")
-    endforeach()
-
-    set(${target} ${files} PARENT_SCOPE)
+    add_library(${module} SHARED STATIC ${ARGN})
+    if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+        set_target_properties(${module} PROPERTIES MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+    endif ()
+    set_target_properties(${module} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${DIR_LIBRARY} LINKER_LANGUAGE CXX)
 endfunction()
 
 # Build the executable from library dependencies.
 function(cy_build_target name target_file libs)
-    set(exe_name ${PROJECT_NAME})
+    add_executable(${name} ${DIR_CODE}/${target_file})
+    if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+        set_target_properties(${name} PROPERTIES MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+    endif ()
 
-    if(${name} MATCHES "")
-        set(exe_name ${PROJECT_NAME}_${name})
-    endif()
+    target_link_libraries(${name} PRIVATE ${libs})
+endfunction()
 
-    add_executable(${exe_name} ${DIR_CODE}/${target_file})
-
-    set(module_list "")
-    foreach(module ${ARGN})
-        list(APPEND module_list "${module}")
+function(dump_vars)
+    get_cmake_property(_variableNames VARIABLES)
+    list (SORT _variableNames)
+    foreach (_variableName ${_variableNames})
+        message(STATUS "${_variableName}=${${_variableName}}")
     endforeach()
-
-    target_link_libraries(${exe_name} ${module_list} ${libs})
 endfunction()
 
-# Build the tests.
-function(cy_build_test name target_file libs)
-    set(exe_name ${PROJECT_NAME}_${name})
-
-    set(cytest_files)
-
-    include("${DIR_TEST}/CMakeLists.txt")
-
-    add_executable(${exe_name} ${DIR_CODE}/${target_file} ${cytest_files})
-
-    target_link_libraries(${exe_name} ${ARGN} ${libs})
-endfunction()
 
 #
 # Compiler
 #
 
-set(GCC_COMPILE_FLAGS "-Wall -Wextra -ansi -pedantic")
+set(CMAKE_CXX_STANDARD 17)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COMPILE_FLAGS}")
+if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang") # Clang
+    #
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU") # GCC
+    set(COMPILER_FLAGS "-Wall -Wextra -ansi -pedantic")
+    set(COMPILER_FLAGS_DEBUG "-MTd")
+    set(COMPILER_FLAGS_RELEASE "-O3 -DNDEBUG -MT")
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC") # MSVC
+    set(COMPILER_FLAGS "")
+    set(COMPILER_FLAGS_DEBUG "/Zi /Ob0 /Od /RTC1 /MTd")
+    set(COMPILER_FLAGS_RELEASE "/O2 /Ob2 /DNDEBUG /MT")
+endif ()
 
-#set(CMAKE_BUILD_TYPE RELEASE)
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} ${COMPILER_FLAGS} ${COMPILER_FLAGS_DEBUG}")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${COMPILER_FLAGS} ${COMPILER_FLAGS_RELEASE}")
 
 
 #
@@ -119,10 +114,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COMPILE_FLAGS}")
 #
 
 set(LIB_OPENGL -lGLEW -lGL)
-
-set(LIB_PYTHON -lpython3.6m)
-
-set(LIB_LUA -llua5.2)
 
 set(LIB_SQLITE3 -lsqlite3)
 
@@ -134,49 +125,40 @@ set(TEST_LIBRARIES -lgtest -lgtest_main ${LIBRARIES})
 
 
 #
-# Conan
-#
-
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup()
-
-
-#
 # Third party
 #
 
-include(FindPkgConfig)
-
-pkg_search_module(SDL2 REQUIRED sdl2)
-pkg_search_module(SDL2GFX REQUIRED SDL2_gfx>=1.0.0)
-pkg_search_module(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
-pkg_search_module(SDL2MIXER REQUIRED SDL2_mixer>=2.0.0)
-pkg_search_module(SDL2NET REQUIRED SDL2_net>=2.0.0)
-pkg_search_module(SDL2TTF REQUIRED SDL2_ttf>=2.0.0)
+find_package(SDL2 CONFIG REQUIRED)
 
 
-find_package(fmt)
-#add_subdirectory(fmt)
+#
+# Dependencies
+#
+
+# SDL2::SDL2 SDL2::SDL2main SDL2::SDL2-static
+
+include_directories(${DIR_INCLUDE} ${OS_DIR_INCLUDE} ${SDL2_INCLUDE_DIRS} ${LUA_INCLUDE_DIR} ${Python3_INCLUDE_DIR})
+link_directories(${DIR_LIBRARY} ${OS_DIR_LIBRARY} ${LIBRARY_DIRECTORIES})
+
+add_subdirectory(code/source/cyaudio)
+add_subdirectory(code/source/cygui)
+add_subdirectory(code/source/cyinput)
+add_subdirectory(code/source/cymath)
+add_subdirectory(code/source/cynet)
+add_subdirectory(code/source/cyscript)
+add_subdirectory(code/source/cysystem)
+add_subdirectory(code/source/cyutil)
+add_subdirectory(code/source/cyvideo)
+add_subdirectory(code/test)
+
 
 #
 # Builds
 #
 
-cy_add_module(cyaudio -lSDL2_mixer)
-cy_add_module(cygui cyinput)
-cy_add_module(cyinput cymath)
-cy_add_module(cymath)
-cy_add_module(cynet -lSDL2_net)
-cy_add_module(cystd)
-cy_add_module(cysystem "-lSDL2_image;-lSDL2_gfx;-lSDL2_mixer;-lSDL2_net;-lSDL2_ttf")
-cy_add_module(cyutil fmt)
-cy_add_module(cyvideo "cymath;-lSDL2_image;-lSDL2_gfx;-lSDL2_ttf")
-
-cy_build_target(Main apps/main.cpp "${LIBRARIES}" "cygui;cyinput;cymath;cyutil;cysystem;cyvideo")
-cy_build_target(Animation apps/animation.cpp "${LIBRARIES}" "cyinput;cymath;cyutil;cysystem;cyvideo")
-cy_build_target(Input apps/input.cpp "${LIBRARIES}" "cygui;cyinput;cymath;cyutil;cysystem;cyvideo")
-cy_build_target(Client apps/client.cpp "${LIBRARIES}" "cynet;cysystem;cyutil;")
-cy_build_target(Server apps/server.cpp "${LIBRARIES}" "cynet;cysystem;cyutil;")
-cy_build_target(UI apps/ui.cpp "${LIBRARIES}" "cygui;cyinput;cymath;cyutil;cysystem;cyvideo")
-
-cy_build_test(Test test/test.cpp "${TEST_LIBRARIES}" "cygui;cymath;cyutil;cysystem;cyvideo")
+cy_build_target(Main apps/main.cpp "cyaudio;cygui;cyinput;cymath;cynet;cyutil;cysystem;cyvideo")
+cy_build_target(Animation apps/animation.cpp "cyaudio;cyinput;cymath;cynet;cyutil;cysystem;cyvideo")
+#cy_build_target(Input apps/input.cpp "${LIBRARIES}" "cygui;cyinput;cymath;cyutil;cysystem;cyvideo")
+#cy_build_target(Client apps/client.cpp "${LIBRARIES}" "cynet;cysystem;cyutil;")
+#cy_build_target(Server apps/server.cpp "${LIBRARIES}" "cynet;cysystem;cyutil;")
+#cy_build_target(UI apps/ui.cpp "${LIBRARIES}" "cygui;cyinput;cymath;cyutil;cysystem;cyvideo")
