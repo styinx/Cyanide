@@ -30,12 +30,7 @@ jobs:
           cd ${{ github.workspace }}
           mkdir build
           cd build
-          cmake .. \
-            -DCMAKE_BUILD_TYPE=Debug \
-            -DDIR_VCPKG_ROOT:PATH="${{ env.vcpkg_dir }}" \
-            -DVCPKG_TARGET_TRIPLET:STRING="${{ env.arch }}-windows-static" \
-            -DCMAKE_TOOLCHAIN_FILE:PATH="${{ env.vcpkg_dir }}\scripts\buildsystems\vcpkg.cmake" \
-            -Wno-dev
+          cmake .. -DDIR_VCPKG_ROOT:PATH="${{ env.vcpkg_dir }}" -DVCPKG_TARGET_TRIPLET:STRING="${{ env.arch }}-windows-static" -DCMAKE_TOOLCHAIN_FILE:PATH="${{ env.vcpkg_dir }}\scripts\buildsystems\vcpkg.cmake" -Wno-dev
 
       - name: Bootstrap vcpkg
         run: |
