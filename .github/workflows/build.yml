@@ -40,11 +40,6 @@ jobs:
           cd build
           cmake .. -DDIR_VCPKG_ROOT:PATH="${{ env.vcpkg_dir }}" -DVCPKG_MANIFEST_INSTALL:PATH="${{ github.workspace }}\vcpkg\installed\" -DVCPKG_TARGET_TRIPLET:STRING="${{ env.arch }}-windows-static" -DCMAKE_TOOLCHAIN_FILE:PATH="${{ env.vcpkg_dir }}\scripts\buildsystems\vcpkg.cmake" -Wno-dev
 
-      - name: Build Main Debug
-        run: |
-          cd build
-          cmake --build . --target Main --config Debug
-
       - name: Build Main Release
         run: |
           cd build
