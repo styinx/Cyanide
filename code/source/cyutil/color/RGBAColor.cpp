@@ -3,6 +3,7 @@
 #include "cystd/Enum.hpp"
 
 #include <cmath>
+#include <string>
 
 namespace cyanide::cyutil
 {
@@ -62,7 +63,7 @@ namespace cyanide::cyutil
             // err
         }
 
-        const auto rgba = RGBAColor::toRGBA(std::stoi(value));
+        const auto rgba = RGBAColor::toRGBA(std::stol(value));
 
         r = rgba.r;
         g = rgba.g;

@@ -1,7 +1,5 @@
 #include "cynet/IP4Address.hpp"
 
-#include <netinet/in.h>
-#include <arpa/inet.h>
 #include <SDL2/SDL_net.h>
 
 namespace cyanide::cynet
@@ -52,11 +50,7 @@ namespace cyanide::cynet
 
     void IP4Address::setHostname(const String& address)
     {
-        struct sockaddr_in sa{};
-        inet_pton(AF_INET, address.c_str(), &(sa.sin_addr));
 
-        m_host = sa.sin_addr.s_addr;
-        m_port = sa.sin_port;
     }
 
 }  // namespace cyanide

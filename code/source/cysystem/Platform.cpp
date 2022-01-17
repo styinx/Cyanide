@@ -3,12 +3,17 @@
 #include <SDL2/SDL_config.h>
 #include <SDL2/SDL_cpuinfo.h>
 
+#include <fmt/core.h>
+
 namespace cyanide::cysystem
 {
 
     void Platform::setEnvironment(const String& var, const String& path, const bool& override)
     {
-        setenv(var.c_str(), path.c_str(), override ? 1 : 0);
+        if(getenv(var.c_str()) == nullptr || override)
+        {
+            putenv(fmt::format("{}={}", var.c_str(), path.c_str()).c_str());
+        }
     }
 
     std::string Platform::getPlatform()
